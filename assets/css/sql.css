@@ -76,7 +76,7 @@ main { padding: 3rem 3rem 6rem; max-width: 860px; }
   position: fixed;
   top: calc(var(--nav-h) + 0.75rem);
   right: 1rem;
-  width: 380px;
+  width: 560px;
   z-index: 200;
   background: rgba(16, 18, 26, 0.97);
   border: 1px solid var(--border);
@@ -128,7 +128,7 @@ main { padding: 3rem 3rem 6rem; max-width: 860px; }
 }
 .schema-toggle:hover { color: var(--text); background: var(--surface2); }
 
-.schema-panel-body { padding: 0.75rem; }
+.schema-panel-body { padding: 1rem; }
 .schema-panel.collapsed .schema-panel-body { display: none; }
 
 .schema-img { width: 100%; border-radius: 8px; display: none; }
@@ -263,5 +263,5 @@ pre {
   .page { grid-template-columns: 1fr; }
   aside { display: none; }
   main  { padding: 2rem 1.25rem 4rem; }
-  .schema-panel { right: 0.5rem; width: calc(100vw - 1rem); max-width: 380px; }
+  .schema-panel { right: 0.5rem; width: calc(100vw - 1rem); max-width: 560px; }
 }
