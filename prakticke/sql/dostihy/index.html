@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dostihy – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0f14;
+      --surface: #161920;
+      --surface2: #1e2130;
+      --border: #2a2d3a;
+      --accent: #7c6af7;
+      --accent2: #3ecf8e;
+      --accent3: #f59e0b;
+      --red: #f87171;
+      --text: #e8eaf0;
+      --muted: #6b7280;
+      /* SQL syntax colors */
+      --kw: #c792ea;
+      --fn: #82aaff;
+      --str: #c3e88d;
+      --num: #f78c6c;
+      --op: #89ddff;
+      --cmt: #546e7a;
+      --alias: #ffcb6b;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; }
+
+    .grid-bg {
+      position: fixed; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px; opacity: 0.15; z-index: 0; pointer-events: none;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,20,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    nav a { color: var(--muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    nav a:hover { color: var(--text); }
+    nav .sep { color: var(--border); }
+    nav .current { color: var(--accent); }
+
+    /* LAYOUT */
+    .page { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 57px); position: relative; z-index: 1; }
+
+    /* SIDEBAR */
+    aside {
+      position: sticky; top: 57px; height: calc(100vh - 57px);
+      overflow-y: auto; padding: 2rem 1.5rem;
+      border-right: 1px solid var(--border);
+      background: rgba(22,25,32,0.5);
+    }
+    aside::-webkit-scrollbar { width: 4px; }
+    aside::-webkit-scrollbar-track { background: transparent; }
+    aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0.75rem; border-radius: 8px;
+      text-decoration: none; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      transition: all 0.2s; margin-bottom: 2px;
+    }
+    .sidebar-link:hover { color: var(--text); background: var(--surface); }
+    .sidebar-link.active { color: var(--accent); background: rgba(124,106,247,0.1); }
+    .sidebar-num { color: var(--border); font-size: 0.7rem; min-width: 20px; }
+
+    .sidebar-sep { height: 1px; background: var(--border); margin: 1rem 0; }
+    .sidebar-dl { display: flex; flex-direction: column; gap: 0.5rem; }
+    .dl-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); text-decoration: none; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; transition: all 0.2s;
+    }
+    .dl-btn:hover { color: var(--text); border-color: var(--accent); }
+
+    /* MAIN CONTENT */
+    main { padding: 3rem 3rem 6rem; max-width: 860px; }
+
+    /* HERO */
+    .hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent2); letter-spacing: 0.2em; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--muted); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* SCHEMA SECTION */
+    .schema-section { margin: 3rem 0; }
+    .section-title {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--text);
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .schema-viewer {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .schema-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .schema-tab {
+      padding: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--muted); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .schema-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .schema-tab:hover:not(.active) { color: var(--text); }
+    .schema-content { padding: 1.5rem; }
+    .schema-img { width: 100%; border-radius: 8px; display: none; }
+    .schema-img.active { display: block; }
+
+    /* TASK CARDS */
+    .task { margin: 2.5rem 0; scroll-margin-top: 80px; }
+
+    .task-header {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .task-letter {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(124,106,247,0.15); border: 1px solid rgba(124,106,247,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--accent);
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .task-info { flex: 1; }
+    .task-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .task-points { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent3); }
+
+    .task-desc {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+      font-size: 0.9rem; line-height: 1.7; color: #b0b8cc;
+    }
+    .task-desc strong { color: var(--text); }
+    .task-desc em { color: var(--accent2); font-style: normal; font-weight: 600; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: #0a0c10; border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin-bottom: 1rem;
+    }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 1rem; background: var(--surface); border-bottom: 1px solid var(--border);
+    }
+    .code-lang { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+    .copy-btn {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 2px 8px;
+      border-radius: 4px; transition: all 0.2s;
+    }
+    .copy-btn:hover { color: var(--text); background: var(--border); }
+    .copy-btn.copied { color: var(--accent2); }
+
+    pre {
+      padding: 1.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; line-height: 1.8;
+    }
+    pre::-webkit-scrollbar { height: 4px; }
+    pre::-webkit-scrollbar-track { background: transparent; }
+    pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* SQL syntax highlighting */
+    .kw { color: var(--kw); font-weight: 700; }
+    .fn { color: var(--fn); }
+    .str { color: var(--str); }
+    .num { color: var(--num); }
+    .op { color: var(--op); }
+    .cmt { color: var(--cmt); font-style: italic; }
+    .al { color: var(--alias); }
+    .tbl { color: #e8eaf0; }
+    .col { color: #b2ccd6; }
+
+    /* EXPLANATION */
+    .explanation {
+      background: rgba(124,106,247,0.06); border: 1px solid rgba(124,106,247,0.15);
+      border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+    }
+    .explanation-title { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--accent); margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+    .explanation ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .explanation li { font-size: 0.85rem; color: #b0b8cc; line-height: 1.6; display: flex; gap: 0.75rem; }
+    .explanation li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+    .explanation code { font-family: 'JetBrains Mono', monospace; color: var(--accent2); font-size: 0.8rem; background: rgba(62,207,142,0.1); padding: 1px 5px; border-radius: 3px; }
+
+    /* RESULT PREVIEW */
+    .result-preview {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
+    }
+    .result-header { padding: 0.6rem 1rem; background: rgba(62,207,142,0.08); border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent2); }
+    .result-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; overflow-x: auto; display: block; }
+    .result-table th { padding: 0.6rem 1rem; text-align: left; color: var(--muted); font-weight: 400; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .result-table td { padding: 0.5rem 1rem; color: var(--text); border-bottom: 1px solid rgba(42,45,58,0.5); white-space: nowrap; }
+    .result-table tr:last-child td { border-bottom: none; }
+    .result-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* SPECIAL TASK STYLES */
+    .task-letter.b { background: rgba(62,207,142,0.12); border-color: rgba(62,207,142,0.3); color: var(--accent2); }
+    .task-letter.c { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); color: var(--accent3); }
+    .task-letter.d { background: rgba(248,113,113,0.12); border-color: rgba(248,113,113,0.3); color: var(--red); }
+    .task-letter.e { background: rgba(130,170,255,0.12); border-color: rgba(130,170,255,0.3); color: var(--fn); }
+    .task-letter.f { background: rgba(199,120,221,0.12); border-color: rgba(199,120,221,0.3); color: var(--kw); }
+    .task-letter.g { background: rgba(62,207,142,0.12); border-color: rgba(62,207,142,0.3); color: var(--accent2); }
+
+    .divider { height: 1px; background: var(--border); margin: 3rem 0; }
+
+    @media (max-width: 768px) {
+      .page { grid-template-columns: 1fr; }
+      aside { display: none; }
+      main { padding: 2rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <span class="current">dostihy</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+
+      <a href="#schema" class="sidebar-link">
+        <span class="sidebar-num">—</span> Schéma DB
+      </a>
+      <a href="#ukol-a" class="sidebar-link">
+        <span class="sidebar-num">a)</span> Import + kódování
+      </a>
+      <a href="#ukol-b" class="sidebar-link">
+        <span class="sidebar-num">b)</span> Tabulka trener
+      </a>
+      <a href="#ukol-c" class="sidebar-link">
+        <span class="sidebar-num">c)</span> Vložení záznamu
+      </a>
+      <a href="#ukol-d" class="sidebar-link">
+        <span class="sidebar-num">d)</span> Koně-valaši
+      </a>
+      <a href="#ukol-e" class="sidebar-link">
+        <span class="sidebar-num">e)</span> Statistika stájí
+      </a>
+      <a href="#ukol-f" class="sidebar-link">
+        <span class="sidebar-num">f)</span> Vítězové 2024
+      </a>
+      <a href="#ukol-g" class="sidebar-link">
+        <span class="sidebar-num">g)</span> Jezdci 2024
+      </a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <a href="dostihy.sql" download class="dl-btn">⬇ dostihy.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+        <a href="dostihy-rehulek.sql" download class="dl-btn">⬇ rehulek.sql <span style="margin-left:auto;opacity:0.5">dump</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// sql · projekt 01</p>
+        <h1>Dostihy 🐎</h1>
+        <div class="hero-meta">
+          <span>📋 7 úkolů</span>
+          <span>⭐ 20 bodů celkem</span>
+          <span>🗄️ MySQL / MariaDB</span>
+        </div>
+      </div>
+
+      <!-- SCHEMA -->
+      <div class="schema-section" id="schema">
+        <div class="section-title">Schéma databáze</div>
+        <div class="schema-viewer">
+          <div class="schema-tabs">
+            <button class="schema-tab active" onclick="showSchema(0)">Strana 1 – schéma</button>
+            <button class="schema-tab" onclick="showSchema(1)">Strana 2 – vzory výsledků</button>
+          </div>
+          <div class="schema-content">
+            <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze dostihy">
+            <img src="schema-2.jpg" class="schema-img" id="schema-1" alt="Vzory výsledků">
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL A -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Import databáze + oprava kódování</div>
+            <div class="task-points">1 bod &nbsp;·&nbsp; PHPMyAdmin</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř v MySQL databázi s názvem <strong>dostihy</strong>. Importuj soubor <strong>dostihy.sql</strong>. Ověř správnost kódování českých znaků – pokud jsou rozbité, oprav.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cmt">-- 1. Vytvoř databázi</span>
+<span class="kw">CREATE DATABASE</span> dostihy
+  <span class="kw">CHARACTER SET</span> <span class="str">utf8mb4</span>
+  <span class="kw">COLLATE</span> <span class="str">utf8mb4_czech_ci</span>;
+
+<span class="cmt">-- 2. Vyber ji</span>
+<span class="kw">USE</span> dostihy;
+
+<span class="cmt">-- 3. Potom importuj soubor přes PHPMyAdmin:
+--    Databáze → Import → vybrat dostihy.sql → Kódování: utf8mb4</span></pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// PROČ TO TAK FUNGUJE</div>
+          <ul>
+            <li><code>CHARACTER SET utf8mb4</code> – plná podpora UTF-8, zvládne i emoji a české znaky</li>
+            <li><code>COLLATE utf8mb4_czech_ci</code> – řazení podle českých pravidel (ch za h, ž za z apod.), <code>ci</code> = case insensitive</li>
+            <li>Při importu v PHPMyAdmin musíš v nabídce kódování vybrat <code>utf8mb4</code>, jinak se háčky a čárky rozbijí</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- UKOL B -->
+      <div class="task" id="ukol-b">
+        <div class="task-header">
+          <div class="task-letter b">b)</div>
+          <div class="task-info">
+            <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">trener</code></div>
+            <div class="task-points">4 body</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku <strong>trener</strong> s atributy: <em>idtrener</em> (PK), <em>titul</em> (ENUM), <em>jmeno</em>, <em>prijmeni</em> (VARCHAR 50), <em>narozeni</em> (DATE), <em>pocet_koni</em> (výchozí 10), <em>uspesnost</em> (max 100.00), <em>clanek</em> (TEXT).
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cmt">-- Tabulku trener vytváříme přes PHPMyAdmin GUI,
+-- jen CHECK constraint musíme zadat ručně přes SQL:</span>
+
+<span class="kw">CREATE TABLE</span> <span class="tbl">trener</span> (
+  <span class="col">idtrener</span>   <span class="fn">INT</span>(<span class="num">11</span>)       <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+  <span class="col">titul</span>      <span class="fn">ENUM</span>(<span class="str">'Bc.'</span>, <span class="str">'Dr.'</span>, <span class="str">'Ing.'</span>, <span class="str">'Mgr.'</span>) <span class="kw">DEFAULT NULL</span>,
+  <span class="col">jmeno</span>      <span class="fn">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">prijmeni</span>   <span class="fn">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">narozeni</span>   <span class="fn">DATE</span>         <span class="kw">DEFAULT NULL</span>,
+  <span class="col">pocet_koni</span> <span class="fn">DOUBLE</span>       <span class="kw">DEFAULT</span> <span class="num">10</span>,
+  <span class="col">uspesnost</span>  <span class="fn">DECIMAL</span>(<span class="num">5</span>,<span class="num">2</span>)  <span class="kw">DEFAULT NULL</span>
+               <span class="kw">CHECK</span> (<span class="col">uspesnost</span> <span class="op">&lt;=</span> <span class="num">100.00</span>),
+  <span class="col">clanek</span>     <span class="fn">TEXT</span>         <span class="kw">DEFAULT NULL</span>,
+  <span class="kw">PRIMARY KEY</span> (<span class="col">idtrener</span>)
+) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
+  <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_czech_ci;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+          <ul>
+            <li><code>ENUM('Bc.','Dr.',...)</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
+            <li><code>DECIMAL(5,2)</code> – číslo max. 5 číslic, z toho 2 za desetinnou čárkou → max. 999.99</li>
+            <li><code>CHECK (uspesnost &lt;= 100.00)</code> – databáze sama odmítne vyšší hodnotu</li>
+            <li><code>DEFAULT 10</code> u pocet_koni – pokud nezadáš hodnotu, automaticky se doplní 10</li>
+            <li><code>AUTO_INCREMENT</code> – id se samo zvyšuje, nemusíš ho zadávat při vkládání</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- UKOL C -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
+            <div class="task-title">Vložení vzorového záznamu do tabulky trener</div>
+            <div class="task-points">1 bod</div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">INSERT INTO</span> <span class="tbl">trener</span>
+  (<span class="col">titul</span>, <span class="col">jmeno</span>, <span class="col">prijmeni</span>, <span class="col">narozeni</span>, <span class="col">pocet_koni</span>, <span class="col">uspesnost</span>, <span class="col">clanek</span>)
+<span class="kw">VALUES</span> (
+  <span class="str">'Ing.'</span>,
+  <span class="str">'Ivana'</span>,
+  <span class="str">'Pejšková'</span>,
+  <span class="str">'1968-12-16'</span>,
+  <span class="num">15</span>,
+  <span class="num">100.00</span>,
+  <span class="str">'S patnáctkou koní, mezi kterými je netradičně hned několik
+mladých posil zakoupených na zahraničních aukcích,
+vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejšková.'</span>
+);</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
+            <li><code>idtrener</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky (bude 1)</li>
+            <li>Hodnota <code>uspesnost = 100.00</code> projde, protože CHECK je &lt;= 100.00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- UKOL D -->
+      <div class="task" id="ukol-d">
+        <div class="task-header">
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Koně-valaši ze stájí NAU a GEW s písmenem "o"</div>
+            <div class="task-points">4 body</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny <em>koně-valachy</em> ze stájí <strong>Naughton R.J.</strong> a <strong>Gest.Westerberg</strong>, jejichž jméno obsahuje písmeno <em>o</em>. Seřaď primárně podle stáje <em>(sestupně)</em>, sekundárně podle jména <em>(vzestupně)</em>. Přidej věk koně.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">k</span>.<span class="col">jmeno_kone</span>   <span class="kw">AS</span> <span class="str">`Jméno koně`</span>,
+  <span class="al">k</span>.<span class="col">pohlavi</span>      <span class="kw">AS</span> <span class="str">`Pohlaví`</span>,
+  <span class="fn">CONCAT</span>(<span class="fn">YEAR</span>(<span class="fn">NOW</span>()) <span class="op">-</span> <span class="fn">YEAR</span>(<span class="al">k</span>.<span class="col">narozeni</span>), <span class="str">' let'</span>) <span class="kw">AS</span> <span class="str">`Věk`</span>,
+  <span class="al">s</span>.<span class="col">nazev_staje</span>  <span class="kw">AS</span> <span class="str">`Název stáje`</span>
+
+<span class="kw">FROM</span> <span class="tbl">kun</span> <span class="al">k</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">staj</span> <span class="al">s</span> <span class="kw">ON</span> <span class="al">s</span>.<span class="col">zkratka_staje</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">staj_zkratka_staje</span>
+
+<span class="kw">WHERE</span> (<span class="al">k</span>.<span class="col">staj_zkratka_staje</span> <span class="kw">LIKE</span> <span class="str">'GEW'</span>
+    <span class="kw">OR</span> <span class="al">k</span>.<span class="col">staj_zkratka_staje</span> <span class="kw">LIKE</span> <span class="str">'NAU'</span>)
+  <span class="kw">AND</span> <span class="al">k</span>.<span class="col">pohlavi</span> <span class="kw">LIKE</span> <span class="str">'valach'</span>
+  <span class="kw">AND</span> <span class="al">k</span>.<span class="col">jmeno_kone</span> <span class="kw">LIKE</span> <span class="str">'%o%'</span>
+
+<span class="kw">ORDER BY</span> <span class="al">s</span>.<span class="col">nazev_staje</span> <span class="kw">DESC</span>,
+         <span class="al">k</span>.<span class="col">jmeno_kone</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>LEFT JOIN staj</code> – připojíme tabulku stájí podle zkratky, abychom mohli zobrazit celý název</li>
+            <li><code>LIKE '%o%'</code> – <code>%</code> je wildcard (cokoliv), takže hledáme "o" kdekoliv ve jménu</li>
+            <li><code>CONCAT(YEAR(NOW()) - YEAR(narozeni), ' let')</code> – spočítá věk jako rozdíl roků a přidá text "let"</li>
+            <li><code>ORDER BY ... DESC, ... ASC</code> – první řazení sestupně, druhé vzestupně</li>
+            <li>Aliasy <code>k</code> a <code>s</code> – zkratky pro tabulky, píšeme <code>k.jmeno_kone</code> místo <code>kun.jmeno_kone</code></li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Jméno koně ↑</th><th>Pohlaví</th><th>Věk</th><th>Název stáje ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Autor</td><td>valach</td><td>8 let</td><td>Naughton R.J.</td></tr>
+              <tr><td>Remino</td><td>valach</td><td>10 let</td><td>Naughton R.J.</td></tr>
+              <tr><td>Torgon</td><td>valach</td><td>9 let</td><td>Naughton R.J.</td></tr>
+              <tr><td>Feraclos</td><td>valach</td><td>9 let</td><td>Gest.Westerberg</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UKOL E -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
+          <div class="task-info">
+            <div class="task-title">Statistika stájí – GROUP BY</div>
+            <div class="task-points">5 bodů</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Přehled stájí a statistika účastí jejich koní v dostizích. Seřaď podle <em>počtu koní v dostizích (sestupně)</em>, pak podle <em>počtu vítězství (sestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">s</span>.<span class="col">nazev_staje</span>                           <span class="kw">AS</span> <span class="str">`Název stáje`</span>,
+  <span class="fn">COUNT</span>(<span class="al">kd</span>.<span class="col">kun_idkun</span>)                    <span class="kw">AS</span> <span class="str">`Počet koní v dostizích`</span>,
+  <span class="fn">ROUND</span>(<span class="fn">AVG</span>(<span class="al">kd</span>.<span class="col">umisteni</span>), <span class="num">1</span>)             <span class="kw">AS</span> <span class="str">`Průměrné umístění`</span>,
+  <span class="fn">SUM</span>(<span class="fn">IF</span>(<span class="al">kd</span>.<span class="col">umisteni</span> <span class="op">=</span> <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>))         <span class="kw">AS</span> <span class="str">`Počet vítězství`</span>
+
+<span class="kw">FROM</span> <span class="tbl">staj</span> <span class="al">s</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kun</span> <span class="al">k</span>  <span class="kw">ON</span> <span class="al">k</span>.<span class="col">staj_zkratka_staje</span> <span class="op">=</span> <span class="al">s</span>.<span class="col">zkratka_staje</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kun_v_dostihu</span> <span class="al">kd</span> <span class="kw">ON</span> <span class="al">kd</span>.<span class="col">kun_idkun</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">idkun</span>
+
+<span class="kw">GROUP BY</span> <span class="al">s</span>.<span class="col">nazev_staje</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet koní v dostizích`</span> <span class="kw">DESC</span>,
+         <span class="str">`Počet vítězství`</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// KLÍČOVÉ KONCEPTY</div>
+          <ul>
+            <li><code>GROUP BY nazev_staje</code> – seskupí řádky podle stáje, pak agregační funkce počítají za každou skupinu</li>
+            <li><code>COUNT(kd.kun_idkun)</code> – počet řádků v kun_v_dostihu pro danou stáj = počet startů</li>
+            <li><code>AVG(kd.umisteni)</code> – průměrné umístění, <code>ROUND(..., 1)</code> zaokrouhlí na 1 des. místo</li>
+            <li><code>SUM(IF(umisteni = 1, 1, 0))</code> – pro každý řádek: pokud 1. místo → přičti 1, jinak 0. Výsledek = počet vítězství</li>
+            <li>Řetěz <code>staj → kun → kun_v_dostihu</code> – musíme projít přes 3 tabulky pro kompletní data</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek</div>
+          <table class="result-table">
+            <thead><tr><th>Název stáje</th><th>Počet koní v dostizích ↓</th><th>Průměrné umístění</th><th>Počet vítězství ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Naughton R.J.</td><td>10</td><td>2.7</td><td>1</td></tr>
+              <tr><td>Stall Perlen</td><td>5</td><td>1.6</td><td>3</td></tr>
+              <tr><td>Gest.Westerberg</td><td>5</td><td>1.8</td><td>2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UKOL F -->
+      <div class="task" id="ukol-f">
+        <div class="task-header">
+          <div class="task-letter f">f)</div>
+          <div class="task-info">
+            <div class="task-title">Vítězové dostihů v roce 2024</div>
+            <div class="task-points">5 bodů</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš vítěze (<em>umisteni = 1</em>) všech dostihů konaných v roce <em>2024</em>. Seřaď podle data konání <em>(vzestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">d</span>.<span class="col">nazev</span>                                         <span class="kw">AS</span> <span class="str">`Dostih`</span>,
+  <span class="fn">DATE_FORMAT</span>(<span class="al">d</span>.<span class="col">cas_konani</span>, <span class="str">"%e. %c. %Y"</span>)        <span class="kw">AS</span> <span class="str">`Datum konání`</span>,
+  <span class="fn">CONCAT</span>(<span class="al">k</span>.<span class="col">jmeno_kone</span>, <span class="str">" ("</span>, <span class="al">k</span>.<span class="col">pohlavi</span>, <span class="str">")"</span>)       <span class="kw">AS</span> <span class="str">`Kůň`</span>,
+  <span class="al">s</span>.<span class="col">nazev_staje</span>                                   <span class="kw">AS</span> <span class="str">`Stáj`</span>,
+  <span class="fn">CONCAT</span>(<span class="fn">LEFT</span>(<span class="al">j</span>.<span class="col">jmeno</span>, <span class="num">1</span>), <span class="str">". "</span>, <span class="al">j</span>.<span class="col">prijmeni</span>)      <span class="kw">AS</span> <span class="str">`Jezdec`</span>
+
+<span class="kw">FROM</span> <span class="tbl">staj</span> <span class="al">s</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kun</span> <span class="al">k</span>           <span class="kw">ON</span> <span class="al">s</span>.<span class="col">zkratka_staje</span>      <span class="op">=</span> <span class="al">k</span>.<span class="col">staj_zkratka_staje</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kun_v_dostihu</span> <span class="al">kd</span> <span class="kw">ON</span> <span class="al">k</span>.<span class="col">idkun</span>             <span class="op">=</span> <span class="al">kd</span>.<span class="col">kun_idkun</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">jezdec</span> <span class="al">j</span>         <span class="kw">ON</span> <span class="al">j</span>.<span class="col">idjezdec</span>           <span class="op">=</span> <span class="al">kd</span>.<span class="col">jezdec_idjezdec</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">dostih</span> <span class="al">d</span>         <span class="kw">ON</span> <span class="al">d</span>.<span class="col">iddostih</span>           <span class="op">=</span> <span class="al">kd</span>.<span class="col">dostih_iddostih</span>
+
+<span class="kw">WHERE</span> <span class="fn">YEAR</span>(<span class="al">d</span>.<span class="col">cas_konani</span>) <span class="op">=</span> <span class="str">"2024"</span>
+  <span class="kw">AND</span> <span class="al">kd</span>.<span class="col">umisteni</span> <span class="op">=</span> <span class="num">1</span>
+
+<span class="kw">ORDER BY</span> <span class="al">d</span>.<span class="col">cas_konani</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// CO JE ZAJÍMAVÉ</div>
+          <ul>
+            <li><code>DATE_FORMAT(cas_konani, "%e. %c. %Y")</code> – formátuje datum: <code>%e</code> = den bez nuly, <code>%c</code> = měsíc bez nuly, <code>%Y</code> = 4-místný rok</li>
+            <li><code>CONCAT(LEFT(jmeno, 1), ". ", prijmeni)</code> – zkrátí jméno na iniciálu, výsledek např. "M. Kubík"</li>
+            <li><code>YEAR(cas_konani) = "2024"</code> – filtr na rok, alternativa: <code>cas_konani BETWEEN '2024-01-01' AND '2024-12-31'</code></li>
+            <li>JOIN řetěz: <code>staj → kun → kun_v_dostihu → jezdec + dostih</code> – propojujeme 5 tabulek přes cizí klíče</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek</div>
+          <table class="result-table">
+            <thead><tr><th>Dostih</th><th>Datum konání</th><th>Kůň</th><th>Stáj</th><th>Jezdec</th></tr></thead>
+            <tbody>
+              <tr><td>Cena FC PANTER KOLESA</td><td>16. 8. 2024</td><td>Zeus (valach)</td><td>Stall Perlen</td><td>M. Kubík</td></tr>
+              <tr><td>Velká cena EXPA NAILS</td><td>5. 10. 2024</td><td>Daily Hit (klisna)</td><td>Naughton R.J.</td><td>H. Pejšková</td></tr>
+              <tr><td>Cena EŽ PRAHA</td><td>26. 10. 2024</td><td>Zeus (valach)</td><td>Stall Perlen</td><td>M. Kubík</td></tr>
+              <tr><td>Cena prezidenta republiky</td><td>26. 10. 2024</td><td>Aztek (valach)</td><td>Gest.Westerberg</td><td>P. Foret</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UKOL G -->
+      <div class="task" id="ukol-g">
+        <div class="task-header">
+          <div class="task-letter g">g)</div>
+          <div class="task-info">
+            <div class="task-title">Jezdci s více než 1 dostih v roce 2024</div>
+            <div class="task-points">5 bodů</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš jezdce, kteří v <em>2024</em> absolvovali <em>více než jeden dostih</em>. Seřaď primárně podle nejlepšího umístění <em>(vzestupně)</em>, sekundárně podle váhy <em>(těžší má přednost)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">j</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">j</span>.<span class="col">prijmeni</span>)  <span class="kw">AS</span> <span class="str">`Jezdec`</span>,
+  <span class="fn">CONCAT</span>(<span class="al">j</span>.<span class="col">vaha</span>, <span class="str">' kg'</span>)              <span class="kw">AS</span> <span class="str">`Váha`</span>,
+  <span class="fn">COUNT</span>(<span class="al">kd</span>.<span class="col">dostih_iddostih</span>)         <span class="kw">AS</span> <span class="str">`Počet dostihů`</span>,
+  <span class="fn">SUM</span>(<span class="al">d</span>.<span class="col">delka</span>)                      <span class="kw">AS</span> <span class="str">`Odjeto metrů`</span>,
+  <span class="fn">MIN</span>(<span class="al">kd</span>.<span class="col">umisteni</span>)                  <span class="kw">AS</span> <span class="str">`Nejlepší umístění`</span>
+
+<span class="kw">FROM</span> <span class="tbl">jezdec</span> <span class="al">j</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kun_v_dostihu</span> <span class="al">kd</span> <span class="kw">ON</span> <span class="al">j</span>.<span class="col">idjezdec</span>      <span class="op">=</span> <span class="al">kd</span>.<span class="col">jezdec_idjezdec</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">dostih</span> <span class="al">d</span>         <span class="kw">ON</span> <span class="al">kd</span>.<span class="col">dostih_iddostih</span> <span class="op">=</span> <span class="al">d</span>.<span class="col">iddostih</span>
+
+<span class="kw">WHERE</span> <span class="fn">YEAR</span>(<span class="al">d</span>.<span class="col">cas_konani</span>) <span class="op">=</span> <span class="num">2024</span>
+
+<span class="kw">GROUP BY</span> <span class="al">j</span>.<span class="col">idjezdec</span>
+
+<span class="kw">HAVING</span> <span class="str">`Počet dostihů`</span> <span class="op">&gt;</span> <span class="num">1</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Nejlepší umístění`</span> <span class="kw">ASC</span>,
+         <span class="al">j</span>.<span class="col">vaha</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// HAVING vs WHERE – DŮLEŽITÉ!</div>
+          <ul>
+            <li><code>WHERE</code> filtruje <strong>před</strong> seskupením – použij ho na sloupce tabulky (rok, jméno...)</li>
+            <li><code>HAVING</code> filtruje <strong>po</strong> seskupení – použij ho na výsledky agregací (COUNT, SUM, MIN...)</li>
+            <li><code>MIN(kd.umisteni)</code> – nejnižší číslo umístění = nejlepší výsledek (1. místo = 1)</li>
+            <li><code>SUM(d.delka)</code> – celkový počet odjetých metrů přes všechny dostihy v roce</li>
+            <li><code>GROUP BY j.idjezdec</code> – seskupení podle ID jezdce (ne jménem, protože jména se mohou opakovat)</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek</div>
+          <table class="result-table">
+            <thead><tr><th>Jezdec</th><th>Váha</th><th>Počet dostihů</th><th>Odjeto metrů</th><th>Nejlepší umístění ↑</th></tr></thead>
+            <tbody>
+              <tr><td>Michal Kubík</td><td>64.0 kg</td><td>2</td><td>6600</td><td>1</td></tr>
+              <tr><td>Helena Pejšková</td><td>54.0 kg</td><td>2</td><td>4800</td><td>1</td></tr>
+              <tr><td>Josef Bartoš</td><td>63.0 kg</td><td>2</td><td>6600</td><td>2</td></tr>
+              <tr><td>Jiří Chaloupka</td><td>59.0 kg</td><td>2</td><td>4800</td><td>2</td></tr>
+              <tr><td>Jaroslav Myška</td><td>66.2 kg</td><td>2</td><td>6600</td><td>3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    function showSchema(idx) {
+      document.querySelectorAll('.schema-img').forEach((img, i) => img.classList.toggle('active', i === idx));
+      document.querySelectorAll('.schema-tab').forEach((tab, i) => tab.classList.toggle('active', i === idx));
+    }
+
+    function copyCode(btn) {
+      const pre = btn.closest('.code-block').querySelector('pre');
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ zkopírováno';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'kopírovat'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    // Highlight active sidebar link on scroll
+    const tasks = document.querySelectorAll('.task, .schema-section');
+    const links = document.querySelectorAll('.sidebar-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    tasks.forEach(t => observer.observe(t));
+  </script>
+</body>
+</html>
