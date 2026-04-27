@@ -16,15 +16,10 @@
   <div id="schema-panel" class="schema-panel">
     <div class="schema-panel-header">
       <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
-      <div class="schema-panel-tabs">
-        <button class="schema-tab active" onclick="showSchema(0)">Strana 1</button>
-        <button class="schema-tab" onclick="showSchema(1)">Strana 2</button>
-      </div>
       <button class="schema-toggle" onclick="toggleSchema()">−</button>
     </div>
     <div class="schema-panel-body">
       <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze dostihy">
-      <img src="schema-2.jpg" class="schema-img"        id="schema-1" alt="Vzory výsledků">
     </div>
   </div>
 
@@ -63,13 +58,7 @@
 
     <main>
       <div class="hero">
-        <p class="hero-label">// sql · projekt 01</p>
         <h1>Dostihy 🐎</h1>
-        <div class="hero-meta">
-          <span>📋 7 úkolů</span>
-          <span>⭐ 20 bodů celkem</span>
-          <span>🗄️ MySQL / MariaDB</span>
-        </div>
       </div>
 
       <!-- UKOL A -->
@@ -77,36 +66,11 @@
         <div class="task-header">
           <div class="task-letter">a)</div>
           <div class="task-info">
-            <div class="task-title">Import databáze + oprava kódování</div>
-            <div class="task-points">1 bod &nbsp;·&nbsp; PHPMyAdmin</div>
+            <div class="task-title">Import databáze</div>
           </div>
         </div>
         <div class="task-desc">
-          Vytvoř v MySQL databázi s názvem <strong>dostihy</strong>. Importuj soubor <strong>dostihy.sql</strong>. Ověř správnost kódování českých znaků – pokud jsou rozbité, oprav.
-        </div>
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-lang">SQL</span>
-            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
-          </div>
-          <pre><span class="cmt">-- 1. Vytvoř databázi</span>
-<span class="kw">CREATE DATABASE</span> dostihy
-  <span class="kw">CHARACTER SET</span> <span class="str">utf8mb4</span>
-  <span class="kw">COLLATE</span> <span class="str">utf8mb4_czech_ci</span>;
-
-<span class="cmt">-- 2. Vyber ji</span>
-<span class="kw">USE</span> dostihy;
-
-<span class="cmt">-- 3. Potom importuj soubor přes PHPMyAdmin:
---    Databáze → Import → vybrat dostihy.sql → Kódování: utf8mb4</span></pre>
-        </div>
-        <div class="explanation">
-          <div class="explanation-title">// PROČ TO TAK FUNGUJE</div>
-          <ul>
-            <li><code>CHARACTER SET utf8mb4</code> – plná podpora UTF-8, zvládne i emoji a české znaky</li>
-            <li><code>COLLATE utf8mb4_czech_ci</code> – řazení podle českých pravidel (ch za h, ž za z apod.), <code>ci</code> = case insensitive</li>
-            <li>Při importu v PHPMyAdmin musíš v nabídce kódování vybrat <code>utf8mb4</code>, jinak se háčky a čárky rozbijí</li>
-          </ul>
+          V PHPMyAdmin vytvoř novou databázi s názvem <strong>dostihy</strong>, kódování <strong>utf8_czech_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>dostihy.sql</strong> a potvrď.
         </div>
       </div>
 
@@ -118,7 +82,6 @@
           <div class="task-letter b">b)</div>
           <div class="task-info">
             <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">trener</code></div>
-            <div class="task-points">4 body</div>
           </div>
         </div>
         <div class="task-desc">
@@ -167,7 +130,6 @@
           <div class="task-letter c">c)</div>
           <div class="task-info">
             <div class="task-title">Vložení vzorového záznamu do tabulky trener</div>
-            <div class="task-points">1 bod</div>
           </div>
         </div>
         <div class="code-block">
@@ -207,7 +169,6 @@ vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejškov�
           <div class="task-letter d">d)</div>
           <div class="task-info">
             <div class="task-title">Koně-valaši ze stájí NAU a GEW s písmenem "o"</div>
-            <div class="task-points">4 body</div>
           </div>
         </div>
         <div class="task-desc">
@@ -267,7 +228,6 @@ vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejškov�
           <div class="task-letter e">e)</div>
           <div class="task-info">
             <div class="task-title">Statistika stájí – GROUP BY</div>
-            <div class="task-points">5 bodů</div>
           </div>
         </div>
         <div class="task-desc">
@@ -324,7 +284,6 @@ vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejškov�
           <div class="task-letter f">f)</div>
           <div class="task-info">
             <div class="task-title">Vítězové dostihů v roce 2024</div>
-            <div class="task-points">5 bodů</div>
           </div>
         </div>
         <div class="task-desc">
@@ -384,7 +343,6 @@ vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejškov�
           <div class="task-letter g">g)</div>
           <div class="task-info">
             <div class="task-title">Jezdci s více než 1 dostih v roce 2024</div>
-            <div class="task-points">5 bodů</div>
           </div>
         </div>
         <div class="task-desc">
