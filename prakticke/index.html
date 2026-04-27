@@ -3,206 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maturita 2025</title>
+  <title>Praktické | Maturita</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #0d0f14;
       --surface: #161920;
       --border: #2a2d3a;
       --accent1: #7c6af7;
       --accent2: #3ecf8e;
+      --accent3: #f59e0b;
       --text: #e8eaf0;
       --muted: #6b7280;
     }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; }
 
     .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.3;
-      z-index: 0;
+      position: fixed; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px; opacity: 0.2; z-index: 0; pointer-events: none;
     }
 
-    .glow {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.12;
-      z-index: 0;
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,20,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 1rem;
     }
-    .glow-1 { background: var(--accent1); top: -200px; left: -100px; }
-    .glow-2 { background: var(--accent2); bottom: -200px; right: -100px; }
+    nav a { color: var(--muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    nav a:hover { color: var(--text); }
+    nav .sep { color: var(--border); }
+    nav .current { color: var(--text); }
 
-    main {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem;
+    .hero {
+      position: relative; z-index: 1;
+      padding: 4rem 2rem 3rem;
+      max-width: 900px; margin: 0 auto;
     }
+    .hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent1); letter-spacing: 0.2em; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .hero p { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
 
-    .label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent2);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
+    .section { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
+    .section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
-
-    h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #fff 0%, var(--muted) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .section-header h2 { font-size: 1.4rem; font-weight: 700; }
+    .section-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      padding: 3px 10px; border-radius: 999px;
     }
+    .badge-sql { background: rgba(124,106,247,0.2); color: var(--accent1); border: 1px solid rgba(124,106,247,0.3); }
+    .badge-cpp { background: rgba(245,158,11,0.2); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
+    .badge-wip { background: rgba(107,114,128,0.15); color: var(--muted); border: 1px solid rgba(107,114,128,0.2); }
 
-    .subtitle {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 4rem;
-      font-family: 'JetBrains Mono', monospace;
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.5rem; text-decoration: none; color: var(--text);
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: all 0.25s ease; position: relative; overflow: hidden;
     }
+    .project-card::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.25s; border-radius: 12px; }
+    .project-card.sql::after { background: linear-gradient(135deg, rgba(124,106,247,0.1), transparent); }
+    .project-card.cpp::after { background: linear-gradient(135deg, rgba(245,158,11,0.1), transparent); }
+    .project-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+    .project-card.sql:hover { box-shadow: 0 12px 40px rgba(124,106,247,0.15); }
+    .project-card.cpp:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.15); }
+    .project-card:hover::after { opacity: 1; }
+    .project-card.disabled { opacity: 0.35; pointer-events: none; }
 
-    .buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 2rem 2.5rem;
-      width: 260px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.3s;
-      border-radius: 16px;
-    }
-
-    .btn-prakticke::before { background: linear-gradient(135deg, rgba(124,106,247,0.15), transparent); }
-    .btn-ustni::before { background: linear-gradient(135deg, rgba(62,207,142,0.15), transparent); }
-
-    .btn:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
-    .btn:hover::before { opacity: 1; }
-
-    .btn-prakticke:hover { box-shadow: 0 20px 60px rgba(124,106,247,0.2); }
-    .btn-ustni:hover { box-shadow: 0 20px 60px rgba(62,207,142,0.2); }
-
-    .btn-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    .btn-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-      text-align: left;
-      line-height: 1.5;
-    }
-
-    .btn-arrow {
-      position: absolute;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      font-size: 1.2rem;
-      opacity: 0.3;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .btn:hover .btn-arrow { opacity: 1; transform: translate(3px, -3px); }
-
-    .btn-disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    .tag {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      margin-bottom: 0.8rem;
-    }
-    .tag-active { background: rgba(124,106,247,0.2); color: var(--accent1); border: 1px solid rgba(124,106,247,0.3); }
-    .tag-wip { background: rgba(107,114,128,0.2); color: var(--muted); border: 1px solid rgba(107,114,128,0.3); }
+    .project-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+    .project-name { font-size: 1.1rem; font-weight: 700; position: relative; z-index: 1; }
+    .project-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); position: relative; z-index: 1; }
+    .project-arrow { position: absolute; top: 1.2rem; right: 1.2rem; opacity: 0.2; font-size: 1rem; transition: all 0.25s; }
+    .project-card:hover .project-arrow { opacity: 1; transform: translate(2px, -2px); }
   </style>
 </head>
 <body>
   <div class="grid-bg"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
+  <nav>
+    <a href="../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <span class="current">praktické</span>
+  </nav>
 
-  <main>
-    <p class="label">// maturita 2025</p>
-    <h1>Studijní<br>materiály</h1>
-    <p class="subtitle">IT škola &nbsp;·&nbsp; Brumlins</p>
+  <div class="hero">
+    <p class="hero-label">// praktická část</p>
+    <h1>Praktické úlohy</h1>
+    <p>SQL &nbsp;·&nbsp; C++ &nbsp;·&nbsp; Grušman &nbsp;—&nbsp; zadání + řešení + komentáře</p>
+  </div>
 
-    <div class="buttons">
-      <a href="prakticke/index.html" class="btn btn-prakticke">
-        <span class="tag tag-active">dostupné</span>
-        <div class="btn-icon">⌨️</div>
-        <div class="btn-title">Praktické</div>
-        <div class="btn-desc">SQL · C++ · Grušman</div>
-        <span class="btn-arrow">↗</span>
-      </a>
-
-      <a class="btn btn-ustni btn-disabled">
-        <span class="tag tag-wip">brzy</span>
-        <div class="btn-icon">📖</div>
-        <div class="btn-title">Ústní</div>
-        <div class="btn-desc">teorie · otázky · pojmy</div>
-        <span class="btn-arrow">↗</span>
-      </a>
+  <div class="section">
+    <div class="section-header">
+      <h2>SQL</h2>
+      <span class="section-badge badge-sql">MySQL / MariaDB</span>
     </div>
-  </main>
+    <div class="projects-grid">
+      <a href="sql/dostihy/index.html" class="project-card sql">
+        <span class="project-num">01</span>
+        <div class="project-name">Dostihy</div>
+        <div class="project-meta">7 úkolů · dostihy.sql</div>
+        <span class="project-arrow">↗</span>
+      </a>
+      <div class="project-card sql disabled">
+        <span class="project-num">02</span>
+        <div class="project-name">Filmoteka</div>
+        <div class="project-meta">brzy</div>
+      </div>
+      <div class="project-card sql disabled">
+        <span class="project-num">03</span>
+        <div class="project-name">Jazyková škola</div>
+        <div class="project-meta">brzy</div>
+      </div>
+      <div class="project-card sql disabled">
+        <span class="project-num">04</span>
+        <div class="project-name">Knihovna</div>
+        <div class="project-meta">brzy</div>
+      </div>
+      <div class="project-card sql disabled">
+        <span class="project-num">05</span>
+        <div class="project-name">Olympiáda</div>
+        <div class="project-meta">brzy</div>
+      </div>
+      <div class="project-card sql disabled">
+        <span class="project-num">06</span>
+        <div class="project-name">Tělovýchovná jednota</div>
+        <div class="project-meta">brzy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>C++</h2>
+      <span class="section-badge badge-cpp">C++17</span>
+      <span class="section-badge badge-wip">brzy</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Grušman</h2>
+      <span class="section-badge badge-wip">brzy</span>
+    </div>
+  </div>
 </body>
 </html>
