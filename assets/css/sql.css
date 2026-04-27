@@ -76,7 +76,7 @@ main { padding: 3rem 3rem 6rem; max-width: 860px; }
   position: fixed;
   top: calc(var(--nav-h) + 0.75rem);
   right: 1rem;
-  width: 560px;
+  width: 660px;
   z-index: 200;
   background: rgba(16, 18, 26, 0.97);
   border: 1px solid var(--border);
@@ -263,5 +263,5 @@ pre {
   .page { grid-template-columns: 1fr; }
   aside { display: none; }
   main  { padding: 2rem 1.25rem 4rem; }
-  .schema-panel { right: 0.5rem; width: calc(100vw - 1rem); max-width: 560px; }
+  .schema-panel { right: 0.5rem; width: calc(100vw - 1rem); max-width: 660px; }
 }
