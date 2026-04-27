@@ -6,88 +6,12 @@
   <title>Praktické | Maturita</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0d0f14;
-      --surface: #161920;
-      --border: #2a2d3a;
-      --accent1: #7c6af7;
-      --accent2: #3ecf8e;
-      --accent3: #f59e0b;
-      --text: #e8eaf0;
-      --muted: #6b7280;
-    }
-    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; }
-
-    .grid-bg {
-      position: fixed; inset: 0;
-      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 48px 48px; opacity: 0.2; z-index: 0; pointer-events: none;
-    }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,15,20,0.9); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    nav a { color: var(--muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
-    nav a:hover { color: var(--text); }
-    nav .sep { color: var(--border); }
-    nav .current { color: var(--text); }
-
-    .hero {
-      position: relative; z-index: 1;
-      padding: 4rem 2rem 3rem;
-      max-width: 900px; margin: 0 auto;
-    }
-    .hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent1); letter-spacing: 0.2em; margin-bottom: 1rem; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 0.5rem; }
-    .hero p { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-
-    .section { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
-    .section-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1.5rem; padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-header h2 { font-size: 1.4rem; font-weight: 700; }
-    .section-badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-      padding: 3px 10px; border-radius: 999px;
-    }
-    .badge-sql { background: rgba(124,106,247,0.2); color: var(--accent1); border: 1px solid rgba(124,106,247,0.3); }
-    .badge-cpp { background: rgba(245,158,11,0.2); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
-    .badge-wip { background: rgba(107,114,128,0.15); color: var(--muted); border: 1px solid rgba(107,114,128,0.2); }
-
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-
-    .project-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.5rem; text-decoration: none; color: var(--text);
-      display: flex; flex-direction: column; gap: 0.5rem;
-      transition: all 0.25s ease; position: relative; overflow: hidden;
-    }
-    .project-card::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.25s; border-radius: 12px; }
-    .project-card.sql::after { background: linear-gradient(135deg, rgba(124,106,247,0.1), transparent); }
-    .project-card.cpp::after { background: linear-gradient(135deg, rgba(245,158,11,0.1), transparent); }
-    .project-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
-    .project-card.sql:hover { box-shadow: 0 12px 40px rgba(124,106,247,0.15); }
-    .project-card.cpp:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.15); }
-    .project-card:hover::after { opacity: 1; }
-    .project-card.disabled { opacity: 0.35; pointer-events: none; }
-
-    .project-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
-    .project-name { font-size: 1.1rem; font-weight: 700; position: relative; z-index: 1; }
-    .project-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); position: relative; z-index: 1; }
-    .project-arrow { position: absolute; top: 1.2rem; right: 1.2rem; opacity: 0.2; font-size: 1rem; transition: all 0.25s; }
-    .project-card:hover .project-arrow { opacity: 1; transform: translate(2px, -2px); }
-  </style>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/list.css">
 </head>
 <body>
   <div class="grid-bg"></div>
+
   <nav>
     <a href="../index.html">🏠 home</a>
     <span class="sep">/</span>

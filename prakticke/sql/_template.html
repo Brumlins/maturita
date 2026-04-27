@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ZMĚŇ: název projektu -->
+  <title>NAZEV – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- FLOATING SCHEMA PANEL
+       Nahraď schema-1.jpg / schema-2.jpg skutečnými obrázky.
+       Pokud je jen 1 strana, odstraň druhý tab a druhý <img>. -->
+  <div id="schema-panel" class="schema-panel">
+    <div class="schema-panel-header">
+      <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
+      <div class="schema-panel-tabs">
+        <button class="schema-tab active" onclick="showSchema(0)">Strana 1</button>
+        <button class="schema-tab" onclick="showSchema(1)">Strana 2</button>
+      </div>
+      <button class="schema-toggle" onclick="toggleSchema()">−</button>
+    </div>
+    <div class="schema-panel-body">
+      <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze">
+      <img src="schema-2.jpg" class="schema-img"        id="schema-1" alt="Vzory výsledků">
+    </div>
+  </div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <!-- ZMĚŇ: název projektu -->
+    <span class="current">NAZEV</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+
+      <!-- Odkaz otevře/zavře schema panel -->
+      <button class="sidebar-link" onclick="toggleSchema()">
+        <span class="sidebar-num">—</span> Schéma DB
+      </button>
+
+      <!-- ZMĚŇ: jeden <a> na každý úkol; data-target musí odpovídat id tasku -->
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Popis úkolu A</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Popis úkolu B</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Popis úkolu C</a>
+      <!-- ... -->
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <!-- ZMĚŇ: NAZEV na skutečné jméno souboru -->
+        <a href="NAZEV.sql" download class="dl-btn">⬇ NAZEV.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+        <a href="NAZEV-rehulek.sql" download class="dl-btn">⬇ rehulek.sql <span style="margin-left:auto;opacity:0.5">dump</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <!-- ZMĚŇ: číslo projektu, název, počet úkolů, body -->
+        <p class="hero-label">// sql · projekt NN</p>
+        <h1>NAZEV</h1>
+        <div class="hero-meta">
+          <span>📋 N úkolů</span>
+          <span>⭐ NN bodů celkem</span>
+          <span>🗄️ MySQL / MariaDB</span>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           TASK – zkopíruj tento blok pro každý úkol.
+           Třídy task-letter: (bez třídy)=a  b  c  d  e  f  g
+           ══════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Název úkolu A</div>
+            <div class="task-points">N bodů</div>
+          </div>
+        </div>
+
+        <!-- Nepovinné: popis zadání -->
+        <div class="task-desc">
+          Text zadání... <strong>klíčové slovo</strong>, <em>zvýrazněný pojem</em>.
+        </div>
+
+        <!-- Kódový blok -->
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre>
+<span class="cmt">-- sem přijde SQL kód se zvýrazněním</span>
+<span class="kw">SELECT</span> <span class="col">sloupec</span> <span class="kw">FROM</span> <span class="tbl">tabulka</span>;
+          </pre>
+        </div>
+
+        <!-- Vysvětlení -->
+        <div class="explanation">
+          <div class="explanation-title">// VYSVĚTLENÍ</div>
+          <ul>
+            <li><code>klíčové_slovo</code> – co dělá</li>
+            <li>Další bod</li>
+          </ul>
+        </div>
+
+        <!-- Nepovinné: výsledková tabulka -->
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek</div>
+          <table class="result-table">
+            <thead><tr><th>Sloupec 1</th><th>Sloupec 2</th></tr></thead>
+            <tbody>
+              <tr><td>hodnota</td><td>hodnota</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Sem přidej další .task bloky... -->
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/sql.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0d0f14;
+  --surface:  #161920;
+  --surface2: #1e2130;
+  --border:   #2a2d3a;
+  --accent:   #7c6af7;
+  --accent2:  #3ecf8e;
+  --accent3:  #f59e0b;
+  --red:      #f87171;
+  --text:     #e8eaf0;
+  --muted:    #6b7280;
+
+  /* SQL syntax */
+  --kw:    #c792ea;
+  --fn:    #82aaff;
+  --str:   #c3e88d;
+  --num:   #f78c6c;
+  --op:    #89ddff;
+  --cmt:   #546e7a;
+  --alias: #ffcb6b;
+
+  --nav-h: 53px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+}
+
+.grid-bg {
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.2; z-index: 0; pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
