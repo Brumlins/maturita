@@ -105,17 +105,16 @@
           </table>
         </div>
         <div class="task-desc">
-          Tabulku lze vytvořit přes rozhraní PHPMyAdmin (klikačka), nebo přímo SQL příkazem níže. Pozor – <strong>CHECK constraint</strong> pro <em>uspesnost</em> musí být zadán ručně přes SQL, PHPMyAdmin ho v GUI nenabídne.
+          Vytvoř tabulku přes PHPMyAdmin klikačkou. Jedinou výjimkou je atribut <strong>uspesnost</strong> – podmínku <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">CHECK (uspesnost &lt;= 100.00)</code> PHPMyAdmin v GUI nenabídne, musí se zadat ručně přes SQL záložku.
         </div>
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-lang">SQL</span>
-            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
-          </div>
-          <pre><span class="cmt">-- Tabulku trener vytváříme přes PHPMyAdmin GUI,
--- jen CHECK constraint musíme zadat ručně přes SQL:</span>
-
-<span class="kw">CREATE TABLE</span> <span class="tbl">trener</span> (
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">CREATE TABLE</span> <span class="tbl">trener</span> (
   <span class="col">idtrener</span>   <span class="fn">INT</span>(<span class="num">11</span>)       <span class="kw">NOT NULL AUTO_INCREMENT</span>,
   <span class="col">titul</span>      <span class="fn">ENUM</span>(<span class="str">'Bc.'</span>, <span class="str">'Dr.'</span>, <span class="str">'Ing.'</span>, <span class="str">'Mgr.'</span>) <span class="kw">DEFAULT NULL</span>,
   <span class="col">jmeno</span>      <span class="fn">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">NOT NULL</span>,
@@ -129,16 +128,17 @@
 ) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
   <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
   <span class="kw">COLLATE</span><span class="op">=</span>utf8_czech_ci;</pre>
-        </div>
-        <div class="explanation">
-          <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
-          <ul>
-            <li><code>ENUM('Bc.','Dr.',...)</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
-            <li><code>DECIMAL(5,2)</code> – číslo max. 5 číslic, z toho 2 za desetinnou čárkou → max. 999.99</li>
-            <li><code>CHECK (uspesnost &lt;= 100.00)</code> – databáze sama odmítne vyšší hodnotu</li>
-            <li><code>DEFAULT 10</code> u pocet_koni – pokud nezadáš hodnotu, automaticky se doplní 10</li>
-            <li><code>AUTO_INCREMENT</code> – id se samo zvyšuje, nemusíš ho zadávat při vkládání</li>
-          </ul>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+            <ul>
+              <li><code>ENUM('Bc.','Dr.',...)</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>DECIMAL(5,2)</code> – číslo max. 5 číslic, z toho 2 za desetinnou čárkou → max. 999.99</li>
+              <li><code>CHECK (uspesnost &lt;= 100.00)</code> – databáze sama odmítne vyšší hodnotu</li>
+              <li><code>DEFAULT 10</code> u pocet_koni – pokud nezadáš hodnotu, automaticky se doplní 10</li>
+              <li><code>AUTO_INCREMENT</code> – id se samo zvyšuje, nemusíš ho zadávat při vkládání</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -152,7 +152,7 @@
             <div class="task-title">Vložení vzorového záznamu do tabulky trener</div>
           </div>
         </div>
-        <div class="task-desc">Vlož do tabulky <strong>trener</strong> tento záznam:</div>
+        <div class="task-desc">Vlož do tabulky <strong>trener</strong> tento záznam. Jde to udělat přes PHPMyAdmin klikačkou (záložka <em>Vložit</em>), nebo SQL příkazem níže.</div>
         <div class="result-preview">
           <table class="result-table">
             <thead>
@@ -170,12 +170,14 @@
             </tbody>
           </table>
         </div>
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-lang">SQL</span>
-            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
-          </div>
-          <pre><span class="kw">INSERT INTO</span> <span class="tbl">trener</span>
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">INSERT INTO</span> <span class="tbl">trener</span>
   (<span class="col">titul</span>, <span class="col">jmeno</span>, <span class="col">prijmeni</span>, <span class="col">narozeni</span>, <span class="col">pocet_koni</span>, <span class="col">uspesnost</span>, <span class="col">clanek</span>)
 <span class="kw">VALUES</span> (
   <span class="str">'Ing.'</span>,
@@ -188,14 +190,15 @@
 mladých posil zakoupených na zahraničních aukcích,
 vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejšková.'</span>
 );</pre>
-        </div>
-        <div class="explanation">
-          <div class="explanation-title">// POZNÁMKY</div>
-          <ul>
-            <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
-            <li><code>idtrener</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky (bude 1)</li>
-            <li>Hodnota <code>uspesnost = 100.00</code> projde, protože CHECK je &lt;= 100.00</li>
-          </ul>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// POZNÁMKY</div>
+            <ul>
+              <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
+              <li><code>idtrener</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky (bude 1)</li>
+              <li>Hodnota <code>uspesnost = 100.00</code> projde, protože CHECK je &lt;= 100.00</li>
+            </ul>
+          </div>
         </div>
       </div>
 

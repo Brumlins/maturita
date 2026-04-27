@@ -13,6 +13,14 @@ function toggleSchema() {
   btn.textContent = isNowCollapsed ? '+' : '−';
 }
 
+function toggleSql(btn) {
+  const body = btn.nextElementSibling;
+  const opening = body.hidden;
+  body.hidden = !opening;
+  btn.classList.toggle('open', opening);
+  btn.innerHTML = opening ? '▼ &nbsp;Skrýt SQL' : '▶ &nbsp;Ukázat jako SQL';
+}
+
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   navigator.clipboard.writeText(pre.innerText).then(() => {

@@ -169,6 +169,20 @@ main { padding: 3rem 3rem 6rem; max-width: 860px; }
   padding: 1.25rem 1.5rem; margin-bottom: 1rem;
   font-size: 0.9rem; line-height: 1.7; color: #b0b8cc;
 }
+
+/* ── SQL DROPDOWN ─────────────────────────────────────────── */
+.sql-toggle-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  color: var(--muted); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.55rem 1rem; cursor: pointer;
+  transition: all 0.2s; margin-bottom: 1rem;
+}
+.sql-toggle-btn:hover { color: var(--text); border-color: rgba(124,106,247,0.4); }
+.sql-toggle-btn.open  { color: var(--accent); border-color: rgba(124,106,247,0.4); background: rgba(124,106,247,0.06); }
+
+.sql-reveal-body { margin-bottom: 0; }
 .task-desc strong { color: var(--text); }
 .task-desc em     { color: var(--accent2); font-style: normal; font-weight: 600; }
 
