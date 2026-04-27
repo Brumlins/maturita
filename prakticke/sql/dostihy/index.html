@@ -85,7 +85,27 @@
           </div>
         </div>
         <div class="task-desc">
-          Vytvoř tabulku <strong>trener</strong> s atributy: <em>idtrener</em> (PK), <em>titul</em> (ENUM), <em>jmeno</em>, <em>prijmeni</em> (VARCHAR 50), <em>narozeni</em> (DATE), <em>pocet_koni</em> (výchozí 10), <em>uspesnost</em> (max 100.00), <em>clanek</em> (TEXT).
+          Vytvoř tabulku <strong>trener</strong> s těmito atributy:
+        </div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Název atributu</th><th>Doména atributu</th><th>Vzorový záznam</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idtrener</td><td>primární klíč</td><td>1</td></tr>
+              <tr><td>titul</td><td>volby: Bc., Dr., Ing., Mgr.</td><td>Ing.</td></tr>
+              <tr><td>jmeno</td><td rowspan="2">neprázdné znakové řetězce o délce max. 50 znaků</td><td>Ivana</td></tr>
+              <tr><td>prijmeni</td><td>Pejšková</td></tr>
+              <tr><td>narozeni</td><td>platné datum</td><td>16. prosince 1968</td></tr>
+              <tr><td>pocet_koni</td><td>celé nezáporné číslo (výchozí hodnota 10)</td><td>15</td></tr>
+              <tr><td>uspesnost</td><td>desetinné číslo s pevnou řádovou čárkou (max. hodnota 100.00)</td><td>10,45 (v&nbsp;%)</td></tr>
+              <tr><td>clanek</td><td>dlouhý souvislý text</td><td style="max-width:260px;white-space:normal">S patnáctkou koní, mezi kterými je netradičně hned několik mladých posil zakoupených na zahraničních aukcích, vstupuje do nové sezóny dlouholetá chuchelská trenérka Ing. Ivana Pejšková.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-desc">
+          Tabulku lze vytvořit přes rozhraní PHPMyAdmin (klikačka), nebo přímo SQL příkazem níže. Pozor – <strong>CHECK constraint</strong> pro <em>uspesnost</em> musí být zadán ručně přes SQL, PHPMyAdmin ho v GUI nenabídne.
         </div>
         <div class="code-block">
           <div class="code-header">
