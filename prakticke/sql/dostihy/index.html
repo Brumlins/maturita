@@ -135,8 +135,16 @@
             <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idtrener</code> – zaškrtni A_I, PHPMyAdmin automaticky navrhne PRIMARY index → potvrď.</li>
             <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">titul</code> – po výběru ENUM zadej do pole <em>Délka/Hodnoty</em> přesně: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'Bc.','Dr.','Ing.','Mgr.'</code></li>
             <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
-            <li>CHECK podmínku pro <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">uspesnost</code> přidej přes záložku SQL (viz příkaz níže).</li>
+            <li>CHECK podmínku pro <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">uspesnost</code> přidej přes záložku <strong>SQL</strong>: smaž předvyplněný text (<code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">SELECT * FROM `trener` WHERE 1</code>), zadej příkaz níže a klikni <strong>Provést</strong>.</li>
           </ol>
+          <div class="code-block" style="margin-top:0.5rem">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">ALTER TABLE</span> <span class="tbl">trener</span>
+  <span class="kw">ADD CONSTRAINT CHECK</span> (<span class="col">uspesnost</span> <span class="op">&lt;=</span> <span class="num">100.00</span>);</pre>
+          </div>
         </div>
         <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
         <div class="sql-reveal-body" hidden>
