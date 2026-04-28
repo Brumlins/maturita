@@ -210,7 +210,7 @@
           <ul>
             <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
             <li><code>idrezervace</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky (bude 1)</li>
-            <li>Stav <code>'aktivní'</code> by se doplnil i bez zadání díky DEFAULT, ale je dobrou praxí ho uvést explicitně</li>
+            <li>Stav <code>'aktivní'</code> se doplní automaticky díky DEFAULT – uvádět ho není povinné</li>
           </ul>
         </div>
       </div>
@@ -249,9 +249,9 @@
         <div class="explanation">
           <div class="explanation-title">// POZNÁMKY</div>
           <ul>
-            <li>Jednoduchý dotaz bez JOIN – všechna potřebná data jsou v tabulce <code>ctenar</code></li>
+            <li>Vše je v tabulce <code>ctenar</code> – JOIN není potřeba</li>
             <li>Sloupec <code>titul</code> je ENUM – pro čtenáře bez titulu se zobrazí NULL</li>
-            <li><code>narozeni</code> je DATE – zobrazí se ve formátu YYYY-MM-DD; pro hezký výstup lze použít <code>DATE_FORMAT(narozeni, '%e. %c. %Y')</code></li>
+            <li>Pro formátování data použij <code>DATE_FORMAT(narozeni, '%e. %c. %Y')</code></li>
           </ul>
         </div>
         <div class="result-preview">
