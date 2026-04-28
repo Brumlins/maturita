@@ -105,46 +105,15 @@
           </table>
         </div>
         <div class="task-desc">
-          Vytvoř tabulku přes PHPMyAdmin klikačkou. Jedinou výjimkou je atribut <strong>uspesnost</strong> – podmínku <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">CHECK (uspesnost &lt;= 100.00)</code> PHPMyAdmin v GUI nenabídne, musí se zadat ručně přes SQL záložku.
+          Přes SQL pak jen doplnit podmínku pro úspěšnost:
         </div>
-        <div class="explanation" style="margin-top:1rem">
-          <div class="explanation-title">// POSTUP V PHPMyAdmin (krok za krokem)</div>
-          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
-            <li>V levém panelu vyber databázi <strong>dostihy</strong>, klikni na <strong>Nová tabulka</strong>.</li>
-            <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">trener</code>, počet sloupců: <strong>8</strong> → klikni <strong>Provést</strong>.</li>
-            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
-          </ol>
-          <div class="result-preview" style="margin:0 0 1rem">
-            <table class="result-table">
-              <thead>
-                <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>idtrener</code></td><td>INT</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td>✔</td></tr>
-                <tr><td><code>titul</code></td><td>ENUM</td><td><code>'Bc.','Dr.','Ing.','Mgr.'</code></td><td>NULL</td><td>✔</td><td>—</td><td>—</td></tr>
-                <tr><td><code>jmeno</code></td><td>VARCHAR</td><td>50</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                <tr><td><code>prijmeni</code></td><td>VARCHAR</td><td>50</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                <tr><td><code>narozeni</code></td><td>DATE</td><td>—</td><td>—</td><td>✔</td><td>—</td><td>—</td></tr>
-                <tr><td><code>pocet_koni</code></td><td>INT</td><td>—</td><td>as defined: <strong>10</strong></td><td>✔</td><td>—</td><td>—</td></tr>
-                <tr><td><code>uspesnost</code></td><td>DECIMAL</td><td>5,2</td><td>NULL</td><td>✔</td><td>—</td><td>—</td></tr>
-                <tr><td><code>clanek</code></td><td>TEXT</td><td>—</td><td>—</td><td>✔</td><td>—</td><td>—</td></tr>
-              </tbody>
-            </table>
+        <div class="code-block" style="margin-top:0.5rem">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
           </div>
-          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
-            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idtrener</code> – zaškrtni A_I, PHPMyAdmin automaticky navrhne PRIMARY index → potvrď.</li>
-            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">titul</code> – po výběru ENUM zadej do pole <em>Délka/Hodnoty</em> přesně: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'Bc.','Dr.','Ing.','Mgr.'</code></li>
-            <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
-            <li>CHECK podmínku pro <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">uspesnost</code> přidej přes záložku <strong>SQL</strong>: smaž předvyplněný text (<code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">SELECT * FROM `trener` WHERE 1</code>), zadej příkaz níže a klikni <strong>Provést</strong>.</li>
-          </ol>
-          <div class="code-block" style="margin-top:0.5rem">
-            <div class="code-header">
-              <span class="code-lang">SQL</span>
-              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
-            </div>
-            <pre><span class="kw">ALTER TABLE</span> <span class="tbl">trener</span>
+          <pre><span class="kw">ALTER TABLE</span> <span class="tbl">trener</span>
   <span class="kw">ADD CONSTRAINT CHECK</span> (<span class="col">uspesnost</span> <span class="op">&lt;=</span> <span class="num">100.00</span>);</pre>
-          </div>
         </div>
         <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
         <div class="sql-reveal-body" hidden>
