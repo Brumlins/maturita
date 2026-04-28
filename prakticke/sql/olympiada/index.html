@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympiáda – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- FLOATING SCHEMA PANEL -->
+  <div id="schema-panel" class="schema-panel">
+    <div class="schema-panel-header">
+      <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
+      <button class="schema-toggle" onclick="toggleSchema()">−</button>
+    </div>
+    <div class="schema-panel-body">
+      <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze olympiáda">
+    </div>
+  </div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <span class="current">olympiáda</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <button class="sidebar-link" onclick="toggleSchema()">
+        <span class="sidebar-num">—</span> Schéma DB
+      </button>
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Import + kódování</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Tabulka sportoviste</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Vložení záznamu</a>
+      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Vysocí sportovci</a>
+      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Sedmiboj žen</a>
+      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> Státy s více sportovci</a>
+      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> Reprezentanti USA</a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <a href="olympiada.sql" download class="dl-btn">⬇ olympiada.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <h1>Olympiáda 🏅</h1>
+      </div>
+
+      <!-- UKOL A -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Import databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Připoj se k lokálnímu MySQL serveru. Vypiš seznam všech databází. Vytvoř novou databázi s názvem <strong>olympiada</strong>, kódování <strong>utf8_czech_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>olympiada.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_czech_ci</strong>.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL B -->
+      <div class="task" id="ukol-b">
+        <div class="task-header">
+          <div class="task-letter b">b)</div>
+          <div class="task-info">
+            <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">sportoviste</code></div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku <strong>sportoviste</strong> pro evidenci olympijských areálů. Struktura vychází z tohoto vzorového záznamu:
+        </div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Název atributu</th><th>Doména atributu</th><th>Vzorový záznam</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idsportoviste</td><td>primární klíč, automatické číslo</td><td>1</td></tr>
+              <tr><td>Nazev</td><td>neprázdný znakový řetězec o délce max. 100 znaků</td><td>Plavecký bazén</td></tr>
+              <tr><td>Typ</td><td>výběr z voleb „novostavba", „rekonstrukce"</td><td>novostavba</td></tr>
+              <tr><td>Otevreni</td><td>platné datum</td><td>1. 3. 2013</td></tr>
+              <tr><td>Kapacita</td><td>celé číslo (max. pětimístné) bez znaménka</td><td>9500</td></tr>
+              <tr><td>Popis</td><td>dlouhý souvislý text</td><td style="max-width:280px;white-space:normal">Rozsáhlý zastřešený areál zahrnující padesátimetrový bazén pro plavání i bazén pro skoky do vody.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku přes PHPMyAdmin klikačkou.
+        </div>
+        <div class="explanation" style="margin-top:1rem">
+          <div class="explanation-title">// POSTUP V PHPMyAdmin (krok za krokem)</div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
+            <li>V levém panelu vyber databázi <strong>olympiada</strong>, klikni na <strong>Nová tabulka</strong>.</li>
+            <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">sportoviste</code>, počet sloupců: <strong>6</strong> → klikni <strong>Provést</strong>.</li>
+            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+          </ol>
+          <div class="result-preview" style="margin:0 0 1rem">
+            <table class="result-table">
+              <thead>
+                <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>idsportoviste</code></td><td>INT</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td><span class="check">✔</span></td></tr>
+                <tr><td><code>Nazev</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>Typ</code></td><td>ENUM</td><td><code>'novostavba','rekonstrukce'</code></td><td>NULL</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Otevreni</code></td><td>DATE</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Kapacita</code></td><td>INT</td><td>5</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Popis</code></td><td>TEXT</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idsportoviste</code> – zaškrtni A_I → PHPMyAdmin navrhne PRIMARY index, potvrď.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">Kapacita</code> – v části Atributy zaškrtni <strong>UNSIGNED</strong> (záporné kapacity nedávají smysl).</li>
+            <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
+          </ol>
+        </div>
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">CREATE TABLE</span> <span class="tbl">sportoviste</span> (
+  <span class="col">idsportoviste</span> <span class="fn">INT</span>           <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+  <span class="col">Nazev</span>         <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">Typ</span>           <span class="fn">ENUM</span>(<span class="str">'novostavba'</span>, <span class="str">'rekonstrukce'</span>) <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Otevreni</span>      <span class="fn">DATE</span>          <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Kapacita</span>      <span class="fn">INT</span>(<span class="num">5</span>) <span class="kw">UNSIGNED DEFAULT NULL</span>,
+  <span class="col">Popis</span>         <span class="fn">TEXT</span>          <span class="kw">DEFAULT NULL</span>,
+  <span class="kw">PRIMARY KEY</span> (<span class="col">idsportoviste</span>)
+) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
+  <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_czech_ci;</pre>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+            <ul>
+              <li><code>ENUM('novostavba','rekonstrukce')</code> – pouze dvě povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>INT(5) UNSIGNED</code> – kladná celá čísla, závorka (5) je jen zobrazovací šířka v PHPMyAdmin, neomezuje hodnoty</li>
+              <li><code>TEXT</code> – pro delší texty (až 65 535 znaků), vhodné pro popis areálu</li>
+              <li><code>DEFAULT NULL</code> – nepovinné sloupce; pokud hodnotu nezadáš, uloží se NULL</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL C -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
+            <div class="task-title">Vložení vzorového záznamu do tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">sportoviste</code></div>
+          </div>
+        </div>
+        <div class="task-desc">Vlož do tabulky <strong>sportoviste</strong> vzorový záznam. Jde to udělat přes PHPMyAdmin klikačkou (záložka <em>Vložit</em>), nebo SQL příkazem níže.</div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Atribut</th><th>Hodnota</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idsportoviste</td><td>doplní se automaticky (AUTO_INCREMENT)</td></tr>
+              <tr><td>Nazev</td><td>Plavecký bazén</td></tr>
+              <tr><td>Typ</td><td>novostavba</td></tr>
+              <tr><td>Otevreni</td><td>2013-03-01</td></tr>
+              <tr><td>Kapacita</td><td>9500</td></tr>
+              <tr><td>Popis</td><td style="max-width:320px;white-space:normal">Rozsáhlý zastřešený areál zahrnující padesátimetrový bazén pro plavání i bazén pro skoky do vody.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">INSERT INTO</span> <span class="tbl">sportoviste</span>
+  (<span class="col">Nazev</span>, <span class="col">Typ</span>, <span class="col">Otevreni</span>, <span class="col">Kapacita</span>, <span class="col">Popis</span>)
+<span class="kw">VALUES</span> (
+  <span class="str">'Plavecký bazén'</span>,
+  <span class="str">'novostavba'</span>,
+  <span class="str">'2013-03-01'</span>,
+  <span class="num">9500</span>,
+  <span class="str">'Rozsáhlý zastřešený areál zahrnující padesátimetrový bazén pro plavání i bazén pro skoky do vody.'</span>
+);</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
+            <li><code>idsportoviste</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky</li>
+            <li>Hodnota ENUM musí přesně odpovídat jedné z povolených voleb (pozor na diakritiku)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL D -->
+      <div class="task" id="ukol-d">
+        <div class="task-header">
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Vysocí sportovci – muži nad 190 cm, ženy nad 180 cm</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš seznam všech sportovců vyšších než <em>190 cm</em> a všech sportovkyň vyšších než <em>180 cm</em>. Seřaď abecedně podle příjmení.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">s</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">s</span>.<span class="col">prijmeni</span>)  <span class="kw">AS</span> <span class="str">`Jméno a příjmení`</span>,
+  <span class="al">st</span>.<span class="col">nazev_statu</span>                    <span class="kw">AS</span> <span class="str">`Stát`</span>,
+  <span class="al">s</span>.<span class="col">pohlavi</span>                        <span class="kw">AS</span> <span class="str">`Pohlaví`</span>,
+  <span class="fn">CONCAT</span>(<span class="fn">ROUND</span>(<span class="al">s</span>.<span class="col">vyska</span> <span class="op">*</span> <span class="num">100</span>), <span class="str">' cm'</span>) <span class="kw">AS</span> <span class="str">`Výška`</span>
+
+<span class="kw">FROM</span> <span class="tbl">sportovec</span> <span class="al">s</span>
+<span class="kw">JOIN</span> <span class="tbl">stat</span> <span class="al">st</span> <span class="kw">ON</span> <span class="al">st</span>.<span class="col">zkratka_statu</span> <span class="op">=</span> <span class="al">s</span>.<span class="col">zkratka_statu</span>
+
+<span class="kw">WHERE</span> (<span class="al">s</span>.<span class="col">pohlavi</span> <span class="op">=</span> <span class="str">'muž'</span>  <span class="kw">AND</span> <span class="al">s</span>.<span class="col">vyska</span> <span class="op">&gt;</span> <span class="num">1.90</span>)
+   <span class="kw">OR</span> (<span class="al">s</span>.<span class="col">pohlavi</span> <span class="op">=</span> <span class="str">'žena'</span> <span class="kw">AND</span> <span class="al">s</span>.<span class="col">vyska</span> <span class="op">&gt;</span> <span class="num">1.80</span>)
+
+<span class="kw">ORDER BY</span> <span class="al">s</span>.<span class="col">prijmeni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li>Sloupec <code>vyska</code> je uložen v <strong>metrech</strong> jako DECIMAL(3,2) – hodnoty jako 1.95 nebo 1.89</li>
+            <li>Podmínka <code>(&gt; 1.90)</code> = "vyšší než 190 cm", závorky zajistí správné pořadí OR/AND</li>
+            <li><code>ROUND(vyska * 100)</code> → z 1.89 udělá 189; <code>CONCAT(..., ' cm')</code> přidá jednotku</li>
+            <li><code>JOIN stat</code> – připojíme tabulku států, abychom mohli zobrazit celý název státu</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Jméno a příjmení ↑</th><th>Stát</th><th>Pohlaví</th><th>Výška</th></tr></thead>
+            <tbody>
+              <tr><td>Usain Bolt</td><td>Jamajka</td><td>muž</td><td>195 cm</td></tr>
+              <tr><td>Tatjana Černovová</td><td>Rusko</td><td>žena</td><td>189 cm</td></tr>
+              <tr><td>Michael Phelps</td><td>Spojené státy americké</td><td>muž</td><td>193 cm</td></tr>
+              <tr><td>Barbora Špotáková</td><td>Česká republika</td><td>žena</td><td>189 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL E -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
+          <div class="task-info">
+            <div class="task-title">Výsledky sedmiboje žen</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš výsledky atletického závodu <em>sedmiboj žen</em>. Zobraz jméno sportovkyně, název státu, výkon a druh medaile. Seřaď podle umístění vzestupně.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">s</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">s</span>.<span class="col">prijmeni</span>) <span class="kw">AS</span> <span class="str">`Jméno a příjmení`</span>,
+  <span class="al">st</span>.<span class="col">nazev_statu</span>                   <span class="kw">AS</span> <span class="str">`Stát`</span>,
+  <span class="al">ds</span>.<span class="col">vykon</span>                         <span class="kw">AS</span> <span class="str">`Výkon (b)`</span>,
+  <span class="al">u</span>.<span class="col">medaile</span>                       <span class="kw">AS</span> <span class="str">`Medaile`</span>
+
+<span class="kw">FROM</span> <span class="tbl">disciplina_sportovce</span> <span class="al">ds</span>
+<span class="kw">JOIN</span> <span class="tbl">sportovec</span>  <span class="al">s</span>  <span class="kw">ON</span> <span class="al">s</span>.<span class="col">idsportovec</span>  <span class="op">=</span> <span class="al">ds</span>.<span class="col">idsportovec</span>
+<span class="kw">JOIN</span> <span class="tbl">disciplina</span> <span class="al">d</span>  <span class="kw">ON</span> <span class="al">d</span>.<span class="col">iddiscipliny</span> <span class="op">=</span> <span class="al">ds</span>.<span class="col">iddiscipliny</span>
+<span class="kw">JOIN</span> <span class="tbl">stat</span>       <span class="al">st</span> <span class="kw">ON</span> <span class="al">st</span>.<span class="col">zkratka_statu</span> <span class="op">=</span> <span class="al">s</span>.<span class="col">zkratka_statu</span>
+<span class="kw">JOIN</span> <span class="tbl">umisteni</span>   <span class="al">u</span>  <span class="kw">ON</span> <span class="al">u</span>.<span class="col">poradi</span>        <span class="op">=</span> <span class="al">ds</span>.<span class="col">umisteni</span>
+
+<span class="kw">WHERE</span> <span class="al">d</span>.<span class="col">nazev_discipliny</span> <span class="op">=</span> <span class="str">'sedmiboj'</span>
+
+<span class="kw">ORDER BY</span> <span class="al">ds</span>.<span class="col">umisteni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li>Začínáme od <code>disciplina_sportovce</code> – ta propojuje sportovce s disciplínami a jejich výkonem</li>
+            <li><code>JOIN disciplina</code> – umožní filtrovat podle <code>nazev_discipliny = 'sedmiboj'</code></li>
+            <li><code>JOIN umisteni</code> – tabulka přeloží číslo umístění (1,2,3) na druh medaile (zlatá, stříbrná, bronzová)</li>
+            <li><code>JOIN stat</code> – potřebujeme celý název státu místo zkratky</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (3 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Jméno a příjmení</th><th>Stát</th><th>Výkon (b) ↑</th><th>Medaile</th></tr></thead>
+            <tbody>
+              <tr><td>Jessica Ennis-Hill</td><td>Velká Británie</td><td>6955</td><td>zlatá</td></tr>
+              <tr><td>Lilli Schwarzkopfová</td><td>Německo</td><td>6649</td><td>stříbrná</td></tr>
+              <tr><td>Tatjana Černovová</td><td>Rusko</td><td>6628</td><td>bronzová</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL F -->
+      <div class="task" id="ukol-f">
+        <div class="task-header">
+          <div class="task-letter f">f)</div>
+          <div class="task-info">
+            <div class="task-title">Státy s více než jedním sportovcem – GROUP BY</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš přehled počtu sportovců zastupujících jednotlivé země. Zobraz pouze státy s <em>více než jedním sportovcem</em>. Seřaď primárně podle počtu sportovců <em>(sestupně)</em>, sekundárně podle názvu státu <em>(abecedně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">st</span>.<span class="col">nazev_statu</span>         <span class="kw">AS</span> <span class="str">`Stát`</span>,
+  <span class="fn">COUNT</span>(<span class="al">s</span>.<span class="col">idsportovec</span>)  <span class="kw">AS</span> <span class="str">`Počet sportovců`</span>
+
+<span class="kw">FROM</span> <span class="tbl">stat</span> <span class="al">st</span>
+<span class="kw">JOIN</span> <span class="tbl">sportovec</span> <span class="al">s</span> <span class="kw">ON</span> <span class="al">s</span>.<span class="col">zkratka_statu</span> <span class="op">=</span> <span class="al">st</span>.<span class="col">zkratka_statu</span>
+
+<span class="kw">GROUP BY</span> <span class="al">st</span>.<span class="col">zkratka_statu</span>
+
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(<span class="al">s</span>.<span class="col">idsportovec</span>) <span class="op">&gt;</span> <span class="num">1</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet sportovců`</span> <span class="kw">DESC</span>,
+         <span class="al">st</span>.<span class="col">nazev_statu</span>    <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// HAVING vs WHERE</div>
+          <ul>
+            <li><code>GROUP BY zkratka_statu</code> – seskupení podle zkratky (ne názvem – ten by mohl mít duplicity)</li>
+            <li><code>HAVING COUNT(...) &gt; 1</code> – filtr <strong>po</strong> seskupení, takto filtrujeme výsledky agregací</li>
+            <li><code>WHERE</code> by zde nefungovalo – to filtruje <strong>před</strong> seskupením, nemůže použít COUNT</li>
+            <li>Sekundární řazení <code>nazev_statu ASC</code> rozhodne pořadí při shodě počtu (Jamajka vs Spojené státy)</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (3 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Stát</th><th>Počet sportovců ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Německo</td><td>3</td></tr>
+              <tr><td>Jamajka</td><td>2</td></tr>
+              <tr><td>Spojené státy americké</td><td>2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL G -->
+      <div class="task" id="ukol-g">
+        <div class="task-header">
+          <div class="task-letter g">g)</div>
+          <div class="task-info">
+            <div class="task-title">Reprezentanti USA – odvětví, disciplína, medaile</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny representanty <em>Spojených států amerických</em> včetně názvu sportovního odvětví, označení disciplíny a získaného cenného kovu. Seřaď dle příjmení, pak dle umístění.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">s</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">s</span>.<span class="col">prijmeni</span>) <span class="kw">AS</span> <span class="str">`Sportovec`</span>,
+  <span class="al">d</span>.<span class="col">odvetvi_nazev_odvetvi</span>           <span class="kw">AS</span> <span class="str">`Odvětví`</span>,
+  <span class="al">d</span>.<span class="col">nazev_discipliny</span>               <span class="kw">AS</span> <span class="str">`Disciplína`</span>,
+  <span class="al">u</span>.<span class="col">medaile</span>                       <span class="kw">AS</span> <span class="str">`Medaile`</span>
+
+<span class="kw">FROM</span> <span class="tbl">sportovec</span> <span class="al">s</span>
+<span class="kw">JOIN</span> <span class="tbl">disciplina_sportovce</span> <span class="al">ds</span> <span class="kw">ON</span> <span class="al">ds</span>.<span class="col">idsportovec</span>  <span class="op">=</span> <span class="al">s</span>.<span class="col">idsportovec</span>
+<span class="kw">JOIN</span> <span class="tbl">disciplina</span>           <span class="al">d</span>  <span class="kw">ON</span> <span class="al">d</span>.<span class="col">iddiscipliny</span>  <span class="op">=</span> <span class="al">ds</span>.<span class="col">iddiscipliny</span>
+<span class="kw">JOIN</span> <span class="tbl">umisteni</span>             <span class="al">u</span>  <span class="kw">ON</span> <span class="al">u</span>.<span class="col">poradi</span>        <span class="op">=</span> <span class="al">ds</span>.<span class="col">umisteni</span>
+
+<span class="kw">WHERE</span> <span class="al">s</span>.<span class="col">zkratka_statu</span> <span class="op">=</span> <span class="str">'USA'</span>
+
+<span class="kw">ORDER BY</span> <span class="al">s</span>.<span class="col">prijmeni</span> <span class="kw">ASC</span>,
+         <span class="al">ds</span>.<span class="col">umisteni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li>Začínáme od <code>sportovec</code> a filtrujeme hned <code>WHERE zkratka_statu = 'USA'</code></li>
+            <li><code>JOIN disciplina_sportovce</code> – přidá výkon a umístění v každé disciplíně, kde sportovec závodil</li>
+            <li><code>JOIN disciplina</code> – přidá název disciplíny a sportovního odvětví</li>
+            <li><code>JOIN umisteni</code> – přeloží číslo umístění na medaili (zlatá/stříbrná/bronzová)</li>
+            <li>Phelps závodil ve dvou disciplínách → v tabulce se zobrazí jako dva řádky</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (3 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Sportovec ↑</th><th>Odvětví</th><th>Disciplína</th><th>Medaile</th></tr></thead>
+            <tbody>
+              <tr><td>Justin Gatlin</td><td>atletika</td><td>100 m</td><td>bronzová</td></tr>
+              <tr><td>Michael Phelps</td><td>plavání</td><td>100 m motýlek</td><td>zlatá</td></tr>
+              <tr><td>Michael Phelps</td><td>plavání</td><td>200 m motýlek</td><td>bronzová</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/sql.js"></script>
+</body>
+</html>

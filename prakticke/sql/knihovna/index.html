@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knihovna – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- FLOATING SCHEMA PANEL -->
+  <div id="schema-panel" class="schema-panel">
+    <div class="schema-panel-header">
+      <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
+      <button class="schema-toggle" onclick="toggleSchema()">−</button>
+    </div>
+    <div class="schema-panel-body">
+      <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze knihovna">
+    </div>
+  </div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <span class="current">knihovna</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <button class="sidebar-link" onclick="toggleSchema()">
+        <span class="sidebar-num">—</span> Schéma DB
+      </button>
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Import + kódování</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Tabulka rezervace</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Vložení záznamu</a>
+      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Čtenáři z Opavy</a>
+      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Nevrácené výpůjčky</a>
+      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> Statistika čtenářů</a>
+      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> Autoři a jejich knihy</a>
+      <a href="#ukol-h" class="sidebar-link" data-target="ukol-h"><span class="sidebar-num">h)</span> DROP tabulka + databáze</a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <a href="knihovna.sql" download class="dl-btn">⬇ knihovna.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <h1>Knihovna 📚</h1>
+      </div>
+
+      <!-- UKOL A -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Import databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          V PHPMyAdmin vytvoř novou databázi s názvem <strong>knihovna</strong>, kódování <strong>utf8_unicode_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>knihovna.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_unicode_ci</strong>.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL B -->
+      <div class="task" id="ukol-b">
+        <div class="task-header">
+          <div class="task-letter b">b)</div>
+          <div class="task-info">
+            <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">rezervace</code></div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku <strong>rezervace</strong> pro evidenci rezervací knih čtenáři. Struktura vychází z tohoto vzorového záznamu:
+        </div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Název atributu</th><th>Doména atributu</th><th>Vzorový záznam</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idrezervace</td><td>primární klíč, automatické číslo</td><td>1</td></tr>
+              <tr><td>cislo_prukazu</td><td>celé číslo o délce 5 číslic</td><td>4</td></tr>
+              <tr><td>isbn</td><td>znakový řetězec, max. 20 znaků</td><td>978-80-7335-123-6</td></tr>
+              <tr><td>datum_rezervace</td><td>platné datum, povinný údaj</td><td>1. 5. 2010</td></tr>
+              <tr><td>platnost_do</td><td>platné datum</td><td>15. 5. 2010</td></tr>
+              <tr><td>stav</td><td>výběr z voleb „aktivní", „splněná", „zrušená" (výchozí: aktivní)</td><td>aktivní</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku přes PHPMyAdmin klikačkou.
+        </div>
+        <div class="explanation" style="margin-top:1rem">
+          <div class="explanation-title">// POSTUP V PHPMyAdmin (krok za krokem)</div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
+            <li>V levém panelu vyber databázi <strong>knihovna</strong>, klikni na <strong>Nová tabulka</strong>.</li>
+            <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">rezervace</code>, počet sloupců: <strong>6</strong> → klikni <strong>Provést</strong>.</li>
+            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+          </ol>
+          <div class="result-preview" style="margin:0 0 1rem">
+            <table class="result-table">
+              <thead>
+                <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>idrezervace</code></td><td>INT</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td><span class="check">✔</span></td></tr>
+                <tr><td><code>cislo_prukazu</code></td><td>INT</td><td>5</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>isbn</code></td><td>VARCHAR</td><td>20</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>datum_rezervace</code></td><td>DATE</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>platnost_do</code></td><td>DATE</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>stav</code></td><td>ENUM</td><td><code>'aktivní','splněná','zrušená'</code></td><td>as defined: <strong>aktivní</strong></td><td>—</td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idrezervace</code> – zaškrtni A_I → PHPMyAdmin navrhne PRIMARY index, potvrď.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">stav</code> – vyber ENUM, do <em>Délka/Hodnoty</em> zadej: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'aktivní','splněná','zrušená'</code></li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">stav</code> – výchozí hodnotu nastav na <strong>as defined: aktivní</strong></li>
+            <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
+          </ol>
+        </div>
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">CREATE TABLE</span> <span class="tbl">rezervace</span> (
+  <span class="col">idrezervace</span>     <span class="fn">INT</span>         <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+  <span class="col">cislo_prukazu</span>   <span class="fn">INT</span>(<span class="num">5</span>)      <span class="kw">NOT NULL</span>,
+  <span class="col">isbn</span>            <span class="fn">VARCHAR</span>(<span class="num">20</span>) <span class="kw">NOT NULL</span>,
+  <span class="col">datum_rezervace</span> <span class="fn">DATE</span>        <span class="kw">NOT NULL</span>,
+  <span class="col">platnost_do</span>     <span class="fn">DATE</span>        <span class="kw">DEFAULT NULL</span>,
+  <span class="col">stav</span>            <span class="fn">ENUM</span>(<span class="str">'aktivní'</span>, <span class="str">'splněná'</span>, <span class="str">'zrušená'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="str">'aktivní'</span>,
+  <span class="kw">PRIMARY KEY</span> (<span class="col">idrezervace</span>)
+) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
+  <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_unicode_ci;</pre>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+            <ul>
+              <li><code>ENUM('aktivní','splněná','zrušená')</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>DEFAULT 'aktivní'</code> – každá nová rezervace je automaticky aktivní, dokud nezměníme stav</li>
+              <li><code>datum_rezervace NOT NULL</code> – povinný údaj, bez data se záznam odmítne vložit</li>
+              <li><code>platnost_do DEFAULT NULL</code> – nepovinné, rezervace nemusí mít definovanou expiraci</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL C -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
+            <div class="task-title">Vložení vzorového záznamu do tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">rezervace</code></div>
+          </div>
+        </div>
+        <div class="task-desc">Vlož do tabulky <strong>rezervace</strong> vzorový záznam. Jde to udělat přes PHPMyAdmin klikačkou (záložka <em>Vložit</em>), nebo SQL příkazem níže.</div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Atribut</th><th>Hodnota</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idrezervace</td><td>doplní se automaticky (AUTO_INCREMENT)</td></tr>
+              <tr><td>cislo_prukazu</td><td>4</td></tr>
+              <tr><td>isbn</td><td>978-80-7335-123-6</td></tr>
+              <tr><td>datum_rezervace</td><td>2010-05-01</td></tr>
+              <tr><td>platnost_do</td><td>2010-05-15</td></tr>
+              <tr><td>stav</td><td>aktivní</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">INSERT INTO</span> <span class="tbl">rezervace</span>
+  (<span class="col">cislo_prukazu</span>, <span class="col">isbn</span>, <span class="col">datum_rezervace</span>, <span class="col">platnost_do</span>, <span class="col">stav</span>)
+<span class="kw">VALUES</span> (
+  <span class="num">4</span>,
+  <span class="str">'978-80-7335-123-6'</span>,
+  <span class="str">'2010-05-01'</span>,
+  <span class="str">'2010-05-15'</span>,
+  <span class="str">'aktivní'</span>
+);</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
+            <li><code>idrezervace</code> nezadáváme – AUTO_INCREMENT ho doplní automaticky (bude 1)</li>
+            <li>Stav <code>'aktivní'</code> by se doplnil i bez zadání díky DEFAULT, ale je dobrou praxí ho uvést explicitně</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL D -->
+      <div class="task" id="ukol-d">
+        <div class="task-header">
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Čtenáři z Opavy</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny čtenáře s bydlištěm v <em>Opavě</em>. Zobraz číslo průkazu, příjmení, jméno, titul a datum narození. Seřaď abecedně podle příjmení.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="col">cislo_prukazu</span> <span class="kw">AS</span> <span class="str">`Číslo průkazu`</span>,
+  <span class="col">prijmeni</span>      <span class="kw">AS</span> <span class="str">`Příjmení`</span>,
+  <span class="col">jmeno</span>         <span class="kw">AS</span> <span class="str">`Jméno`</span>,
+  <span class="col">titul</span>         <span class="kw">AS</span> <span class="str">`Titul`</span>,
+  <span class="col">narozeni</span>      <span class="kw">AS</span> <span class="str">`Datum narození`</span>
+
+<span class="kw">FROM</span> <span class="tbl">ctenar</span>
+
+<span class="kw">WHERE</span> <span class="col">obec</span> <span class="op">=</span> <span class="str">'Opava'</span>
+
+<span class="kw">ORDER BY</span> <span class="col">prijmeni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>Jednoduchý dotaz bez JOIN – všechna potřebná data jsou v tabulce <code>ctenar</code></li>
+            <li>Sloupec <code>titul</code> je ENUM – pro čtenáře bez titulu se zobrazí NULL</li>
+            <li><code>narozeni</code> je DATE – zobrazí se ve formátu YYYY-MM-DD; pro hezký výstup lze použít <code>DATE_FORMAT(narozeni, '%e. %c. %Y')</code></li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (6 řádků)</div>
+          <table class="result-table">
+            <thead><tr><th>Číslo průkazu</th><th>Příjmení ↑</th><th>Jméno</th><th>Titul</th><th>Datum narození</th></tr></thead>
+            <tbody>
+              <tr><td>3</td><td>Bassová</td><td>Petra</td><td>Bc.</td><td>1982-04-25</td></tr>
+              <tr><td>4</td><td>Husník</td><td>Kamil</td><td>NULL</td><td>1981-05-17</td></tr>
+              <tr><td>7</td><td>Pilná</td><td>Marta</td><td>NULL</td><td>1990-10-24</td></tr>
+              <tr><td>8</td><td>Sekyra</td><td>Dominik</td><td>NULL</td><td>1991-11-05</td></tr>
+              <tr><td>9</td><td>Seidlová</td><td>Mariana</td><td>Bc.</td><td>1979-01-09</td></tr>
+              <tr><td>10</td><td>Šperk</td><td>Jiří</td><td>NULL</td><td>1993-07-14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL E -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
+          <div class="task-info">
+            <div class="task-title">Nevrácené výpůjčky – čtenář, titul, datum půjčení</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny výpůjčky, které čtenáři <em>dosud nevrátili</em> (datum vrácení není vyplněno). Zobraz jméno čtenáře, titul knihy a datum půjčení. Seřaď podle data půjčení vzestupně.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">c</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">c</span>.<span class="col">prijmeni</span>)           <span class="kw">AS</span> <span class="str">`Čtenář`</span>,
+  <span class="al">k</span>.<span class="col">titul</span>                                    <span class="kw">AS</span> <span class="str">`Titul knihy`</span>,
+  <span class="fn">DATE_FORMAT</span>(<span class="al">v</span>.<span class="col">datum_pujceni</span>, <span class="str">'%e. %c. %Y'</span>) <span class="kw">AS</span> <span class="str">`Datum půjčení`</span>
+
+<span class="kw">FROM</span> <span class="tbl">vypujcka</span> <span class="al">v</span>
+<span class="kw">JOIN</span> <span class="tbl">ctenar</span>   <span class="al">c</span>  <span class="kw">ON</span> <span class="al">c</span>.<span class="col">cislo_prukazu</span> <span class="op">=</span> <span class="al">v</span>.<span class="col">cislo_prukazu</span>
+<span class="kw">JOIN</span> <span class="tbl">exemplar</span> <span class="al">e</span>  <span class="kw">ON</span> <span class="al">e</span>.<span class="col">signatura</span>     <span class="op">=</span> <span class="al">v</span>.<span class="col">signatura</span>
+<span class="kw">JOIN</span> <span class="tbl">kniha</span>    <span class="al">k</span>  <span class="kw">ON</span> <span class="al">k</span>.<span class="col">isbn</span>          <span class="op">=</span> <span class="al">e</span>.<span class="col">isbn</span>
+
+<span class="kw">WHERE</span> <span class="al">v</span>.<span class="col">datum_vraceni</span> <span class="kw">IS NULL</span>
+
+<span class="kw">ORDER BY</span> <span class="al">v</span>.<span class="col">datum_pujceni</span> <span class="kw">ASC</span>,
+         <span class="al">c</span>.<span class="col">prijmeni</span>     <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>datum_vraceni IS NULL</code> – hledáme řádky, kde datum vrácení nebylo vyplněno = kniha dosud leží u čtenáře</li>
+            <li>Řetěz joinů: <code>vypujcka → exemplar → kniha</code> – výpůjčka se váže na konkrétní fyzický exemplář, ten se pak spojí s katalogem knih</li>
+            <li><code>DATE_FORMAT(datum, '%e. %c. %Y')</code> – hezčí formát data: <em>23. 2. 2010</em> místo <em>2010-02-23</em></li>
+            <li>Sekundární řazení dle příjmení zajistí deterministické pořadí u půjček se stejným datem</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Čtenář</th><th>Titul knihy</th><th>Datum půjčení ↑</th></tr></thead>
+            <tbody>
+              <tr><td>Jiří Šperk</td><td>Carrie</td><td>23. 2. 2010</td></tr>
+              <tr><td>Jiří Šperk</td><td>Krakatit</td><td>29. 3. 2010</td></tr>
+              <tr><td>Marta Pilná</td><td>Rozmarné léto</td><td>12. 4. 2010</td></tr>
+              <tr><td>Mariana Seidlová</td><td>Babička</td><td>12. 4. 2010</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL F -->
+      <div class="task" id="ukol-f">
+        <div class="task-header">
+          <div class="task-letter f">f)</div>
+          <div class="task-info">
+            <div class="task-title">Statistika výpůjček podle čtenáře – GROUP BY</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš ke každému čtenáři celkový počet výpůjček a součet zaplacených poplatků. Seřaď primárně podle počtu výpůjček <em>(sestupně)</em>, sekundárně podle příjmení <em>(abecedně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">c</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">c</span>.<span class="col">prijmeni</span>) <span class="kw">AS</span> <span class="str">`Čtenář`</span>,
+  <span class="fn">COUNT</span>(<span class="al">v</span>.<span class="col">signatura</span>)              <span class="kw">AS</span> <span class="str">`Počet výpůjček`</span>,
+  <span class="fn">SUM</span>(<span class="al">v</span>.<span class="col">poplatek</span>)                <span class="kw">AS</span> <span class="str">`Celkový poplatek (Kč)`</span>
+
+<span class="kw">FROM</span> <span class="tbl">ctenar</span> <span class="al">c</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">vypujcka</span> <span class="al">v</span> <span class="kw">ON</span> <span class="al">v</span>.<span class="col">cislo_prukazu</span> <span class="op">=</span> <span class="al">c</span>.<span class="col">cislo_prukazu</span>
+
+<span class="kw">GROUP BY</span> <span class="al">c</span>.<span class="col">cislo_prukazu</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet výpůjček`</span> <span class="kw">DESC</span>,
+         <span class="al">c</span>.<span class="col">prijmeni</span>        <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// KLÍČOVÉ KONCEPTY</div>
+          <ul>
+            <li><code>LEFT JOIN</code> – zahrne i čtenáře bez výpůjček (v datech ale takoví nejsou); INNER JOIN by byl také funkční</li>
+            <li><code>GROUP BY c.cislo_prukazu</code> – seskupení podle ID čtenáře (ne jménem – jména se mohou opakovat)</li>
+            <li><code>COUNT(v.signatura)</code> – počet řádků ve výpůjčkách pro daného čtenáře</li>
+            <li><code>SUM(v.poplatek)</code> – součet všech poplatků; sloupec je DECIMAL, výsledek bude také DECIMAL</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (10 řádků)</div>
+          <table class="result-table">
+            <thead><tr><th>Čtenář</th><th>Počet výpůjček ↓</th><th>Celkový poplatek (Kč)</th></tr></thead>
+            <tbody>
+              <tr><td>Martin Novák</td><td>4</td><td>0.00</td></tr>
+              <tr><td>Petra Bassová</td><td>3</td><td>30.00</td></tr>
+              <tr><td>Kamil Husník</td><td>3</td><td>30.00</td></tr>
+              <tr><td>Milada Frejová</td><td>2</td><td>10.00</td></tr>
+              <tr><td>Marta Pilná</td><td>2</td><td>10.00</td></tr>
+              <tr><td>Jindřich Pleva</td><td>2</td><td>30.00</td></tr>
+              <tr><td>Dominik Sekyra</td><td>2</td><td>40.00</td></tr>
+              <tr><td>Mariana Seidlová</td><td>2</td><td>10.00</td></tr>
+              <tr><td>Jiří Šperk</td><td>2</td><td>0.00</td></tr>
+              <tr><td>Jana Soudková</td><td>1</td><td>0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL G -->
+      <div class="task" id="ukol-g">
+        <div class="task-header">
+          <div class="task-letter g">g)</div>
+          <div class="task-info">
+            <div class="task-title">Autoři a jejich knihy s vydavatelstvím</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš přehled všech autorů a knih, které napsali, včetně vydavatelství. Seřaď primárně podle příjmení autora, sekundárně podle titulu knihy.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">a</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">a</span>.<span class="col">prijmeni</span>) <span class="kw">AS</span> <span class="str">`Autor`</span>,
+  <span class="al">k</span>.<span class="col">titul</span>                          <span class="kw">AS</span> <span class="str">`Titul`</span>,
+  <span class="al">vyd</span>.<span class="col">nazev</span>                        <span class="kw">AS</span> <span class="str">`Vydavatelství`</span>
+
+<span class="kw">FROM</span> <span class="tbl">autor</span> <span class="al">a</span>
+<span class="kw">JOIN</span> <span class="tbl">autori_knih</span>    <span class="al">ak</span>  <span class="kw">ON</span> <span class="al">ak</span>.<span class="col">id_autora</span>        <span class="op">=</span> <span class="al">a</span>.<span class="col">id_autora</span>
+<span class="kw">JOIN</span> <span class="tbl">kniha</span>          <span class="al">k</span>   <span class="kw">ON</span> <span class="al">k</span>.<span class="col">isbn</span>             <span class="op">=</span> <span class="al">ak</span>.<span class="col">kniha_isbn</span>
+<span class="kw">JOIN</span> <span class="tbl">vydavatelstvi</span>  <span class="al">vyd</span> <span class="kw">ON</span> <span class="al">vyd</span>.<span class="col">id_vydavatelstvi</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">id_vydavatelstvi</span>
+
+<span class="kw">ORDER BY</span> <span class="al">a</span>.<span class="col">prijmeni</span> <span class="kw">ASC</span>,
+         <span class="al">k</span>.<span class="col">titul</span>    <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li>Tabulka <code>autori_knih</code> je vazební – řeší vztah M:N (jeden autor → více knih, jedna kniha → více autorů)</li>
+            <li>Procházíme řetězec: <code>autor → autori_knih → kniha → vydavatelstvi</code></li>
+            <li>Autoři s více knihami (Tolstoj, Čapek, King, Vančura) se v výsledku zobrazí vícekrát – jeden řádek na knihu</li>
+            <li>Alias <code>vyd</code> pro vydavatelstvi – zabrání konfliktu s případnými jinými tabulkami se sloupcem <code>nazev</code></li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (11 řádků)</div>
+          <table class="result-table">
+            <thead><tr><th>Autor ↑</th><th>Titul ↑</th><th>Vydavatelství</th></tr></thead>
+            <tbody>
+              <tr><td>Albert Camus</td><td>Cizinec</td><td>Lidové noviny</td></tr>
+              <tr><td>Karel Čapek</td><td>Anglické listy</td><td>Levné knihy</td></tr>
+              <tr><td>Karel Čapek</td><td>Krakatit</td><td>Levné knihy</td></tr>
+              <tr><td>Stephen King</td><td>Carrie</td><td>Lidové noviny</td></tr>
+              <tr><td>Stephen King</td><td>Misery</td><td>Lidové noviny</td></tr>
+              <tr><td>Božena Němcová</td><td>Babička</td><td>Albatros</td></tr>
+              <tr><td>Lev Nikolajevič Tolstoj</td><td>Anna Kareninová</td><td>Lidové noviny</td></tr>
+              <tr><td>Lev Nikolajevič Tolstoj</td><td>Novely o ruské duši</td><td>Levné knihy</td></tr>
+              <tr><td>Lev Nikolajevič Tolstoj</td><td>Rozprávky a bájky</td><td>Levné knihy</td></tr>
+              <tr><td>Vladislav Vančura</td><td>Markéta Lazarová</td><td>Lidové noviny</td></tr>
+              <tr><td>Vladislav Vančura</td><td>Rozmarné léto</td><td>Albatros</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL H -->
+      <div class="task" id="ukol-h">
+        <div class="task-header">
+          <div class="task-letter">h)</div>
+          <div class="task-info">
+            <div class="task-title">Smazání tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">rezervace</code> a celé databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Nejdřív odstraň tabulku <strong>rezervace</strong>, pak úplně smaž celou databázi <strong>knihovna</strong>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cm">-- odstraní tabulku rezervace</span>
+<span class="kw">DROP TABLE</span> <span class="tbl">rezervace</span>;
+
+<span class="cm">-- odstraní celou databázi se všemi tabulkami</span>
+<span class="kw">DROP DATABASE</span> <span class="tbl">knihovna</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZOR</div>
+          <ul>
+            <li><code>DROP TABLE</code> smaže tabulku včetně všech dat, nelze vrátit</li>
+            <li><code>DROP DATABASE</code> smaže celou databázi se všemi tabulkami a daty</li>
+            <li>Pořadí záleží – nejdřív tabulka, pak DB. Opačně by DROP TABLE selhal, protože DB by neexistovala</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/sql.js"></script>
+</body>
+</html>
