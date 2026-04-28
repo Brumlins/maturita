@@ -124,7 +124,7 @@
                 <tr><td><code>titul</code></td><td>ENUM</td><td><code>'Bc.','Dr.','Ing.','Mgr.'</code></td><td>NULL</td><td><span class="check">✔</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
                 <tr><td><code>jmeno</code></td><td>VARCHAR</td><td>50</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
                 <tr><td><code>prijmeni</code></td><td>VARCHAR</td><td>50</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-                <tr><td><code>narozeni</code></td><td>DATE</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✔</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
+                <tr><td><code>narozeni</code></td><td>DATE</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
                 <tr><td><code>pocet_koni</code></td><td>INT</td><td><span class="dash">—</span></td><td>as defined: <strong>10</strong></td><td><span class="check">✔</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
                 <tr><td><code>uspesnost</code></td><td>DECIMAL</td><td>5,2</td><td>NULL</td><td><span class="check">✔</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
                 <tr><td><code>clanek</code></td><td>TEXT</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✔</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
@@ -155,7 +155,7 @@
   <span class="col">titul</span>      <span class="fn">ENUM</span>(<span class="str">'Bc.'</span>, <span class="str">'Dr.'</span>, <span class="str">'Ing.'</span>, <span class="str">'Mgr.'</span>) <span class="kw">DEFAULT NULL</span>,
   <span class="col">jmeno</span>      <span class="fn">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">NOT NULL</span>,
   <span class="col">prijmeni</span>   <span class="fn">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">NOT NULL</span>,
-  <span class="col">narozeni</span>   <span class="fn">DATE</span>         <span class="kw">DEFAULT NULL</span>,
+  <span class="col">narozeni</span>   <span class="fn">DATE</span>         <span class="kw">NOT NULL</span>,
   <span class="col">pocet_koni</span> <span class="fn">INT</span>          <span class="kw">DEFAULT</span> <span class="num">10</span>,
   <span class="col">uspesnost</span>  <span class="fn">DECIMAL</span>(<span class="num">5</span>,<span class="num">2</span>)  <span class="kw">DEFAULT NULL</span>
                <span class="kw">CHECK</span> (<span class="col">uspesnost</span> <span class="op">&lt;=</span> <span class="num">100.00</span>),
