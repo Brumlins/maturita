@@ -269,6 +269,8 @@ pre {
 }
 .result-table tr:last-child td { border-bottom: none; }
 .result-table tr:hover td { background: rgba(255,255,255,0.02); }
+.result-table .check { color: var(--accent2); font-weight: 700; }
+.result-table .dash  { color: var(--border); }
 
 .divider { height: 1px; background: var(--border); margin: 3rem 0; }
 
