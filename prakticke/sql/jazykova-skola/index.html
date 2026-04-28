@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jazyková škola – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- FLOATING SCHEMA PANEL -->
+  <div id="schema-panel" class="schema-panel">
+    <div class="schema-panel-header">
+      <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
+      <button class="schema-toggle" onclick="toggleSchema()">−</button>
+    </div>
+    <div class="schema-panel-body">
+      <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze jazyková škola">
+    </div>
+  </div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <span class="current">jazyková škola</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <button class="sidebar-link" onclick="toggleSchema()">
+        <span class="sidebar-num">—</span> Schéma DB
+      </button>
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Import + kódování</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Tabulka ucebnice</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Vložení záznamu</a>
+      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Studenti kurzu z Brna/Ostravy</a>
+      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Kurzy pro začátečníky</a>
+      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> Kurzy Milady Frejové</a>
+      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> Vytížení učeben</a>
+      <a href="#ukol-h" class="sidebar-link" data-target="ukol-h"><span class="sidebar-num">h)</span> Snížení počtu lekcí</a>
+      <a href="#ukol-i" class="sidebar-link" data-target="ukol-i"><span class="sidebar-num">i)</span> Smazání uživatelek</a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <a href="langschool.sql" download class="dl-btn">⬇ langschool.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <h1>Jazyková škola 🗣️</h1>
+      </div>
+
+      <!-- UKOL A -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Import databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          V PHPMyAdmin vytvoř novou databázi s názvem <strong>langschool</strong>, kódování <strong>utf8_czech_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>langschool.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_czech_ci</strong>.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL B -->
+      <div class="task" id="ukol-b">
+        <div class="task-header">
+          <div class="task-letter b">b)</div>
+          <div class="task-info">
+            <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">ucebnice</code></div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku <strong>ucebnice</strong> s těmito atributy:
+        </div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Název atributu</th><th>Doména atributu</th><th>Vzorový záznam</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>ISBN</td><td>primární klíč (znakový řetězec)</td><td>978-0-19-434074-8</td></tr>
+              <tr><td>Titul</td><td>neprázdný znakový řetězec, max. 100 znaků, povinný</td><td>Clockwise pre-intermediate</td></tr>
+              <tr><td>Autor</td><td>znakový řetězec, max. 50 znaků</td><td>Bruce McGowen</td></tr>
+              <tr><td>Rok_vydani</td><td>celé číslo (4 numerické znaky)</td><td>2000</td></tr>
+              <tr><td>Uroven</td><td>volby: začátečník, mírně pokročilý, pokročilý</td><td>mírně pokročilý</td></tr>
+              <tr><td>Popis</td><td>dlouhý souvislý text</td><td style="max-width:260px;white-space:normal">This energic course develops fluency, refreshes key grammar areas, and extends active vocabulary.</td></tr>
+              <tr><td>Cena</td><td>desetinné číslo s pevnou řádovou čárkou (max. hodnota 9999.99)</td><td>350,50</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku přes PHPMyAdmin klikačkou.
+        </div>
+        <div class="explanation" style="margin-top:1rem">
+          <div class="explanation-title">// POSTUP V PHPMyAdmin (krok za krokem)</div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
+            <li>V levém panelu vyber databázi <strong>langschool</strong>, klikni na <strong>Nová tabulka</strong>.</li>
+            <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">ucebnice</code>, počet sloupců: <strong>7</strong> → klikni <strong>Provést</strong>.</li>
+            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+          </ol>
+          <div class="result-preview" style="margin:0 0 1rem">
+            <table class="result-table">
+              <thead>
+                <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>ISBN</code></td><td>VARCHAR</td><td>20</td><td>—</td><td>—</td><td>PRIMARY</td><td>—</td></tr>
+                <tr><td><code>Titul</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>Autor</code></td><td>VARCHAR</td><td>50</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Rok_vydani</code></td><td>INT</td><td>4</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Uroven</code></td><td>ENUM</td><td><code>'začátečník','mírně pokročilý','pokročilý'</code></td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Popis</code></td><td>TEXT</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>Cena</code></td><td>DECIMAL</td><td>6,2</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
+            <li>ISBN je VARCHAR (ne INT) – obsahuje pomlčky, primární klíč nastavíš výběrem PRIMARY v Index.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">Uroven</code> – vyber ENUM, do <em>Délka/Hodnoty</em> zadej: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'začátečník','mírně pokročilý','pokročilý'</code></li>
+            <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
+          </ol>
+        </div>
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">CREATE TABLE</span> <span class="tbl">ucebnice</span> (
+  <span class="col">ISBN</span>       <span class="fn">VARCHAR</span>(<span class="num">20</span>)   <span class="kw">NOT NULL</span>,
+  <span class="col">Titul</span>      <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">Autor</span>      <span class="fn">VARCHAR</span>(<span class="num">50</span>)   <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Rok_vydani</span> <span class="fn">INT</span>(<span class="num">4</span>)        <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Uroven</span>     <span class="fn">ENUM</span>(<span class="str">'začátečník'</span>,<span class="str">'mírně pokročilý'</span>,<span class="str">'pokročilý'</span>) <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Popis</span>      <span class="fn">TEXT</span>          <span class="kw">DEFAULT NULL</span>,
+  <span class="col">Cena</span>       <span class="fn">DECIMAL</span>(<span class="num">6</span>,<span class="num">2</span>)  <span class="kw">DEFAULT NULL</span>,
+  <span class="kw">PRIMARY KEY</span> (<span class="col">ISBN</span>)
+) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
+  <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_czech_ci;</pre>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+            <ul>
+              <li><code>ISBN VARCHAR(20)</code> – ISBN není číslo, obsahuje pomlčky → musí být řetězec</li>
+              <li><code>DECIMAL(6,2)</code> – max. 6 číslic, 2 za desetinnou čárkou → max. 9999.99</li>
+              <li><code>ENUM('začátečník','mírně pokročilý','pokročilý')</code> – jen povolené úrovně</li>
+              <li><code>Titul NOT NULL</code> – zadání říká "povinně zadávaná hodnota", ostatní jsou nullable</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL C -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
+            <div class="task-title">Vložení záznamu do tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">ucebnice</code></div>
+          </div>
+        </div>
+        <div class="task-desc">Vlož do tabulky <strong>ucebnice</strong> vzorový záznam. Jde to udělat přes PHPMyAdmin klikačkou (záložka <em>Vložit</em>), nebo SQL příkazem níže.</div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">INSERT INTO</span> <span class="tbl">ucebnice</span>
+  (<span class="col">ISBN</span>, <span class="col">Titul</span>, <span class="col">Autor</span>, <span class="col">Rok_vydani</span>, <span class="col">Uroven</span>, <span class="col">Popis</span>, <span class="col">Cena</span>)
+<span class="kw">VALUES</span> (
+  <span class="str">'978-0-19-434074-8'</span>,
+  <span class="str">'Clockwise pre-intermediate'</span>,
+  <span class="str">'Bruce McGowen'</span>,
+  <span class="num">2000</span>,
+  <span class="str">'mírně pokročilý'</span>,
+  <span class="str">'This energic course develops fluency, refreshes key grammar areas, and extends active vocabulary.'</span>,
+  <span class="num">350.50</span>
+);</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>ISBN zadáváme jako řetězec v uvozovkách (obsahuje pomlčky)</li>
+            <li>Cena 350,50 → v SQL píšeme s tečkou: <code>350.50</code></li>
+            <li><code>Uroven</code> musí přesně odpovídat jedné z ENUM hodnot</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL D -->
+      <div class="task" id="ukol-d">
+        <div class="task-header">
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Studenti kurzu „Angličtina – nic jednoduššího" z Brna nebo Ostravy</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny studenty přihlášené do kurzu <em>Angličtina – nic jednoduššího</em>, kteří pocházejí z <em>Brna</em> nebo <em>Ostravy</em>. Seřaď primárně podle bydliště <em>(vzestupně)</em>, sekundárně podle data narození <em>(od nejmladších)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">u</span>.<span class="col">jmeno</span>                                   <span class="kw">AS</span> <span class="str">`Jméno`</span>,
+  <span class="al">u</span>.<span class="col">prijmeni</span>                                <span class="kw">AS</span> <span class="str">`Příjmení`</span>,
+  <span class="al">u</span>.<span class="col">bydliste</span>                                <span class="kw">AS</span> <span class="str">`Bydliště`</span>,
+  <span class="fn">DATE_FORMAT</span>(<span class="al">u</span>.<span class="col">narozeni</span>, <span class="str">'%e. %c. %Y'</span>)    <span class="kw">AS</span> <span class="str">`Datum narození`</span>
+
+<span class="kw">FROM</span> <span class="tbl">studenti_v_kurzech</span> <span class="al">svk</span>
+<span class="kw">JOIN</span> <span class="tbl">uzivatel</span> <span class="al">u</span> <span class="kw">ON</span> <span class="al">u</span>.<span class="col">nick</span>    <span class="op">=</span> <span class="al">svk</span>.<span class="col">uzivatel_nick</span>
+<span class="kw">JOIN</span> <span class="tbl">kurz</span> <span class="al">k</span>     <span class="kw">ON</span> <span class="al">k</span>.<span class="col">idkurz</span>  <span class="op">=</span> <span class="al">svk</span>.<span class="col">idkurz</span>
+
+<span class="kw">WHERE</span> <span class="al">k</span>.<span class="col">nazev</span>    <span class="op">=</span> <span class="str">'Angličtina - nic jednoduššího'</span>
+  <span class="kw">AND</span> <span class="al">u</span>.<span class="col">bydliste</span> <span class="kw">IN</span> (<span class="str">'Brno'</span>, <span class="str">'Ostrava'</span>)
+
+<span class="kw">ORDER BY</span> <span class="al">u</span>.<span class="col">bydliste</span> <span class="kw">ASC</span>,
+         <span class="al">u</span>.<span class="col">narozeni</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>JOIN uzivatel</code> – z tabulky studenti_v_kurzech máme jen nick, jméno/bydliště jsou v uzivatel</li>
+            <li><code>JOIN kurz</code> – filtrujeme podle názvu kurzu, ne podle ID</li>
+            <li><code>narozeni DESC</code> – od nejmladšího = nejnovější datum nahoře</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Jméno</th><th>Příjmení</th><th>Bydliště ↑</th><th>Datum narození ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Jiří</td><td>Šperk</td><td>Brno</td><td>8. 10. 1993</td></tr>
+              <tr><td>Tomáš</td><td>Rybníček</td><td>Brno</td><td>22. 7. 1992</td></tr>
+              <tr><td>Mariana</td><td>Seidlová</td><td>Ostrava</td><td>8. 6. 1991</td></tr>
+              <tr><td>Tomáš</td><td>Světlý</td><td>Ostrava</td><td>28. 12. 1984</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL E -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
+          <div class="task-info">
+            <div class="task-title">Kurzy angličtiny a němčiny pro začátečníky + počet studentů</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny kurzy <em>angličtiny</em> a <em>němčiny</em> pro <em>začátečníky</em> a k nim počet přihlášených studentů. Seřaď podle počtu studentů <em>(sestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">k</span>.<span class="col">nazev</span>                   <span class="kw">AS</span> <span class="str">`Název kurzu`</span>,
+  <span class="al">j</span>.<span class="col">oznaceni</span>               <span class="kw">AS</span> <span class="str">`Jazyk`</span>,
+  <span class="al">k</span>.<span class="col">datum_zahajeni</span>          <span class="kw">AS</span> <span class="str">`Zahájení`</span>,
+  <span class="fn">COUNT</span>(<span class="al">svk</span>.<span class="col">uzivatel_nick</span>) <span class="kw">AS</span> <span class="str">`Počet studentů`</span>
+
+<span class="kw">FROM</span> <span class="tbl">kurz</span> <span class="al">k</span>
+<span class="kw">JOIN</span> <span class="tbl">jazyk</span> <span class="al">j</span>                  <span class="kw">ON</span> <span class="al">j</span>.<span class="col">zkratka</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">jazyk</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">studenti_v_kurzech</span> <span class="al">svk</span> <span class="kw">ON</span> <span class="al">svk</span>.<span class="col">idkurz</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">idkurz</span>
+
+<span class="kw">WHERE</span> <span class="al">k</span>.<span class="col">jazyk</span> <span class="kw">IN</span> (<span class="str">'ANJ'</span>, <span class="str">'NEJ'</span>)
+  <span class="kw">AND</span> <span class="al">k</span>.<span class="col">uroven</span> <span class="op">=</span> <span class="str">'začátečníci'</span>
+
+<span class="kw">GROUP BY</span> <span class="al">k</span>.<span class="col">idkurz</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet studentů`</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// KLÍČOVÉ KONCEPTY</div>
+          <ul>
+            <li><code>LEFT JOIN studenti_v_kurzech</code> – kurz se zobrazí i kdyby neměl žádného studenta</li>
+            <li><code>COUNT(svk.uzivatel_nick)</code> – počet studentů na kurz; NULL hodnoty se nepočítají</li>
+            <li><code>GROUP BY k.idkurz</code> – seskupujeme po kurzech, pak COUNT počítá za každý kurz zvlášť</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (3 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Název kurzu</th><th>Jazyk</th><th>Zahájení</th><th>Počet studentů ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Učíme se německy</td><td>Němčina</td><td>2010-03-01</td><td>10</td></tr>
+              <tr><td>Angličtina – nic jednoduššího</td><td>Angličtina</td><td>2014-04-08</td><td>7</td></tr>
+              <tr><td>Angličtina snadno a rychle</td><td>Angličtina</td><td>2014-03-03</td><td>5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL F -->
+      <div class="task" id="ukol-f">
+        <div class="task-header">
+          <div class="task-letter f">f)</div>
+          <div class="task-info">
+            <div class="task-title">Kurzy absolvované Miladou Frejovou</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny kurzy, které <em>Milada Frejová</em> absolvovala (datum ukončení není NULL). Seřaď vzestupně podle data ukončení kurzu.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">k</span>.<span class="col">nazev</span>          <span class="kw">AS</span> <span class="str">`Název kurzu`</span>,
+  <span class="al">j</span>.<span class="col">oznaceni</span>       <span class="kw">AS</span> <span class="str">`Jazyk`</span>,
+  <span class="al">k</span>.<span class="col">uroven</span>         <span class="kw">AS</span> <span class="str">`Úroveň`</span>,
+  <span class="al">k</span>.<span class="col">datum_ukonceni</span> <span class="kw">AS</span> <span class="str">`Rok ukončení kurzu`</span>,
+  <span class="al">svk</span>.<span class="col">hodnoceni</span>   <span class="kw">AS</span> <span class="str">`Hodnocení`</span>
+
+<span class="kw">FROM</span> <span class="tbl">studenti_v_kurzech</span> <span class="al">svk</span>
+<span class="kw">JOIN</span> <span class="tbl">kurz</span>     <span class="al">k</span> <span class="kw">ON</span> <span class="al">k</span>.<span class="col">idkurz</span>  <span class="op">=</span> <span class="al">svk</span>.<span class="col">idkurz</span>
+<span class="kw">JOIN</span> <span class="tbl">jazyk</span>    <span class="al">j</span> <span class="kw">ON</span> <span class="al">j</span>.<span class="col">zkratka</span> <span class="op">=</span> <span class="al">k</span>.<span class="col">jazyk</span>
+<span class="kw">JOIN</span> <span class="tbl">uzivatel</span> <span class="al">u</span> <span class="kw">ON</span> <span class="al">u</span>.<span class="col">nick</span>    <span class="op">=</span> <span class="al">svk</span>.<span class="col">uzivatel_nick</span>
+
+<span class="kw">WHERE</span> <span class="al">u</span>.<span class="col">jmeno</span>    <span class="op">=</span> <span class="str">'Milada'</span>
+  <span class="kw">AND</span> <span class="al">u</span>.<span class="col">prijmeni</span> <span class="op">=</span> <span class="str">'Frejová'</span>
+  <span class="kw">AND</span> <span class="al">k</span>.<span class="col">datum_ukonceni</span> <span class="kw">IS NOT NULL</span>
+
+<span class="kw">ORDER BY</span> <span class="al">k</span>.<span class="col">datum_ukonceni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>datum_ukonceni IS NOT NULL</code> – kurzy s datem ukončení = absolvované kurzy</li>
+            <li>JOIN řetěz: <code>studenti_v_kurzech → kurz → jazyk + uzivatel</code> – 4 tabulky</li>
+            <li>Filtrujeme jménem a příjmením – nick „frejova" by šel použít taky, je to totéž</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Název kurzu</th><th>Jazyk</th><th>Úroveň</th><th>Rok ukončení ↑</th><th>Hodnocení</th></tr></thead>
+            <tbody>
+              <tr><td>Byznys angličtina</td><td>Angličtina</td><td>pokročilí</td><td>2010-06-01</td><td>1</td></tr>
+              <tr><td>Učíme se německy</td><td>Němčina</td><td>začátečníci</td><td>2010-06-30</td><td>2</td></tr>
+              <tr><td>Angličtina pro pokročilé</td><td>Angličtina</td><td>pokročilí</td><td>2012-07-19</td><td>2</td></tr>
+              <tr><td>Základy španělštiny</td><td>Španělština</td><td>začátečníci</td><td>2012-08-13</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL G -->
+      <div class="task" id="ukol-g">
+        <div class="task-header">
+          <div class="task-letter g">g)</div>
+          <div class="task-info">
+            <div class="task-title">Vybavení a vytížení učeben – GROUP BY</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš přehled učeben: jejich vybavení a počet kurzů, které se v nich konaly. Seřaď podle počtu kurzů <em>(sestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">u</span>.<span class="col">oznaceni</span>        <span class="kw">AS</span> <span class="str">`Označení`</span>,
+  <span class="al">u</span>.<span class="col">pocet_mist</span>      <span class="kw">AS</span> <span class="str">`Počet míst`</span>,
+  <span class="al">u</span>.<span class="col">vybaveni</span>        <span class="kw">AS</span> <span class="str">`Vybavení`</span>,
+  <span class="fn">COUNT</span>(<span class="al">k</span>.<span class="col">idkurz</span>)   <span class="kw">AS</span> <span class="str">`Počet kurzů`</span>
+
+<span class="kw">FROM</span> <span class="tbl">ucebna</span> <span class="al">u</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">kurz</span> <span class="al">k</span> <span class="kw">ON</span> <span class="al">k</span>.<span class="col">ucebna_oznaceni</span> <span class="op">=</span> <span class="al">u</span>.<span class="col">oznaceni</span>
+
+<span class="kw">GROUP BY</span> <span class="al">u</span>.<span class="col">oznaceni</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet kurzů`</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>LEFT JOIN kurz</code> – učebna se zobrazí i kdyby neměla žádný kurz</li>
+            <li><code>GROUP BY u.oznaceni</code> – seskupíme podle označení učebny, COUNT pak počítá kurzy za každou</li>
+            <li><code>COUNT(k.idkurz)</code> – NULL hodnoty se nepočítají → učebna bez kurzů dostane 0</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (3 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Označení</th><th>Počet míst</th><th>Vybavení</th><th>Počet kurzů ↓</th></tr></thead>
+            <tbody>
+              <tr><td>UC02</td><td>15</td><td>projektor, MP3 přehrávač</td><td>5</td></tr>
+              <tr><td>UC03</td><td>8</td><td>počítače, interaktivní tabule, projektor</td><td>2</td></tr>
+              <tr><td>UC01</td><td>10</td><td>televize, DVD přehrávač</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL H -->
+      <div class="task" id="ukol-h">
+        <div class="task-header">
+          <div class="task-letter">h)</div>
+          <div class="task-info">
+            <div class="task-title">Snížení počtu lekcí o 2 u neukončených kurzů pro začátečníky</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Sniž počet lekcí o 2 u všech kurzů, které <em>dosud nebyly ukončeny</em> (datum ukončení je NULL) a jsou určeny pro <em>začátečníky</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">UPDATE</span> <span class="tbl">kurz</span>
+<span class="kw">SET</span> <span class="col">pocet_lekci</span> <span class="op">=</span> <span class="col">pocet_lekci</span> <span class="op">-</span> <span class="num">2</span>
+<span class="kw">WHERE</span> <span class="col">datum_ukonceni</span> <span class="kw">IS NULL</span>
+  <span class="kw">AND</span> <span class="col">uroven</span> <span class="op">=</span> <span class="str">'začátečníci'</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// CO SE ZMĚNÍ</div>
+          <ul>
+            <li>Angličtina snadno a rychle: 10 → 8 lekcí</li>
+            <li>Ruština pro dobrodruhy: 10 → 8 lekcí</li>
+            <li>Angličtina – nic jednoduššího: 15 → 13 lekcí</li>
+            <li>Španělsky s prstem v nose: <strong>nezměněno</strong> – má <code>uroven = 'pokročilí'</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL I -->
+      <div class="task" id="ukol-i">
+        <div class="task-header">
+          <div class="task-letter b">i)</div>
+          <div class="task-info">
+            <div class="task-title">Smazání uživatelek narozených po roce 1980 bez „o" v bydlišti</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Smaž z databáze všechny <em>uživatelky</em> narozené <em>po roce 1980</em>, které nepocházejí z místa, jehož název obsahuje písmeno <em>o</em>.
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// PROČ NESTAČÍ JEDEN DELETE</div>
+          <ul>
+            <li>Tabulky <code>student</code> a <code>lektor</code> odkazují na <code>uzivatel</code> přes FK s <code>ON DELETE NO ACTION</code></li>
+            <li>Nejdřív musíme smazat záznamy v <code>studenti_v_kurzech</code>, pak v <code>student</code></li>
+            <li>Pro lektorku lopezovou navíc: smazat z <code>jazyk_lektoru</code> a ošetřit kurzy (kurz na ni odkazuje)</li>
+            <li>Teprve po vyčištění vázaných tabulek lze smazat z <code>uzivatel</code></li>
+          </ul>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cm">-- samotný dotaz na mazání uživatelek</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">uzivatel</span>
+<span class="kw">WHERE</span> <span class="col">pohlavi</span>  <span class="op">=</span> <span class="str">'žena'</span>
+  <span class="kw">AND</span> <span class="fn">YEAR</span>(<span class="col">narozeni</span>) <span class="op">&gt;</span> <span class="num">1980</span>
+  <span class="kw">AND</span> <span class="col">bydliste</span> <span class="kw">NOT LIKE</span> <span class="str">'%o%'</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// CO SE SMAŽE a PROČ</div>
+          <ul>
+            <li><code>lopez</code> (1988, Madrid) – Madrid neobsahuje 'o' → smazána</li>
+            <li><code>pilna</code> (1992, Praha) – Praha neobsahuje 'o' → smazána</li>
+            <li><code>grey</code> (1993, London) – London obsahuje 'o' → ponechána</li>
+            <li><code>seidlova, soudkova, volna</code> – Ostrava/Olomouc obsahují 'o' → ponechány</li>
+            <li><code>NOT LIKE '%o%'</code> – v MySQL case-insensitive, takže 'O' v Ostravě také odpovídá</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/sql.js"></script>
+</body>
+</html>

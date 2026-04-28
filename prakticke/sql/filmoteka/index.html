@@ -12,6 +12,17 @@
 <body>
   <div class="grid-bg"></div>
 
+  <!-- FLOATING SCHEMA PANEL -->
+  <div id="schema-panel" class="schema-panel">
+    <div class="schema-panel-header">
+      <span class="schema-panel-title" onclick="toggleSchema()">📊 Schéma databáze</span>
+      <button class="schema-toggle" onclick="toggleSchema()">−</button>
+    </div>
+    <div class="schema-panel-body">
+      <img src="schema-1.jpg" class="schema-img active" id="schema-0" alt="Schéma databáze filmotéka">
+    </div>
+  </div>
+
   <nav>
     <a href="../../../index.html">🏠 home</a>
     <span class="sep">/</span>
@@ -25,6 +36,9 @@
   <div class="page">
     <aside>
       <div class="sidebar-title">Obsah</div>
+      <button class="sidebar-link" onclick="toggleSchema()">
+        <span class="sidebar-num">—</span> Schéma DB
+      </button>
       <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Import + kódování</a>
       <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Tabulka nahravky</a>
       <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Vložení záznamu</a>
@@ -57,7 +71,7 @@
           </div>
         </div>
         <div class="task-desc">
-          V PHPMyAdmin vytvoř novou databázi s názvem <strong>filmoteka</strong>, kódování <strong>utf8_unicode_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>filmoteka.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_unicode_ci</strong>.
+          V PHPMyAdmin vytvoř novou databázi s názvem <strong>filmoteka</strong>, kódování <strong>utf8_czech_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>filmoteka.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_unicode_ci</strong>.
         </div>
       </div>
 
@@ -106,7 +120,7 @@
                 <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
               </thead>
               <tbody>
-                <tr><td><code>idnahravky</code></td><td>INT UNSIGNED</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td><span class="check">✔</span></td></tr>
+                <tr><td><code>idnahravky</code></td><td>INT</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td><span class="check">✔</span></td></tr>
                 <tr><td><code>titul</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
                 <tr><td><code>nazev_souboru</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
                 <tr><td><code>datum_ulozeni</code></td><td>DATE</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
@@ -117,8 +131,9 @@
             </table>
           </div>
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
-            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idnahravky</code> – zaškrtni A_I, PHPMyAdmin navrhne PRIMARY index → potvrď.</li>
-            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">kodek</code> – po výběru ENUM zadej do pole <em>Délka/Hodnoty</em> přesně: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'xvid','divx','wmv','jiný'</code>, výchozí hodnotu nastav na <strong>as defined: xvid</strong>.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idnahravky</code> – zaškrtni A_I → PHPMyAdmin navrhne PRIMARY index, potvrď.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">kodek</code> – vyber ENUM, do <em>Délka/Hodnoty</em> zadej: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'xvid','divx','wmv','jiný'</code></li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">kodek</code> – výchozí hodnotu nastav na <strong>as defined: xvid</strong></li>
             <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
           </ol>
         </div>
@@ -130,7 +145,7 @@
               <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
             </div>
             <pre><span class="kw">CREATE TABLE</span> <span class="tbl">nahravky</span> (
-  <span class="col">idnahravky</span>    <span class="fn">INT</span>(<span class="num">10</span>) <span class="kw">UNSIGNED NOT NULL AUTO_INCREMENT</span>,
+  <span class="col">idnahravky</span>    <span class="fn">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
   <span class="col">titul</span>         <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
   <span class="col">nazev_souboru</span> <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
   <span class="col">datum_ulozeni</span> <span class="fn">DATE</span>          <span class="kw">DEFAULT NULL</span>,
@@ -140,7 +155,7 @@
   <span class="kw">PRIMARY KEY</span> (<span class="col">idnahravky</span>)
 ) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
   <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
-  <span class="kw">COLLATE</span><span class="op">=</span>utf8_unicode_ci;</pre>
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_czech_ci;</pre>
           </div>
           <div class="explanation">
             <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
