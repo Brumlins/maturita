@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmotéka – SQL | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="#">sql</a>
+    <span class="sep">/</span>
+    <span class="current">filmotéka</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> Import + kódování</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Tabulka nahravky</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Vložení záznamu</a>
+      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Filmy před 1990</a>
+      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Historické, komedie, fantasy</a>
+      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> Počet filmů dle režiséra</a>
+      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> Herci USA a GBR</a>
+      <a href="#ukol-h" class="sidebar-link" data-target="ukol-h"><span class="sidebar-num">h)</span> Smazání umělců</a>
+      <a href="#ukol-i" class="sidebar-link" data-target="ukol-i"><span class="sidebar-num">i)</span> Přejmenování sloupce</a>
+      <a href="#ukol-j" class="sidebar-link" data-target="ukol-j"><span class="sidebar-num">j)</span> DROP tabulka + databáze</a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Soubory ke stažení</div>
+      <div class="sidebar-dl">
+        <a href="filmoteka.sql" download class="dl-btn">⬇ filmoteka.sql <span style="margin-left:auto;opacity:0.5">zadání</span></a>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <h1>Filmotéka 🎬</h1>
+      </div>
+
+      <!-- UKOL A -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">Import databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          V PHPMyAdmin vytvoř novou databázi s názvem <strong>filmoteka</strong>, kódování <strong>utf8_unicode_ci</strong> a klikni na Vytvořit. Pak jdi na Import, vyber soubor <strong>filmoteka.sql</strong> a potvrď. Ověř kódování – pokud se diakritika zobrazuje špatně, v nastavení databáze změň kolaci na <strong>utf8_unicode_ci</strong>.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL B -->
+      <div class="task" id="ukol-b">
+        <div class="task-header">
+          <div class="task-letter b">b)</div>
+          <div class="task-info">
+            <div class="task-title">Vytvoření tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">nahravky</code></div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku <strong>nahravky</strong> pro ukládání digitálních nahrávek filmů z televize. Struktura vychází z tohoto vzorového záznamu:
+        </div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Název atributu</th><th>Doména atributu</th><th>Vzorový záznam</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idnahravky</td><td>primární klíč</td><td>251</td></tr>
+              <tr><td>titul</td><td>znakový řetězec, max. 100 znaků</td><td>Smrtonosná past</td></tr>
+              <tr><td>nazev_souboru</td><td>znakový řetězec, max. 100 znaků</td><td>smrt_past.avi</td></tr>
+              <tr><td>datum_ulozeni</td><td>platné datum</td><td>1. 9. 2009</td></tr>
+              <tr><td>cas_ulozeni</td><td>čas</td><td>22:30</td></tr>
+              <tr><td>kodek</td><td>volby: xvid, divx, wmv, jiný (výchozí: xvid)</td><td>xvid</td></tr>
+              <tr><td>velikost_mb</td><td>desetinné číslo s 1 des. místem (MB)</td><td>712,3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-desc">
+          Vytvoř tabulku přes PHPMyAdmin klikačkou.
+        </div>
+        <div class="explanation" style="margin-top:1rem">
+          <div class="explanation-title">// POSTUP V PHPMyAdmin (krok za krokem)</div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
+            <li>V levém panelu vyber databázi <strong>filmoteka</strong>, klikni na <strong>Nová tabulka</strong>.</li>
+            <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">nahravky</code>, počet sloupců: <strong>7</strong> → klikni <strong>Provést</strong>.</li>
+            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+          </ol>
+          <div class="result-preview" style="margin:0 0 1rem">
+            <table class="result-table">
+              <thead>
+                <tr><th>Název</th><th>Typ</th><th>Délka / Hodnoty</th><th>Výchozí</th><th>Null ✔</th><th>Index</th><th>A_I</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>idnahravky</code></td><td>INT UNSIGNED</td><td>—</td><td>—</td><td>—</td><td>PRIMARY</td><td><span class="check">✔</span></td></tr>
+                <tr><td><code>titul</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>nazev_souboru</code></td><td>VARCHAR</td><td>100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>datum_ulozeni</code></td><td>DATE</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>cas_ulozeni</code></td><td>TIME</td><td>—</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+                <tr><td><code>kodek</code></td><td>ENUM</td><td><code>'xvid','divx','wmv','jiný'</code></td><td>xvid</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><td><code>velikost_mb</code></td><td>DECIMAL</td><td>6,1</td><td>—</td><td><span class="check">✔</span></td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idnahravky</code> – zaškrtni A_I, PHPMyAdmin navrhne PRIMARY index → potvrď.</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">kodek</code> – po výběru ENUM zadej do pole <em>Délka/Hodnoty</em> přesně: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">'xvid','divx','wmv','jiný'</code>, výchozí hodnotu nastav na <strong>as defined: xvid</strong>.</li>
+            <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
+          </ol>
+        </div>
+        <button class="sql-toggle-btn" onclick="toggleSql(this)">▶ &nbsp;Ukázat jako SQL</button>
+        <div class="sql-reveal-body" hidden>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">SQL</span>
+              <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+            </div>
+            <pre><span class="kw">CREATE TABLE</span> <span class="tbl">nahravky</span> (
+  <span class="col">idnahravky</span>    <span class="fn">INT</span>(<span class="num">10</span>) <span class="kw">UNSIGNED NOT NULL AUTO_INCREMENT</span>,
+  <span class="col">titul</span>         <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">nazev_souboru</span> <span class="fn">VARCHAR</span>(<span class="num">100</span>)  <span class="kw">NOT NULL</span>,
+  <span class="col">datum_ulozeni</span> <span class="fn">DATE</span>          <span class="kw">DEFAULT NULL</span>,
+  <span class="col">cas_ulozeni</span>   <span class="fn">TIME</span>          <span class="kw">DEFAULT NULL</span>,
+  <span class="col">kodek</span>         <span class="fn">ENUM</span>(<span class="str">'xvid'</span>,<span class="str">'divx'</span>,<span class="str">'wmv'</span>,<span class="str">'jiný'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="str">'xvid'</span>,
+  <span class="col">velikost_mb</span>   <span class="fn">DECIMAL</span>(<span class="num">6</span>,<span class="num">1</span>)  <span class="kw">DEFAULT NULL</span>,
+  <span class="kw">PRIMARY KEY</span> (<span class="col">idnahravky</span>)
+) <span class="kw">ENGINE</span><span class="op">=</span>InnoDB
+  <span class="kw">DEFAULT CHARSET</span><span class="op">=</span>utf8
+  <span class="kw">COLLATE</span><span class="op">=</span>utf8_unicode_ci;</pre>
+          </div>
+          <div class="explanation">
+            <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
+            <ul>
+              <li><code>ENUM('xvid','divx','wmv','jiný')</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>DEFAULT 'xvid'</code> – pokud kodek nezadáš, automaticky se doplní xvid</li>
+              <li><code>DECIMAL(6,1)</code> – číslo max. 6 číslic, z toho 1 za desetinnou čárkou → max. 99999.9 MB</li>
+              <li><code>TIME</code> – formát HH:MM:SS, při vkládání stačí '22:30'</li>
+              <li><code>INT UNSIGNED</code> – kladná celá čísla, vhodné pro ID (větší rozsah než INT)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL C -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
+            <div class="task-title">Vložení záznamu do tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">nahravky</code></div>
+          </div>
+        </div>
+        <div class="task-desc">Vlož do tabulky <strong>nahravky</strong> vzorový záznam. Jde to udělat přes PHPMyAdmin klikačkou (záložka <em>Vložit</em>), nebo SQL příkazem níže.</div>
+        <div class="result-preview">
+          <table class="result-table">
+            <thead>
+              <tr><th>Atribut</th><th>Hodnota</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>idnahravky</td><td>251</td></tr>
+              <tr><td>titul</td><td>Smrtonosná past</td></tr>
+              <tr><td>nazev_souboru</td><td>smrt_past.avi</td></tr>
+              <tr><td>datum_ulozeni</td><td>2009-09-01</td></tr>
+              <tr><td>cas_ulozeni</td><td>22:30</td></tr>
+              <tr><td>kodek</td><td>xvid</td></tr>
+              <tr><td>velikost_mb</td><td>712.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">INSERT INTO</span> <span class="tbl">nahravky</span>
+  (<span class="col">idnahravky</span>, <span class="col">titul</span>, <span class="col">nazev_souboru</span>, <span class="col">datum_ulozeni</span>, <span class="col">cas_ulozeni</span>, <span class="col">kodek</span>, <span class="col">velikost_mb</span>)
+<span class="kw">VALUES</span> (
+  <span class="num">251</span>,
+  <span class="str">'Smrtonosná past'</span>,
+  <span class="str">'smrt_past.avi'</span>,
+  <span class="str">'2009-09-01'</span>,
+  <span class="str">'22:30'</span>,
+  <span class="str">'xvid'</span>,
+  <span class="num">712.3</span>
+);</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKY</div>
+          <ul>
+            <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
+            <li>Čas stačí jako <code>'22:30'</code>, MySQL doplní sekundy automaticky na 22:30:00</li>
+            <li><code>idnahravky = 251</code> zadáváme explicitně – i při AUTO_INCREMENT lze konkrétní ID vložit</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL D -->
+      <div class="task" id="ukol-d">
+        <div class="task-header">
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Filmy natočené před rokem 1990 bez slova „Hrabal"</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš všechny filmy natočené <em>před rokem 1990</em>, které nemají ve sloupci <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">obsah</code> slovo <em>Hrabal</em>. Seřaď od nejstaršího po nejmladší.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="col">nazev</span> <span class="kw">AS</span> <span class="str">`Název`</span>,
+  <span class="col">rok</span>   <span class="kw">AS</span> <span class="str">`Rok`</span>
+
+<span class="kw">FROM</span> <span class="tbl">filmy</span>
+
+<span class="kw">WHERE</span> <span class="col">rok</span> <span class="op">&lt;</span> <span class="num">1990</span>
+  <span class="kw">AND</span> (<span class="col">obsah</span> <span class="kw">NOT LIKE</span> <span class="str">'%Hrabal%'</span> <span class="kw">OR</span> <span class="col">obsah</span> <span class="kw">IS NULL</span>)
+
+<span class="kw">ORDER BY</span> <span class="col">rok</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>rok &lt; 1990</code> – sloupec rok je typu YEAR, přímé porovnání s číslem funguje</li>
+            <li><code>NOT LIKE '%Hrabal%'</code> – <code>%</code> je wildcard, hledáme "Hrabal" kdekoliv v textu</li>
+            <li><code>OR obsah IS NULL</code> – bez toho by řádky s NULL obsah byly tichce vynechány</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky) – Slavnosti sněženek vypadly kvůli Hrabalovi</div>
+          <table class="result-table">
+            <thead><tr><th>Název ↑</th><th>Rok</th></tr></thead>
+            <tbody>
+              <tr><td>Romance pro křídlovku</td><td>1966</td></tr>
+              <tr><td>Vetřelec</td><td>1979</td></tr>
+              <tr><td>Postřižiny</td><td>1980</td></tr>
+              <tr><td>Indiana Jones a Chrám zkázy</td><td>1984</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL E -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
+          <div class="task-info">
+            <div class="task-title">Historické, komediální a fantasy filmy z let 1981–2000</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš filmy <em>historického</em>, <em>komediálního</em> a <em>fantasy</em> žánru natočené <em>v letech 1981 až 2000</em>. Seřaď primárně podle hodnocení <em>(sestupně)</em>, sekundárně podle názvu <em>(vzestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">f</span>.<span class="col">nazev</span>       <span class="kw">AS</span> <span class="str">`Název`</span>,
+  <span class="al">z</span>.<span class="col">nazev_zanru</span> <span class="kw">AS</span> <span class="str">`Žánr`</span>,
+  <span class="al">f</span>.<span class="col">rok</span>         <span class="kw">AS</span> <span class="str">`Rok`</span>,
+  <span class="al">f</span>.<span class="col">hodnoceni</span>   <span class="kw">AS</span> <span class="str">`Hodnocení`</span>
+
+<span class="kw">FROM</span> <span class="tbl">filmy</span> <span class="al">f</span>
+<span class="kw">JOIN</span> <span class="tbl">zanry</span> <span class="al">z</span> <span class="kw">ON</span> <span class="al">z</span>.<span class="col">idzanr</span> <span class="op">=</span> <span class="al">f</span>.<span class="col">idzanr</span>
+
+<span class="kw">WHERE</span> <span class="al">z</span>.<span class="col">nazev_zanru</span> <span class="kw">IN</span> (<span class="str">'historický'</span>, <span class="str">'komedie'</span>, <span class="str">'fantasy'</span>)
+  <span class="kw">AND</span> <span class="al">f</span>.<span class="col">rok</span> <span class="kw">BETWEEN</span> <span class="num">1981</span> <span class="kw">AND</span> <span class="num">2000</span>
+
+<span class="kw">ORDER BY</span> <span class="al">f</span>.<span class="col">hodnoceni</span> <span class="kw">DESC</span>,
+         <span class="al">f</span>.<span class="col">nazev</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>JOIN zanry</code> – propojíme filmy se žánry přes cizí klíč idzanr, abychom mohli filtrovat podle názvu žánru</li>
+            <li><code>IN ('historický', 'komedie', 'fantasy')</code> – alternativa k třem podmínkám OR</li>
+            <li><code>BETWEEN 1981 AND 2000</code> – včetně obou krajních hodnot (1981 i 2000)</li>
+            <li><code>ORDER BY hodnoceni DESC, nazev ASC</code> – nejdřív seřadí dle hodnocení, při shodě abecedně</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Název</th><th>Žánr</th><th>Rok</th><th>Hodnocení ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Schindlerův seznam</td><td>historický</td><td>1993</td><td>5</td></tr>
+              <tr><td>Slavnosti sněženek</td><td>komedie</td><td>1983</td><td>5</td></tr>
+              <tr><td>Gladiátor</td><td>historický</td><td>2000</td><td>4</td></tr>
+              <tr><td>Indiana Jones a Chrám zkázy</td><td>fantasy</td><td>1984</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL F -->
+      <div class="task" id="ukol-f">
+        <div class="task-header">
+          <div class="task-letter f">f)</div>
+          <div class="task-info">
+            <div class="task-title">Počet filmů podle režiséra – GROUP BY</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          K jednotlivým <em>režisérům</em> vypiš počet jimi natočených filmů v databázi. Seřaď podle počtu filmů <em>(sestupně)</em>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="al">u</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">u</span>.<span class="col">prijmeni</span>) <span class="kw">AS</span> <span class="str">`Režisér`</span>,
+  <span class="fn">COUNT</span>(<span class="al">uvf</span>.<span class="col">idfilmy</span>)              <span class="kw">AS</span> <span class="str">`Počet filmů`</span>
+
+<span class="kw">FROM</span> <span class="tbl">umelci</span> <span class="al">u</span>
+<span class="kw">JOIN</span> <span class="tbl">umelci_ve_filmech</span> <span class="al">uvf</span> <span class="kw">ON</span> <span class="al">uvf</span>.<span class="col">idumelci</span> <span class="op">=</span> <span class="al">u</span>.<span class="col">idumelci</span>
+
+<span class="kw">WHERE</span> <span class="al">uvf</span>.<span class="col">role</span> <span class="op">=</span> <span class="str">'režisér'</span>
+
+<span class="kw">GROUP BY</span> <span class="al">u</span>.<span class="col">idumelci</span>
+
+<span class="kw">ORDER BY</span> <span class="str">`Počet filmů`</span> <span class="kw">DESC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// KLÍČOVÉ KONCEPTY</div>
+          <ul>
+            <li><code>WHERE role = 'režisér'</code> – filtrujeme ještě před seskupením, bereme jen režiséry</li>
+            <li><code>GROUP BY u.idumelci</code> – seskupujeme podle ID (ne jménem – jména se mohou opakovat)</li>
+            <li><code>COUNT(uvf.idfilmy)</code> – počet řádků v umelci_ve_filmech pro daného umělce = počet jeho filmů</li>
+            <li><code>CONCAT(jmeno, ' ', prijmeni)</code> – spojí jméno a příjmení do jednoho sloupce</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Režisér</th><th>Počet filmů ↓</th></tr></thead>
+            <tbody>
+              <tr><td>Ridley Scott</td><td>3</td></tr>
+              <tr><td>Jiří Menzel</td><td>2</td></tr>
+              <tr><td>Steven Spielberg</td><td>2</td></tr>
+              <tr><td>Otakar Vávra</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL G -->
+      <div class="task" id="ukol-g">
+        <div class="task-header">
+          <div class="task-letter g">g)</div>
+          <div class="task-info">
+            <div class="task-title">Filmy s americkými a britskými herci narozenými po roce 1940</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vypiš filmy, v nichž se objevili <em>američtí</em> (USA) nebo <em>britští</em> (GBR) herci, kteří se narodili <em>po roce 1940</em>. Seřaď vzestupně podle data narození herce.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">SELECT</span>
+  <span class="al">f</span>.<span class="col">nazev</span>                                   <span class="kw">AS</span> <span class="str">`Název filmu`</span>,
+  <span class="fn">CONCAT</span>(<span class="al">u</span>.<span class="col">jmeno</span>, <span class="str">' '</span>, <span class="al">u</span>.<span class="col">prijmeni</span>)         <span class="kw">AS</span> <span class="str">`Herec`</span>,
+  <span class="al">s</span>.<span class="col">nazev_statu</span>                             <span class="kw">AS</span> <span class="str">`Stát`</span>,
+  <span class="fn">DATE_FORMAT</span>(<span class="al">u</span>.<span class="col">narozeni</span>, <span class="str">'%e. %c. %Y'</span>)    <span class="kw">AS</span> <span class="str">`Datum narození`</span>
+
+<span class="kw">FROM</span> <span class="tbl">filmy</span> <span class="al">f</span>
+<span class="kw">JOIN</span> <span class="tbl">umelci_ve_filmech</span> <span class="al">uvf</span> <span class="kw">ON</span> <span class="al">uvf</span>.<span class="col">idfilmy</span>     <span class="op">=</span> <span class="al">f</span>.<span class="col">idfilmy</span>
+<span class="kw">JOIN</span> <span class="tbl">umelci</span> <span class="al">u</span>              <span class="kw">ON</span> <span class="al">u</span>.<span class="col">idumelci</span>     <span class="op">=</span> <span class="al">uvf</span>.<span class="col">idumelci</span>
+<span class="kw">JOIN</span> <span class="tbl">staty</span> <span class="al">s</span>               <span class="kw">ON</span> <span class="al">s</span>.<span class="col">zkratka_statu</span> <span class="op">=</span> <span class="al">u</span>.<span class="col">zkratka_statu</span>
+
+<span class="kw">WHERE</span> <span class="al">uvf</span>.<span class="col">role</span> <span class="op">=</span> <span class="str">'herec'</span>
+  <span class="kw">AND</span> <span class="al">u</span>.<span class="col">zkratka_statu</span> <span class="kw">IN</span> (<span class="str">'USA'</span>, <span class="str">'GBR'</span>)
+  <span class="kw">AND</span> <span class="fn">YEAR</span>(<span class="al">u</span>.<span class="col">narozeni</span>) <span class="op">&gt;</span> <span class="num">1940</span>
+
+<span class="kw">ORDER BY</span> <span class="al">u</span>.<span class="col">narozeni</span> <span class="kw">ASC</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// JAK TO FUNGUJE</div>
+          <ul>
+            <li><code>JOIN staty</code> – přidáme tabulku států, abychom mohli zobrazit celý název státu</li>
+            <li><code>WHERE role = 'herec'</code> – bereme jen herce, ne režiséry nebo scenáristy</li>
+            <li><code>YEAR(narozeni) &gt; 1940</code> – „po roce 1940" znamená rok &gt; 1940, John Hurt (1940) tím vypadne</li>
+            <li><code>DATE_FORMAT</code> – <code>%e</code> = den bez nuly, <code>%c</code> = měsíc bez nuly, <code>%Y</code> = rok</li>
+          </ul>
+        </div>
+        <div class="result-preview">
+          <div class="result-header">// očekávaný výsledek (4 řádky)</div>
+          <table class="result-table">
+            <thead><tr><th>Název filmu</th><th>Herec</th><th>Stát</th><th>Datum narození ↑</th></tr></thead>
+            <tbody>
+              <tr><td>Indiana Jones a Chrám zkázy</td><td>Harrison Ford</td><td>Spojené státy americké</td><td>13. 7. 1942</td></tr>
+              <tr><td>Schindlerův seznam</td><td>Ben Kingsley</td><td>Velká Británie</td><td>31. 12. 1943</td></tr>
+              <tr><td>Vetřelec</td><td>Sigourney Weaver</td><td>Spojené státy americké</td><td>8. 10. 1949</td></tr>
+              <tr><td>Americký gangster</td><td>Danzel Washington</td><td>Spojené státy americké</td><td>28. 12. 1954</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL H -->
+      <div class="task" id="ukol-h">
+        <div class="task-header">
+          <div class="task-letter">h)</div>
+          <div class="task-info">
+            <div class="task-title">Smazání umělců narozených v únoru nebo bez data narození</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Smaž z databáze všechny umělce, kteří se narodili <em>v únoru</em>, nebo u nichž <em>datum narození není uvedeno</em>. Zároveň zajisti, aby byly odstraněny i jejich záznamy v tabulce <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">umelci_ve_filmech</code>.
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// PROČ NESTAČÍ JEDEN DELETE</div>
+          <ul>
+            <li>Tabulka <code>umelci_ve_filmech</code> má cizí klíč na <code>umelci</code> s nastavením <code>ON DELETE NO ACTION</code></li>
+            <li>To znamená: MySQL odmítne smazat umělce, pokud na něj existuje odkaz ve vázané tabulce</li>
+            <li>Řešení: nejdřív smažeme záznamy z <code>umelci_ve_filmech</code>, pak teprve z <code>umelci</code></li>
+          </ul>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cm">-- 1. nejdříve odstraníme záznamy ve vázané tabulce</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">umelci_ve_filmech</span>
+<span class="kw">WHERE</span> <span class="col">idumelci</span> <span class="kw">IN</span> (
+  <span class="kw">SELECT</span> <span class="col">idumelci</span> <span class="kw">FROM</span> <span class="tbl">umelci</span>
+  <span class="kw">WHERE</span> <span class="fn">MONTH</span>(<span class="col">narozeni</span>) <span class="op">=</span> <span class="num">2</span> <span class="kw">OR</span> <span class="col">narozeni</span> <span class="kw">IS NULL</span>
+);
+
+<span class="cm">-- 2. pak smažeme samotné umělce</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">umelci</span>
+<span class="kw">WHERE</span> <span class="fn">MONTH</span>(<span class="col">narozeni</span>) <span class="op">=</span> <span class="num">2</span> <span class="kw">OR</span> <span class="col">narozeni</span> <span class="kw">IS NULL</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// CO SE SMAŽE</div>
+          <ul>
+            <li><code>MONTH(narozeni) = 2</code> – Jiří Menzel (23. 2.), Jaromír Hanzlík (16. 2.), Otakar Vávra (28. 2.)</li>
+            <li><code>narozeni IS NULL</code> – Steve Zaillian (datum není uvedeno)</li>
+            <li>Celkem: 4 umělci a 8 jejich záznamů v tabulce umelci_ve_filmech</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL I -->
+      <div class="task" id="ukol-i">
+        <div class="task-header">
+          <div class="task-letter b">i)</div>
+          <div class="task-info">
+            <div class="task-title">Přejmenování sloupce <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">delka</code> na <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">stopaz</code></div>
+          </div>
+        </div>
+        <div class="task-desc">
+          V tabulce <strong>filmy</strong> přejmenuj sloupec <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">delka</code> na <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">stopaz</code>. Datový typ a výchozí hodnota zůstávají stejné.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="kw">ALTER TABLE</span> <span class="tbl">filmy</span>
+  <span class="kw">CHANGE</span> <span class="col">delka</span> <span class="col">stopaz</span> <span class="fn">INT</span>(<span class="num">3</span>) <span class="kw">DEFAULT NULL</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZNÁMKA</div>
+          <ul>
+            <li><code>CHANGE</code> vyžaduje uvést i datový typ – píšeš starý název, nový název a pak typ</li>
+            <li>Alternativa v MySQL 8+: <code>ALTER TABLE filmy RENAME COLUMN delka TO stopaz;</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- UKOL J -->
+      <div class="task" id="ukol-j">
+        <div class="task-header">
+          <div class="task-letter d">j)</div>
+          <div class="task-info">
+            <div class="task-title">Smazání tabulky <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">nahravky</code> a celé databáze</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Nejdřív odstraň tabulku <strong>nahravky</strong>, pak úplně smaž celou databázi <strong>filmoteka</strong>.
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">SQL</span>
+            <button class="copy-btn" onclick="copyCode(this)">kopírovat</button>
+          </div>
+          <pre><span class="cm">-- odstraní tabulku nahravky</span>
+<span class="kw">DROP TABLE</span> <span class="tbl">nahravky</span>;
+
+<span class="cm">-- odstraní celou databázi se všemi tabulkami</span>
+<span class="kw">DROP DATABASE</span> <span class="tbl">filmoteka</span>;</pre>
+        </div>
+        <div class="explanation">
+          <div class="explanation-title">// POZOR</div>
+          <ul>
+            <li><code>DROP TABLE</code> smaže tabulku včetně všech dat, nelze vrátit</li>
+            <li><code>DROP DATABASE</code> smaže celou databázi se všemi tabulkami a daty</li>
+            <li>Pořadí záleží – nejdřív tabulka, pak DB. Opačně by DROP TABLE selhal, protože DB by neexistovala</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/sql.js"></script>
+</body>
+</html>
