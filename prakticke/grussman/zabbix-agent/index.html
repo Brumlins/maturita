@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zabbix Agent | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussman</a>
+    <span class="sep">/</span>
+    <span class="current">zabbix-agent</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#intro" class="sidebar-link" data-target="intro"><span class="sidebar-num">1</span> Co je Zabbix</a>
+      <a href="#install" class="sidebar-link" data-target="install"><span class="sidebar-num">2</span> Instalace agenta</a>
+      <a href="#config" class="sidebar-link" data-target="config"><span class="sidebar-num">3</span> Konfigurace</a>
+      <a href="#items" class="sidebar-link" data-target="items"><span class="sidebar-num">4</span> Položky a šablony</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 blog.iservery.com</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussman · it2-pvy · it3-pvy · it4</p>
+        <h1>Zabbix Agent</h1>
+        <div class="hero-meta">
+          <span>📊 Monitoring</span>
+          <span>🔍 Zabbix agent</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="intro">
+        <h2 class="lesson-sec-title">1 — Co je Zabbix</h2>
+        <div class="lesson-desc">
+          <strong>Zabbix</strong> je open-source řešení pro monitorování sítí, serverů a aplikací.
+          Skládá se ze serveru, databáze a agentů, kteří sbírají data ze sledovaných zařízení.
+          Zabbix agent je program běžící na monitorovaném stroji.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">2 — Instalace Zabbix agenta</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace na Debian/Ubuntu</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Přidání repozitáře Zabbix</span>
+<span class="bprompt">$ </span><span class="bcmd">wget</span> <span class="bval">https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4+ubuntu22.04_all.deb</span>
+<span class="bprompt">$ </span><span class="bcmd">dpkg</span> <span class="bflag">-i</span> <span class="bval">zabbix-release_6.0-4+ubuntu22.04_all.deb</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get update</span>
+
+<span class="bcmt"># Instalace agenta</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">zabbix-agent2</span>
+
+<span class="bcmt"># Spuštění a povolení při bootu</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl enable</span> <span class="bval">zabbix-agent2</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl start</span> <span class="bval">zabbix-agent2</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="config">
+        <h2 class="lesson-sec-title">3 — Konfigurace agenta</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">/etc/zabbix/zabbix_agent2.conf</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Adresa Zabbix serveru</span>
+<span class="bval">Server=192.168.0.10</span>
+
+<span class="bcmt"># Adresa pro aktivní checky</span>
+<span class="bval">ServerActive=192.168.0.10</span>
+
+<span class="bcmt"># Název hosta (musí odpovídat v Zabbix webu)</span>
+<span class="bval">Hostname=muj-server</span>
+
+<span class="bcmt"># Port (výchozí 10050)</span>
+<span class="bval">ListenPort=10050</span>
+
+<span class="bcmt"># Restart agenta po změně konfigurace</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">zabbix-agent2</span></pre>
+        </div>
+        <div class="note-box">
+          <strong>// TIP</strong>
+          Zabbix agent2 je novější verze s lepší podporou pro různé protokoly a paralelní zpracování.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="items">
+        <h2 class="lesson-sec-title">4 — Položky (Items) a šablony</h2>
+        <div class="lesson-desc">
+          V Zabbix webovém rozhraní přidáte hosta a přiřadíte mu šablony (Templates),
+          které obsahují předdefinované položky, triggery a grafy.
+        </div>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Příklad vlastní položky (UserParameter)</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># V /etc/zabbix/zabbix_agent2.conf přidat:</span>
+<span class="bval">UserParameter=system.uptime.days,uptime | awk '{print int($1/86400)}'</span>
+<span class="bval">UserParameter=http.check[*],curl -s -o /dev/null -w "%{http_code}" $1</span>
+
+<span class="bcmt"># Test položky na agentovi:</span>
+<span class="bprompt">$ </span><span class="bcmd">zabbix_agent2</span> <span class="bflag">-t</span> <span class="bval">system.uptime.days</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec">
+        <h2 class="lesson-sec-title">🎥 Video výuka</h2>
+        <div class="video-placeholder">
+          <p>Video zatím není k dispozici</p>
+          <span class="badge badge-none">bez odkazu</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussman.js"></script>
+</body>
+</html>

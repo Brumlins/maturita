@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Server | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussman</a>
+    <span class="sep">/</span>
+    <span class="current">docker-server</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#install" class="sidebar-link" data-target="install"><span class="sidebar-num">1</span> Instalace Dockeru</a>
+      <a href="#commands" class="sidebar-link" data-target="commands"><span class="sidebar-num">2</span> Základní příkazy</a>
+      <a href="#images" class="sidebar-link" data-target="images"><span class="sidebar-num">3</span> Práce s images</a>
+      <a href="#containers" class="sidebar-link" data-target="containers"><span class="sidebar-num">4</span> Správa kontejnerů</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 blog.iservery.com</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussman · it2-pvy · it3-pvy · it4</p>
+        <h1>Docker Server</h1>
+        <div class="hero-meta">
+          <span>🐳 Docker</span>
+          <span>⚙️ instalace a správa</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">1 — Instalace Dockeru na Linuxu</h2>
+        <div class="lesson-desc">
+          Docker je platforma pro vývoj, nasazení a běh aplikací v kontejnerech.
+          Kontejnery izolují aplikace od infrastruktury a umožňují jejich snadný přenos.
+        </div>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace na Debian/Ubuntu</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Aktualizace repozitářů</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get update</span>
+
+<span class="bcmt"># Instalace potřebných balíčků</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">ca-certificates curl gnupg lsb-release</span>
+
+<span class="bcmt"># Přidání oficiálního GPG klíče Dockeru</span>
+<span class="bprompt">$ </span><span class="bcmd">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg</span>
+
+<span class="bcmt"># Přidání repozitáře Dockeru</span>
+<span class="bprompt">$ </span><span class="bcmd">echo</span> <span class="bval">"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</span> <span class="bflag">></span> <span class="bpath">/etc/apt/sources.list.d/docker.list</span>
+
+<span class="bcmt"># Instalace Docker Engine</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get update</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">docker-ce docker-ce-cli containerd.io docker-compose-plugin</span></pre>
+        </div>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Ověření instalace</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bprompt">$ </span><span class="bcmd">docker --version</span>
+<span class="bprompt">$ </span><span class="bcmd">docker run</span> <span class="bval">hello-world</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="commands">
+        <h2 class="lesson-sec-title">2 — Základní příkazy Dockeru</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Přehled příkazů</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Seznam běžících kontejnerů</span>
+<span class="bprompt">$ </span><span class="bcmd">docker ps</span>
+
+<span class="bcmt"># Seznam všech kontejnerů (včetně zastavených)</span>
+<span class="bprompt">$ </span><span class="bcmd">docker ps</span> <span class="bflag">-a</span>
+
+<span class="bcmt"># Seznam stažených images</span>
+<span class="bprompt">$ </span><span class="bcmd">docker images</span>
+
+<span class="bcmt"># Informace o Dockeru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker info</span>
+
+<span class="bcmt"># Vyčištění nepoužívaných objektů</span>
+<span class="bprompt">$ </span><span class="bcmd">docker system prune</span> <span class="bflag">-a</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="images">
+        <h2 class="lesson-sec-title">3 — Práce s images</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Stahování a správa images</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Stažení image z Docker Hub</span>
+<span class="bprompt">$ </span><span class="bcmd">docker pull</span> <span class="bval">ubuntu:latest</span>
+
+<span class="bcmt"># Spuštění image v kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker run</span> <span class="bflag">-it</span> <span class="bval">ubuntu:latest /bin/bash</span>
+
+<span class="bcmt"># Smazání image</span>
+<span class="bprompt">$ </span><span class="bcmd">docker rmi</span> <span class="bval">ubuntu:latest</span>
+
+<span class="bcmt"># Hledání images na Docker Hub</span>
+<span class="bprompt">$ </span><span class="bcmd">docker search</span> <span class="bval">nginx</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="containers">
+        <h2 class="lesson-sec-title">4 — Správa kontejnerů</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Životní cyklus kontejneru</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Spuštění kontejneru na pozadí</span>
+<span class="bprompt">$ </span><span class="bcmd">docker run</span> <span class="bflag">-d --name</span> <span class="bval">muj-nginx -p 8080:80 nginx</span>
+
+<span class="bcmt"># Zastavení kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker stop</span> <span class="bval">muj-nginx</span>
+
+<span class="bcmt"># Spuštění zastaveného kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker start</span> <span class="bval">muj-nginx</span>
+
+<span class="bcmt"># Smazání kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker rm</span> <span class="bval">muj-nginx</span>
+
+<span class="bcmt"># Zobrazení logů kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker logs</span> <span class="bval">muj-nginx</span>
+
+<span class="bcmt"># Připojení do běžícího kontejneru</span>
+<span class="bprompt">$ </span><span class="bcmd">docker exec</span> <span class="bflag">-it</span> <span class="bval">muj-nginx /bin/bash</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec">
+        <h2 class="lesson-sec-title">🎥 Video výuka</h2>
+        <div class="video-placeholder">
+          <p>Video zatím není k dispozici</p>
+          <span class="badge badge-none">bez odkazu</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussman.js"></script>
+</body>
+</html>

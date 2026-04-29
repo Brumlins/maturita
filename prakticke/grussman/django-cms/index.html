@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Django CMS | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussman</a>
+    <span class="sep">/</span>
+    <span class="current">django-cms</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#install" class="sidebar-link" data-target="install"><span class="sidebar-num">1</span> Příprava prostředí</a>
+      <a href="#django" class="sidebar-link" data-target="django"><span class="sidebar-num">2</span> Instalace Django CMS</a>
+      <a href="#config" class="sidebar-link" data-target="config"><span class="sidebar-num">3</span> Konfigurace projektu</a>
+      <a href="#run" class="sidebar-link" data-target="run"><span class="sidebar-num">4</span> Spuštění</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 blog.iservery.com</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussman · it2-pvy · it3-pvy · it4</p>
+        <h1>Django CMS</h1>
+        <div class="hero-meta">
+          <span>🐍 Django</span>
+          <span>📝 Content Management System</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">1 — Příprava prostředí</h2>
+        <div class="lesson-desc">
+          <strong>Django CMS</strong> je systém pro správu obsahu postavený na frameworku Django.
+          Vyžaduje Python 3.8+, Django a databázi (SQLite pro vývoj, PostgreSQL pro produkci).
+        </div>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Vytvoření virtuálního prostředí</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Vytvoření adresáře projektu</span>
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bval">django-cms-project</span>
+<span class="bprompt">$ </span><span class="bcmd">cd</span> <span class="bval">django-cms-project</span>
+
+<span class="bcmt"># Vytvoření a aktivace venv</span>
+<span class="bprompt">$ </span><span class="bcmd">python3 -m venv</span> <span class="bval">venv</span>
+<span class="bprompt">$ </span><span class="bcmd">source</span> <span class="bval">venv/bin/activate</span>
+
+<span class="bcmt"># Upgrade pip</span>
+<span class="bprompt">$ </span><span class="bcmd">pip install</span> <span class="bval">--upgrade pip</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="django">
+        <h2 class="lesson-sec-title">2 — Instalace Django CMS</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace balíčků</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Instalace Django CMS a jeho závislostí</span>
+<span class="bprompt">$ </span><span class="bcmd">pip install</span> <span class="bval">django-cms djangocms-admin-style</span>
+
+<span class="bcmt"># Vytvoření Django projektu</span>
+<span class="bprompt">$ </span><span class="bcmd">django-admin</span> <span class="bval">startproject myproject .</span>
+
+<span class="bcmt"># Vytvoření CMS aplikace</span>
+<span class="bprompt">$ </span><span class="bcmd">python manage.py</span> <span class="bval">startapp mycms</span>
+
+<span class="bcmt"># Instalované balíčky</span>
+<span class="bprompt">$ </span><span class="bcmd">pip freeze</span> <span class="bflag">></span> <span class="bpath">requirements.txt</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="config">
+        <h2 class="lesson-sec-title">3 — Konfigurace projektu</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">settings.py úpravy</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># myproject/settings.py</span>
+<span class="bval">INSTALLED_APPS</span> <span class="bflag">=</span> <span class="bval">[</span>
+    <span class="bval">'django.contrib.sites'</span>,
+    <span class="bval">'cms'</span>,
+    <span class="bval">'menus'</span>,
+    <span class="bval">'treebeard'</span>,
+    <span class="bval">'djangocms_admin_style'</span>,
+    <span class="bval">'djangocms_text_ckeditor'</span>,
+    <span class="bval">'django.contrib.admin'</span>,
+    <span class="bval">'django.contrib.auth'</span>,
+    <span class="bval">'django.contrib.contenttypes'</span>,
+    <span class="bval">'django.contrib.sessions'</span>,
+    <span class="bval">'django.contrib.messages'</span>,
+    <span class="bval">'django.contrib.staticfiles'</span>,
+<span class="bval">]</span>
+
+<span class="bval">SITE_ID</span> <span class="bflag">=</span> <span class="bval">1</span>
+<span class="bval">LANGUAGE_CODE</span> <span class="bflag">=</span> <span class="bval">'cs'</span>
+
+<span class="bcmt"># Databáze (výchozí SQLite)</span>
+<span class="bval">DATABASES</span> <span class="bflag">=</span> <span class="bval">{</span>
+    <span class="bval">'default'</span>: {
+        <span class="bval">'ENGINE'</span>: <span class="bval">'django.db.backends.sqlite3'</span>,
+        <span class="bval">'NAME'</span>: <span class="bval">BASE_DIR / 'db.sqlite3'</span>,
+    <span class="bval">}</span>
+<span class="bval">}</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="run">
+        <h2 class="lesson-sec-title">4 — Migrace a spuštění</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Inicializace CMS</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Migrace databáze</span>
+<span class="bprompt">$ </span><span class="bcmd">python manage.py</span> <span class="bval">migrate</span>
+
+<span class="bcmt"># Vytvoření superuživatele</span>
+<span class="bprompt">$ </span><span class="bcmd">python manage.py</span> <span class="bval">createsuperuser</span>
+
+<span class="bcmt"># Spuštění vývojového serveru</span>
+<span class="bprompt">$ </span><span class="bcmd">python manage.py</span> <span class="bval">runserver 0.0.0.0:8000</span>
+
+<span class="bcmt"># Přístup v prohlížeči:</span>
+<span class="bcmt"># http://localhost:8000</span>
+<span class="bcmt"># Administrace: http://localhost:8000/admin/</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec">
+        <h2 class="lesson-sec-title">🎥 Video výuka</h2>
+        <div class="video-placeholder">
+          <p>Video zatím není k dispozici</p>
+          <span class="badge badge-none">bez odkazu</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussman.js"></script>
+</body>
+</html>

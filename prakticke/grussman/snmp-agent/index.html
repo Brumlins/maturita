@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNMP Agent | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussman</a>
+    <span class="sep">/</span>
+    <span class="current">snmp-agent</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#intro" class="sidebar-link" data-target="intro"><span class="sidebar-num">1</span> Co je SNMP</a>
+      <a href="#install" class="sidebar-link" data-target="install"><span class="sidebar-num">2</span> Instalace SNMP</a>
+      <a href="#config" class="sidebar-link" data-target="config"><span class="sidebar-num">3</span> Konfigurace agenta</a>
+      <a href="#query" class="sidebar-link" data-target="query"><span class="sidebar-num">4</span> Dotazování (snmpwalk)</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 blog.iservery.com</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussman · it2-pvy · it3-pvy · it4</p>
+        <h1>SNMP Agent</h1>
+        <div class="hero-meta">
+          <span>📡 SNMP</span>
+          <span>🔍 Simple Network Management Protocol</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="intro">
+        <h2 class="lesson-sec-title">1 — Co je SNMP</h2>
+        <div class="lesson-desc">
+          <strong>SNMP (Simple Network Management Protocol)</strong> slouží k monitorování a správě síťových zařízení.
+          Zařízení (routery, switche, servery) mají SNMP agenta, který odpovídá na dotazy správce (manager).
+          Data jsou organizována ve stromové struktuře zvané MIB (Management Information Base).
+        </div>
+        <div class="note-box">
+          <strong>// TIP</strong>
+          SNMP verze: v1 (nejstarší, nezabezpečená), v2c (komunitní řetězec), v3 (šifrování a autentizace).
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">2 — Instalace SNMP agenta (snmpd)</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace na Linuxu</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Instalace SNMP daemon a nástrojů</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">snmp snmp-mibs-downloader snmpd</span>
+
+<span class="bcmt"># Ověření běhu služby</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl status</span> <span class="bval">snmpd</span>
+
+<span class="bcmt"># Povolení při startu</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl enable</span> <span class="bval">snmpd</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="config">
+        <h2 class="lesson-sec-title">3 — Konfigurace SNMP agenta</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">/etc/snmp/snmpd.conf</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Komunitní řetězec (v2c)</span>
+<span class="bval">rocommunity public</span>   <span class="bcmt"># read-only pro komunitu "public"</span>
+<span class="bval">rwcommunity private</span>  <span class="bcmt"># read-write pro komunitu "private"</span>
+
+<span class="bcmt"># Omezení přístupu na konkrétní IP</span>
+<span class="bval">rocommunity public 192.168.0.0/24</span>
+
+<span class="bcmt"># Systémové informace</span>
+<span class="bval">syslocation "Server Room"</span>
+<span class="bval">syscontact admin@firma.cz</span>
+
+<span class="bcmt"># Poslouchat na všech rozhraních</span>
+<span class="bval">agentAddress udp:161</span>
+
+<span class="bcmt"># Restart po změně</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">snmpd</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="query">
+        <h2 class="lesson-sec-title">4 — Dotazování přes snmpwalk a snmpget</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Základní příkazy pro dotazování</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Procházení celého MIB stromu</span>
+<span class="bprompt">$ </span><span class="bcmd">snmpwalk</span> <span class="bflag">-v2c -c public</span> <span class="bval">192.168.0.10</span>
+
+<span class="bcmt"># Konkrétní OID - systémový název</span>
+<span class="bprompt">$ </span><span class="bcmd">snmpget</span> <span class="bflag">-v2c -c public</span> <span class="bval">192.168.0.10 1.3.6.1.2.1.1.1.0</span>
+
+<span class="bcmt"># Uptime systému</span>
+<span class="bprompt">$ </span><span class="bcmd">snmpget</span> <span class="bflag">-v2c -c public</span> <span class="bval">192.168.0.10 1.3.6.1.2.1.1.3.0</span>
+
+<span class="bcmt"># Seznam rozhraní</span>
+<span class="bprompt">$ </span><span class="bcmd">snmpwalk</span> <span class="bflag">-v2c -c public</span> <span class="bval">192.168.0.10 1.3.6.1.2.1.2.2.1.2</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec">
+        <h2 class="lesson-sec-title">🎥 Video výuka</h2>
+        <div class="video-placeholder">
+          <p>Video zatím není k dispozici</p>
+          <span class="badge badge-none">bez odkazu</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussman.js"></script>
+</body>
+</html>

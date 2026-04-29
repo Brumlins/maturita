@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHP | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussman</a>
+    <span class="sep">/</span>
+    <span class="current">php</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#install" class="sidebar-link" data-target="install"><span class="sidebar-num">1</span> Instalace PHP</a>
+      <a href="#syntax" class="sidebar-link" data-target="syntax"><span class="sidebar-num">2</span> Základní syntaxe</a>
+      <a href="#forms" class="sidebar-link" data-target="forms"><span class="sidebar-num">3</span> Formuláře a POST/GET</a>
+      <a href="#db" class="sidebar-link" data-target="db"><span class="sidebar-num">4</span> Připojení k databázi</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 blog.iservery.com</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussman · it2-pvy · it3-pvy · it4</p>
+        <h1>PHP</h1>
+        <div class="hero-meta">
+          <span>🐘 PHP</span>
+          <span>🌐 serverový skriptovací jazyk</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">1 — Instalace PHP s Apache2</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace PHP na Linuxu</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Instalace PHP a modulu pro Apache</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">php libapache2-mod-php php-mysql</span>
+
+<span class="bcmt"># Restart Apache</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">apache2</span>
+
+<span class="bcmt"># Test PHP - vytvořit /var/www/html/info.php</span>
+<span class="bcmt">&lt;?php phpinfo(); ?&gt;</span>
+
+<span class="bcmt"># Test v prohlížeči: http://localhost/info.php</span>
+<span class="bcmt"># (Poté smazat info.php z bezpečnostních důvodů!)</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="syntax">
+        <h2 class="lesson-sec-title">2 — Základní syntaxe PHP</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Základní konstrukce</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">&lt;?php</span>
+<span class="bcmt">// Komentáře</span>
+<span class="bval">$jmeno</span> <span class="bflag">=</span> <span class="bval">"Jan"</span>;  <span class="bcmt">// proměnná začíná $</span>
+<span class="bval">$vek</span> <span class="bflag">=</span> <span class="bval">20</span>;
+
+<span class="bcmt">// Výpis</span>
+<span class="bcmd">echo</span> <span class="bval">"Ahoj $jmeno!"</span>;
+<span class="bcmd">print</span><span class="bval">("Věk: $vek")</span>;
+
+<span class="bcmt">// Podmínky</span>
+<span class="bval">if</span> <span class="bval">($vek >= 18) {</span>
+    <span class="bcmd">echo</span> <span class="bval">"Dospělý"</span>;
+<span class="bval">}</span> <span class="bval">else {</span>
+    <span class="bcmd">echo</span> <span class="bval">"Mladistvý"</span>;
+<span class="bval">}</span>
+
+<span class="bcmt">// Cyklus</span>
+<span class="bval">for</span> <span class="bval">($i = 0; $i < 5; $i++) {</span>
+    <span class="bcmd">echo</span> <span class="bval">$i</span>;
+<span class="bval">}</span>
+<span class="bcmt">?&gt;</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="forms">
+        <h2 class="lesson-sec-title">3 — Formuláře a zpracování POST/GET</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Zpracování formuláře v PHP</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">&lt;!-- HTML formulář --&gt;</span>
+<span class="bcmt">&lt;form method="POST" action="zpracovani.php"&gt;</span>
+<span class="bcmt">  &lt;input type="text" name="jmeno"&gt;</span>
+<span class="bcmt">  &lt;input type="submit" value="Odeslat"&gt;</span>
+<span class="bcmt">&lt;/form&gt;</span>
+
+<span class="bcmt">&lt;?php</span>
+<span class="bcmt">// zpracovani.php</span>
+<span class="bval">if</span> <span class="bval">($_SERVER["REQUEST_METHOD"] == "POST") {</span>
+    <span class="bval">$jmeno</span> <span class="bflag">=</span> <span class="bval">$_POST["jmeno"]</span>;
+    <span class="bcmd">echo</span> <span class="bval">"Přijato: $jmeno"</span>;
+<span class="bval">}</span>
+<span class="bcmt">?&gt;</span>
+
+<span class="bcmt"># Přístup k GET parametrům: $_GET["parametr"]</span>
+<span class="bcmt"># Přístup k obojímu: $_REQUEST["parametr"]</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="db">
+        <h2 class="lesson-sec-title">4 — Připojení k MySQL databázi</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">MySQLi příklad</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">&lt;?php</span>
+<span class="bval">$servername</span> <span class="bflag">=</span> <span class="bval">"localhost"</span>;
+<span class="bval">$username</span> <span class="bflag">=</span> <span class="bval">"root"</span>;
+<span class="bval">$password</span> <span class="bflag">=</span> <span class="bval">"heslo"</span>;
+<span class="bval">$dbname</span> <span class="bflag">=</span> <span class="bval">"moje_db"</span>;
+
+<span class="bcmt">// Vytvoření připojení</span>
+<span class="bval">$conn</span> <span class="bflag">=</span> <span class="bval">new mysqli($servername, $username, $password, $dbname);</span>
+
+<span class="bcmt">// Kontrola připojení</span>
+<span class="bval">if</span> <span class="bval">($conn->connect_error) {</span>
+    <span class="bcmd">die</span><span class="bval">("Připojení selhalo: " . $conn->connect_error)</span>;
+<span class="bval">}</span>
+
+<span class="bcmt">// Dotaz</span>
+<span class="bval">$sql</span> <span class="bflag">=</span> <span class="bval">"SELECT id, jmeno FROM uzivatele"</span>;
+<span class="bval">$result</span> <span class="bflag">=</span> <span class="bval">$conn->query($sql);</span>
+
+<span class="bval">if</span> <span class="bval">($result->num_rows > 0) {</span>
+    <span class="bval">while</span><span class="bval">($row = $result->fetch_assoc()) {</span>
+        <span class="bcmd">echo</span> <span class="bval">"id: " . $row["id"]. " - Jméno: " . $row["jmeno"]. "&lt;br&gt;"</span>;
+    <span class="bval">}</span>
+<span class="bval">}</span>
+<span class="bval">$conn->close()</span>;
+<span class="bcmt">?&gt;</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec">
+        <h2 class="lesson-sec-title">🎥 Video výuka</h2>
+        <div class="video-placeholder">
+          <p>Video zatím není k dispozici</p>
+          <span class="badge badge-none">bez odkazu</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussman.js"></script>
+</body>
+</html>
