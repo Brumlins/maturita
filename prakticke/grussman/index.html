@@ -104,17 +104,23 @@
 
   <div class="page">
     <aside>
-      <div class="sidebar-title">IT4 Maturita</div>
+      <div class="sidebar-title">I. část — Administrace</div>
       <a href="#" class="sidebar-link" onclick="showDetail('bash'); return false;"><span class="sidebar-num">1</span> Bash skripty</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('wordpress'); return false;"><span class="sidebar-num">2</span> WordPress</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('samba'); return false;"><span class="sidebar-num">3</span> Samba</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('nfs'); return false;"><span class="sidebar-num">4</span> NFS</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('ssh'); return false;"><span class="sidebar-num">5</span> SSH</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('apache2'); return false;"><span class="sidebar-num">6</span> Apache2 userdir</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('tar'); return false;"><span class="sidebar-num">7</span> tar — záloha</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('mysql'); return false;"><span class="sidebar-num">8</span> MySQL záloha</a>
-      <a href="#" class="sidebar-link" onclick="showDetail('linux-prikazy'); return false;"><span class="sidebar-num">9</span> Linux příkazy</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('linux-prikazy'); return false;"><span class="sidebar-num">2</span> Linux příkazy</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('tar'); return false;"><span class="sidebar-num">3</span> tar — záloha</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('mysql'); return false;"><span class="sidebar-num">4</span> MySQL záloha</a>
+
       <div class="sidebar-sep"></div>
+
+      <div class="sidebar-title">II. část — Sítě</div>
+      <a href="#" class="sidebar-link" onclick="showDetail('ssh'); return false;"><span class="sidebar-num">5</span> SSH</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('apache2'); return false;"><span class="sidebar-num">6</span> Apache2</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('samba'); return false;"><span class="sidebar-num">7</span> Samba</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('nfs'); return false;"><span class="sidebar-num">8</span> NFS</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('wordpress'); return false;"><span class="sidebar-num">9</span> WordPress</a>
+
+      <div class="sidebar-sep"></div>
+
       <div class="sidebar-title">Zdroje</div>
       <div style="display:flex;flex-direction:column;gap:6px;padding:0 0.65rem">
         <span class="res-badge blog" style="width:fit-content">📄 blog</span>
@@ -135,10 +141,11 @@
           <p class="hero-src">zdroj: <a href="https://blog.iservery.com/vyuka-online/" target="_blank">blog.iservery.com/vyuka-online</a></p>
         </div>
 
+        <!-- PART I -->
         <div class="sec-block">
           <div class="sec-header">
             <span class="sec-label label-it4">IT4</span>
-            <h2 class="sec-title">Maturita — písemná příprava</h2>
+            <h2 class="sec-title">I. část — Administrace a scripting</h2>
           </div>
           <div class="projects-grid">
 
@@ -149,26 +156,40 @@
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('wordpress')">
+            <div class="project-card grussman" onclick="showDetail('linux-prikazy')">
               <span class="project-num">02</span>
-              <div class="project-name">WordPress</div>
-              <div class="project-meta">Instalace na Ubuntu</div>
+              <div class="project-name">Linux příkazy</div>
+              <div class="project-meta">Přehled pro IT4</div>
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('samba')">
+            <div class="project-card grussman" onclick="showDetail('tar')">
               <span class="project-num">03</span>
-              <div class="project-name">Samba</div>
-              <div class="project-meta">Sdílení adresářů</div>
+              <div class="project-name">tar</div>
+              <div class="project-meta">Zálohování adresáře</div>
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('nfs')">
+            <div class="project-card grussman" onclick="showDetail('mysql')">
               <span class="project-num">04</span>
-              <div class="project-name">NFS</div>
-              <div class="project-meta">Síťové úložiště</div>
+              <div class="project-name">MySQL záloha</div>
+              <div class="project-meta">Zálohování a obnova</div>
               <span class="project-arrow">↗</span>
             </div>
+
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div style="display:flex;align-items:center;margin:2.5rem 0;gap:1rem;opacity:0.5">
+          <hr style="flex:1;border:none;border-top:1px solid var(--border)">
+          <span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap">II. část — Sítě a služby</span>
+          <hr style="flex:1;border:none;border-top:1px solid var(--border)">
+        </div>
+
+        <!-- PART II -->
+        <div class="sec-block">
+          <div class="projects-grid">
 
             <div class="project-card grussman" onclick="showDetail('ssh')">
               <span class="project-num">05</span>
@@ -184,24 +205,24 @@
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('tar')">
+            <div class="project-card grussman" onclick="showDetail('samba')">
               <span class="project-num">07</span>
-              <div class="project-name">tar</div>
-              <div class="project-meta">Zálohování adresáře</div>
+              <div class="project-name">Samba</div>
+              <div class="project-meta">Sdílení adresářů</div>
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('mysql')">
+            <div class="project-card grussman" onclick="showDetail('nfs')">
               <span class="project-num">08</span>
-              <div class="project-name">MySQL záloha</div>
-              <div class="project-meta">Zálohování a obnova</div>
+              <div class="project-name">NFS</div>
+              <div class="project-meta">Síťové úložiště</div>
               <span class="project-arrow">↗</span>
             </div>
 
-            <div class="project-card grussman" onclick="showDetail('linux-prikazy')">
+            <div class="project-card grussman" onclick="showDetail('wordpress')">
               <span class="project-num">09</span>
-              <div class="project-name">Linux příkazy</div>
-              <div class="project-meta">Přehled pro IT4</div>
+              <div class="project-name">WordPress</div>
+              <div class="project-meta">Instalace na Ubuntu</div>
               <span class="project-arrow">↗</span>
             </div>
 
