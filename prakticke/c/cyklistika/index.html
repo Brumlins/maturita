@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyklistika | C Praktické úlohy | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .task-section { margin: 2rem 0; }
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+    .code-block code { font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; }
+    .output-block { background: #0a0e1a; border: 1px solid var(--accent); border-radius: 6px; padding: 1rem; margin: 1rem 0; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; }
+    .note-box { background: rgba(100,200,100,0.08); border-left: 3px solid var(--accent2); padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C</a>
+    <span class="sep">/</span>
+    <span class="current">Cyklistika</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C — praktická úloha</p>
+      <h1>Cyklistika</h1>
+      <div class="hero-meta">
+        <span>🚴 Horská kola 200 km</span>
+        <span>📊 CSV parsing + řazení</span>
+      </div>
+    </div>
+
+    <!-- ZADÁNÍ -->
+    <div class="task-section">
+      <h2>Zadání</h2>
+      <p>Vytvořte program v jazyce C, který s využitím vzorového datového souboru přihlášených závodníků na horských kolech na trase 200 km <code>cyklistika.txt</code> vypíše na obrazovku výsledkovou listinu závodu.</p>
+      <p style="margin-top:1rem;font-size:0.9rem;color:var(--muted)">Úloha je podobná Jizerské 50, ale se středníkem jako separátorem a s klubem místo státu.</p>
+    </div>
+
+    <!-- KÓD -->
+    <div class="task-section">
+      <h2>Kompletní řešení (C)</h2>
+
+      <div class="code-block">
+        <code><pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_CYCLISTS 200
+#define MAX_NAME 50
+#define MAX_CLUB 80
+#define BUFFER_SIZE 256
+
+typedef struct {
+  int number;           // Startovní číslo
+  char surname[MAX_NAME];
+  char name[MAX_NAME];
+  int year;
+  char club[MAX_CLUB];
+  int time_sec;         // Čas v sekundách
+  char time_str[20];    // Čas jako string
+} Cyclist;
+
+// Funkce: převést "HH:MM:SS.d" na sekundy
+int time_to_seconds(const char *time_str) {
+  int h, m, s, ds;
+  sscanf(time_str, "%d:%d:%d.%d", &amp;h, &amp;m, &amp;s, &amp;ds);
+  return h * 3600 + m * 60 + s;
+}
+
+// Funkce: výměna
+void swap(Cyclist *a, Cyclist *b) {
+  Cyclist temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+// Funkce: bubble sort
+void sort_by_time(Cyclist *cyclists, int count) {
+  for (int i = 0; i &lt; count - 1; i++) {
+    for (int j = 0; j &lt; count - 1 - i; j++) {
+      if (cyclists[j].time_sec &gt; cyclists[j + 1].time_sec) {
+        swap(&amp;cyclists[j], &amp;cyclists[j + 1]);
+      }
+    }
+  }
+}
+
+// Funkce: čtení dat
+int read_data(const char *filename, Cyclist *cyclists) {
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
+    printf("Chyba: Nepodařilo se otevřít soubor '%s'.\n", filename);
+    return 0;
+  }
+
+  char buffer[BUFFER_SIZE];
+  int count = 0;
+
+  // Přeskočit hlavičku
+  fgets(buffer, BUFFER_SIZE, file);
+
+  // Čtení řádků
+  // Formát: cislo;Prijmeni;Jmeno;Rocnik;Klub;Cas
+  while (fgets(buffer, BUFFER_SIZE, file) &amp;&amp; count &lt; MAX_CYCLISTS) {
+    buffer[strcspn(buffer, "\n")] = 0;
+
+    char *part;
+
+    // Číslo
+    part = strtok(buffer, ";");
+    cyclists[count].number = atoi(part);
+
+    // Příjmení
+    part = strtok(NULL, ";");
+    strcpy(cyclists[count].surname, part);
+
+    // Jméno
+    part = strtok(NULL, ";");
+    strcpy(cyclists[count].name, part);
+
+    // Ročník
+    part = strtok(NULL, ";");
+    cyclists[count].year = atoi(part);
+
+    // Klub
+    part = strtok(NULL, ";");
+    strcpy(cyclists[count].club, part);
+
+    // Čas
+    part = strtok(NULL, ";");
+    strcpy(cyclists[count].time_str, part);
+    cyclists[count].time_sec = time_to_seconds(part);
+
+    count++;
+  }
+
+  fclose(file);
+  return count;
+}
+
+// Funkce: výpis
+void print_results(Cyclist *cyclists, int count) {
+  printf("\n");
+  printf("VÝSLEDKOVÁ LISTINA - CYKLISTIKA 200 KM\n");
+  printf("===================================================================\n");
+  printf("Por. | Číslo | Příjmení         | Jméno       | Klub              | Čas       \n");
+  printf("-----+-------+------------------+-------------+-------------------+----------\n");
+
+  for (int i = 0; i &lt; count; i++) {
+    printf("%3d. | %5d | %-16s | %-11s | %-17s | %s\n",
+           i + 1,
+           cyclists[i].number,
+           cyclists[i].surname,
+           cyclists[i].name,
+           cyclists[i].club,
+           cyclists[i].time_str);
+  }
+  printf("===================================================================\n\n");
+}
+
+int main(void) {
+  Cyclist cyclists[MAX_CYCLISTS];
+  int count;
+
+  count = read_data("cyklistika.txt", cyclists);
+
+  if (count == 0) {
+    return 1;
+  }
+
+  // Seřadit
+  sort_by_time(cyclists, count);
+
+  // Vypsat
+  print_results(cyclists, count);
+
+  return 0;
+}
+</pre></code>
+      </div>
+
+      <div class="note-box">
+        <strong>Struktura:</strong> Místo státu (NOR, SWE) máme <code>klub</code> (string až 80 znaků). Zbytek je identické s Jizerskou 50.
+      </div>
+    </div>
+
+    <!-- PŘÍKLAD VÝSTUPU -->
+    <div class="task-section">
+      <h2>Příklad výstupu</h2>
+      <div class="output-block"><pre>VÝSLEDKOVÁ LISTINA - CYKLISTIKA 200 KM
+===================================================================
+Por. | Číslo | Příjmení         | Jméno       | Klub              | Čas
+-----+-------+------------------+-------------+-------------------+----------
+  1. |  5001 | FOJTIK           | Jan         | FORCE KCK Zlin    | 9:19:09.9
+  2. |  5002 | JOBANEK          | Jan         | Superior Suninven | 9:23:45.4
+  3. |  5003 | STASTNY          | Petr        | RAJEC TREK        | 9:25:34.4
+  4. |  5007 | SROLL            | Marek       | VELOCENTRUM - STR | 9:44:40.4
+  5. |  5121 | HARTL            | Karel       | STARBIKE.SK       | 9:41:16.4
+  6. |  5095 | SIBL             | Radoslav    | Cyklobulis Bystic | 9:56:52.9
+  7. |  5004 | KALITA           | Tomas       | SK BAgBIKE        | 10:25:28.3
+...
+===================================================================</pre></div>
+    </div>
+  </div>
+</body>
+</html>

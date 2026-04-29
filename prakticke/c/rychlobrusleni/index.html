@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rychlobruslení | C Praktické úlohy | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .task-section { margin: 2rem 0; }
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+    .code-block code { font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; }
+    .output-block { background: #0a0e1a; border: 1px solid var(--accent); border-radius: 6px; padding: 1rem; margin: 1rem 0; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; }
+    .note-box { background: rgba(100,200,100,0.08); border-left: 3px solid var(--accent2); padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C</a>
+    <span class="sep">/</span>
+    <span class="current">Rychlobruslení</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C — praktická úloha</p>
+      <h1>Rychlobruslení</h1>
+      <div class="hero-meta">
+        <span>⛸️ 10 000 metrů</span>
+        <span>📊 Parsování + řazení</span>
+      </div>
+    </div>
+
+    <!-- ZADÁNÍ -->
+    <div class="task-section">
+      <h2>Zadání</h2>
+      <p>Vytvořte program v jazyce C, který s využitím datového souboru <code>rychlobrusleni10000m.txt</code> zpracuje výsledky rychlobruslařů na 10 000 metrů a vypíše výsledkovou listinu seřazenou podle dosažených časů.</p>
+      <p style="margin-top:1rem;font-size:0.9rem;color:var(--muted)">Zvláštnost: Závodníci jsou v souborů v párech (skupinách), ale řadíme jednotlivě podle času.</p>
+    </div>
+
+    <!-- KÓD -->
+    <div class="task-section">
+      <h2>Kompletní řešení (C)</h2>
+
+      <div class="code-block">
+        <code><pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_RACERS 100
+#define MAX_NAME 50
+#define BUFFER_SIZE 256
+
+typedef struct {
+  int pair_number;      // Číslo skupiny/páru
+  char name[MAX_NAME];  // Jméno
+  char surname[MAX_NAME]; // Příjmení
+  char country[3];      // Státní kód
+  int time_sec;         // Čas v sekundách
+  char time_str[20];    // Čas jako string (MM:SS.MS)
+} Racer;
+
+// Funkce: převést "MM:SS.MS" na sekundy
+int time_to_seconds(const char *time_str) {
+  int m, s, ms;
+  sscanf(time_str, "%d:%d.%d", &amp;m, &amp;s, &amp;ms);
+  return m * 60 + s;
+}
+
+// Funkce: výměna
+void swap(Racer *a, Racer *b) {
+  Racer temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+// Funkce: bubble sort
+void sort_by_time(Racer *racers, int count) {
+  for (int i = 0; i &lt; count - 1; i++) {
+    for (int j = 0; j &lt; count - 1 - i; j++) {
+      if (racers[j].time_sec &gt; racers[j + 1].time_sec) {
+        swap(&amp;racers[j], &amp;racers[j + 1]);
+      }
+    }
+  }
+}
+
+// Funkce: čtení dat
+int read_data(const char *filename, Racer *racers) {
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
+    printf("Chyba: Nepodařilo se otevřít '%s'.\n", filename);
+    return 0;
+  }
+
+  char buffer[BUFFER_SIZE];
+  int count = 0;
+
+  // Přeskočit hlavičku
+  fgets(buffer, BUFFER_SIZE, file);
+
+  // Čtení řádků
+  // Formát: cislo_dvojice jmeno prijmeni (stat) cas
+  while (fgets(buffer, BUFFER_SIZE, file) &amp;&amp; count &lt; MAX_RACERS) {
+    buffer[strcspn(buffer, "\n")] = 0;
+
+    // Číslo páru
+    int pair;
+    if (sscanf(buffer, "%d", &amp;pair) != 1) continue;
+    racers[count].pair_number = pair;
+
+    // Zbytek: "Jmeno Prijmeni (STAT) CAS"
+    char *start = buffer;
+    while (*start &amp;&amp; !(' ' &amp;&amp; *(start+1) &amp;&amp; *(start+1) &gt;= 'A')) start++;
+    while (*start == ' ') start++;
+
+    // Parsování jména a příjmení
+    char temp[256];
+    strcpy(temp, start);
+
+    // Najít závorku pro stát
+    char *paren_start = strchr(temp, '(');
+    if (!paren_start) continue;
+
+    // Příjmení je poslední slovo před závorkou
+    *(paren_start - 1) = 0;
+    char *last_space = strrchr(temp, ' ');
+    if (last_space) {
+      strcpy(racers[count].surname, last_space + 1);
+      *last_space = 0;
+      strcpy(racers[count].name, temp);
+    }
+
+    // Stát
+    paren_start++;
+    sscanf(paren_start, "%2s", racers[count].country);
+
+    // Čas (posledních 8 znaků)
+    char *time_pos = strrchr(buffer, ')');
+    if (time_pos) {
+      time_pos++;
+      while (*time_pos == ' ') time_pos++;
+      strcpy(racers[count].time_str, time_pos);
+      racers[count].time_sec = time_to_seconds(time_pos);
+    }
+
+    count++;
+  }
+
+  fclose(file);
+  return count;
+}
+
+// Funkce: výpis
+void print_results(Racer *racers, int count) {
+  printf("\n");
+  printf("RYCHLOBRUSLENÍ - 10 000 m\n");
+  printf("=========================================================\n");
+  printf("Por. | Jméno               | Příjmení         | Stát | Čas       \n");
+  printf("-----+---------------------+------------------+------+----------\n");
+
+  for (int i = 0; i &lt; count; i++) {
+    printf("%3d. | %-19s | %-16s | %s   | %s\n",
+           i + 1,
+           racers[i].name,
+           racers[i].surname,
+           racers[i].country,
+           racers[i].time_str);
+  }
+  printf("=========================================================\n\n");
+}
+
+int main(void) {
+  Racer racers[MAX_RACERS];
+  int count;
+
+  count = read_data("rychlobrusleni10000m.txt", racers);
+
+  if (count == 0) {
+    return 1;
+  }
+
+  // Seřadit
+  sort_by_time(racers, count);
+
+  // Vypsat
+  print_results(racers, count);
+
+  return 0;
+}
+</pre></code>
+      </div>
+
+      <div class="note-box">
+        <strong>Poznámka:</strong> Parsování je složitější kvůli formátu se státem v závorce. Přístup: (1) Najít pozici závorky, (2) Parsovat stát, (3) Zbývající text rozdělit na jméno a příjmení.
+      </div>
+    </div>
+
+    <!-- PŘÍKLAD VÝSTUPU -->
+    <div class="task-section">
+      <h2>Příklad výstupu</h2>
+      <div class="output-block"><pre>RYCHLOBRUSLENÍ - 10 000 m
+=========================================================
+Por. | Jméno               | Příjmení         | Stát | Čas
+-----+---------------------+------------------+------+----------
+  1. | Metodej             | Jilek            | CZE  | 12:33.43
+  2. | Vladimir            | Semirunniy       | POL  | 12:39.08
+  3. | Jorrit              | Bergsma          | NED  | 12:40.48
+  4. | Timothy             | Loubineaud       | FRA  | 12:44.20
+  5. | Stijn               | van_de_Bunt      | NED  | 12:45.75
+  6. | Davide              | Ghiotto          | ITA  | 12:46.72
+  7. | Sander              | Eitrem           | NOR  | 12:47.11
+  8. | Riccardo            | Lorello          | ITA  | 12:56.22
+  9. | Ted_Jan             | Bloemen          | CAN  | 13:00.01
+ 10. | Bart                | Swings           | BEL  | 13:05.60
+...
+=========================================================</pre></div>
+    </div>
+
+    <!-- SHRNUTÍ -->
+    <div class="task-section">
+      <h2>Co jsme se naučili</h2>
+      <ul style="font-size:0.95rem;line-height:1.8">
+        <li><strong>Parsování různých formátů</strong> — středník, pipe, závorky</li>
+        <li><strong>Práce se stringy</strong> — <code>strtok()</code>, <code>strchr()</code>, <code>strrchr()</code></li>
+        <li><strong>Řazení dat</strong> — bubble sort s vlastní výměnou</li>
+        <li><strong>Struktury a modularita</strong> — čitelný, rozložitelný kód</li>
+        <li><strong>Manipulace s časem</strong> — konverze, porovnávání, výpis</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

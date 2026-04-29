@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snowboarding | C Praktické úlohy | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .task-section { margin: 2rem 0; }
+    .task-title { font-size: 1.1rem; font-weight: 700; color: var(--accent2); margin: 1.5rem 0 0.75rem; }
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+    .code-block code { font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; }
+    .output-block { background: #0a0e1a; border: 1px solid var(--accent); border-radius: 6px; padding: 1rem; margin: 1rem 0; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; }
+    .note-box { background: rgba(100,200,100,0.08); border-left: 3px solid var(--accent2); padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C</a>
+    <span class="sep">/</span>
+    <span class="current">Snowboarding</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C — praktická úloha</p>
+      <h1>Snowboarding</h1>
+      <div class="hero-meta">
+        <span>🏂 Paralelní obří slalom</span>
+        <span>📊 Dvě kola + součet</span>
+      </div>
+    </div>
+
+    <!-- ZADÁNÍ -->
+    <div class="task-section">
+      <h2>Zadání</h2>
+      <p>Vytvořte program v jazyce C, který s využitím vzorového datového souboru závodnic paralelního obřího slalomu ve snowboardingu <code>snowboarding.txt</code> vypíše na obrazovku výsledkovou listinu kvalifikačního závodu.</p>
+
+      <div style="background:rgba(255,200,0,0.08);border-left:3px solid var(--accent3);padding:1rem;margin:1rem 0;border-radius:4px;font-size:0.9rem">
+        <strong>Klíčový rozdíl:</strong> Na rozdíl od Jizerské 50 zde máme <strong>dvě kola</strong> (Modrá dráha, Červená dráha) a celkový čas je jejich součet. Řazení je opět podle celkového času vzestupně.
+      </div>
+    </div>
+
+    <!-- PŘÍSTUP -->
+    <div class="task-section">
+      <h2>Přístup k řešení</h2>
+      <ol style="font-size:0.95rem;line-height:1.8">
+        <li><strong>Struktura</strong> — <code>struct</code> pro závodnici: jméno, země, čas kola 1, čas kola 2, celkový čas</li>
+        <li><strong>Parsování</strong> — CSV s pipe separátorem (<code>|</code>)</li>
+        <li><strong>Součet časů</strong> — celkový čas = kolo 1 + kolo 2 (v sekundách)</li>
+        <li><strong>Řazení</strong> — podle celkového času vzestupně</li>
+        <li><strong>Výpis</strong> — tabulka s pořadím, oběma koly a součtem</li>
+      </ol>
+    </div>
+
+    <!-- KÓD -->
+    <div class="task-section">
+      <h2>Kompletní řešení (C)</h2>
+
+      <div class="code-block">
+        <code><pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_RACERS 50
+#define MAX_NAME 100
+#define BUFFER_SIZE 256
+
+typedef struct {
+  char name[MAX_NAME];     // Jméno
+  char country[3];         // Země
+  int time1_sec;           // Kolo 1 v sekundách
+  int time2_sec;           // Kolo 2 v sekundách
+  int total_sec;           // Součet (pro řazení)
+  char time1_str[20];      // Kolo 1 jako string
+  char time2_str[20];      // Kolo 2 jako string
+  char total_str[20];      // Součet jako string
+} Racer;
+
+// Funkce: převést "MM:SS.MS" na sekundy (s přesností na setiny)
+int time_to_centiseconds(const char *time_str) {
+  int m, s, ms;
+  sscanf(time_str, "%d:%d.%d", &amp;m, &amp;s, &amp;ms);
+  return m * 6000 + s * 100 + ms;
+}
+
+// Funkce: převést setiny zpět na "MM:SS.MS"
+void centiseconds_to_string(int centisec, char *str) {
+  int m = centisec / 6000;
+  int s = (centisec % 6000) / 100;
+  int ms = centisec % 100;
+  sprintf(str, "%d:%02d.%02d", m, s, ms);
+}
+
+// Funkce: výměna obsahu
+void swap(Racer *a, Racer *b) {
+  Racer temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+// Funkce: bubble sort podle celkového času
+void sort_by_time(Racer *racers, int count) {
+  for (int i = 0; i &lt; count - 1; i++) {
+    for (int j = 0; j &lt; count - 1 - i; j++) {
+      if (racers[j].total_sec &gt; racers[j + 1].total_sec) {
+        swap(&amp;racers[j], &amp;racers[j + 1]);
+      }
+    }
+  }
+}
+
+// Funkce: čtení a parsování CSV
+int read_data(const char *filename, Racer *racers) {
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
+    printf("Chyba: Soubor '%s' se nepodařilo otevřít.\n", filename);
+    return 0;
+  }
+
+  char buffer[BUFFER_SIZE];
+  int count = 0;
+
+  // Přeskočit hlavičku
+  fgets(buffer, BUFFER_SIZE, file);
+
+  // Čtení řádků
+  // Formát: Jméno|Zeme|Modra draha|Cervena draha|Celkovy cas
+  while (fgets(buffer, BUFFER_SIZE, file) &amp;&amp; count &lt; MAX_RACERS) {
+    buffer[strcspn(buffer, "\n")] = 0;
+
+    // Parsování
+    char *part = strtok(buffer, "|");
+    strcpy(racers[count].name, part);
+
+    part = strtok(NULL, "|");
+    while (*part == ' ') part++;
+    strcpy(racers[count].country, part);
+
+    // Kolo 1
+    part = strtok(NULL, "|");
+    while (*part == ' ') part++;
+    strcpy(racers[count].time1_str, part);
+    racers[count].time1_sec = time_to_centiseconds(part);
+
+    // Kolo 2
+    part = strtok(NULL, "|");
+    while (*part == ' ') part++;
+    strcpy(racers[count].time2_str, part);
+    racers[count].time2_sec = time_to_centiseconds(part);
+
+    // Celkový čas (součet obou kol)
+    racers[count].total_sec = racers[count].time1_sec +
+                              racers[count].time2_sec;
+    centiseconds_to_string(racers[count].total_sec,
+                           racers[count].total_str);
+
+    count++;
+  }
+
+  fclose(file);
+  return count;
+}
+
+// Funkce: výpis výsledků
+void print_results(Racer *racers, int count) {
+  printf("\n");
+  printf("SNOWBOARD 2024 - KVALIFIKACE paralelní obří slalom ženy\n");
+  printf("================================================================\n");
+  printf("Por. | Jméno           | Zeme | Modrá dráha  | Červená dráha | Celkem     \n");
+  printf("-----+-----------------+------+-------------+---------------+----------\n");
+
+  for (int i = 0; i &lt; count; i++) {
+    printf("%3d. | %-15s | %s   | %11s | %13s | %10s\n",
+           i + 1,
+           racers[i].name,
+           racers[i].country,
+           racers[i].time1_str,
+           racers[i].time2_str,
+           racers[i].total_str);
+  }
+  printf("================================================================\n\n");
+}
+
+int main(void) {
+  Racer racers[MAX_RACERS];
+  int count;
+
+  count = read_data("snowboarding.txt", racers);
+
+  if (count == 0) {
+    return 1;
+  }
+
+  // Seřadit podle celkového času
+  sort_by_time(racers, count);
+
+  // Vypsat výsledky
+  print_results(racers, count);
+
+  return 0;
+}
+</pre></code>
+      </div>
+
+      <div class="note-box">
+        <strong>Rozdíly oproti Jizerské 50:</strong><br>
+        • Pipe separator (<code>|</code>) místo středníku<br>
+        • Dvě kola — oba časy se ukládají do struktury<br>
+        • Součet časů pro řazení: <code>total_sec = time1_sec + time2_sec</code><br>
+        • Čas v setinách sekundy (MM:SS.MS) — pracuje se přesněji<br>
+        • Výpis obsahuje obě kola i součet
+      </div>
+    </div>
+
+    <!-- PŘÍKLAD VÝSTUPU -->
+    <div class="task-section">
+      <h2>Příklad výstupu</h2>
+      <div class="output-block"><pre>SNOWBOARD 2024 - KVALIFIKACE paralelní obří slalom ženy
+================================================================
+Por. | Jméno           | Zeme | Modrá dráha  | Červená dráha | Celkem
+-----+-----------------+------+-------------+---------------+----------
+  1. | Ester Ledecka   | CZE  | 45.04       | 45.75        | 1:30.79
+  2. | Zuzana Maderova | CZE  | 45.38       | 46.10        | 1:31.48
+  3. | Lucia Dalmasso  | ITA  | 45.92       | 46.28        | 1:32.20
+  4. | Tsubaki Miki    | JPN  | 46.15       | 46.72        | 1:32.87
+  5. | Michelle Dekker | NED  | 46.22       | 46.90        | 1:33.12
+  6. | Sabine Payer    | AUT  | 46.73       | 47.02        | 1:33.75
+  7. | Elisa Ceffont   | ITA  | 46.80       | 47.22        | 1:34.02
+  8. | Daniela Ulbing  | AUT  | 46.98       | 47.17        | 1:34.15
+  9. | Julie Zogg      | SUI  | 47.05       | 47.33        | 1:34.38
+================================================================</pre></div>
+    </div>
+
+    <!-- KLÍČOVÉ KONCEPTY -->
+    <div class="task-section">
+      <h2>Klíčové koncepty</h2>
+      <ul style="font-size:0.95rem;line-height:1.8">
+        <li><strong>Více polí v struktuře</strong> — nejen jeden čas, ale dva, plus součet</li>
+        <li><strong>Počítání součtu</strong> — ve struktuře se počítá součet obou kol</li>
+        <li><strong>Pipe separator</strong> — CSV s <code>|</code> místo středníku</li>
+        <li><strong>Přesnost času</strong> — setiny sekundy, ne celé sekundy</li>
+        <li><strong>Modulárnost</strong> — funkce pro konverzi času, swap, třídění, výpis</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
