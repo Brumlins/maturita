@@ -81,8 +81,14 @@
       margin-bottom: 1rem;
       opacity: 0.3;
     }
-    .detail-content { display: none; }
-    .detail-content.active { display: block; }
+    .subsection-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin: 1.5rem 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
   </style>
 </head>
 <body>
@@ -98,1139 +104,821 @@
 
   <div class="page">
     <aside>
-      <div class="sidebar-title">Kategorie</div>
-      <a href="#linux-prikazy" class="sidebar-link" onclick="scrollToSection('linux-prikazy'); return false;"><span class="sidebar-num">1</span> Linux příkazy</a>
-      <a href="#instalace" class="sidebar-link" onclick="scrollToSection('instalace'); return false;"><span class="sidebar-num">2</span> Instalace služeb</a>
-      <a href="#site" class="sidebar-link" onclick="scrollToSection('site'); return false;"><span class="sidebar-num">3</span> Sítě a teorie</a>
-      <a href="#docker" class="sidebar-link" onclick="scrollToSection('docker'); return false;"><span class="sidebar-num">4</span> Docker</a>
-      <a href="#monitoring" class="sidebar-link" onclick="scrollToSection('monitoring'); return false;"><span class="sidebar-num">5</span> Monitoring</a>
-      <a href="#it4" class="sidebar-link" onclick="scrollToSection('it4'); return false;"><span class="sidebar-num">6</span> IT4 Maturita</a>
-      <a href="#esp" class="sidebar-link" onclick="scrollToSection('esp'); return false;"><span class="sidebar-num">7</span> ESP / Arduino</a>
-
+      <div class="sidebar-title">IT4 Maturita</div>
+      <a href="#" class="sidebar-link" onclick="showDetail('bash'); return false;"><span class="sidebar-num">1</span> Bash skripty</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('wordpress'); return false;"><span class="sidebar-num">2</span> WordPress</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('samba'); return false;"><span class="sidebar-num">3</span> Samba</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('nfs'); return false;"><span class="sidebar-num">4</span> NFS</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('ssh'); return false;"><span class="sidebar-num">5</span> SSH</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('apache2'); return false;"><span class="sidebar-num">6</span> Apache2 userdir</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('tar'); return false;"><span class="sidebar-num">7</span> tar — záloha</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('mysql'); return false;"><span class="sidebar-num">8</span> MySQL záloha</a>
+      <a href="#" class="sidebar-link" onclick="showDetail('linux-prikazy'); return false;"><span class="sidebar-num">9</span> Linux příkazy</a>
       <div class="sidebar-sep"></div>
-      <div class="sidebar-title">Legenda</div>
+      <div class="sidebar-title">Zdroje</div>
       <div style="display:flex;flex-direction:column;gap:6px;padding:0 0.65rem">
-        <span class="res-badge yt" style="width:fit-content">▶ YouTube</span>
         <span class="res-badge blog" style="width:fit-content">📄 blog</span>
-        <span class="res-badge ext" style="width:fit-content">↗ ext</span>
-        <span class="res-badge dl" style="width:fit-content">⬇ stáhnout</span>
+        <span class="res-badge ext"  style="width:fit-content">↗ ext</span>
       </div>
     </aside>
 
     <div class="main-layout">
-      <!-- Left panel: Grid with cards -->
+      <!-- Left panel: grid -->
       <div class="grid-panel" id="gridPanel">
         <div class="hero">
-          <p class="hero-label">// výukové materiály</p>
+          <p class="hero-label">// it4 maturita — písemná příprava</p>
           <h1>Grussman</h1>
           <div class="hero-meta">
-            <span>📚 IT2 · IT3 · IT4</span>
-            <span>🐧 Linux · 🐳 Docker · 🔌 ESP</span>
-            <span>🚫 bez Cisco</span>
+            <span>🐧 Linux</span>
+            <span>📚 IT4 písemná</span>
           </div>
           <p class="hero-src">zdroj: <a href="https://blog.iservery.com/vyuka-online/" target="_blank">blog.iservery.com/vyuka-online</a></p>
         </div>
 
-        <!-- 1. Linux příkazy -->
-        <div class="sec-block" id="linux-prikazy">
+        <div class="sec-block">
           <div class="sec-header">
-            <span class="sec-label label-it2">IT2</span>
-            <span class="sec-label label-pvy">PVY</span>
-            <h2 class="sec-title">Linux příkazy a nástroje</h2>
+            <span class="sec-label label-it4">IT4</span>
+            <h2 class="sec-title">Maturita — písemná příprava</h2>
           </div>
           <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('ssh')">
-              <span class="project-num">01</span>
-              <div class="project-name">SSH</div>
-              <div class="project-meta">Klíče, přihlášení, konfigurace</div>
-              <span class="project-arrow">↗</span>
-            </div>
+
             <div class="project-card grussman" onclick="showDetail('bash')">
-              <span class="project-num">02</span>
+              <span class="project-num">01</span>
               <div class="project-name">Bash skripty</div>
               <div class="project-meta">Maturitní příprava</div>
               <span class="project-arrow">↗</span>
             </div>
-            <div class="project-card grussman" onclick="showDetail('tar')">
-              <span class="project-num">03</span>
-              <div class="project-name">tar</div>
-              <div class="project-meta">Zálohování a obnova</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('df-mount')">
-              <span class="project-num">04</span>
-              <div class="project-name">df, mount</div>
-              <div class="project-meta">Souborové systémy</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('top-ps')">
-              <span class="project-num">05</span>
-              <div class="project-name">top, ps</div>
-              <div class="project-meta">Procesy a monitorování</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('iotop')">
-              <span class="project-num">06</span>
-              <div class="project-name">iotop</div>
-              <div class="project-meta">Monitoring I/O</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('iptraf')">
-              <span class="project-num">07</span>
-              <div class="project-name">iptraf</div>
-              <div class="project-meta">Sledování síťového provozu</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('rsync')">
-              <span class="project-num">08</span>
-              <div class="project-name">rsync</div>
-              <div class="project-meta">Synchronizace souborů</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('systemd')">
-              <span class="project-num">09</span>
-              <div class="project-name">systemd</div>
-              <div class="project-meta">Správa daemonů</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('git')">
-              <span class="project-num">10</span>
-              <div class="project-name">Práce s gitem</div>
-              <div class="project-meta">Interaktivní kurz</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('linux-prikazy-detail')">
-              <span class="project-num">11</span>
-              <div class="project-name">Linux příkazy</div>
-              <div class="project-meta">Přehled pro IT4</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="divider"></div>
-
-        <!-- 2. Instalace služeb -->
-        <div class="sec-block" id="instalace">
-          <div class="sec-header">
-            <span class="sec-label label-it3">IT3</span>
-            <span class="sec-label label-pvy">PVY</span>
-            <h2 class="sec-title">Instalace služeb a aplikací</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('docker-server')">
-              <span class="project-num">12</span>
-              <div class="project-name">Docker server</div>
-              <div class="project-meta">Instalace serveru</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('apache2')">
-              <span class="project-num">13</span>
-              <div class="project-name">Apache2</div>
-              <div class="project-meta">Web server</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('apache2-htaccess')">
-              <span class="project-num">14</span>
-              <div class="project-name">Apache2 + .htaccess</div>
-              <div class="project-meta">CGI-bin, práva souborů</div>
-              <span class="project-arrow">↗</span>
-            </div>
             <div class="project-card grussman" onclick="showDetail('wordpress')">
-              <span class="project-num">15</span>
+              <span class="project-num">02</span>
               <div class="project-name">WordPress</div>
               <div class="project-meta">Instalace na Ubuntu</div>
               <span class="project-arrow">↗</span>
             </div>
+
             <div class="project-card grussman" onclick="showDetail('samba')">
-              <span class="project-num">16</span>
+              <span class="project-num">03</span>
               <div class="project-name">Samba</div>
               <div class="project-meta">Sdílení adresářů</div>
               <span class="project-arrow">↗</span>
             </div>
+
             <div class="project-card grussman" onclick="showDetail('nfs')">
-              <span class="project-num">17</span>
+              <span class="project-num">04</span>
               <div class="project-name">NFS</div>
               <div class="project-meta">Síťové úložiště</div>
               <span class="project-arrow">↗</span>
             </div>
+
+            <div class="project-card grussman" onclick="showDetail('ssh')">
+              <span class="project-num">05</span>
+              <div class="project-name">SSH</div>
+              <div class="project-meta">Klíče, konfigurace</div>
+              <span class="project-arrow">↗</span>
+            </div>
+
+            <div class="project-card grussman" onclick="showDetail('apache2')">
+              <span class="project-num">06</span>
+              <div class="project-name">Apache2</div>
+              <div class="project-meta">userdir, moduly</div>
+              <span class="project-arrow">↗</span>
+            </div>
+
+            <div class="project-card grussman" onclick="showDetail('tar')">
+              <span class="project-num">07</span>
+              <div class="project-name">tar</div>
+              <div class="project-meta">Zálohování adresáře</div>
+              <span class="project-arrow">↗</span>
+            </div>
+
             <div class="project-card grussman" onclick="showDetail('mysql')">
-              <span class="project-num">18</span>
-              <div class="project-name">MySQL backup</div>
+              <span class="project-num">08</span>
+              <div class="project-name">MySQL záloha</div>
               <div class="project-meta">Zálohování a obnova</div>
               <span class="project-arrow">↗</span>
             </div>
-            <div class="project-card grussman" onclick="showDetail('php')">
-              <span class="project-num">19</span>
-              <div class="project-name">PHP</div>
-              <div class="project-meta">Webové aplikace</div>
+
+            <div class="project-card grussman" onclick="showDetail('linux-prikazy')">
+              <span class="project-num">09</span>
+              <div class="project-name">Linux příkazy</div>
+              <div class="project-meta">Přehled pro IT4</div>
               <span class="project-arrow">↗</span>
             </div>
-            <div class="project-card grussman" onclick="showDetail('django')">
-              <span class="project-num">20</span>
-              <div class="project-name">Django-CMS</div>
-              <div class="project-meta">Instalace</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('flask')">
-              <span class="project-num">21</span>
-              <div class="project-name">PyCharm + Flask</div>
-              <div class="project-meta">Formuláře, databáze</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('zabbix')">
-              <span class="project-num">22</span>
-              <div class="project-name">Zabbix</div>
-              <div class="project-meta">Agent monitoring</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('ubuntu-vbox')">
-              <span class="project-num">23</span>
-              <div class="project-name">Ubuntu + VirtualBox</div>
-              <div class="project-meta">Instalace</div>
-              <span class="project-arrow">↗</span>
-            </div>
+
           </div>
         </div>
-
-        <div class="divider"></div>
-
-        <!-- 3. Sítě a teorie -->
-        <div class="sec-block" id="site">
-          <div class="sec-header">
-            <span class="sec-label label-it2">IT2</span>
-            <h2 class="sec-title">Sítě a teorie (bez Cisco)</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('it2-teorie')">
-              <span class="project-num">24</span>
-              <div class="project-name">IT2 Teorie</div>
-              <div class="project-meta">Přehled</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce4')">
-              <span class="project-num">25</span>
-              <div class="project-name">Lekce 4</div>
-              <div class="project-meta">ISO OSI, TCP/IP</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce6')">
-              <span class="project-num">26</span>
-              <div class="project-name">Lekce 6</div>
-              <div class="project-meta">Teorie sítí</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce7')">
-              <span class="project-num">27</span>
-              <div class="project-name">Lekce 7</div>
-              <div class="project-meta">Teorie sítí</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce8')">
-              <span class="project-num">28</span>
-              <div class="project-name">Lekce 8</div>
-              <div class="project-meta">Teorie sítí</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce9')">
-              <span class="project-num">29</span>
-              <div class="project-name">Lekce 9</div>
-              <div class="project-meta">Teorie sítí</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it2-lekce10')">
-              <span class="project-num">30</span>
-              <div class="project-name">Lekce 10</div>
-              <div class="project-meta">Výpočetní modely</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('mac-adresy')">
-              <span class="project-num">31</span>
-              <div class="project-name">MAC adresy</div>
-              <div class="project-meta">Vztah k IP</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('static-routing')">
-              <span class="project-num">32</span>
-              <div class="project-name">Statické routování</div>
-              <div class="project-meta">Teorie</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('site-storage')">
-              <span class="project-num">33</span>
-              <div class="project-name">Síťové úložiště</div>
-              <div class="project-meta">IT3 PVY</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- 4. Docker -->
-        <div class="sec-block" id="docker">
-          <div class="sec-header">
-            <span class="sec-label label-it3">IT3</span>
-            <span class="sec-label label-pvy">PVY</span>
-            <h2 class="sec-title">Docker a virtualizace</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('dockerfile')">
-              <span class="project-num">34</span>
-              <div class="project-name">Dockerfile</div>
-              <div class="project-meta">Publikace aplikací</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('pycharm-docker')">
-              <span class="project-num">35</span>
-              <div class="project-name">PyCharm + Dockerfile</div>
-              <div class="project-meta">Vývojové prostředí</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('ha')">
-              <span class="project-num">36</span>
-              <div class="project-name">Docker + Home Assistant</div>
-              <div class="project-meta">IoT platforma</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('kubernetes')">
-              <span class="project-num">37</span>
-              <div class="project-name">Kubernetes</div>
-              <div class="project-meta">Základy</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- 5. Monitoring -->
-        <div class="sec-block" id="monitoring">
-          <div class="sec-header">
-            <span class="sec-label label-it3">IT3</span>
-            <h2 class="sec-title">Monitoring a správa</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('snmp')">
-              <span class="project-num">38</span>
-              <div class="project-name">SNMP</div>
-              <div class="project-meta">Agent správa</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('ddos')">
-              <span class="project-num">39</span>
-              <div class="project-name">DDoS obrana</div>
-              <div class="project-meta">Flood útoky</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- 6. IT4 Maturita -->
-        <div class="sec-block" id="it4">
-          <div class="sec-header">
-            <span class="sec-label label-it4">IT4</span>
-            <h2 class="sec-title">Maturita — příprava</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('it4-mysql')">
-              <span class="project-num">40</span>
-              <div class="project-name">MySQL záloha</div>
-              <div class="project-meta">IT4 písemná</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('it4-otazky')">
-              <span class="project-num">41</span>
-              <div class="project-name">Maturitní otázky</div>
-              <div class="project-meta">TVY ústní</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- 7. ESP / Arduino -->
-        <div class="sec-block" id="esp">
-          <div class="sec-header">
-            <span class="sec-label label-it4">IT4</span>
-            <span class="sec-label label-esp">ESP / Arduino</span>
-            <h2 class="sec-title">ESP / Arduino / IoT projekty</h2>
-          </div>
-          <div class="projects-grid">
-            <div class="project-card grussman" onclick="showDetail('micropython')">
-              <span class="project-num">42</span>
-              <div class="project-name">MicroPython</div>
-              <div class="project-meta">ESP32 a ESP8266</div>
-              <span class="project-arrow">↗</span>
-            </div>
-            <div class="project-card grussman" onclick="showDetail('ha-mqtt')">
-              <span class="project-num">43</span>
-              <div class="project-name">HA + MQTT</div>
-              <div class="project-meta">Home Assistant</div>
-              <span class="project-arrow">↗</span>
-            </div>
-          </div>
-        </div>
-
       </div><!-- /grid-panel -->
 
-      <!-- Right panel: Detail content -->
+      <!-- Right panel: detail -->
       <div class="detail-panel" id="detailPanel">
         <div class="detail-header">
-          <h2 id="detailTitle">Název</h2>
+          <h2 id="detailTitle"></h2>
           <button class="close-btn" onclick="closeDetail()">✕ Zavřít</button>
         </div>
         <div id="detailContent"></div>
       </div>
 
-      <!-- When nothing selected -->
       <div class="no-selection" id="noSelection">
         <div>
           <div class="icon">📖</div>
           Vyberte téma z gridu vlevo<br>pro zobrazení detailů
         </div>
       </div>
-
     </div><!-- /main-layout -->
   </div>
 
-  <!-- Hidden divs with detail content -->
+  <!-- ═══════════════════════════════════════════════════
+       HIDDEN DETAIL BLOCKS
+       ═══════════════════════════════════════════════════ -->
   <div style="display:none;">
-    <!-- SSH -->
-    <div id="detail-ssh">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">SSH — Secure Shell</h2>
-        <div class="lesson-desc">SSH umožňuje <strong>bezpečný vzdálený přístup</strong> k serveru.</div>
-        <div class="subsection-title">1 — Instalace SSH serveru</div>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Debian/Ubuntu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">openssh-server</span>
 
-<span class="bcmt"># Ověření stavu:</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl status</span> <span class="bval">ssh</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl enable</span> <span class="bval">ssh</span></pre>
-        </div>
-        <div class="subsection-title">2 — Generování SSH klíče</div>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Generování klíče (RSA 4096)</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">ssh-keygen</span> <span class="bflag">-t rsa -b 4096</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">SSH klíče a přihlášení bez hesla</span>
-            <div class="res-links">
-              <a href="https://youtu.be/vmjcRZaBfnU" target="_blank" class="res-badge yt">▶ YouTube</a>
-              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
+    <!-- ─── 1. BASH SKRIPTY ─── -->
+    <div id="detail-bash">
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Bash skripty — maturitní příprava</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2014/01/22/skripty-maturite/" target="_blank" class="res-badge blog">📄 blog</a>
+            <a href="https://blog.iservery.com/2013/04/04/bash-skripty-priklady/" target="_blank" class="res-badge blog">📄 příklady</a>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- BASH -->
-    <div id="detail-bash">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Bash skripty</h2>
-        <div class="lesson-desc">Bash skripty slouží k <strong>automatizaci úloh</strong> v Linuxu.</div>
-        <div class="subsection-title">1 — Vytvoření a spuštění</div>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní struktura</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bcmt">#!/bin/bash</span>
-<span class="bval">jmeno</span>=<span class="bval">"Alice"</span>
-<span class="bcmd">echo</span> <span class="bval">"Ahoj $jmeno"</span>
-
-<span class="bcmt"># Nastavit spustitelný:</span>
+      <div class="subsection-title">1 — Základní struktura skriptu</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Vytvoření a spuštění</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># Nastavit spustitelný a spustit:</span>
 <span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">+x</span> <span class="bpath">skript.sh</span>
 <span class="bprompt">$ </span><span class="bcmd">./skript.sh</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Bash skripty — maturitní příprava</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2014/01/22/skripty-maturite/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div class="subsection-title">2 — Proměnné</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Proměnné a vstup</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">jmeno</span>=<span class="bval">"Alice"</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+<span class="bcmd">echo</span> <span class="bval">"Ahoj $jmeno, dnes je $datum"</span>
+
+<span class="bcmt"># Čtení vstupu od uživatele:</span>
+<span class="bcmd">read</span> <span class="bflag">-p</span> <span class="bval">"Zadej jméno: "</span> <span class="bval">jmeno</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Podmínky (if)</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">if / else — kontrola návratového kódu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/zaloha.tar.gz</span> <span class="bpath">/etc</span>
+
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">echo</span> <span class="bval">"Záloha OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">echo</span> <span class="bval">"Záloha SELHALA"</span>
+<span class="bflag">fi</span>
+
+<span class="bcmt"># $? = návratový kód posledního příkazu (0 = úspěch)</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Cyklus for</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">for — iterace přes soubory / seznam</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># Iterace přes soubory:</span>
+<span class="bflag">for</span> <span class="bval">soubor</span> <span class="bflag">in</span> <span class="bpath">/etc/*.conf</span>; <span class="bflag">do</span>
+  <span class="bcmd">echo</span> <span class="bval">"Soubor: $soubor"</span>
+<span class="bflag">done</span>
+
+<span class="bcmt"># Číselný rozsah:</span>
+<span class="bflag">for</span> <span class="bval">i</span> <span class="bflag">in</span> <span class="bval">{1..5}</span>; <span class="bflag">do</span>
+  <span class="bcmd">echo</span> <span class="bval">"Řádek $i"</span>
+<span class="bflag">done</span></pre>
+      </div>
+
+      <div class="subsection-title">5 — Zpracování souboru řádek po řádku</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">while read — načtení ze souboru</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># soubor.txt obsahuje: jmeno:heslo (každý uživatel na řádku)</span>
+<span class="bflag">while</span> <span class="bcmd">IFS=</span><span class="bval">':'</span> <span class="bcmd">read</span> <span class="bval">jmeno heslo</span>; <span class="bflag">do</span>
+  <span class="bcmd">useradd</span> <span class="bflag">-m</span> <span class="bval">$jmeno</span>
+  <span class="bcmd">echo</span> <span class="bval">"$jmeno:$heslo"</span> <span class="bflag">|</span> <span class="bcmd">chpasswd</span>
+  <span class="bcmd">echo</span> <span class="bval">"Vytvořen uživatel: $jmeno"</span>
+<span class="bflag">done</span> <span class="bflag">&lt;</span> <span class="bpath">soubor.txt</span></pre>
+      </div>
+
+      <div class="subsection-title">6 — Zálohovací skript s logováním</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">backup.sh — záloha /etc s logger</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+
+<span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/${datum}zaloha.tar.gz</span> <span class="bpath">/etc</span>
+
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha SELHALA"</span>
+<span class="bflag">fi</span></pre>
+      </div>
+
+      <div class="note-box">
+        <strong>// CRON — automatické spouštění</strong>
+        Přidat do cronu: <code>crontab -e</code><br>
+        Denně ve 2:00: <code>0 2 * * * /root/backup.sh</code>
       </div>
     </div>
 
-    <!-- TAR -->
-    <div id="detail-tar">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">tar — Zálohování a obnova</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bcmt"># Vytvoření archivu:</span>
-<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/backup/etc.tar.gz</span> <span class="bpath">/etc</span>
-
-<span class="bcmt"># Rozbalení:</span>
-<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">xvfz</span> <span class="bpath">/backup/etc.tar.gz</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Zálohování a obnova adresáře (tar)</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2014/01/13/zalohovani-prikazem-tar/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DF-MOUNT -->
-    <div id="detail-df-mount">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">df, mount — Souborové systémy</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bcmt"># Volné místo na discích:</span>
-<span class="bprompt">$ </span><span class="bcmd">df</span> <span class="bflag">-h</span>
-
-<span class="bcmt"># Připojení disku:</span>
-<span class="bprompt">$ </span><span class="bcmd">mount</span> <span class="bpath">/dev/sdb1</span> <span class="bpath">/mnt/data</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- TOP-PS -->
-    <div id="detail-top-ps">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">top, ps — Procesy a monitorování</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">top</span>
-<span class="bprompt">$ </span><span class="bcmd">ps</span> <span class="bflag">aux</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">top, ps — procesy a monitorování</span>
-            <div class="res-links">
-              <a href="https://youtu.be/G7MeQ1hB48Y" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IOTOP -->
-    <div id="detail-iotop">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">iotop — Monitoring I/O</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace a použití</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">iotop</span>
-<span class="bprompt">$ </span><span class="bcmd">iotop</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">iotop — monitoring I/O</span>
-            <div class="res-links">
-              <a href="https://youtu.be/F2VGa3rKQ3Q" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IPTRAF -->
-    <div id="detail-iptraf">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">iptraf — Sledování síťového provozu</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace a spuštění</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">iptraf</span>
-<span class="bprompt">$ </span><span class="bcmd">iptraf</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">iptraf — sledování síťového provozu</span>
-            <div class="res-links">
-              <a href="https://youtu.be/T94Q_pEvtXY" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RSYNC -->
-    <div id="detail-rsync">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">rsync — Synchronizace souborů</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">rsync</span> <span class="bflag">-avz</span> <span class="bpath">/zdroj/</span> <span class="bpath">/cíl/</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Jak použít rsync</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2014/03/31/rsync-proc-nac/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SYSTEMD -->
-    <div id="detail-systemd">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">systemd — Správa daemonů</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">systemctl status</span> <span class="bval">apache2</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl start</span> <span class="bval">apache2</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- GIT -->
-    <div id="detail-git">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Práce s gitem</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Základní příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">git init</span>
-<span class="bprompt">$ </span><span class="bcmd">git add</span> <span class="bpath">.</span>
-<span class="bprompt">$ </span><span class="bcmd">git commit</span> <span class="bflag">-m</span> <span class="bval">"zpráva"</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Práce s gitem — interaktivní kurz</span>
-            <div class="res-links">
-              <a href="https://learngitbranching.js.org/" target="_blank" class="res-badge ext">↗ learngitbranching.js.org</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LINUX PRIKAZY DETAIL -->
-    <div id="detail-linux-prikazy-detail">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Linux příkazy — Přehled</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Linux příkazy — přehled</span>
-            <div class="res-links">
-              <a href="https://cs.wikibooks.org/wiki/Linux:P%C5%99ehled_z%C3%A1kladn%C3%ADch_p%C5%99%C3%ADkaz%C5%AF" target="_blank" class="res-badge ext">↗ Wikibooks</a>
-            </div>
-          </div>
-          <div class="res-item">
-            <span class="res-title">Znalosti na konci roku (IT2)</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2014/12/02/it2-znalosti/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DOCKER SERVER -->
-    <div id="detail-docker-server">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Docker server — Instalace</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace Dockeru</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">docker.io</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl start</span> <span class="bval">docker</span>
-<span class="bprompt">$ </span><span class="bcmd">docker run</span> <span class="bval">hello-world</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- APACHE2 -->
-    <div id="detail-apache2">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Apache2 — Web server</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace a konfigurace</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">apache2</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">apache2</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Apache2 server — userdir konfigurace</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2013/05/12/administrace-apache2-a-modulu/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- APACHE2 HTACCESS -->
-    <div id="detail-apache2-htaccess">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Apache2 + .htaccess</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">.htaccess příklady</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bval">Redirect 301 /staré /nové</span>
-
-<span class="bval">AuthType Basic</span>
-<span class="bval">AuthName "Restricted Area"</span>
-<span class="bval">Require valid-user</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- WORDPRESS -->
+    <!-- ─── 2. WORDPRESS ─── -->
     <div id="detail-wordpress">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">WordPress — Instalace</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace na Ubuntu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">wordpress</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Instalace WordPress na Ubuntu</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Instalace WordPress na Ubuntu 18.04+</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
           </div>
         </div>
       </div>
+
+      <div class="subsection-title">1 — Instalace LAMP stacku</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Apache + MySQL + PHP</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Aktualizace a instalace:</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get update</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">apache2 mysql-server php php-mysql php-curl php-gd php-mbstring php-xml</span>
+
+<span class="bcmt"># Zabezpečení MySQL:</span>
+<span class="bprompt">$ </span><span class="bcmd">mysql_secure_installation</span></pre>
+      </div>
+
+      <div class="subsection-title">2 — Vytvoření databáze pro WordPress</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">MySQL — databáze a uživatel</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">mysql</span> <span class="bflag">-u root -p</span>
+
+<span class="bcmt">-- V MySQL konzoli:</span>
+<span class="bval">CREATE DATABASE</span> wordpress;
+<span class="bval">CREATE USER</span> <span class="bval">'wpuser'@'localhost'</span> <span class="bval">IDENTIFIED BY</span> <span class="bval">'heslo'</span>;
+<span class="bval">GRANT ALL PRIVILEGES ON</span> wordpress.* <span class="bval">TO</span> <span class="bval">'wpuser'@'localhost'</span>;
+<span class="bval">FLUSH PRIVILEGES;</span>
+<span class="bval">EXIT;</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Stažení a instalace WordPress</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Stažení a rozbalení WordPress</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">cd</span> <span class="bpath">/var/www/html</span>
+<span class="bprompt">$ </span><span class="bcmd">wget</span> <span class="bval">https://wordpress.org/latest.tar.gz</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">xvfz</span> <span class="bpath">latest.tar.gz</span>
+<span class="bprompt">$ </span><span class="bcmd">chown</span> <span class="bflag">-R</span> <span class="bval">www-data:www-data</span> <span class="bpath">/var/www/html/wordpress</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Konfigurace wp-config.php</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">wp-config.php — databázové nastavení</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">cp</span> <span class="bpath">/var/www/html/wordpress/wp-config-sample.php</span> <span class="bpath">/var/www/html/wordpress/wp-config.php</span>
+<span class="bprompt">$ </span><span class="bcmd">nano</span> <span class="bpath">/var/www/html/wordpress/wp-config.php</span>
+
+<span class="bcmt"># Upravit tyto řádky:</span>
+<span class="bval">define('DB_NAME',     'wordpress');</span>
+<span class="bval">define('DB_USER',     'wpuser');</span>
+<span class="bval">define('DB_PASSWORD', 'heslo');</span>
+<span class="bval">define('DB_HOST',     'localhost');</span></pre>
+      </div>
+
+      <div class="subsection-title">5 — Dokončení v prohlížeči</div>
+      <div class="note-box">
+        <strong>// Otevři v prohlížeči:</strong> <code>http://localhost/wordpress</code><br>
+        Průvodce nastaví název webu, admin účet a heslo.
+      </div>
     </div>
 
-    <!-- SAMBA -->
+    <!-- ─── 3. SAMBA ─── -->
     <div id="detail-samba">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Samba — Sdílení adresářů</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace a konfigurace</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">samba</span>
-<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">smbd</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Samba server (sdílení adresářů)</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2017/01/18/samba-ubuntu-16-04-share-adresare/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Samba server (sdílení adresářů)</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2017/01/18/samba-ubuntu-16-04-share-adresare/" target="_blank" class="res-badge blog">📄 blog</a>
           </div>
         </div>
       </div>
+
+      <div class="subsection-title">1 — Instalace</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Debian/Ubuntu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">samba</span>
+<span class="bprompt">$ </span><span class="bcmd">samba</span> <span class="bflag">--version</span></pre>
+      </div>
+
+      <div class="subsection-title">2 — Příprava adresáře a uživatele</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Adresář + systémový uživatel + Samba heslo</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Vytvoření sdíleného adresáře:</span>
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bpath">/data</span>
+<span class="bprompt">$ </span><span class="bcmd">chown</span> <span class="bval">student:users</span> <span class="bpath">/data</span>
+
+<span class="bcmt"># Přidat uživatele do skupiny users:</span>
+<span class="bprompt">$ </span><span class="bcmd">usermod</span> <span class="bflag">-a -G</span> <span class="bval">users student</span>
+
+<span class="bcmt"># Nastavit Samba heslo (odlišné od systémového!):</span>
+<span class="bprompt">$ </span><span class="bcmd">smbpasswd</span> <span class="bflag">-a</span> <span class="bval">student</span>
+
+<span class="bcmt"># Kontrola Samba uživatelů:</span>
+<span class="bprompt">$ </span><span class="bcmd">pdbedit</span> <span class="bflag">-L</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Konfigurace smb.conf</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">/etc/samba/smb.conf — přidat na konec</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre>[<span class="bval">accounting</span>]
+  <span class="bflag">comment</span>        = Sdileny adresar
+  <span class="bflag">path</span>           = <span class="bpath">/data</span>
+  <span class="bflag">valid users</span>    = <span class="bval">@users</span>
+  <span class="bflag">writable</span>       = <span class="bval">yes</span>
+  <span class="bflag">force group</span>    = <span class="bval">users</span>
+  <span class="bflag">create mode</span>    = <span class="bval">0660</span>
+  <span class="bflag">directory mode</span> = <span class="bval">0770</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Restart a ověření</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Testování konfigurace a restart</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Ověřit syntaxi:</span>
+<span class="bprompt">$ </span><span class="bcmd">testparm</span>
+
+<span class="bcmt"># Restart:</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">smbd nmbd</span></pre>
+      </div>
+
+      <div class="note-box">
+        <strong>// Připojení z Windows</strong>
+        Win+R → <code>\\192.168.0.10\accounting</code> → zadej Samba uživatele a heslo
+      </div>
     </div>
 
-    <!-- NFS -->
+    <!-- ─── 4. NFS ─── -->
     <div id="detail-nfs">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">NFS — Síťové úložiště</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Server + Klient</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bcmt"># Server:</span>
-<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">nfs-kernel-server</span>
-
-<span class="bcmt"># Klient:</span>
-<span class="bprompt">$ </span><span class="bcmd">mount</span> <span class="bval">server:/export</span> <span class="bpath">/mnt/nfs</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">NFS server</span>
-            <div class="res-links">
-              <a href="https://youtu.be/oce7wyS5Coo" target="_blank" class="res-badge yt">▶ YouTube</a>
-              <a href="https://blog.iservery.com/2013/11/06/nfs-neni-need-speed-hra-ale-network-file-system/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">NFS server</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2013/11/06/nfs-neni-need-speed-hra-ale-network-file-system/" target="_blank" class="res-badge blog">📄 blog</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04" target="_blank" class="res-badge ext">↗ DigitalOcean</a>
           </div>
         </div>
       </div>
+
+      <div class="subsection-title">1 — Server: instalace a adresář</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Server — NFS kernel server</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">nfs-kernel-server</span>
+
+<span class="bcmt"># Vytvoření sdíleného adresáře:</span>
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bpath">/data</span>
+<span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">777</span> <span class="bpath">/data</span>
+<span class="bcmt"># nebo:</span>
+<span class="bprompt">$ </span><span class="bcmd">chown</span> <span class="bval">nobody:nogroup</span> <span class="bpath">/data</span></pre>
+      </div>
+
+      <div class="subsection-title">2 — /etc/exports</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">/etc/exports — přidat na konec</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Přístup všem (*):</span>
+<span class="bpath">/data</span> <span class="bval">*(rw,no_root_squash,no_subtree_check,sync)</span>
+
+<span class="bcmt"># Přístup konkrétní IP:</span>
+<span class="bpath">/data</span> <span class="bval">192.168.0.10(rw,sync,no_subtree_check)</span>
+
+<span class="bcmt"># Přístup celé síti:</span>
+<span class="bpath">/data</span> <span class="bval">192.168.0.0/24(rw,sync,no_subtree_check)</span></pre>
+      </div>
+
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Aplikace změn + restart</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">exportfs</span> <span class="bflag">-ra</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">nfs-kernel-server</span>
+<span class="bcmt"># Ověření aktivních sdílení:</span>
+<span class="bprompt">$ </span><span class="bcmd">exportfs</span> <span class="bflag">-v</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Klient: připojení</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Klient — připojení NFS sdílení</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">nfs-common</span>
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bpath">/media/nfs</span>
+<span class="bprompt">$ </span><span class="bcmd">mount</span> <span class="bflag">-t nfs</span> <span class="bval">192.168.0.10</span><span class="bpath">:/data</span> <span class="bpath">/media/nfs</span>
+
+<span class="bcmt"># Zobrazit dostupná sdílení na serveru:</span>
+<span class="bprompt">$ </span><span class="bcmd">showmount</span> <span class="bflag">-e</span> <span class="bval">192.168.0.10</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Trvalé připojení (/etc/fstab)</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">/etc/fstab — přidat na konec</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bval">192.168.0.10:/data</span>  <span class="bpath">/media/nfs</span>  <span class="bval">nfs</span>  <span class="bval">defaults,_netdev</span>  <span class="bval">0 0</span>
+
+<span class="bcmt"># Test (připojí vše z fstab):</span>
+<span class="bprompt">$ </span><span class="bcmd">mount</span> <span class="bflag">-a</span></pre>
+      </div>
     </div>
 
-    <!-- MYSQL -->
+    <!-- ─── 5. SSH ─── -->
+    <div id="detail-ssh">
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">SSH a práce s klíči</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection-title">1 — Instalace SSH serveru</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">OpenSSH server</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">openssh-server</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl status</span> <span class="bval">ssh</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl enable</span> <span class="bval">ssh</span></pre>
+      </div>
+
+      <div class="subsection-title">2 — Generování SSH klíče</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Generování RSA klíče (na klientovi)</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Generování klíče (RSA 4096 bit):</span>
+<span class="bprompt">$ </span><span class="bcmd">ssh-keygen</span> <span class="bflag">-t rsa -b 4096</span>
+<span class="bcmt"># Výsledek: ~/.ssh/id_rsa (soukromý) + ~/.ssh/id_rsa.pub (veřejný)</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Zkopírování klíče na server</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">ssh-copy-id nebo ručně</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Automaticky (doporučeno):</span>
+<span class="bprompt">$ </span><span class="bcmd">ssh-copy-id</span> <span class="bval">uzivatel@server</span>
+
+<span class="bcmt"># Ručně — přidat obsah id_rsa.pub do souboru na serveru:</span>
+<span class="bprompt">$ </span><span class="bcmd">cat</span> <span class="bpath">~/.ssh/id_rsa.pub</span> <span class="bflag">&gt;&gt;</span> <span class="bpath">~/.ssh/authorized_keys</span>
+<span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">600</span> <span class="bpath">~/.ssh/authorized_keys</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Zákaz přihlášení heslem</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">/etc/ssh/sshd_config</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Upravit řádky v /etc/ssh/sshd_config:</span>
+<span class="bflag">PasswordAuthentication</span> <span class="bval">no</span>
+<span class="bflag">PermitRootLogin</span>        <span class="bval">no</span>
+<span class="bflag">PubkeyAuthentication</span>   <span class="bval">yes</span>
+
+<span class="bprompt">$ </span><span class="bcmd">systemctl restart</span> <span class="bval">ssh</span></pre>
+      </div>
+
+      <div class="subsection-title">5 — SCP — kopírování souborů</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">SCP</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Nahrát soubor na server:</span>
+<span class="bprompt">$ </span><span class="bcmd">scp</span> <span class="bpath">soubor.txt</span> <span class="bval">uzivatel@server</span><span class="bpath">:/home/uzivatel/</span>
+
+<span class="bcmt"># Stáhnout ze serveru:</span>
+<span class="bprompt">$ </span><span class="bcmd">scp</span> <span class="bval">uzivatel@server</span><span class="bpath">:/etc/hosts</span> <span class="bpath">./hosts_zaloha</span></pre>
+      </div>
+    </div>
+
+    <!-- ─── 6. APACHE2 ─── -->
+    <div id="detail-apache2">
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Apache2 server — userdir konfigurace</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2013/05/12/administrace-apache2-a-modulu/" target="_blank" class="res-badge blog">📄 blog</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection-title">1 — Instalace</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Instalace + ověření</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">apache2</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl status</span> <span class="bval">apache2</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl enable</span> <span class="bval">apache2</span>
+<span class="bcmt"># Otevři: http://localhost</span></pre>
+      </div>
+
+      <div class="note-box">
+        <strong>// DŮLEŽITÉ CESTY</strong>
+        Web root: <code>/var/www/html/</code> &nbsp;·&nbsp;
+        Konfigurace: <code>/etc/apache2/</code> &nbsp;·&nbsp;
+        Logy: <code>/var/log/apache2/</code>
+      </div>
+
+      <div class="subsection-title">2 — Správa modulů</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Aktivace / deaktivace modulů</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Aktivace:</span>
+<span class="bprompt">$ </span><span class="bcmd">a2enmod</span> <span class="bval">userdir</span>
+<span class="bprompt">$ </span><span class="bcmd">a2enmod</span> <span class="bval">rewrite</span>
+
+<span class="bcmt"># Deaktivace:</span>
+<span class="bprompt">$ </span><span class="bcmd">a2dismod</span> <span class="bval">userdir</span>
+
+<span class="bcmt"># Reload:</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl reload</span> <span class="bval">apache2</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Userdir modul</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">~/public_html → http://server/~uzivatel/</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># 1. Aktivovat modul:</span>
+<span class="bprompt">$ </span><span class="bcmd">a2enmod</span> <span class="bval">userdir</span>
+<span class="bprompt">$ </span><span class="bcmd">service apache2 restart</span>
+
+<span class="bcmt"># 2. Vytvořit adresář a nastavit práva:</span>
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bpath">~/public_html</span>
+<span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">755</span> <span class="bpath">~/public_html</span>
+
+<span class="bcmt"># 3. Testovací stránka:</span>
+<span class="bprompt">$ </span><span class="bcmd">echo</span> <span class="bval">"&lt;h1&gt;Moje stránka&lt;/h1&gt;"</span> <span class="bflag">&gt;</span> <span class="bpath">~/public_html/index.html</span>
+
+<span class="bcmt"># 4. Test: http://localhost/~username/</span></pre>
+      </div>
+
+      <div class="warn-box">
+        <strong>// PHP V USERDIR</strong>
+        PHP v userdir bývá vypnuté. Oprav v
+        <code>/etc/apache2/mods-available/php8.x.conf</code> — zakomentuj sekci
+        <code>php_admin_value engine Off</code> uvnitř bloku <code>mod_userdir.c</code>.
+      </div>
+
+      <div class="subsection-title">4 — Virtual Hosts</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">/etc/apache2/sites-available/mujweb.conf</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre>&lt;<span class="bval">VirtualHost</span> *:80&gt;
+  <span class="bflag">ServerName</span>   <span class="bval">mujweb.localhost</span>
+  <span class="bflag">DocumentRoot</span> <span class="bpath">/var/www/mujweb</span>
+  <span class="bflag">ErrorLog</span>     <span class="bpath">${APACHE_LOG_DIR}/mujweb-error.log</span>
+&lt;/<span class="bval">VirtualHost</span>&gt;</pre>
+      </div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Aktivace virtual hostu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Přidat do /etc/hosts:</span>
+<span class="bval">127.0.0.1    mujweb.localhost</span>
+
+<span class="bprompt">$ </span><span class="bcmd">mkdir</span> <span class="bpath">/var/www/mujweb</span>
+<span class="bprompt">$ </span><span class="bcmd">a2ensite</span> <span class="bval">mujweb.conf</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl reload</span> <span class="bval">apache2</span></pre>
+      </div>
+
+      <div class="subsection-title">5 — phpMyAdmin</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Instalace phpMyAdmin</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">phpmyadmin php-mbstring</span>
+
+<span class="bcmt"># Pokud nefunguje http://localhost/phpmyadmin:</span>
+<span class="bprompt">$ </span><span class="bcmd">ln</span> <span class="bflag">-s</span> <span class="bpath">/usr/share/phpmyadmin</span> <span class="bpath">/var/www/html/phpmyadmin</span>
+<span class="bprompt">$ </span><span class="bcmd">systemctl reload</span> <span class="bval">apache2</span></pre>
+      </div>
+    </div>
+
+    <!-- ─── 7. TAR ─── -->
+    <div id="detail-tar">
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Zálohování a obnova adresáře (tar)</span>
+          <div class="res-links">
+            <a href="https://blog.iservery.com/2014/01/13/zalohovani-prikazem-tar/" target="_blank" class="res-badge blog">📄 blog</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection-title">1 — Parametry</div>
+      <table class="params-table">
+        <thead><tr><th>Parametr</th><th>Funkce</th></tr></thead>
+        <tbody>
+          <tr><td class="flag">c</td><td class="desc">create — vytvoří nový archiv</td></tr>
+          <tr><td class="flag">x</td><td class="desc">extract — rozbalí archiv</td></tr>
+          <tr><td class="flag">v</td><td class="desc">verbose — vypisuje zpracovávané soubory</td></tr>
+          <tr><td class="flag">f</td><td class="desc">file — specifikuje jméno archivu (vždy nutné)</td></tr>
+          <tr><td class="flag">z</td><td class="desc">gzip komprese (.tar.gz)</td></tr>
+          <tr><td class="flag">j</td><td class="desc">bzip2 komprese (.tar.bz2)</td></tr>
+          <tr><td class="flag">C</td><td class="desc">cílový adresář pro rozbalení</td></tr>
+          <tr><td class="flag">t</td><td class="desc">list — zobrazí obsah bez rozbalení</td></tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-title">2 — Vytvoření zálohy</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Záloha adresáře</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Syntaxe: tar cvfz [výstupní soubor] [co zálohovat]</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/zaloha-etc.tar.gz</span> <span class="bpath">/etc</span>
+
+<span class="bcmt"># S časovým razítkem:</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/zaloha-</span><span class="bval">$(date +%Y%m%d)</span><span class="bpath">.tar.gz</span> <span class="bpath">/etc</span>
+
+<span class="bcmt"># Zobrazení obsahu bez rozbalení:</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">tvfz</span> <span class="bpath">/tmp/zaloha-etc.tar.gz</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Rozbalení zálohy</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Rozbalení archivu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Syntaxe: tar xvfz [soubor] -C [kam rozbalit]</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">xvfz</span> <span class="bpath">/tmp/zaloha-etc.tar.gz</span> <span class="bflag">-C</span> <span class="bpath">/tmp/obnova/</span>
+
+<span class="bcmt"># Jen konkrétní soubor z archivu:</span>
+<span class="bprompt">$ </span><span class="bcmd">tar</span> <span class="bflag">xvfz</span> <span class="bpath">zaloha.tar.gz</span> <span class="bval">etc/hostname</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Zálohovací skript</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">backup.sh</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+
+<span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/${datum}zaloha.tar.gz</span> <span class="bpath">/etc</span>
+
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha SELHALA"</span>
+<span class="bflag">fi</span></pre>
+      </div>
+    </div>
+
+    <!-- ─── 8. MYSQL ZÁLOHA ─── -->
     <div id="detail-mysql">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">MySQL — Zálohování a obnova</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Záloha a obnova</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">mysqldump</span> <span class="bflag">-u root -p</span> <span class="bval">databaze</span> > <span class="bpath">backup.sql</span></pre>
-        </div>
+      <div class="subsection-title">1 — mysqldump — záloha databáze</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Záloha jedné / všech databází</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Záloha jedné databáze:</span>
+<span class="bprompt">$ </span><span class="bcmd">mysqldump</span> <span class="bflag">-u root -p</span> <span class="bval">jmeno_databaze</span> <span class="bflag">&gt;</span> <span class="bpath">/tmp/zaloha.sql</span>
+
+<span class="bcmt"># Záloha všech databází:</span>
+<span class="bprompt">$ </span><span class="bcmd">mysqldump</span> <span class="bflag">-u root -p --all-databases</span> <span class="bflag">&gt;</span> <span class="bpath">/tmp/vsechny.sql</span>
+
+<span class="bcmt"># Komprimovaná záloha (gzip):</span>
+<span class="bprompt">$ </span><span class="bcmd">mysqldump</span> <span class="bflag">-u root -p</span><span class="bval">"heslo"</span> <span class="bflag">--all-databases</span> <span class="bflag">|</span> <span class="bcmd">gzip</span> <span class="bflag">-c</span> <span class="bflag">&gt;</span> <span class="bpath">/tmp/zaloha.gz</span></pre>
+      </div>
+
+      <div class="subsection-title">2 — Obnova ze zálohy</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Obnovení databáze</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt"># Obnova ze SQL souboru:</span>
+<span class="bprompt">$ </span><span class="bcmd">mysql</span> <span class="bflag">-u root -p</span> <span class="bval">jmeno_databaze</span> <span class="bflag">&lt;</span> <span class="bpath">/tmp/zaloha.sql</span>
+
+<span class="bcmt"># Obnova z komprimované zálohy:</span>
+<span class="bprompt">$ </span><span class="bcmd">gunzip</span> <span class="bflag">-c</span> <span class="bpath">/tmp/zaloha.gz</span> <span class="bflag">|</span> <span class="bcmd">mysql</span> <span class="bflag">-u root -p</span>
+
+<span class="bcmt"># Vytvoření prázdné DB před obnovením (pokud neexistuje):</span>
+<span class="bprompt">$ </span><span class="bcmd">mysql</span> <span class="bflag">-u root -p</span> <span class="bflag">-e</span> <span class="bval">"CREATE DATABASE jmeno_databaze;"</span></pre>
+      </div>
+
+      <div class="subsection-title">3 — Automatický zálohovací skript</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">mysql-backup.sh</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+
+<span class="bcmd">mysqldump</span> <span class="bflag">-u root -p</span><span class="bval">"heslo"</span> <span class="bflag">--all-databases</span> <span class="bflag">|</span> <span class="bcmd">gzip</span> <span class="bflag">-c</span> <span class="bflag">&gt;</span> <span class="bpath">/tmp/${datum}-mysql.gz</span>
+
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">logger</span> <span class="bval">"MySQL záloha OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">logger</span> <span class="bval">"MySQL záloha SELHALA"</span>
+<span class="bflag">fi</span></pre>
+      </div>
+
+      <div class="subsection-title">4 — Spuštění a nastavení práv</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Spuštění skriptu</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">+x</span> <span class="bpath">mysql-backup.sh</span>
+<span class="bprompt">$ </span><span class="bcmd">./mysql-backup.sh</span>
+
+<span class="bcmt"># Cron — denně ve 3:00:</span>
+<span class="bprompt">$ </span><span class="bcmd">crontab</span> <span class="bflag">-e</span>
+<span class="bval">0 3 * * * /root/mysql-backup.sh</span></pre>
+      </div>
+
+      <div class="note-box">
+        <strong>// mysqldump vs fyzická záloha</strong>
+        <code>mysqldump</code> vytvoří SQL soubor (přenositelný, čitelný). Fyzická záloha (<code>/var/lib/mysql/</code>) je rychlejší ale závislá na verzi MySQL.
       </div>
     </div>
 
-    <!-- PHP -->
-    <div id="detail-php">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">PHP — Webové aplikace</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace PHP</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">php libapache2-mod-php</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- DJANGO -->
-    <div id="detail-django">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Django-CMS — Instalace</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace Django-CMS</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">pip install</span> <span class="bval">django-cms</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- FLASK -->
-    <div id="detail-flask">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">PyCharm + Flask</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Flask aplikace</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bval">from flask import Flask</span>
-<span class="bval">app = Flask(__name__)</span>
-<span class="bval">@app.route('/')</span>
-<span class="bval">def hello(): return 'Ahoj!'</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- ZABBIX -->
-    <div id="detail-zabbix">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Zabbix — Monitoring</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace Zabbix agenta</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">zabbix-agent</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- UBUNTU + VBOX -->
-    <div id="detail-ubuntu-vbox">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Ubuntu server + VirtualBox</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Instalace Ubuntu serveru na VirtualBox</span>
-            <div class="res-links">
-              <a href="https://youtu.be/zlavvqPlngE" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
+    <!-- ─── 9. LINUX PŘÍKAZY ─── -->
+    <div id="detail-linux-prikazy">
+      <div class="res-list" style="margin-bottom:1.5rem">
+        <div class="res-item">
+          <span class="res-title">Linux příkazy — přehled základních příkazů</span>
+          <div class="res-links">
+            <a href="https://cs.wikibooks.org/wiki/Linux:P%C5%99ehled_z%C3%A1kladn%C3%ADch_p%C5%99%C3%ADkaz%C5%AF" target="_blank" class="res-badge ext">↗ Wikibooks</a>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- IT2 TEORIE -->
-    <div id="detail-it2-teorie">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">IT2 Teorie sítí</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 4: ISO OSI model a TCP/IP</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      <div class="subsection-title">Soubory a adresáře</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Základní práce se soubory</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmd">ls</span> <span class="bflag">-la</span>              <span class="bcmt"># výpis adresáře</span>
+<span class="bcmd">cd</span> <span class="bpath">/cesta</span>           <span class="bcmt"># přechod do adresáře</span>
+<span class="bcmd">mkdir</span> <span class="bpath">adresar</span>      <span class="bcmt"># vytvoření adresáře</span>
+<span class="bcmd">cp</span> <span class="bpath">zdroj cíl</span>       <span class="bcmt"># kopírování</span>
+<span class="bcmd">mv</span> <span class="bpath">zdroj cíl</span>       <span class="bcmt"># přesun / přejmenování</span>
+<span class="bcmd">rm</span> <span class="bflag">-rf</span> <span class="bpath">adresar</span>    <span class="bcmt"># smazání rekurzivně</span>
+<span class="bcmd">find</span> <span class="bpath">/etc</span> <span class="bflag">-name</span> <span class="bval">"*.conf"</span>   <span class="bcmt"># hledání souborů</span>
+<span class="bcmd">grep</span> <span class="bflag">-r</span> <span class="bval">"text"</span> <span class="bpath">/etc</span>       <span class="bcmt"># hledání textu v souborech</span></pre>
       </div>
-    </div>
 
-    <!-- IT2 LEKCE 4 -->
-    <div id="detail-it2-lekce4">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 4 — ISO OSI model a TCP/IP</h2>
-        <div class="lesson-desc"><strong>ISO OSI model</strong> má 7 vrstev. <strong>TCP/IP model</strong> má 4 vrstvy.</div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Lekce 4: ISO OSI model a TCP/IP</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      <div class="subsection-title">Oprávnění</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">chmod / chown</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmd">chmod</span> <span class="bval">755</span> <span class="bpath">soubor</span>           <span class="bcmt"># rwxr-xr-x</span>
+<span class="bcmd">chmod</span> <span class="bval">644</span> <span class="bpath">soubor</span>           <span class="bcmt"># rw-r--r--</span>
+<span class="bcmd">chmod</span> <span class="bflag">-R</span> <span class="bval">755</span> <span class="bpath">/var/www</span>     <span class="bcmt"># rekurzivně</span>
+<span class="bcmd">chown</span> <span class="bval">user:skupina</span> <span class="bpath">soubor</span>  <span class="bcmt"># změna vlastníka</span>
+<span class="bcmd">chown</span> <span class="bflag">-R</span> <span class="bval">www-data:www-data</span> <span class="bpath">/var/www</span></pre>
       </div>
-    </div>
 
-    <!-- IT2 LEKCE 6-10 -->
-    <div id="detail-it2-lekce6">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 6</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 6</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      <div class="subsection-title">Uživatelé a skupiny</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">useradd / groupadd</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmd">useradd</span> <span class="bflag">-m</span> <span class="bval">jmeno</span>         <span class="bcmt"># vytvoří uživatele + home</span>
+<span class="bcmd">passwd</span> <span class="bval">jmeno</span>             <span class="bcmt"># nastaví heslo</span>
+<span class="bcmd">userdel</span> <span class="bflag">-r</span> <span class="bval">jmeno</span>        <span class="bcmt"># smaže uživatele + home</span>
+<span class="bcmd">groupadd</span> <span class="bval">skupina</span>         <span class="bcmt"># vytvoří skupinu</span>
+<span class="bcmd">usermod</span> <span class="bflag">-a -G</span> <span class="bval">skupina jmeno</span>  <span class="bcmt"># přidat do skupiny</span>
+<span class="bcmd">id</span> <span class="bval">jmeno</span>                 <span class="bcmt"># UID, GID, skupiny</span></pre>
       </div>
-    </div>
 
-    <div id="detail-it2-lekce7">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 7</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 7</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      <div class="subsection-title">Síť</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Síťové příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmd">ip addr show</span>             <span class="bcmt"># IP adresy rozhraní</span>
+<span class="bcmd">ip route show</span>            <span class="bcmt"># směrovací tabulka</span>
+<span class="bcmd">ping</span> <span class="bval">8.8.8.8</span>             <span class="bcmt"># test konektivity</span>
+<span class="bcmd">netstat</span> <span class="bflag">-tuln</span>           <span class="bcmt"># naslouchající porty</span>
+<span class="bcmd">ss</span> <span class="bflag">-tuln</span>                <span class="bcmt"># novější varianta netstat</span>
+<span class="bcmd">nmap</span> <span class="bval">192.168.0.1</span>        <span class="bcmt"># sken portů</span></pre>
       </div>
-    </div>
 
-    <div id="detail-it2-lekce8">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 8</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 8</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="detail-it2-lekce9">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 9</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 9</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="detail-it2-lekce10">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Lekce 10 — Výpočetní modely</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Lekce 10: Výpočetní modely</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAC ADRESY -->
-    <div id="detail-mac-adresy">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">MAC adresy a vztah k IP</h2>
-        <div class="lesson-desc"><strong>MAC adresa</strong> je fyzická adresa síťové karty. <strong>IP adresa</strong> je logická adresa.</div>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Zjištění MAC adresy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">ip link show</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">MAC adresy a vztah k IP</span>
-            <div class="res-links">
-              <a href="https://youtu.be/_GicjELJUC0" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STATIC ROUTING -->
-    <div id="detail-static-routing">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Statické routování</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Linux — přidání statické trasy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">ip route add</span> <span class="bval">192.168.2.0/24 via 192.168.1.1</span></pre>
-        </div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Statické routování</span>
-            <div class="res-links">
-              <a href="https://youtu.be/D1abXgQvvP4" target="_blank" class="res-badge yt">▶ YouTube 1</a>
-              <a href="https://youtu.be/f4EZ8XwFQqg" target="_blank" class="res-badge yt">▶ YouTube 2</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SITE STORAGE -->
-    <div id="detail-site-storage">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Síťové úložiště dat</h2>
-        <div class="lesson-desc">Přehled technologií pro sdílení souborů v síti: NFS, Samba, iSCSI.</div>
-      </div>
-    </div>
-
-    <!-- DOCKERFILE -->
-    <div id="detail-dockerfile">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Dockerfile — Publikace aplikací</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Příklad Dockerfile</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bval">FROM ubuntu:20.04</span>
-<span class="bval">RUN apt-get update && apt-get install -y apache2</span>
-<span class="bval">EXPOSE 80</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- PYCHARM DOCKER -->
-    <div id="detail-pycharm-docker">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">PyCharm + Dockerfile</h2>
-        <div class="lesson-desc">Vývoj aplikací v PyCharmu s využitím Dockerfile.</div>
-      </div>
-    </div>
-
-    <!-- HOME ASSISTANT -->
-    <div id="detail-ha">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Docker + Home Assistant</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Home Assistant v Dockeru</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">docker run</span> <span class="bflag">-d --name</span> <span class="bval">homeassistant</span> <span class="bval">homeassistant/home-assistant</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- KUBERNETES -->
-    <div id="detail-kubernetes">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Kubernetes — Základy</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Kubernetes — základy</span>
-            <div class="res-links">
-              <a href="https://www.youtube.com/watch?v=X48VuDVv0do" target="_blank" class="res-badge yt">▶ YouTube</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SNMP -->
-    <div id="detail-snmp">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">SNMP — Agent</h2>
-        <div class="bash-block">
-          <div class="bash-header"><span class="bash-title">Instalace SNMP agenta</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
-          <pre><span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">snmp snmp-mibs-downloader</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- DDOS -->
-    <div id="detail-ddos">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">DDoS obrana</h2>
-        <div class="lesson-desc">Metody obrany proti DDoS útokům: filtrování, rate limiting, fail2ban.</div>
-      </div>
-    </div>
-
-    <!-- IT4 MYSQL -->
-    <div id="detail-it4-mysql">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">MySQL záloha — IT4</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Zálohování a obnova MySQL serveru</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IT4 OTAZKY -->
-    <div id="detail-it4-otazky">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Maturitní otázky (TVY)</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">Maturitní otázky (TVY)</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2014/01/27/maturitni-otazky-tvy/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MICROPYTHON -->
-    <div id="detail-micropython">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">MicroPython — ESP32 a ESP8266</h2>
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">MicroPython — ESP32 a ESP8266</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2020/04/06/instalace-micropython-a-vscode" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-          <div class="res-item">
-            <span class="res-title">ESP8266 web server — SPIFFS</span>
-            <div class="res-links">
-              <a href="https://randomnerdtutorials.com/esp8266-web-server-spiffs-nodemcu/" target="_blank" class="res-badge ext">↗ tutorial</a>
-              <a href="https://blog.iservery.com/wp-content/uploads/2020/10/espspiffs.tar.gz" target="_blank" class="res-badge dl">⬇ kód</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- HA + MQTT -->
-    <div id="detail-ha-mqtt">
-      <div class="lesson-sec">
-        <h2 class="lesson-sec-title">Home Assistant + MQTT</h2>
-        <div class="lesson-desc">MQTT je protokol pro IoT zařízení. Home Assistant umožňuje integraci MQTT zařízení.</div>
-        <div class="res-list" style="margin-top:1rem">
-          <div class="res-item">
-            <span class="res-title">Home Assistant a MQTT</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
+      <div class="subsection-title">Systém a procesy</div>
+      <div class="bash-block">
+        <div class="bash-header"><span class="bash-title">Systémové příkazy</span><button class="bash-copy" onclick="copyBash(this)">kopírovat</button></div>
+        <pre><span class="bcmd">top</span>                      <span class="bcmt"># živý přehled procesů</span>
+<span class="bcmd">ps aux</span>                   <span class="bcmt"># snapshot procesů</span>
+<span class="bcmd">kill</span> <span class="bflag">-9</span> <span class="bval">PID</span>             <span class="bcmt"># násilné ukončení procesu</span>
+<span class="bcmd">df</span> <span class="bflag">-h</span>                    <span class="bcmt"># volné místo na discích</span>
+<span class="bcmd">du</span> <span class="bflag">-sh</span> <span class="bpath">/var/log</span>        <span class="bcmt"># velikost adresáře</span>
+<span class="bcmd">free</span> <span class="bflag">-h</span>                  <span class="bcmt"># využití paměti RAM</span>
+<span class="bcmd">uname</span> <span class="bflag">-a</span>                <span class="bcmt"># info o kernelu</span>
+<span class="bcmd">uptime</span>                   <span class="bcmt"># doba běhu a load</span></pre>
       </div>
     </div>
 
   </div><!-- /hidden details -->
 
   <script>
+    var titles = {
+      'bash':          'Bash skripty',
+      'wordpress':     'WordPress — instalace',
+      'samba':         'Samba server',
+      'nfs':           'NFS server',
+      'ssh':           'SSH — klíče a konfigurace',
+      'apache2':       'Apache2 — userdir',
+      'tar':           'tar — záloha adresáře',
+      'mysql':         'MySQL — záloha a obnova',
+      'linux-prikazy': 'Linux příkazy'
+    };
+
     function showDetail(id) {
-      var panel = document.getElementById('detailPanel');
-      var noSel = document.getElementById('noSelection');
-      var title = document.getElementById('detailTitle');
+      var panel   = document.getElementById('detailPanel');
+      var noSel   = document.getElementById('noSelection');
+      var title   = document.getElementById('detailTitle');
       var content = document.getElementById('detailContent');
-      var detail = document.getElementById('detail-' + id);
+      var detail  = document.getElementById('detail-' + id);
 
       if (detail) {
-        title.textContent = id.replace(/-/g, ' ').toUpperCase();
-        content.innerHTML = detail.innerHTML;
+        title.textContent   = titles[id] || id;
+        content.innerHTML   = detail.innerHTML;
         panel.classList.add('active');
         noSel.style.display = 'none';
-        panel.scrollTop = 0;
+        panel.scrollTop     = 0;
+
+        document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+        document.querySelectorAll('.sidebar-link').forEach(function(l) {
+          if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) {
+            l.classList.add('active');
+          }
+        });
       }
     }
 
     function closeDetail() {
-      var panel = document.getElementById('detailPanel');
-      var noSel = document.getElementById('noSelection');
-      panel.classList.remove('active');
-      noSel.style.display = 'flex';
-    }
-
-    function scrollToSection(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      document.getElementById('detailPanel').classList.remove('active');
+      document.getElementById('noSelection').style.display = 'flex';
+      document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
     }
 
     function copyBash(btn) {
-      var pre = btn.closest('.bash-block').querySelector('pre');
+      var pre  = btn.closest('.bash-block').querySelector('pre');
       var text = pre.textContent;
       navigator.clipboard.writeText(text).then(function() {
         btn.textContent = 'zkopírováno!';
