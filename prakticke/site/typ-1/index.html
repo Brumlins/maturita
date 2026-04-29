@@ -178,46 +178,6 @@
                 <td class="net-note">—</td>
               </tr>
               <tr>
-                <td class="net-name">Router0 (Gi0/1 — VLAN gateway)</td>
-                <td class="net-note">rozhraní</td>
-                <td class="net-cidr">/23</td>
-                <td class="net-ip">10.0.0.1 (VLAN10), 10.0.2.1 (VLAN20), 10.0.3.17 (VLAN999)</td>
-                <td class="net-mask">viz VLANy</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
-                <td class="net-name">Router0 (Gi0/2 — link → Router1)</td>
-                <td class="net-note">rozhraní</td>
-                <td class="net-cidr">/30</td>
-                <td class="net-ip">10.0.3.33</td>
-                <td class="net-mask">255.255.255.252</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
-                <td class="net-name">Router2 (Gi0/0 — link → Router1)</td>
-                <td class="net-note">rozhraní</td>
-                <td class="net-cidr">/30</td>
-                <td class="net-ip">10.0.3.38</td>
-                <td class="net-mask">255.255.255.252</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
-                <td class="net-name">Router1 (Gi0/0 — inside NAT)</td>
-                <td class="net-note">rozhraní</td>
-                <td class="net-cidr">/30</td>
-                <td class="net-ip">10.0.3.34</td>
-                <td class="net-mask">255.255.255.252</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
-                <td class="net-name">Router1 (Gi0/2 — outside / Internet)</td>
-                <td class="net-note">rozhraní</td>
-                <td class="net-cidr">/24</td>
-                <td class="net-ip">213.200.13.3</td>
-                <td class="net-mask">255.255.255.0</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
                 <td class="net-name">OUTSIDE (Internet)</td>
                 <td class="net-note">dáno zadáním</td>
                 <td class="net-cidr">/24</td>
@@ -697,14 +657,12 @@
 <span class="mode">Router1(config-if)# </span><span class="cmd">ip nat outside</span>
 <span class="mode">Router1(config-if)# </span><span class="cmd">exit</span>
 
-<span class="cmt">! ACL — co se překládá (privátní rozsah)</span>
-<span class="mode">Router1(config)# </span><span class="cmd">ip access-list standard</span> <span class="ios-s">NAT_INSIDE</span>
-<span class="mode">Router1(config-std-nacl)# </span><span class="ios-op">permit</span> <span class="ios-ip">10.0.0.0</span> <span class="ios-ip">0.0.3.255</span>
-<span class="mode">Router1(config-std-nacl)# </span><span class="cmd">exit</span>
+<span class="cmt">! ACL — co se překládá (číslo 33)</span>
+<span class="mode">Router1(config)# </span><span class="cmd">access-list</span> <span class="ios-ip">33</span> <span class="ios-op">permit</span> <span class="cmd">any</span>
 
 <span class="cmt">! PAT — překlad na jednu veřejnou IP</span>
-<span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source list</span> <span class="ios-s">NAT_INSIDE</span>
-              <span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1</span> <span class="cmd">overload</span>
+<span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source list</span> <span class="ios-ip">33</span>
+              <span class="cmd">interface</span> <span class="iface">GigabitEthernet0/2</span> <span class="cmd">overload</span>
 
 <span class="cmt">! Ověření:</span>
 <span class="mode">Router1# </span><span class="cmd">show ip nat translations</span>
@@ -743,25 +701,21 @@
           <pre>
 <span class="cmt">! HTTPS 443 → Server0</span>
 <span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">443</span>  <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">443</span>
+              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">443</span>  <span class="ios-ip">213.200.13.1</span> <span class="ios-ip">443</span>
 
 <span class="cmt">! FTP 21 (řídící kanál) → Server0</span>
 <span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">21</span>   <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">21</span>
+              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">21</span>   <span class="ios-ip">213.200.13.1</span> <span class="ios-ip">21</span>
 
 <span class="cmt">! FTP 20 (datový kanál) → Server0</span>
 <span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">20</span>   <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">20</span>
-
-<span class="cmt">! HTTP 80 (pokud požadováno)</span>
-<span class="mode">Router1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">80</span>   <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">80</span>
+              <span class="ios-ip">10.0.3.2</span> <span class="ios-ip">20</span>   <span class="ios-ip">213.200.13.1</span> <span class="ios-ip">20</span>
           </pre>
         </div>
 
         <div class="tip-box">
           <strong>// TIP</strong>
-          <code>213.200.13.X</code> = veřejná IP adresy Router1 na rozhraní do Internetu (GigabitEthernet0/1).
+          <code>213.200.13.1</code> = veřejná IP rozhraní Gi0/2
           Server0 musí mít v GUI povolené požadované služby (http, https, ftp).
         </div>
       </div>
@@ -776,52 +730,52 @@
           <div class="task-letter k">k)</div>
           <div class="task-info">
             <div class="task-title">ACL — řízení přístupu do DMZ</div>
-            <div class="task-points">VLAN10 → pouze HTTPS · VLAN20 → pouze FTP</div>
+            <div class="task-points">Router0 — VLAN10 → HTTPS · VLAN20 → FTP</div>
           </div>
         </div>
         <div class="task-desc">
-          Z <strong>VLAN10</strong> povolte pouze HTTPS (443) na Server0 v DMZ.
+          Na <strong>Router0</strong> z <strong>VLAN10</strong> povolte pouze HTTPS (443) na Server0 v DMZ.
           Z <strong>VLAN20</strong> povolte pouze FTP (20, 21) na Server0 v DMZ.
           Veškerý ostatní provoz do DMZ zakažte.
         </div>
 
         <div class="ios-block">
           <div class="ios-header">
-            <span class="ios-device">Router2 — Extended ACL aplikovaná na sub-interfaces</span>
+            <span class="ios-device">Router0 — Extended ACL na sub-interfaces</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="cmt">! ACL pro VLAN10 — pouze HTTPS do DMZ</span>
-<span class="mode">Router2(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN10_DMZ</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.0.0 0.0.1.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.0.0 0.0.1.255</span> <span class="ios-ip">10.0.0.0 0.0.3.255</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">ip</span>  <span class="cmd">any any</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="cmd">exit</span>
+<span class="cmt">! ACL pro VLAN10 — pouze HTTPS do DMZ, deny do ostatních DMZ sítí</span>
+<span class="mode">Router0(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN10_DMZ</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.0.0 0.0.1.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">ip</span>  <span class="ios-ip">10.0.0.0 0.0.1.255</span> <span class="ios-ip">10.0.3.0 0.0.0.15</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.0.0 0.0.1.255</span> <span class="cmd">any</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="cmd">exit</span>
 
-<span class="cmt">! ACL pro VLAN20 — pouze FTP do DMZ</span>
-<span class="mode">Router2(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN20_DMZ</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-ip">21</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-ip">20</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">10.0.2.0 0.0.0.255</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">ip</span>  <span class="cmd">any any</span>
-<span class="mode">Router2(config-ext-nacl)# </span><span class="cmd">exit</span>
+<span class="cmt">! ACL pro VLAN20 — pouze FTP do DMZ, deny do ostatních DMZ sítí</span>
+<span class="mode">Router0(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN20_DMZ</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-s">ftp</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">10.0.3.0 0.0.0.15</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">10.0.3.0 0.0.0.15</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="cmd">exit</span>
 
 <span class="cmt">! Aplikace ACL na vstupní sub-interfaces</span>
-<span class="mode">Router2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.10</span>
-<span class="mode">Router2(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN10_DMZ</span> <span class="cmd">in</span>
-<span class="mode">Router2(config-subif)# </span><span class="cmd">exit</span>
+<span class="mode">Router0(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1.10</span>
+<span class="mode">Router0(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN10_DMZ</span> <span class="cmd">in</span>
+<span class="mode">Router0(config-subif)# </span><span class="cmd">exit</span>
 
-<span class="mode">Router2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.20</span>
-<span class="mode">Router2(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN20_DMZ</span> <span class="cmd">in</span>
+<span class="mode">Router0(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1.20</span>
+<span class="mode">Router0(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN20_DMZ</span> <span class="cmd">in</span>
           </pre>
         </div>
 
         <div class="explanation">
           <div class="explanation-title">// VYSVĚTLENÍ</div>
           <ul>
-            <li><code>in</code> – ACL filtruje provoz přicházející do tohoto rozhraní (od PCček)</li>
-            <li>Druhý <code>permit ip</code> povoluje komunikaci uvnitř VLANu (vzájemně mezi PC)</li>
-            <li>Poslední <code>deny ip any any</code> je implicitní, ale přidáním ji vidíte v <code>show access-list</code></li>
+            <li><code>in</code> – ACL filtruje provoz přicházející do rozhraní (od PCček)</li>
+            <li>VLAN10: HTTPS na Server0 povoleno, zbytek DMZ zakázán, ostatní povoleno</li>
+            <li>VLAN20: FTP na Server0 povoleno, zbytek DMZ zakázán, DMZ rozsah povolen</li>
+            <li>Poslední řádek ACL je implicitní <code>deny</code>, ale přidáním je vidět v <code>show access-list</code></li>
           </ul>
         </div>
       </div>
