@@ -280,10 +280,40 @@ pre {
 /* ── DIVIDER ──────────────────────────────────────────────── */
 .divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
 
+/* ── PROJECT CARDS (same style as list.css) ──────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.project-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.5rem; text-decoration: none; color: var(--text);
+  display: flex; flex-direction: column; gap: 0.5rem;
+  transition: all 0.25s ease; position: relative; overflow: hidden;
+}
+.project-card::after {
+  content: ''; position: absolute; inset: 0;
+  opacity: 0; transition: opacity 0.25s; border-radius: 12px;
+}
+.project-card.grussman::after { background: linear-gradient(135deg, rgba(62,207,142,0.1), transparent); }
+.project-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+.project-card.grussman:hover { box-shadow: 0 12px 40px rgba(62,207,142,0.15); }
+.project-card:hover::after { opacity: 1; }
+.project-num  { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+.project-name { font-size: 1.1rem; font-weight: 700; position: relative; z-index: 1; }
+.project-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); position: relative; z-index: 1; }
+.project-arrow {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  opacity: 0.2; font-size: 1rem; transition: all 0.25s;
+}
+.project-card:hover .project-arrow { opacity: 1; transform: translate(2px, -2px); }
+
 /* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 768px) {
   .page { grid-template-columns: 1fr; }
   aside { display: none; }
   main  { padding: 2rem 1.25rem 4rem; }
   .res-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .projects-grid { grid-template-columns: 1fr; }
 }

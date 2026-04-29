@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grussman | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/grussman.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../index.html">praktické</a>
+    <span class="sep">/</span>
+    <span class="current">grussman</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Kategorie</div>
+      <a href="#zaklady" class="sidebar-link"><span class="sidebar-num">1</span> Linux základy</a>
+      <a href="#sítě" class="sidebar-link"><span class="sidebar-num">2</span> Síťové služby</a>
+      <a href="#nástroje" class="sidebar-link"><span class="sidebar-num">3</span> Nástroje</a>
+      <a href="#teorie" class="sidebar-link"><span class="sidebar-num">4</span> IT2 Teorie</a>
+      <a href="#ostatní" class="sidebar-link"><span class="sidebar-num">5</span> Ostatní</a>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Legenda</div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:0 0.65rem">
+        <span class="res-badge vid" style="width:fit-content">▶ embedded</span>
+        <span class="res-badge yt" style="width:fit-content">▶ YouTube</span>
+        <span class="res-badge blog" style="width:fit-content">📄 blog</span>
+        <span class="res-badge ext" style="width:fit-content">↗ ext</span>
+        <span class="res-badge dl" style="width:fit-content">⬇ stáhnout</span>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// výukové materiály</p>
+        <h1>Grussman</h1>
+        <div class="hero-meta">
+          <span>📚 IT2 · IT3 · IT4</span>
+          <span>🐧 Linux · 🐳 Docker · 🔌 ESP</span>
+          <span>🚫 bez Cisco</span>
+        </div>
+        <p class="hero-src">zdroj: <a href="https://blog.iservery.com/vyuka-online/" target="_blank">blog.iservery.com/vyuka-online</a></p>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+           1. Linux základy
+           ════════════════════════════════════════════════════ -->
+      <div class="sec-block" id="zaklady">
+        <div class="sec-header">
+          <span class="sec-label label-it2">IT2</span>
+          <span class="sec-label label-pvy">PVY</span>
+          <h2 class="sec-title">Linux základy</h2>
+        </div>
+
+        <div class="projects-grid" style="margin-bottom:2rem">
+          <a href="ssh/index.html" class="project-card grussman">
+            <span class="project-num">01</span>
+            <div class="project-name">SSH</div>
+            <div class="project-meta">Klíče, přihlášení, konfigurace</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="bash-skripty/index.html" class="project-card grussman">
+            <span class="project-num">02</span>
+            <div class="project-name">Bash skripty</div>
+            <div class="project-meta">Maturitní příprava</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="tar/index.html" class="project-card grussman">
+            <span class="project-num">03</span>
+            <div class="project-name">tar</div>
+            <div class="project-meta">Zálohování a obnova</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="df-mount/index.html" class="project-card grussman">
+            <span class="project-num">04</span>
+            <div class="project-name">df, mount</div>
+            <div class="project-meta">Souborové systémy</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="top-ps/index.html" class="project-card grussman">
+            <span class="project-num">05</span>
+            <div class="project-name">top, ps</div>
+            <div class="project-meta">Procesy a monitorování</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="iotop/index.html" class="project-card grussman">
+            <span class="project-num">06</span>
+            <div class="project-name">iotop</div>
+            <div class="project-meta">Monitoring I/O</div>
+            <span class="project-arrow">↗</span>
+          </div>
+        </div>
+
+        <div class="res-list">
+          <div class="res-item">
+            <span class="res-title">Instalace Ubuntu serveru na VirtualBox</span>
+            <div class="res-links">
+              <a href="https://youtu.be/zlavvqPlngE" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Jak použít rsync</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2014/03/31/rsync-proc-nac/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">SSH klíče a přihlášení bez hesla</span>
+            <div class="res-links">
+              <a href="https://youtu.be/vmjcRZaBfnU" target="_blank" class="res-badge yt">▶ YouTube</a>
+              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">iptraf — sledování síťového provozu</span>
+            <div class="res-links">
+              <a href="https://youtu.be/T94Q_pEvtXY" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Instalace WordPress na Ubuntu</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Znalosti na konci roku (IT2)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2014/12/02/it2-znalosti/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           2. Síťové služby
+           ════════════════════════════════════════════════════ -->
+      <div class="sec-block" id="sítě">
+        <div class="sec-header">
+          <span class="sec-label label-it3">IT3</span>
+          <span class="sec-label label-pvy">PVY</span>
+          <h2 class="sec-title">Síťové služby</h2>
+        </div>
+
+        <div class="projects-grid" style="margin-bottom:2rem">
+          <a href="nfs/index.html" class="project-card grussman">
+            <span class="project-num">01</span>
+            <div class="project-name">NFS</div>
+            <div class="project-meta">Síťové úložiště dat</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="samba/index.html" class="project-card grussman">
+            <span class="project-num">02</span>
+            <div class="project-name">Samba</div>
+            <div class="project-meta">Sdílení adresářů</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="apache2/index.html" class="project-card grussman">
+            <span class="project-num">03</span>
+            <div class="project-name">Apache2</div>
+            <div class="project-meta">Web server, .htaccess</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="rsync/index.html" class="project-card grussman">
+            <span class="project-num">04</span>
+            <div class="project-name">rsync</div>
+            <div class="project-meta">Synchronizace souborů</div>
+            <span class="project-arrow">↗</span>
+          </a>
+        </div>
+
+        <div class="res-list">
+          <div class="res-item">
+            <span class="res-title">SSH server — instalace a konfigurace</span>
+            <div class="res-links">
+              <a href="https://youtu.be/zlavvqPlngE" target="_blank" class="res-badge yt">▶ YouTube</a>
+              <a href="https://youtu.be/vmjcRZaBfnU" target="_blank" class="res-badge yt">▶ YouTube</a>
+              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">NFS server</span>
+            <div class="res-links">
+              <a href="https://youtu.be/oce7wyS5Coo" target="_blank" class="res-badge yt">▶ YouTube</a>
+              <a href="https://blog.iservery.com/2013/11/06/nfs-neni-need-speed-hra-ale-network-file-system/" target="_blank" class="res-badge blog">📄 blog</a>
+              <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04" target="_blank" class="res-badge ext">↗ DigitalOcean</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Samba server (sdílení adresářů)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2017/01/18/samba-ubuntu-16-04-share-adresare/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Apache2, .htaccess, CGI-bin, práva souborů</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">MySQL — backup a obnova</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">systemd — správa daemonů</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           3. Nástroje a monitorování
+           ════════════════════════════════════════════════════ -->
+      <div class="sec-block" id="nástroje">
+        <div class="sec-header">
+          <span class="sec-label label-it3">IT3</span>
+          <h2 class="sec-title">Nástroje a monitorování</h2>
+        </div>
+
+        <div class="projects-grid" style="margin-bottom:2rem">
+          <a href="iptraf/index.html" class="project-card grussman">
+            <span class="project-num">01</span>
+            <div class="project-name">iptraf</div>
+            <div class="project-meta">Sledování síťového provozu</div>
+            <span class="project-arrow">↗</span>
+          </a>
+        </div>
+
+        <div class="res-list">
+          <div class="res-item">
+            <span class="res-title">Docker — instalace serveru</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Dockerfile — publikace aplikací</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">PyCharm + Flask — formuláře, databáze</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Zabbix — agent</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">SNMP — agent</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Kubernetes — základy</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/watch?v=X48VuDVv0do" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           4. IT2 Teorie sítí
+           ════════════════════════════════════════════════════ -->
+      <div class="sec-block" id="teorie">
+        <div class="sec-header">
+          <span class="sec-label label-it2">IT2</span>
+          <h2 class="sec-title">Teorie sítí</h2>
+        </div>
+
+        <div class="projects-grid" style="margin-bottom:2rem">
+          <a href="it2-teorie/index.html" class="project-card grussman">
+            <span class="project-num">01</span>
+            <div class="project-name">IT2 Teorie</div>
+            <div class="project-meta">OSI model, TCP/IP, MAC adresy</div>
+            <span class="project-arrow">↗</span>
+          </a>
+        </div>
+
+        <div class="res-list">
+          <div class="res-item">
+            <span class="res-title">Lekce 4: ISO OSI model a TCP/IP</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Lekce 6–10</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">MAC adresy a vztah k IP</span>
+            <div class="res-links">
+              <a href="https://youtu.be/_GicjELJUC0" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Práce s gitem — interaktivní kurz</span>
+            <div class="res-links">
+              <a href="https://learngitbranching.js.org/" target="_blank" class="res-badge ext">↗ learngitbranching.js.org</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Linux příkazy — přehled</span>
+            <div class="res-links">
+              <a href="https://cs.wikibooks.org/wiki/Linux:P%C5%99ehled_z%C3%A1kladn%C3%ADch_p%C5%99%C3%ADkaz%C5%AF" target="_blank" class="res-badge ext">↗ Wikibooks</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           5. Ostatní — IT4, ESP, Docker
+           ════════════════════════════════════════════════════ -->
+      <div class="sec-block" id="ostatní">
+        <div class="sec-header">
+          <span class="sec-label label-it4">IT4</span>
+          <h2 class="sec-title">Ostatní — ESP, Docker, projekty</h2>
+        </div>
+
+        <div class="res-list">
+          <div class="res-item">
+            <span class="res-title">Bash skripty — maturitní příprava</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2014/01/22/skripty-maturite/" target="_blank" class="res-badge blog">📄 blog</a>
+              <a href="https://blog.iservery.com/2013/04/04/bash-skripty-priklady/" target="_blank" class="res-badge blog">📄 příklady</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Maturitní otázky (TVY)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2014/01/27/maturitni-otazky-tvy/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Docker a Home Assistant</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">WordPress a Docker</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">MicroPython — ESP32 a ESP8266</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2020/04/06/instalace-micropython-a-vscode" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">ESP8266 web server — SPIFFS</span>
+            <div class="res-links">
+              <a href="https://randomnerdtutorials.com/esp8266-web-server-spiffs-nodemcu/" target="_blank" class="res-badge ext">↗ tutorial</a>
+              <a href="https://blog.iservery.com/wp-content/uploads/2020/10/espspiffs.tar.gz" target="_blank" class="res-badge dl">⬇ kód</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Obrana před DDoS a Flood útoky</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>
