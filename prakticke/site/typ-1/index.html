@@ -19,7 +19,22 @@
       <button class="topo-toggle" onclick="toggleTopo()">−</button>
     </div>
     <div class="topo-panel-body">
-      <img src="TYP-1.jpg" class="topo-img" alt="Topologie sítě TYP-1">
+      <img src="predloha.png" class="topo-img" alt="Topologie sítě TYP-1">
+      <div class="topo-tasks">
+        <ul>
+          <li>Rozpočítat zadaný IP rozsah pro VLANy a také propojovací podsítě (ty většinou stačí /30)</li>
+          <li>Vytvořit VLANy pro uživatele a přiřadit k portům, pokud bude nutné SSH na switchi, tak si udělat VLAN999 Administrative a spravce-PC by mohl být v portu s VLAN999 nebo nutnost routingu mezi VLANami</li>
+          <li>IP na PCs — buď pevně nastavené, nebo obdrží z DHCP služby, ale z DHCP řešte, až po funkčním routování</li>
+          <li>Mezi switchi propoj zrealizovat jako Link Aggregation, tedy jeden z režimů EtherChannel, nebo jindy LACP, nebo jindy PagP</li>
+          <li>Routování, umět obě metody statické a OSPF, zkusit si pingnout mezi zařízeními SSPU.local</li>
+          <li>Bude-li požadovaná DHCP, tak může být na Router1, nebo v jiném zadání na Router2</li>
+          <li>Bude-li požadováno SSH, tak může být na Router1, nebo v jiném zadání na Router0, nebo i třeba Switch0</li>
+          <li>Na hraničním routeru děláte DEFAULT ROUTE a tu buď distribuuje ostatním routerům OSPF přes doplněný příkaz, nebo u statického routování to musíte udělat Vy na všech ostatních routerech</li>
+          <li>NAT bude pouze na hraničním Routeru1, překlad private do veřejné jedné IP</li>
+          <li>PORT FORWARDING — přístup z internet serveru na služby FTP 22,23, HTTPS 443 běžící v DMZ školy na zařízení Server0</li>
+          <li>ACL, například z jedné VLANy je povoleno pouze https do dmz Server a z druhé VLANy pouze ftp do tohoto dmz Server0</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -40,7 +55,7 @@
       <div class="progress-wrap">
         <div class="progress-label">
           <span>hotovo</span>
-          <span class="progress-count">0 / 13</span>
+          <span class="progress-count">0 / 11</span>
         </div>
         <div class="progress-bar"><div class="progress-fill"></div></div>
       </div>
@@ -62,8 +77,6 @@
       <label class="check-item" data-task="i"><div class="check-box"></div><span>i) NAT</span></label>
       <label class="check-item" data-task="j"><div class="check-box"></div><span>j) Port Forwarding</span></label>
       <label class="check-item" data-task="k"><div class="check-box"></div><span>k) ACL</span></label>
-      <label class="check-item" data-task="l"><div class="check-box"></div><span>l) Backup config</span></label>
-      <label class="check-item" data-task="m"><div class="check-box"></div><span>m) Logging</span></label>
 
       <div class="sidebar-sep"></div>
       <div class="sidebar-title">Navigace</div>
@@ -78,8 +91,6 @@
       <a href="#ukol-i" class="sidebar-link" data-target="ukol-i"><span class="sidebar-num">i)</span> NAT</a>
       <a href="#ukol-j" class="sidebar-link" data-target="ukol-j"><span class="sidebar-num">j)</span> Port Forwarding</a>
       <a href="#ukol-k" class="sidebar-link" data-target="ukol-k"><span class="sidebar-num">k)</span> ACL</a>
-      <a href="#ukol-l" class="sidebar-link" data-target="ukol-l"><span class="sidebar-num">l)</span> Backup config</a>
-      <a href="#ukol-m" class="sidebar-link" data-target="ukol-m"><span class="sidebar-num">m)</span> Logging</a>
     </aside>
 
     <main>
@@ -87,7 +98,7 @@
         <p class="hero-label">// sítě · typ 1</p>
         <h1>Typ 1</h1>
         <div class="hero-meta">
-          <span>📋 13 úkolů</span>
+          <span>📋 11 úkolů</span>
           <span>🌐 Cisco Packet Tracer</span>
           <span>🏢 SSPU.local</span>
         </div>
@@ -773,97 +784,6 @@
             <li><code>in</code> – ACL filtruje provoz přicházející do tohoto rozhraní (od PCček)</li>
             <li>Druhý <code>permit ip</code> povoluje komunikaci uvnitř VLANu (vzájemně mezi PC)</li>
             <li>Poslední <code>deny ip any any</code> je implicitní, ale přidáním ji vidíte v <code>show access-list</code></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- ════════════════════════════════════════════════════
-           l) BACKUP STARTUP-CONFIG
-           ════════════════════════════════════════════════════ -->
-      <div class="task" id="ukol-l">
-        <div class="task-header">
-          <div class="task-letter l">l)</div>
-          <div class="task-info">
-            <div class="task-title">Záloha startup-config → Server0 (FTP)</div>
-            <div class="task-points">Switch0, Router0 — copy startup-config na FTP server</div>
-          </div>
-        </div>
-        <div class="task-desc">
-          Uložte konfiguraci zařízení na <strong>Server0</strong> v DMZ pomocí FTP.
-          Na Server0 musí být povolena <em>FTP služba</em> s nastaveným uživatelem.
-        </div>
-
-        <div class="tip-box">
-          <strong>// NEJDŘÍV NA SERVER0 (GUI)</strong>
-          Server0 → Services → FTP → zapnout, přidat uživatele (např. <code>cisco</code> / heslo <code>cisco</code>, oprávnění read/write).
-        </div>
-
-        <div class="ios-block">
-          <div class="ios-header">
-            <span class="ios-device">Libovolné zařízení — copy startup-config na FTP</span>
-            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
-          </div>
-          <pre>
-<span class="mode">Switch0# </span><span class="cmd">copy startup-config ftp:</span>
-<span class="cmt">! PT se zeptá:</span>
-<span class="cmt">! Address or name of remote host? → 10.0.3.2</span>
-<span class="cmt">! Destination filename? → Switch0-startup-config</span>
-<span class="cmt">! Username? → cisco</span>
-<span class="cmt">! Password? → cisco</span>
-
-<span class="cmt">! Nebo jedním příkazem (URL tvar):</span>
-<span class="mode">Router0# </span><span class="cmd">copy startup-config ftp://cisco:cisco@10.0.3.2/Router0-config</span>
-          </pre>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- ════════════════════════════════════════════════════
-           m) LOGGING
-           ════════════════════════════════════════════════════ -->
-      <div class="task" id="ukol-m">
-        <div class="task-header">
-          <div class="task-letter m">m)</div>
-          <div class="task-info">
-            <div class="task-title">Logging — syslog na Server0</div>
-            <div class="task-points">Router0, Router1 → syslog na Server0</div>
-          </div>
-        </div>
-        <div class="task-desc">
-          Nakonfigurujte <strong>syslog logování</strong> na routerech — zprávy posílat na <strong>Server0</strong> v DMZ.
-          Server0 musí mít povolenu <em>Syslog službu</em>.
-        </div>
-
-        <div class="tip-box">
-          <strong>// NEJDŘÍV NA SERVER0 (GUI)</strong>
-          Server0 → Services → SYSLOG → zapnout.
-        </div>
-
-        <div class="ios-block">
-          <div class="ios-header">
-            <span class="ios-device">Router0 / Router1 — syslog</span>
-            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
-          </div>
-          <pre>
-<span class="mode">Router(config)# </span><span class="cmd">logging host</span> <span class="ios-ip">10.0.3.2</span>
-<span class="mode">Router(config)# </span><span class="cmd">logging trap debugging</span>
-<span class="mode">Router(config)# </span><span class="cmd">service timestamps log datetime msec</span>
-<span class="mode">Router(config)# </span><span class="cmd">logging on</span>
-
-<span class="cmt">! Ověření:</span>
-<span class="mode">Router# </span><span class="cmd">show logging</span>
-          </pre>
-        </div>
-
-        <div class="explanation">
-          <div class="explanation-title">// VYSVĚTLENÍ</div>
-          <ul>
-            <li><code>logging host</code> – IP adresa syslog serveru</li>
-            <li><code>logging trap debugging</code> – úroveň 7 (všechny zprávy), pro produkci stačí <code>informational</code> (6)</li>
-            <li><code>service timestamps</code> – přidá časové razítko ke každé zprávě</li>
           </ul>
         </div>
       </div>
