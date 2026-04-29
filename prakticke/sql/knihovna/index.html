@@ -109,7 +109,7 @@
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
             <li>V levém panelu vyber databázi <strong>knihovna</strong>, klikni na <strong>Nová tabulka</strong>.</li>
             <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">rezervace</code>, počet sloupců: <strong>6</strong> → klikni <strong>Provést</strong>.</li>
-            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+            <li>Vyplň každý sloupec (zleva: Název / Typ / Délka / Výchozí / Null / Index / A_I):</li>
           </ol>
           <div class="result-preview" style="margin:0 0 1rem">
             <table class="result-table">
@@ -155,8 +155,8 @@
           <div class="explanation">
             <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
             <ul>
-              <li><code>ENUM('aktivní','splněná','zrušená')</code> – jen povolené hodnoty, nic jiného nelze vložit</li>
-              <li><code>DEFAULT 'aktivní'</code> – každá nová rezervace je automaticky aktivní, dokud nezměníme stav</li>
+              <li><code>ENUM</code> – jen tři povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>DEFAULT 'aktivní'</code> – nová rezervace je automaticky aktivní, dokud nezměníme stav</li>
               <li><code>datum_rezervace NOT NULL</code> – povinný údaj, bez data se záznam odmítne vložit</li>
               <li><code>platnost_do DEFAULT NULL</code> – nepovinné, rezervace nemusí mít definovanou expiraci</li>
             </ul>
@@ -306,10 +306,10 @@
         <div class="explanation">
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
-            <li><code>datum_vraceni IS NULL</code> – hledáme řádky, kde datum vrácení nebylo vyplněno = kniha dosud leží u čtenáře</li>
-            <li>Řetěz joinů: <code>vypujcka → exemplar → kniha</code> – výpůjčka se váže na konkrétní fyzický exemplář, ten se pak spojí s katalogem knih</li>
+            <li><code>datum_vraceni IS NULL</code> – datum vrácení prázdné = kniha stále u čtenáře</li>
+            <li>Řetěz: <code>vypujcka → exemplar → kniha</code> – výpůjčka → fyzický exemplář → katalog</li>
             <li><code>DATE_FORMAT(datum, '%e. %c. %Y')</code> – hezčí formát data: <em>23. 2. 2010</em> místo <em>2010-02-23</em></li>
-            <li>Sekundární řazení dle příjmení zajistí deterministické pořadí u půjček se stejným datem</li>
+            <li>Sekundární řazení dle příjmení zajistí pořadí u půjček se stejným datem</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -360,10 +360,10 @@
         <div class="explanation">
           <div class="explanation-title">// KLÍČOVÉ KONCEPTY</div>
           <ul>
-            <li><code>LEFT JOIN</code> – zahrne i čtenáře bez výpůjček (v datech ale takoví nejsou); INNER JOIN by byl také funkční</li>
-            <li><code>GROUP BY c.cislo_prukazu</code> – seskupení podle ID čtenáře (ne jménem – jména se mohou opakovat)</li>
+            <li><code>LEFT JOIN</code> zahrne i čtenáře bez výpůjček – INNER JOIN by taky fungoval</li>
+            <li><code>GROUP BY c.cislo_prukazu</code> – seskupení podle ID, ne jménem</li>
             <li><code>COUNT(v.signatura)</code> – počet řádků ve výpůjčkách pro daného čtenáře</li>
-            <li><code>SUM(v.poplatek)</code> – součet všech poplatků; sloupec je DECIMAL, výsledek bude také DECIMAL</li>
+            <li><code>SUM(v.poplatek)</code> – součet všech poplatků, výsledek je DECIMAL</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -420,10 +420,10 @@
         <div class="explanation">
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
-            <li>Tabulka <code>autori_knih</code> je vazební – řeší vztah M:N (jeden autor → více knih, jedna kniha → více autorů)</li>
+            <li><code>autori_knih</code> je vazební tabulka – řeší vztah M:N mezi autory a knihami</li>
             <li>Procházíme řetězec: <code>autor → autori_knih → kniha → vydavatelstvi</code></li>
-            <li>Autoři s více knihami (Tolstoj, Čapek, King, Vančura) se v výsledku zobrazí vícekrát – jeden řádek na knihu</li>
-            <li>Alias <code>vyd</code> pro vydavatelstvi – zabrání konfliktu s případnými jinými tabulkami se sloupcem <code>nazev</code></li>
+            <li>Autor s více knihami se zobrazí vícekrát – jeden řádek na každou knihu</li>
+            <li>Alias <code>vyd</code> zabrání konfliktu se sloupcem <code>nazev</code> v jiných tabulkách</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -476,7 +476,7 @@
           <ul>
             <li><code>DROP TABLE</code> smaže tabulku včetně všech dat, nelze vrátit</li>
             <li><code>DROP DATABASE</code> smaže celou databázi se všemi tabulkami a daty</li>
-            <li>Pořadí záleží – nejdřív tabulka, pak DB. Opačně by DROP TABLE selhal, protože DB by neexistovala</li>
+            <li>Pořadí záleží – nejdřív DROP TABLE, pak DROP DATABASE</li>
           </ul>
         </div>
       </div>

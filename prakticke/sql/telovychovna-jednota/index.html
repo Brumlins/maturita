@@ -109,7 +109,7 @@
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
             <li>V levém panelu vyber databázi <strong>tj</strong>, klikni na <strong>Nová tabulka</strong>.</li>
             <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">sponzor</code>, počet sloupců: <strong>6</strong> → klikni <strong>Provést</strong>.</li>
-            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+            <li>Vyplň každý sloupec (zleva: Název / Typ / Délka / Výchozí / Null / Index / A_I):</li>
           </ol>
           <div class="result-preview" style="margin:0 0 1rem">
             <table class="result-table">
@@ -153,8 +153,8 @@
           <div class="explanation">
             <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
             <ul>
-              <li><code>DECIMAL(10,2)</code> – číslo max. 10 číslic, z toho 2 za desetinnou čárkou → max. 99 999 999.99 Kč</li>
-              <li>Všechny sloupce kromě <code>nazev</code> jsou nepovinné (<code>DEFAULT NULL</code>) – sponzor nemusí mít smlouvu hned</li>
+              <li><code>DECIMAL(10,2)</code> – max. 10 číslic, 2 des. místa → max. 99 999 999.99 Kč</li>
+              <li>Ostatní sloupce jsou nepovinné (<code>DEFAULT NULL</code>) – smlouva nemusí být ihned</li>
               <li><code>AUTO_INCREMENT</code> – ID sponzora se samo zvyšuje, nemusíš ho zadávat</li>
             </ul>
           </div>
@@ -249,7 +249,7 @@
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
             <li><code>JOIN oddily</code> – abychom mohli zobrazit celý název oddílu místo zkratky (FK, AK...)</li>
-            <li><code>typ = 'sportovní'</code> – sloupec typ je ENUM s hodnotami sportovní/společenská/kulturní/jiná</li>
+            <li><code>typ = 'sportovní'</code> – ENUM sloupec: sportovní/společenská/kulturní/jiná</li>
             <li><code>vstupne &gt; 0</code> – filtrujeme akce s kladným vstupným (akce bez vstupného mají 0.00)</li>
             <li><code>CONCAT(vstupne, ' Kč')</code> – přidá jednotku k číslu</li>
           </ul>
@@ -301,10 +301,10 @@
         <div class="explanation">
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
-            <li>Osobní data (jméno, příjmení) jsou v tabulce <code>lide</code>, propojení přes rodné číslo (<code>lide_rodne_cislo</code>)</li>
+            <li>Osobní data jsou v <code>lide</code>, propojení přes rodné číslo (<code>lide_rodne_cislo</code>)</li>
             <li><code>JOIN oddily</code> – přidá název oddílu místo zkratky FK, BK…</li>
-            <li><code>WHERE funkce = 'předseda'</code> – vyfiltruje jen předsedy z tabulky členů; funkce je FK do tabulky <code>funkce</code></li>
-            <li>Každý oddíl má právě jednoho předsedu → výsledek má 5 řádků (jeden za každý oddíl)</li>
+            <li><code>WHERE funkce = 'předseda'</code> – funkce je FK do tabulky <code>funkce</code></li>
+            <li>Každý oddíl má jednoho předsedu → výsledek má 5 řádků</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -359,7 +359,7 @@
             <li><code>LEFT JOIN</code> – zahrne i oddíl bez členů (kdyby takový byl); COUNT pak vrátí 0</li>
             <li><code>GROUP BY o.zkratka</code> – seskupujeme podle zkratky oddílu (unikátní PK), ne názvem</li>
             <li><code>COUNT(c.cislo_prukazu)</code> – počítá záznamy v tabulce <code>clenove</code> pro daný oddíl</li>
-            <li>Při shodě počtu (Boxerský a Fotbalový klub mají oba 6 členů) rozhoduje abecední řazení názvů</li>
+            <li>Při shodě počtu (Boxerský i Fotbalový mají 6) rozhoduje abecední řazení názvů</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -414,7 +414,7 @@
           <ul>
             <li>Jednoduchý SELECT s JOIN – pro každou akci s &gt;200 účastníky zobrazíme i celý název oddílu</li>
             <li><code>pocet_ucastniku &gt; 200</code> – podmínka filtruje přímo v tabulce <code>akce</code>, není třeba GROUP BY/HAVING</li>
-            <li>Výsledek zahrnuje různé typy akcí: kulturní (diskotéka), sportovní i společenská</li>
+            <li>Výsledek zahrnuje různé typy: kulturní, sportovní i společenská</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -461,7 +461,7 @@
           <ul>
             <li><code>DROP TABLE</code> smaže tabulku včetně všech dat, nelze vrátit</li>
             <li><code>DROP DATABASE</code> smaže celou databázi se všemi tabulkami a daty</li>
-            <li>Pořadí záleží – nejdřív tabulka, pak DB. Opačně by DROP TABLE selhal, protože DB by neexistovala</li>
+            <li>Pořadí záleží – nejdřív DROP TABLE, pak DROP DATABASE</li>
           </ul>
         </div>
       </div>

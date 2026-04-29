@@ -108,7 +108,7 @@
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
             <li>V levém panelu vyber databázi <strong>olympiada</strong>, klikni na <strong>Nová tabulka</strong>.</li>
             <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">sportoviste</code>, počet sloupců: <strong>6</strong> → klikni <strong>Provést</strong>.</li>
-            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+            <li>Vyplň každý sloupec (zleva: Název / Typ / Délka / Výchozí / Null / Index / A_I):</li>
           </ol>
           <div class="result-preview" style="margin:0 0 1rem">
             <table class="result-table">
@@ -127,7 +127,7 @@
           </div>
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0" start="4">
             <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">idsportoviste</code> – zaškrtni A_I → PHPMyAdmin navrhne PRIMARY index, potvrď.</li>
-            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">Kapacita</code> – v části Atributy zaškrtni <strong>UNSIGNED</strong> (záporné kapacity nedávají smysl).</li>
+            <li>U <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">Kapacita</code> – zaškrtni <strong>UNSIGNED</strong> (záporné kapacity nedávají smysl).</li>
             <li>Po vyplnění všech sloupců klikni dole na <strong>Uložit</strong>.</li>
           </ol>
         </div>
@@ -153,8 +153,8 @@
           <div class="explanation">
             <div class="explanation-title">// KLÍČOVÉ VĚCI</div>
             <ul>
-              <li><code>ENUM('novostavba','rekonstrukce')</code> – pouze dvě povolené hodnoty, nic jiného nelze vložit</li>
-              <li><code>INT(5) UNSIGNED</code> – kladná celá čísla, závorka (5) je jen zobrazovací šířka v PHPMyAdmin, neomezuje hodnoty</li>
+              <li><code>ENUM</code> – pouze dvě povolené hodnoty, nic jiného nelze vložit</li>
+              <li><code>INT(5) UNSIGNED</code> – závorka (5) je jen zobrazovací šířka, neomezuje hodnoty</li>
               <li><code>TEXT</code> – pro delší texty (až 65 535 znaků), vhodné pro popis areálu</li>
               <li><code>DEFAULT NULL</code> – nepovinné sloupce; pokud hodnotu nezadáš, uloží se NULL</li>
             </ul>
@@ -248,7 +248,7 @@
         <div class="explanation">
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
-            <li>Sloupec <code>vyska</code> je uložen v <strong>metrech</strong> jako DECIMAL(3,2) – hodnoty jako 1.95 nebo 1.89</li>
+            <li>Sloupec <code>vyska</code> je v metrech jako DECIMAL(3,2) – hodnoty 1.95, 1.89 atd.</li>
             <li>Podmínka <code>(&gt; 1.90)</code> = "vyšší než 190 cm", závorky zajistí správné pořadí OR/AND</li>
             <li><code>ROUND(vyska * 100)</code> → z 1.89 udělá 189; <code>CONCAT(..., ' cm')</code> přidá jednotku</li>
             <li><code>JOIN stat</code> – připojíme tabulku států, abychom mohli zobrazit celý název státu</li>
@@ -305,9 +305,9 @@
         <div class="explanation">
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
-            <li>Začínáme od <code>disciplina_sportovce</code> – ta propojuje sportovce s disciplínami a jejich výkonem</li>
+            <li><code>disciplina_sportovce</code> propojuje sportovce s disciplínami a výkony</li>
             <li><code>JOIN disciplina</code> – umožní filtrovat podle <code>nazev_discipliny = 'sedmiboj'</code></li>
-            <li><code>JOIN umisteni</code> – tabulka přeloží číslo umístění (1,2,3) na druh medaile (zlatá, stříbrná, bronzová)</li>
+            <li><code>JOIN umisteni</code> – přeloží číslo umístění na medaili (zlatá/stříbrná/bronzová)</li>
             <li><code>JOIN stat</code> – potřebujeme celý název státu místo zkratky</li>
           </ul>
         </div>
@@ -359,10 +359,10 @@
         <div class="explanation">
           <div class="explanation-title">// HAVING vs WHERE</div>
           <ul>
-            <li><code>GROUP BY zkratka_statu</code> – seskupení podle zkratky (ne názvem – ten by mohl mít duplicity)</li>
+            <li><code>GROUP BY zkratka_statu</code> – seskupení podle zkratky, ne názvem státu</li>
             <li><code>HAVING COUNT(...) &gt; 1</code> – filtr <strong>po</strong> seskupení, takto filtrujeme výsledky agregací</li>
             <li><code>WHERE</code> by zde nefungovalo – to filtruje <strong>před</strong> seskupením, nemůže použít COUNT</li>
-            <li>Sekundární řazení <code>nazev_statu ASC</code> rozhodne pořadí při shodě počtu (Jamajka vs Spojené státy)</li>
+            <li>Sekundární řazení <code>nazev_statu ASC</code> rozhodne pořadí při shodě počtu</li>
           </ul>
         </div>
         <div class="result-preview">
@@ -416,7 +416,7 @@
           <div class="explanation-title">// JAK TO FUNGUJE</div>
           <ul>
             <li>Začínáme od <code>sportovec</code> a filtrujeme hned <code>WHERE zkratka_statu = 'USA'</code></li>
-            <li><code>JOIN disciplina_sportovce</code> – přidá výkon a umístění v každé disciplíně, kde sportovec závodil</li>
+            <li><code>JOIN disciplina_sportovce</code> – výkon a umístění v každé absolvované disciplíně</li>
             <li><code>JOIN disciplina</code> – přidá název disciplíny a sportovního odvětví</li>
             <li><code>JOIN umisteni</code> – přeloží číslo umístění na medaili (zlatá/stříbrná/bronzová)</li>
             <li>Phelps závodil ve dvou disciplínách → v tabulce se zobrazí jako dva řádky</li>

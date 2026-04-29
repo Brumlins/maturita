@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ZMĚŇ: název typu -->
+  <title>Typ X – Sítě | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/site.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- Floating topology panel — nahraď TYP-X.jpg skutečným obrázkem -->
+  <div id="topo-panel" class="topo-panel">
+    <div class="topo-panel-header">
+      <span class="topo-panel-title" onclick="toggleTopo()">🌐 Topologie sítě</span>
+      <button class="topo-toggle" onclick="toggleTopo()">−</button>
+    </div>
+    <div class="topo-panel-body">
+      <img src="TYP-X.jpg" class="topo-img" alt="Topologie sítě">
+    </div>
+  </div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">sítě</a>
+    <span class="sep">/</span>
+    <!-- ZMĚŇ: název -->
+    <span class="current">typ-x</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Postup</div>
+
+      <!-- Progress bar — aktualizuje se automaticky podle checkboxů -->
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>hotovo</span>
+          <span class="progress-count">0 / N</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+
+      <button class="sidebar-link" onclick="toggleTopo()">
+        <span class="sidebar-num">—</span> Topologie
+      </button>
+
+      <div class="sidebar-sep"></div>
+
+      <!-- ZMĚŇ: přidej check-item pro každý úkol (data-task musí být unikátní) -->
+      <label class="check-item" data-task="a"><div class="check-box"></div><span>a) IP plán</span></label>
+      <label class="check-item" data-task="b"><div class="check-box"></div><span>b) VLANy</span></label>
+      <label class="check-item" data-task="c"><div class="check-box"></div><span>c) IP na PCs</span></label>
+      <label class="check-item" data-task="d"><div class="check-box"></div><span>d) Link Aggregation</span></label>
+      <label class="check-item" data-task="e"><div class="check-box"></div><span>e) Routing</span></label>
+      <label class="check-item" data-task="f"><div class="check-box"></div><span>f) DHCP</span></label>
+      <label class="check-item" data-task="g"><div class="check-box"></div><span>g) SSH</span></label>
+      <label class="check-item" data-task="h"><div class="check-box"></div><span>h) Default route</span></label>
+      <label class="check-item" data-task="i"><div class="check-box"></div><span>i) NAT</span></label>
+      <label class="check-item" data-task="j"><div class="check-box"></div><span>j) Port Forwarding</span></label>
+      <label class="check-item" data-task="k"><div class="check-box"></div><span>k) ACL</span></label>
+      <label class="check-item" data-task="l"><div class="check-box"></div><span>l) Backup config</span></label>
+      <label class="check-item" data-task="m"><div class="check-box"></div><span>m) Logging</span></label>
+
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Navigace</div>
+      <!-- ZMĚŇ: jeden <a> pro každý úkol; data-target musí odpovídat id tasku v main -->
+      <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> IP plán</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> VLANy</a>
+      <!-- ... -->
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// sítě · typ x</p>
+        <!-- ZMĚŇ: název, počet úkolů, doménu -->
+        <h1>Typ X</h1>
+        <div class="hero-meta">
+          <span>📋 N úkolů</span>
+          <span>🌐 Cisco Packet Tracer</span>
+          <span>🏢 DOMENA.local</span>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           TASK — zkopíruj tento blok pro každý úkol.
+           Třídy task-letter: (bez třídy)=a  b  c  d  e  f  g  h  i  j  k  l  m
+           ══════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-a">
+        <div class="task-header">
+          <div class="task-letter">a)</div>
+          <div class="task-info">
+            <div class="task-title">IP plán — subnetting</div>
+            <div class="task-points">FIRMA.NET: zvolte private rozsah až /22</div>
+          </div>
+        </div>
+
+        <!-- Popis zadání -->
+        <div class="task-desc">
+          Text zadání... <strong>klíčové slovo</strong>, <em>zvýrazněný pojem</em>.
+        </div>
+
+        <!-- IP plánovací tabulka -->
+        <div class="ip-plan">
+          <div class="ip-plan-header">// IP plán</div>
+          <table>
+            <thead>
+              <tr><th>Síť / VLAN</th><th>Velikost</th><th>CIDR</th><th>Rozsah adres</th><th>Maska</th><th>Gateway</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="net-name">VLAN10</td>
+                <td>256 adres → /24</td>
+                <td class="net-cidr">/24</td>
+                <td class="net-ip">10.0.0.0 – 10.0.0.255</td>
+                <td class="net-mask">255.255.255.0</td>
+                <td class="net-ip">10.0.0.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- IOS kódový blok -->
+        <div class="ios-block">
+          <div class="ios-header">
+            <span class="ios-device">Zařízení</span>
+            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
+          </div>
+          <pre>
+<span class="mode">Router(config)# </span><span class="cmd">příkaz</span> <span class="iface">rozhraní</span>
+<span class="mode">Router(config-if)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.0.0.1</span> <span class="ios-ip">255.255.255.0</span>
+<span class="mode">Router(config-if)# </span><span class="cmd">no shutdown</span>
+<span class="cmt">! komentář</span>
+          </pre>
+        </div>
+
+        <!-- Vysvětlení -->
+        <div class="explanation">
+          <div class="explanation-title">// VYSVĚTLENÍ</div>
+          <ul>
+            <li><code>klíčový_příkaz</code> – co dělá</li>
+            <li>Další bod</li>
+          </ul>
+        </div>
+
+        <!-- Tip box (zelený) -->
+        <div class="tip-box">
+          <strong>// TIP</strong>
+          Text tipu...
+        </div>
+
+        <!-- Warning box (červený) -->
+        <div class="warn-box">
+          <strong>// POZOR</strong>
+          Text varování...
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Další .task bloky... -->
+
+    </main>
+  </div>
+
+  <script src="../../../assets/js/site.js"></script>
+</body>
+</html>

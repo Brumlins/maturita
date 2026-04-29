@@ -112,7 +112,7 @@
           <ol style="padding-left:1.4em;line-height:2;margin:0.5rem 0 1rem">
             <li>V levém panelu vyber databázi <strong>filmoteka</strong>, klikni na <strong>Nová tabulka</strong>.</li>
             <li>Zadej název: <code style="color:var(--accent2);font-family:'JetBrains Mono',monospace">nahravky</code>, počet sloupců: <strong>7</strong> → klikni <strong>Provést</strong>.</li>
-            <li>Vyplň každý sloupec (formulář má zleva: Název / Typ / Délka–Hodnoty / Výchozí / Null / Index / A_I):</li>
+            <li>Vyplň každý sloupec (zleva: Název / Typ / Délka / Výchozí / Null / Index / A_I):</li>
           </ol>
           <div class="result-preview" style="margin:0 0 1rem">
             <table class="result-table">
@@ -219,7 +219,7 @@
           <ul>
             <li>Datum píšeme ve formátu <code>YYYY-MM-DD</code> – MySQL to tak očekává</li>
             <li>Čas stačí jako <code>'22:30'</code>, MySQL doplní sekundy automaticky na 22:30:00</li>
-            <li>I přes <code>AUTO_INCREMENT</code> lze ID zadat explicitně – číslo 251 vložíme přímo</li>
+            <li>I přes <code>AUTO_INCREMENT</code> lze ID zadat explicitně (251 vložíme přímo)</li>
           </ul>
         </div>
       </div>
@@ -459,8 +459,8 @@
         <div class="explanation">
           <div class="explanation-title">// PROČ NESTAČÍ JEDEN DELETE</div>
           <ul>
-            <li>Tabulka <code>umelci_ve_filmech</code> má cizí klíč na <code>umelci</code> s nastavením <code>ON DELETE NO ACTION</code></li>
-            <li>To znamená: MySQL odmítne smazat umělce, pokud na něj existuje odkaz ve vázané tabulce</li>
+            <li><code>umelci_ve_filmech</code> má FK na <code>umelci</code> s <code>ON DELETE NO ACTION</code></li>
+            <li>MySQL odmítne smazat umělce, pokud na něj odkazuje jiná tabulka</li>
             <li>Řešení: nejdřív smažeme záznamy z <code>umelci_ve_filmech</code>, pak teprve z <code>umelci</code></li>
           </ul>
         </div>
@@ -483,7 +483,7 @@
         <div class="explanation">
           <div class="explanation-title">// CO SE SMAŽE</div>
           <ul>
-            <li><code>MONTH(narozeni) = 2</code> – Jiří Menzel (23. 2.), Jaromír Hanzlík (16. 2.), Otakar Vávra (28. 2.)</li>
+            <li><code>MONTH(narozeni) = 2</code> – Menzel (23. 2.), Hanzlík (16. 2.), Vávra (28. 2.)</li>
             <li><code>narozeni IS NULL</code> – Steve Zaillian (datum není uvedeno)</li>
             <li>Celkem: 4 umělci a 8 jejich záznamů v tabulce umelci_ve_filmech</li>
           </ul>
@@ -549,7 +549,7 @@
           <ul>
             <li><code>DROP TABLE</code> smaže tabulku včetně všech dat, nelze vrátit</li>
             <li><code>DROP DATABASE</code> smaže celou databázi se všemi tabulkami a daty</li>
-            <li>Pořadí záleží – nejdřív tabulka, pak DB. Opačně by DROP TABLE selhal, protože DB by neexistovala</li>
+            <li>Pořadí záleží – nejdřív DROP TABLE, pak DROP DATABASE</li>
           </ul>
         </div>
       </div>

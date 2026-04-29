@@ -34,9 +34,10 @@ nav .current { color: var(--text); }
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem; padding: 3px 10px; border-radius: 999px;
 }
-.badge-sql { background: rgba(124,106,247,0.2); color: var(--accent);  border: 1px solid rgba(124,106,247,0.3); }
-.badge-cpp { background: rgba(245,158,11,0.2);  color: var(--accent3); border: 1px solid rgba(245,158,11,0.3);  }
-.badge-wip { background: rgba(107,114,128,0.15); color: var(--muted);  border: 1px solid rgba(107,114,128,0.2); }
+.badge-sql  { background: rgba(124,106,247,0.2); color: var(--accent);  border: 1px solid rgba(124,106,247,0.3); }
+.badge-cpp  { background: rgba(245,158,11,0.2);  color: var(--accent3); border: 1px solid rgba(245,158,11,0.3);  }
+.badge-site { background: rgba(245,158,11,0.2);  color: var(--accent3); border: 1px solid rgba(245,158,11,0.3);  }
+.badge-wip  { background: rgba(107,114,128,0.15); color: var(--muted);  border: 1px solid rgba(107,114,128,0.2); }
 
 .projects-grid {
   display: grid;
@@ -54,11 +55,13 @@ nav .current { color: var(--text); }
   content: ''; position: absolute; inset: 0;
   opacity: 0; transition: opacity 0.25s; border-radius: 12px;
 }
-.project-card.sql::after { background: linear-gradient(135deg, rgba(124,106,247,0.1), transparent); }
-.project-card.cpp::after { background: linear-gradient(135deg, rgba(245,158,11,0.1),  transparent); }
+.project-card.sql::after  { background: linear-gradient(135deg, rgba(124,106,247,0.1), transparent); }
+.project-card.cpp::after  { background: linear-gradient(135deg, rgba(245,158,11,0.1),  transparent); }
+.project-card.site::after { background: linear-gradient(135deg, rgba(245,158,11,0.1),  transparent); }
 .project-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
-.project-card.sql:hover { box-shadow: 0 12px 40px rgba(124,106,247,0.15); }
-.project-card.cpp:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.15);  }
+.project-card.sql:hover  { box-shadow: 0 12px 40px rgba(124,106,247,0.15); }
+.project-card.cpp:hover  { box-shadow: 0 12px 40px rgba(245,158,11,0.15);  }
+.project-card.site:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.15);  }
 .project-card:hover::after { opacity: 1; }
 .project-card.disabled { opacity: 0.35; pointer-events: none; }
 
