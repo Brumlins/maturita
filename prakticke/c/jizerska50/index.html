@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jizerská 50 | C Praktické úlohy | Maturita</title>
+  <title>Jizerská 50 | C | Maturita</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../assets/css/base.css">
   <link rel="stylesheet" href="../../../assets/css/sql.css">
   <style>
-    .task-section { margin: 2rem 0; }
-    .task-title { font-size: 1.1rem; font-weight: 700; color: var(--accent2); margin: 1.5rem 0 0.75rem; }
-    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
-    .code-block code { font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; }
-    .output-block { background: #0a0e1a; border: 1px solid var(--accent); border-radius: 6px; padding: 1rem; margin: 1rem 0; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.85rem; line-height: 1.4; overflow-x: auto; }
-    .note-box { background: rgba(100,200,100,0.08); border-left: 3px solid var(--accent2); padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+    .page        { display: block; max-width: 900px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+    .task-section{ margin: 2.5rem 0; }
+    .code-block  { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; overflow-x: auto; margin: 1rem 0; }
+    .code-block code { font-family: 'JetBrains Mono'; font-size: 0.82rem; line-height: 1.5; }
+    .output-block{ background: #0a0e1a; border: 1px solid var(--accent); border-radius: 6px; padding: 1.25rem; margin: 1rem 0; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 0.82rem; line-height: 1.5; overflow-x: auto; }
+    .note-box    { background: rgba(100,200,100,0.07); border-left: 3px solid var(--accent2); padding: 1rem 1.25rem; margin: 1rem 0; border-radius: 4px; font-size: 0.9rem; line-height: 1.7; }
+    .warn-box    { background: rgba(255,200,0,0.07); border-left: 3px solid var(--accent3); padding: 1rem 1.25rem; margin: 1rem 0; border-radius: 4px; font-size: 0.9rem; }
+    h2           { font-size: 1.15rem; margin: 0 0 1rem; color: var(--accent2); }
+    h3           { font-size: 0.95rem; color: var(--muted); font-weight: 600; margin: 1.5rem 0 0.5rem; }
   </style>
 </head>
 <body>
@@ -36,248 +39,191 @@
       <h1>Jizerská 50</h1>
       <div class="hero-meta">
         <span>⛷️ Běžecké lyžování</span>
-        <span>📊 CSV parsing + řazení</span>
+        <span>📄 CSV se středníkem</span>
+        <span>⏱ Čas HH:MM:SS</span>
       </div>
     </div>
 
     <!-- ZADÁNÍ -->
     <div class="task-section">
       <h2>Zadání</h2>
-      <p>Vytvořte program v jazyce C, který s využitím vzorového datového souboru přihlášených závodníků v běžeckém lyžování <code>jizerska50.txt</code> vypíše na obrazovku výsledkovou listinu závodu.</p>
-
-      <h3 style="margin-top:1.5rem;font-size:0.95rem;color:var(--muted)">Požadavky (17 bodů):</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;font-size:0.9rem">
-        <div>
-          <strong>a)</strong> Otevření a zavření souboru s kontrolou (2b)<br>
-          <strong>b)</strong> Čtení řádků ze souboru (1b)<br>
-          <strong>c)</strong> Parsování CSV a mapování do struktur (3b)<br>
-          <strong>d)</strong> Práce se strukturami (1b)<br>
-          <strong>e)</strong> Zpracování času (2b)<br>
-        </div>
-        <div>
-          <strong>f)</strong> Řazení podle času (3b)<br>
-          <strong>g)</strong> Funkce pro výměnu obsahu (1b)<br>
-          <strong>h)</strong> Výpis výsledkové listiny (2b)<br>
-          <strong>i)</strong> Modularita — dělení do funkcí (1b)<br>
-          <strong>j)</strong> Symbolické konstanty (1b)<br>
-        </div>
+      <p>Vytvořte program v jazyce C, který načte soubor <code>jizerska50.txt</code> s výsledky závodu v běžeckém lyžování, seřadí závodníky podle dosažených časů a vypíše výsledkovou listinu.</p>
+      <div class="warn-box">
+        <strong>Formát souboru:</strong> CSV oddělené středníkem. Jméno je ve složitějším formátu: <code>Příjmení, Jméno (Ročník)</code> — vše v jednom sloupci.
       </div>
-    </div>
 
-    <!-- PŘÍSTUP -->
-    <div class="task-section">
-      <h2>Přístup k řešení</h2>
-      <ol style="font-size:0.95rem;line-height:1.8">
-        <li><strong>Struktura</strong> — definovat <code>struct</code> pro závodníka (číslo, jméno, příjmení, ročník, národnost, čas)</li>
-        <li><strong>Čtení</strong> — otevřít soubor, každý řádek číst do bufferu, parsovat pomocí <code>strtok()</code></li>
-        <li><strong>Čas</strong> — převést "HH:MM:SS" na sekundy pro srovnání</li>
-        <li><strong>Řazení</strong> — bubble sort nebo qsort() podle času vzestupně</li>
-        <li><strong>Výpis</strong> — formátovaný výstup s pořadím, seznamem, časy</li>
-      </ol>
+      <h3>Ukázka dat (jizerska50.txt)</h3>
+      <div class="code-block"><code><pre>st. cislo;prijmeni, jmeno (rocnik);narodnost;cas
+22;Persson, Emil (1995);SWE;2:02:27
+23;Kardin, Oskar (1992);SWE;2:02:38
+19;Hoelgaard, Stian (1991);NOR;2:03:34
+40;Srail, Jan (1990);CZE;2:07:53
+...</pre></code></div>
     </div>
 
     <!-- KÓD -->
     <div class="task-section">
-      <h2>Kompletní řešení (C)</h2>
+      <h2>Kompletní řešení</h2>
 
-      <div class="code-block">
-        <code><pre>#include &lt;stdio.h&gt;
+      <div class="code-block"><code><pre>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 
-#define MAX_SKIERS 100
-#define MAX_NAME 50
+#define MAX_SKIERS  100
+#define MAX_NAME    50
 #define BUFFER_SIZE 256
 
-// Struktura pro závodníka
 typedef struct {
-  int number;           // číslo
-  char name[MAX_NAME];  // jméno
-  char surname[MAX_NAME]; // příjmení
-  int year;             // ročník
-  char country[3];      // státní kód (NOR, SWE, ...)
-  int time_sec;         // čas v sekundách (pro srovnání)
-  char time_str[20];    // čas jako string (HH:MM:SS)
+    int  number;
+    char name[MAX_NAME];
+    char surname[MAX_NAME];
+    int  year;
+    char country[4];   /* 3 znaky + '\0' */
+    int  time_sec;
+    char time_str[20];
 } Skier;
 
-// Funkce: převést "HH:MM:SS" na sekundy
-int time_to_seconds(const char *time_str) {
-  int h, m, s;
-  sscanf(time_str, "%d:%d:%d", &h, &m, &s);
-  return h * 3600 + m * 60 + s;
+/* "2:02:27" → sekundy */
+int time_to_seconds(const char *s) {
+    int h, m, sec;
+    sscanf(s, "%d:%d:%d", &amp;h, &amp;m, &amp;sec);
+    return h * 3600 + m * 60 + sec;
 }
 
-// Funkce: výměna obsahu dvou struktur
 void swap(Skier *a, Skier *b) {
-  Skier temp = *a;
-  *a = *b;
-  *b = temp;
+    Skier tmp = *a; *a = *b; *b = tmp;
 }
 
-// Funkce: bubble sort podle času
-void sort_by_time(Skier *skiers, int count) {
-  for (int i = 0; i &lt; count - 1; i++) {
-    for (int j = 0; j &lt; count - 1 - i; j++) {
-      if (skiers[j].time_sec &gt; skiers[j + 1].time_sec) {
-        swap(&amp;skiers[j], &amp;skiers[j + 1]);
-      }
+void sort_by_time(Skier *arr, int n) {
+    for (int i = 0; i &lt; n - 1; i++)
+        for (int j = 0; j &lt; n - 1 - i; j++)
+            if (arr[j].time_sec &gt; arr[j+1].time_sec)
+                swap(&amp;arr[j], &amp;arr[j+1]);
+}
+
+int read_data(const char *filename, Skier *arr) {
+    FILE *f = fopen(filename, "r");
+    if (!f) { printf("Chyba: nelze otevrit '%s'\n", filename); return 0; }
+
+    char buf[BUFFER_SIZE];
+    int n = 0;
+
+    fgets(buf, sizeof(buf), f);  /* přeskočit hlavičku */
+
+    /* Formát: cislo;Prijmeni, Jmeno (Rocnik);Narodnost;Cas */
+    while (fgets(buf, sizeof(buf), f) &amp;&amp; n &lt; MAX_SKIERS) {
+        buf[strcspn(buf, "\n")] = 0;
+
+        /* číslo */
+        char *p = strtok(buf, ";");
+        arr[n].number = atoi(p);
+
+        /* "Hoelgaard, Stian (1991)" */
+        p = strtok(NULL, ";");
+        char tmp[MAX_NAME * 2];
+        strcpy(tmp, p);
+
+        char *tok = strtok(tmp, ",");
+        strcpy(arr[n].surname, tok);          /* příjmení */
+
+        tok = strtok(NULL, "(");
+        while (*tok == ' ') tok++;
+        char *sp = strchr(tok, ' ');
+        if (sp) *sp = 0;
+        strcpy(arr[n].name, tok);             /* jméno */
+
+        tok = strtok(NULL, ")");
+        arr[n].year = atoi(tok);              /* ročník */
+
+        /* národnost */
+        p = strtok(NULL, ";");
+        while (*p == ' ') p++;
+        strcpy(arr[n].country, p);
+
+        /* čas */
+        p = strtok(NULL, ";");
+        while (*p == ' ') p++;
+        strcpy(arr[n].time_str, p);
+        arr[n].time_sec = time_to_seconds(p);
+
+        n++;
     }
-  }
+    fclose(f);
+    return n;
 }
 
-// Funkce: čtení a parsování CSV souboru
-int read_data(const char *filename, Skier *skiers) {
-  FILE *file = fopen(filename, "r");
-  if (file == NULL) {
-    printf("Chyba: Soubor '%s' se nepodařilo otevřít.\n", filename);
-    return 0;
-  }
-
-  char buffer[BUFFER_SIZE];
-  int count = 0;
-
-  // Přeskočit hlavičku
-  fgets(buffer, BUFFER_SIZE, file);
-
-  // Čtení řádků
-  while (fgets(buffer, BUFFER_SIZE, file) &amp;&amp; count &lt; MAX_SKIERS) {
-    // Odstranit newline
-    buffer[strcspn(buffer, "\n")] = 0;
-
-    // Parsování: "číslo;příjmení, jméno (ročník);národnost;čas"
-    char *part = strtok(buffer, ";");
-    skiers[count].number = atoi(part);
-
-    // Jméno a příjmení (formát: "Surname, Firstname (Year)")
-    part = strtok(NULL, ";");
-    char temp[MAX_NAME * 2];
-    strcpy(temp, part);
-
-    // Rozdělit: příjmení,jméno,ročník
-    char *name_part = strtok(temp, ",");
-    strcpy(skiers[count].surname, name_part);
-
-    // Jméno (za ", ")
-    name_part = strtok(NULL, "(");
-    while (*name_part == ' ') name_part++;
-    char *paren = strchr(name_part, ' ');
-    if (paren) *paren = 0;
-    strcpy(skiers[count].name, name_part);
-
-    // Ročník
-    part = strtok(NULL, ")");
-    skiers[count].year = atoi(part);
-
-    // Národnost
-    part = strtok(NULL, ";");
-    while (*part == ' ') part++;
-    strcpy(skiers[count].country, part);
-
-    // Čas
-    part = strtok(NULL, ";");
-    while (*part == ' ') part++;
-    strcpy(skiers[count].time_str, part);
-    skiers[count].time_sec = time_to_seconds(part);
-
-    count++;
-  }
-
-  fclose(file);
-  return count;
+void print_results(Skier *arr, int n) {
+    printf("\nVYSLEDKOVA LISTINA - JIZERSKA 50\n");
+    printf("=====================================================\n");
+    printf("Por. | Cislo | Prijmeni         | Jmeno    | Cas\n");
+    printf("-----+-------+------------------+----------+----------\n");
+    for (int i = 0; i &lt; n; i++)
+        printf("%3d. | %5d | %-16s | %-8s | %s\n",
+               i+1, arr[i].number, arr[i].surname,
+               arr[i].name, arr[i].time_str);
+    printf("=====================================================\n\n");
 }
 
-// Funkce: výpis výsledkové listiny
-void print_results(Skier *skiers, int count) {
-  printf("\n");
-  printf("VÝSLEDKOVÁ LISTINA - JIZERSKÁ 50\n");
-  printf("=====================================================\n");
-  printf("Por. | Číslo | Příjmení         | Jméno    | Čas      \n");
-  printf("-----+-------+------------------+----------+----------\n");
-
-  for (int i = 0; i &lt; count; i++) {
-    printf("%3d. | %5d | %-16s | %-8s | %s\n",
-           i + 1,
-           skiers[i].number,
-           skiers[i].surname,
-           skiers[i].name,
-           skiers[i].time_str);
-  }
-  printf("=====================================================\n\n");
-}
-
-// MAIN
 int main(void) {
-  Skier skiers[MAX_SKIERS];
-  int count;
-
-  // Načíst data z souboru
-  count = read_data("jizerska50.txt", skiers);
-
-  if (count == 0) {
-    return 1;
-  }
-
-  // Seřadit podle času
-  sort_by_time(skiers, count);
-
-  // Vypsat výsledky
-  print_results(skiers, count);
-
-  return 0;
-}
-</pre></code>
-      </div>
+    Skier skiers[MAX_SKIERS];
+    int n = read_data("jizerska50.txt", skiers);
+    if (n == 0) return 1;
+    sort_by_time(skiers, n);
+    print_results(skiers, n);
+    return 0;
+}</pre></code></div>
 
       <div class="note-box">
-        <strong>Klíčové body kódu:</strong><br>
-        • <code>strtok()</code> pro parsování CSV po středníku<br>
-        • <code>time_to_seconds()</code> konvertuje čas na sekundy pro srovnání<br>
-        • <code>swap()</code> funkce pro výměnu prvků (bubble sort)<br>
-        • <code>sort_by_time()</code> seřadí podle času vzestupně<br>
-        • Všechna data jsou v jedné struktuře, kód je modulární
+        <strong>Klíčové body:</strong><br>
+        • <code>strtok()</code> rozděluje řádek po středníku<br>
+        • Jméno je v jednom poli jako <code>"Příjmení, Jméno (Ročník)"</code> — rozebíráme znovu pomocí <code>strtok()</code> se znaky <code>,</code> a <code>()</code><br>
+        • <code>country[4]</code> — 3 znaky ("NOR") + ukončovací <code>'\0'</code> = musí být velikost 4<br>
+        • Bubble sort porovnává <code>time_sec</code> (celá čísla), vypisuje <code>time_str</code> (původní string)
       </div>
     </div>
 
-    <!-- PŘÍKLAD VÝSTUPU -->
+    <!-- VÝSTUP -->
     <div class="task-section">
       <h2>Příklad výstupu</h2>
-      <div class="output-block"><pre>VÝSLEDKOVÁ LISTINA - JIZERSKÁ 50
+      <div class="output-block"><pre>VYSLEDKOVA LISTINA - JIZERSKA 50
 =====================================================
-Por. | Číslo | Příjmení         | Jméno    | Čas
+Por. | Cislo | Prijmeni         | Jmeno    | Cas
 -----+-------+------------------+----------+----------
-  1. |    23 | Kardin           | Oskar    | 2:02:38
-  2. |    22 | Persson          | Emil     | 2:02:27
-  3. |    49 | Ekloef           | Johannes | 2:04:22
-  4. |    60 | Karlsson         | Anton    | 2:05:21
-  5. |    33 | Jeannerod        | Alexis   | 2:05:38
-  6. |    83 | Koskela          | Niko     | 2:06:19
-  7. |    65 | Paus             | Herman   | 2:06:20
-  8. |    40 | Srail            | Jan      | 2:07:53
-  9. |    25 | Johansson        | Marcus   | 2:07:53
- 10. |    76 | Leray            | Matis    | 2:08:12
-...
+  1. |    22 | Persson          | Emil     | 2:02:27
+  2. |    23 | Kardin           | Oskar    | 2:02:38
+  3. |    19 | Hoelgaard        | Stian    | 2:03:34
+  4. |    27 | Novak            | Max      | 2:03:34
+  5. |    49 | Ekloef           | Johannes | 2:04:22
+  6. |    60 | Karlsson         | Anton    | 2:05:21
+  7. |    33 | Jeannerod        | Alexis   | 2:05:38
+  8. |    83 | Koskela          | Niko     | 2:06:19
+  9. |    65 | Paus             | Herman   | 2:06:20
+ 10. |    25 | Johansson        | Marcus   | 2:07:53
+ 11. |    40 | Srail            | Jan      | 2:07:53
+ 12. |    24 | Thele            | Joar     | 2:07:54
+ ...
 =====================================================</pre></div>
+    </div>
+
+    <!-- CO JSME SE NAUČILI -->
+    <div class="task-section">
+      <h2>Co se naučíš</h2>
+      <ul style="font-size:0.9rem;line-height:1.9;color:var(--muted)">
+        <li><strong style="color:var(--text)">Otevření souboru</strong> — <code>fopen()</code> s kontrolou <code>if (!f)</code></li>
+        <li><strong style="color:var(--text)">Čtení řádků</strong> — <code>fgets()</code> do bufferu + oříznutí <code>\n</code> přes <code>strcspn()</code></li>
+        <li><strong style="color:var(--text)">Parsování CSV</strong> — <code>strtok()</code> nejprve podle <code>;</code>, pak uvnitř pole znovu</li>
+        <li><strong style="color:var(--text)">Struktury</strong> — <code>typedef struct</code>, pole struktur</li>
+        <li><strong style="color:var(--text)">Konverze času</strong> — <code>sscanf()</code> pro HH:MM:SS → sekundy</li>
+        <li><strong style="color:var(--text)">Bubble sort</strong> — vnořené <code>for</code> cykly + funkce <code>swap()</code></li>
+        <li><strong style="color:var(--text)">Formátovaný výstup</strong> — <code>printf()</code> s <code>%-16s</code>, <code>%5d</code> atd.</li>
+      </ul>
     </div>
 
     <!-- KOMPILACE -->
     <div class="task-section">
       <h2>Kompilace a spuštění</h2>
-      <div class="code-block">
-        <code><pre>$ gcc -o jizerska50 jizerska50.c
-$ ./jizerska50</pre></code>
-      </div>
-    </div>
-
-    <!-- ROZŠÍŘENÍ -->
-    <div class="task-section">
-      <h2>Možná rozšíření</h2>
-      <ul style="font-size:0.95rem;line-height:1.8">
-        <li><strong>Filtrování</strong> — vypsat jen české závodníky (CZE)</li>
-        <li><strong>Statistika</strong> — průměrný čas, nejrychlejší, nejpomalejší</li>
-        <li><strong>Uložení výsledků</strong> — vypsat do nového souboru</li>
-        <li><strong>Vyhledávání</strong> — najít závodníka podle příjmení</li>
-        <li><strong>Ročníky</strong> — srovnit podle věkové kategorie</li>
-      </ul>
+      <div class="code-block"><code><pre>gcc -o jizerska50 jizerska50.c
+./jizerska50</pre></code></div>
     </div>
   </div>
 </body>
