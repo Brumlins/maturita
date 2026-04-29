@@ -23,14 +23,13 @@
   <div class="page">
     <aside>
       <div class="sidebar-title">Kategorie</div>
-      <a href="#zaklady" class="sidebar-link"><span class="sidebar-num">1</span> Linux základy</a>
-      <a href="#site" class="sidebar-link"><span class="sidebar-num">2</span> Síťové služby</a>
-      <a href="#teorie" class="sidebar-link"><span class="sidebar-num">3</span> IT2 Teorie</a>
+      <a href="#linux-prikazy" class="sidebar-link"><span class="sidebar-num">1</span> Linux příkazy</a>
+      <a href="#instalace" class="sidebar-link"><span class="sidebar-num">2</span> Instalace služeb</a>
+      <a href="#site" class="sidebar-link"><span class="sidebar-num">3</span> Sítě a teorie</a>
       <a href="#docker" class="sidebar-link"><span class="sidebar-num">4</span> Docker</a>
-      <a href="#web" class="sidebar-link"><span class="sidebar-num">5</span> Web / DB</a>
-      <a href="#monitor" class="sidebar-link"><span class="sidebar-num">6</span> Monitoring</a>
-      <a href="#it4" class="sidebar-link"><span class="sidebar-num">7</span> IT4 Maturita</a>
-      <a href="#esp" class="sidebar-link"><span class="sidebar-num">8</span> ESP / Arduino</a>
+      <a href="#monitoring" class="sidebar-link"><span class="sidebar-num">5</span> Monitoring</a>
+      <a href="#it4" class="sidebar-link"><span class="sidebar-num">6</span> IT4 Maturita</a>
+      <a href="#esp" class="sidebar-link"><span class="sidebar-num">7</span> ESP / Arduino</a>
 
       <div class="sidebar-sep"></div>
       <div class="sidebar-title">Legenda</div>
@@ -56,13 +55,13 @@
       </div>
 
       <!-- ════════════════════════════════════════════════════
-           1. Linux základy
+           1. Linux příkazy a nástroje
            ════════════════════════════════════════════════════ -->
-      <div class="sec-block" id="zaklady">
+      <div class="sec-block" id="linux-prikazy">
         <div class="sec-header">
           <span class="sec-label label-it2">IT2</span>
           <span class="sec-label label-pvy">PVY</span>
-          <h2 class="sec-title">Linux základy</h2>
+          <h2 class="sec-title">Linux příkazy a nástroje</h2>
         </div>
 
         <div class="projects-grid" style="margin-bottom:2rem">
@@ -120,6 +119,18 @@
             <div class="project-meta">Správa daemonů</div>
             <span class="project-arrow">↗</span>
           </a>
+          <a href="git-prace/index.html" class="project-card grussman">
+            <span class="project-num">10</span>
+            <div class="project-name">Práce s gitem</div>
+            <div class="project-meta">Interaktivní kurz</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="it4-linux-prikazy/index.html" class="project-card grussman">
+            <span class="project-num">11</span>
+            <div class="project-name">Linux příkazy</div>
+            <div class="project-meta">Přehled pro IT4</div>
+            <span class="project-arrow">↗</span>
+          </a>
         </div>
 
         <div class="res-list">
@@ -143,9 +154,15 @@
             </div>
           </div>
           <div class="res-item">
-            <span class="res-title">Instalace WordPress na Ubuntu</span>
+            <span class="res-title">SSH — konfigurace a instalace</span>
             <div class="res-links">
-              <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
+              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Linux příkazy — přehled</span>
+            <div class="res-links">
+              <a href="https://cs.wikibooks.org/wiki/Linux:P%C5%99ehled_z%C3%A1kladn%C3%ADch_p%C5%99%C3%ADkaz%C5%AF" target="_blank" class="res-badge ext">↗ Wikibooks</a>
             </div>
           </div>
           <div class="res-item">
@@ -160,63 +177,101 @@
       <div class="divider"></div>
 
       <!-- ════════════════════════════════════════════════════
-           2. Síťové služby
+           2. Instalace služeb a aplikací
            ════════════════════════════════════════════════════ -->
-      <div class="sec-block" id="site">
+      <div class="sec-block" id="instalace">
         <div class="sec-header">
           <span class="sec-label label-it3">IT3</span>
           <span class="sec-label label-pvy">PVY</span>
-          <h2 class="sec-title">Síťové služby</h2>
+          <h2 class="sec-title">Instalace služeb a aplikací</h2>
         </div>
 
         <div class="projects-grid" style="margin-bottom:2rem">
-          <a href="nfs/index.html" class="project-card grussman">
-            <span class="project-num">01</span>
-            <div class="project-name">NFS</div>
-            <div class="project-meta">Síťové úložiště dat</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="samba/index.html" class="project-card grussman">
-            <span class="project-num">02</span>
-            <div class="project-name">Samba</div>
-            <div class="project-meta">Sdílení adresářů</div>
-            <span class="project-arrow">↗</span>
-          </a>
           <a href="apache2/index.html" class="project-card grussman">
-            <span class="project-num">03</span>
+            <span class="project-num">01</span>
             <div class="project-name">Apache2</div>
             <div class="project-meta">Web server</div>
             <span class="project-arrow">↗</span>
           </a>
           <a href="apache2-htaccess/index.html" class="project-card grussman">
-            <span class="project-num">04</span>
+            <span class="project-num">02</span>
             <div class="project-name">Apache2 + .htaccess</div>
             <div class="project-meta">CGI-bin, práva souborů</div>
             <span class="project-arrow">↗</span>
           </a>
-          <a href="site-network-storage/index.html" class="project-card grussman">
+          <a href="wordpress/index.html" class="project-card grussman">
+            <span class="project-num">03</span>
+            <div class="project-name">WordPress</div>
+            <div class="project-meta">Instalace na Ubuntu</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="wordpress-docker/index.html" class="project-card grussman">
+            <span class="project-num">04</span>
+            <div class="project-name">WordPress + Docker</div>
+            <div class="project-meta">Kontejnerizace</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="wordpress-it3/index.html" class="project-card grussman">
             <span class="project-num">05</span>
-            <div class="project-name">Síťové úložiště</div>
-            <div class="project-meta">IT3 PVY teorie</div>
+            <div class="project-name">WordPress (IT3)</div>
+            <div class="project-meta">Instalace v IT3</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="samba/index.html" class="project-card grussman">
+            <span class="project-num">06</span>
+            <div class="project-name">Samba</div>
+            <div class="project-meta">Sdílení adresářů</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="nfs/index.html" class="project-card grussman">
+            <span class="project-num">07</span>
+            <div class="project-name">NFS</div>
+            <div class="project-meta">Síťové úložiště</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="mysql-backup/index.html" class="project-card grussman">
+            <span class="project-num">08</span>
+            <div class="project-name">MySQL backup</div>
+            <div class="project-meta">Zálohování a obnova</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="php/index.html" class="project-card grussman">
+            <span class="project-num">09</span>
+            <div class="project-name">PHP</div>
+            <div class="project-meta">Webové aplikace</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="django-cms/index.html" class="project-card grussman">
+            <span class="project-num">10</span>
+            <div class="project-name">Django-CMS</div>
+            <div class="project-meta">Instalace</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="pycharm-flask/index.html" class="project-card grussman">
+            <span class="project-num">11</span>
+            <div class="project-name">PyCharm + Flask</div>
+            <div class="project-meta">Formuláře, databáze</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="zabbix-agent/index.html" class="project-card grussman">
+            <span class="project-num">12</span>
+            <div class="project-name">Zabbix</div>
+            <div class="project-meta">Agent monitoring</div>
+            <span class="project-arrow">↗</span>
+          </a>
+          <a href="docker-server/index.html" class="project-card grussman">
+            <span class="project-num">13</span>
+            <div class="project-name">Docker server</div>
+            <div class="project-meta">Instalace serveru</div>
             <span class="project-arrow">↗</span>
           </a>
         </div>
 
         <div class="res-list">
           <div class="res-item">
-            <span class="res-title">SSH server — instalace a konfigurace</span>
+            <span class="res-title">Instalace WordPress na Ubuntu</span>
             <div class="res-links">
-              <a href="https://youtu.be/zlavvqPlngE" target="_blank" class="res-badge yt">▶ YouTube</a>
-              <a href="https://youtu.be/vmjcRZaBfnU" target="_blank" class="res-badge yt">▶ YouTube</a>
-              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-          <div class="res-item">
-            <span class="res-title">NFS server</span>
-            <div class="res-links">
-              <a href="https://youtu.be/oce7wyS5Coo" target="_blank" class="res-badge yt">▶ YouTube</a>
-              <a href="https://blog.iservery.com/2013/11/06/nfs-neni-need-speed-hra-ale-network-file-system/" target="_blank" class="res-badge blog">📄 blog</a>
-              <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04" target="_blank" class="res-badge ext">↗ DigitalOcean</a>
+              <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
             </div>
           </div>
           <div class="res-item">
@@ -226,9 +281,28 @@
             </div>
           </div>
           <div class="res-item">
+            <span class="res-title">NFS server</span>
+            <div class="res-links">
+              <a href="https://youtu.be/oce7wyS5Coo" target="_blank" class="res-badge yt">▶ YouTube</a>
+              <a href="https://blog.iservery.com/2013/11/06/nfs-neni-need-speed-hra-ale-network-file-system/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Apache2, .htaccess, CGI-bin</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
             <span class="res-title">MySQL — backup a obnova</span>
             <div class="res-links">
-              <a href="mysql-backup/index.html" class="res-badge ext">↗ podstránka</a>
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">PyCharm + Flask — formuláře, databáze</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
             </div>
           </div>
         </div>
@@ -237,12 +311,12 @@
       <div class="divider"></div>
 
       <!-- ════════════════════════════════════════════════════
-           3. IT2 Teorie sítí
+           3. Sítě a teorie (IT2)
            ════════════════════════════════════════════════════ -->
-      <div class="sec-block" id="teorie">
+      <div class="sec-block" id="site">
         <div class="sec-header">
           <span class="sec-label label-it2">IT2</span>
-          <h2 class="sec-title">Teorie sítí</h2>
+          <h2 class="sec-title">Sítě a teorie</h2>
         </div>
 
         <div class="projects-grid" style="margin-bottom:2rem">
@@ -288,16 +362,10 @@
             <div class="project-meta">Výpočetní modely</div>
             <span class="project-arrow">↗</span>
           </a>
-          <a href="mac-adresy/index.html" class="project-card grussman">
+          <a href="site-network-storage/index.html" class="project-card grussman">
             <span class="project-num">08</span>
-            <div class="project-name">MAC adresy</div>
-            <div class="project-meta">Vztah k IP</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="git-prace/index.html" class="project-card grussman">
-            <span class="project-num">09</span>
-            <div class="project-name">Práce s gitem</div>
-            <div class="project-meta">Interaktivní kurz</div>
+            <div class="project-name">Síťové úložiště</div>
+            <div class="project-meta">IT3 PVY teorie</div>
             <span class="project-arrow">↗</span>
           </a>
         </div>
@@ -322,15 +390,82 @@
             </div>
           </div>
           <div class="res-item">
-            <span class="res-title">Práce s gitem — interaktivní kurz</span>
+            <span class="res-title">Statické routování</span>
             <div class="res-links">
-              <a href="https://learngitbranching.js.org/" target="_blank" class="res-badge ext">↗ learngitbranching.js.org</a>
+              <a href="https://youtu.be/D1abXgQvvP4" target="_blank" class="res-badge yt">▶ YouTube 1</a>
+              <a href="https://youtu.be/f4EZ8XwFQqg" target="_blank" class="res-badge yt">▶ YouTube 2</a>
             </div>
           </div>
           <div class="res-item">
-            <span class="res-title">Linux příkazy — přehled</span>
+            <span class="res-title">Spanning Tree Protocol</span>
             <div class="res-links">
-              <a href="https://cs.wikibooks.org/wiki/Linux:P%C5%99ehled_z%C3%A1kladn%C3%ADch_p%C5%99%C3%ADkaz%C5%AF" target="_blank" class="res-badge ext">↗ Wikibooks</a>
+              <a href="https://blog.iservery.com/2021/04/12/spannig-tree-protocol/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">VLAN</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/watch?v=aBOzFa6ioLw" target="_blank" class="res-badge yt">▶ YouTube 1</a>
+              <a href="https://www.youtube.com/watch?v=-H20S65OB3E" target="_blank" class="res-badge yt">▶ YouTube 2</a>
+              <a href="https://www.youtube.com/watch?v=kbLfyjP20Yo" target="_blank" class="res-badge yt">▶ YouTube 3</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">VLAN a trunk</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/watch?v=8WHr0pLbTKs" target="_blank" class="res-badge yt">▶ YouTube 4</a>
+              <a href="https://www.youtube.com/watch?v=w6hfg4jQqDM" target="_blank" class="res-badge yt">▶ YouTube 5</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">ACL (Access Control Lists)</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/watch?v=4PPUvRj2PvM" target="_blank" class="res-badge yt">▶ YouTube 1</a>
+              <a href="https://www.youtube.com/watch?v=XdBjnLppxB0" target="_blank" class="res-badge yt">▶ YouTube 2</a>
+              <a href="https://www.youtube.com/watch?v=cG13AoeBVLA" target="_blank" class="res-badge yt">▶ YouTube 3</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">OSPF, RIP, DHCP, STP</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/watch?v=NbY4vxIEv0U&list=PL045B070715AA1FE9" target="_blank" class="res-badge yt">▶ YouTube playlist</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">SSH + ACL (Cisco)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2020/02/10/video-cisco-ssh-acl/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Nastavení IPv4/IPv6 (Cisco)</span>
+            <div class="res-links">
+              <a href="https://youtu.be/96LEJv3HexM" target="_blank" class="res-badge yt">▶ IPv4</a>
+              <a href="https://youtu.be/2sowuX4_2i0" target="_blank" class="res-badge yt">▶ IPv6</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">SSH na Cisco routeru</span>
+            <div class="res-links">
+              <a href="https://youtu.be/ssYTjKRVZrk" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Soho Router — small network</span>
+            <div class="res-links">
+              <a href="https://youtu.be/m541PM8pAi0" target="_blank" class="res-badge yt">▶ YouTube</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Switchport port-security</span>
+            <div class="res-links">
+              <a href="https://www.computernetworkingnotes.com/ccna-study-guide/switchport-port-security-explained-with-examples.html" target="_blank" class="res-badge ext">↗ návod</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">CCNA3 příprava</span>
+            <div class="res-links">
+              <a href="https://www.youtube.com/playlist?list=PLB6CB791010430835" target="_blank" class="res-badge yt">▶ YouTube playlist</a>
             </div>
           </div>
         </div>
@@ -412,70 +547,9 @@
       <div class="divider"></div>
 
       <!-- ════════════════════════════════════════════════════
-           5. Webové technologie a databáze
+           5. Monitoring a správa
            ════════════════════════════════════════════════════ -->
-      <div class="sec-block" id="web">
-        <div class="sec-header">
-          <span class="sec-label label-it3">IT3</span>
-          <span class="sec-label label-pvy">PVY</span>
-          <h2 class="sec-title">Web / DB / Python</h2>
-        </div>
-
-        <div class="projects-grid" style="margin-bottom:2rem">
-          <a href="pycharm-flask/index.html" class="project-card grussman">
-            <span class="project-num">01</span>
-            <div class="project-name">PyCharm + Flask</div>
-            <div class="project-meta">Formuláře, databáze</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="php/index.html" class="project-card grussman">
-            <span class="project-num">02</span>
-            <div class="project-name">PHP</div>
-            <div class="project-meta">Webové aplikace</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="wordpress-it3/index.html" class="project-card grussman">
-            <span class="project-num">03</span>
-            <div class="project-name">WordPress</div>
-            <div class="project-meta">Instalace v IT3</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="django-cms/index.html" class="project-card grussman">
-            <span class="project-num">04</span>
-            <div class="project-name">Django-CMS</div>
-            <div class="project-meta">Instalace</div>
-            <span class="project-arrow">↗</span>
-          </a>
-          <a href="mysql-backup/index.html" class="project-card grussman">
-            <span class="project-num">05</span>
-            <div class="project-name">MySQL backup</div>
-            <div class="project-meta">Zálohování a obnova</div>
-            <span class="project-arrow">↗</span>
-          </a>
-        </div>
-
-        <div class="res-list">
-          <div class="res-item">
-            <span class="res-title">PyCharm + Flask — formuláře, databáze</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
-            </div>
-          </div>
-          <div class="res-item">
-            <span class="res-title">Instalace WordPress na Ubuntu</span>
-            <div class="res-links">
-              <a href="https://blog.iservery.com/2020/04/27/instalace-wordpress-na-ubuntu-18-04/" target="_blank" class="res-badge blog">📄 blog</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- ════════════════════════════════════════════════════
-           6. Monitoring a správa
-           ════════════════════════════════════════════════════ -->
-      <div class="sec-block" id="monitor">
+      <div class="sec-block" id="monitoring">
         <div class="sec-header">
           <span class="sec-label label-it3">IT3</span>
           <h2 class="sec-title">Monitoring a správa</h2>
@@ -521,13 +595,19 @@
               <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
             </div>
           </div>
+          <div class="res-item">
+            <span class="res-title">Logging (Cisco i Linux)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/vyuka-online/" target="_blank" class="res-badge vid">▶ embedded</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="divider"></div>
 
       <!-- ════════════════════════════════════════════════════
-           7. IT4 Maturita
+           6. IT4 Maturita
            ════════════════════════════════════════════════════ -->
       <div class="sec-block" id="it4">
         <div class="sec-header">
@@ -594,13 +674,31 @@
               <a href="https://blog.iservery.com/2014/01/27/maturitni-otazky-tvy/" target="_blank" class="res-badge blog">📄 blog</a>
             </div>
           </div>
+          <div class="res-item">
+            <span class="res-title">Konfigurace a instalace SSH</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2013/02/12/ssh-a-prace-s-klici/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Apache2 server — userdir konfigurace</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2013/05/12/administrace-apache2-a-modulu/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Zálohování adresáře (tar)</span>
+            <div class="res-links">
+              <a href="https://blog.iservery.com/2014/01/13/zalohovani-prikazem-tar/" target="_blank" class="res-badge blog">📄 blog</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="divider"></div>
 
       <!-- ════════════════════════════════════════════════════
-           8. ESP / Arduino / IoT
+           7. ESP / Arduino / IoT projekty
            ════════════════════════════════════════════════════ -->
       <div class="sec-block" id="esp">
         <div class="sec-header">
@@ -654,6 +752,18 @@
             <span class="res-title">WiFiManager — správa WiFi</span>
             <div class="res-links">
               <a href="https://github.com/tzapu/WiFiManager" target="_blank" class="res-badge ext">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">WebSocket a HTML přes WebSocket</span>
+            <div class="res-links">
+              <a href="https://github.com/dbohdan/liveviews" target="_blank" class="res-badge ext">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="res-item">
+            <span class="res-title">Obsluha jedním přerušením (multibutton)</span>
+            <div class="res-links">
+              <a href="https://www.hackster.io/Svizel_pritula/10-buttons-using-1-interrupt-2bd1f8" target="_blank" class="res-badge ext">↗ hackster.io</a>
             </div>
           </div>
         </div>
