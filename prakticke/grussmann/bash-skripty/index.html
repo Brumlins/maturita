@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bash skripty | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussmann.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussmann</a>
+    <span class="sep">/</span>
+    <span class="current">bash-skripty</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#zaklady"   class="sidebar-link" data-target="zaklady"><span class="sidebar-num">1</span> Základy</a>
+      <a href="#promenne"  class="sidebar-link" data-target="promenne"><span class="sidebar-num">2</span> Proměnné a pole</a>
+      <a href="#podminky"  class="sidebar-link" data-target="podminky"><span class="sidebar-num">3</span> Podmínky a cykly</a>
+      <a href="#uzivatel"  class="sidebar-link" data-target="uzivatel"><span class="sidebar-num">4</span> Vytváření uživatelů</span></a>
+      <a href="#monitoring" class="sidebar-link" data-target="monitoring"><span class="sidebar-num">5</span> Monitoring</a>
+      <a href="#zaloha"    class="sidebar-link" data-target="zaloha"><span class="sidebar-num">6</span> Zálohovací skripty</a>
+      <a href="#sit"       class="sidebar-link" data-target="sit"><span class="sidebar-num">7</span> Síťové skripty</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroje</div>
+      <a href="https://blog.iservery.com/2014/01/22/skripty-maturite/" target="_blank" class="res-badge blog" style="margin:0 0.65rem 0.4rem">📄 skripty k maturitě</a>
+      <a href="https://blog.iservery.com/2013/04/04/bash-skripty-priklady/" target="_blank" class="res-badge blog" style="margin:0 0.65rem">📄 příklady skriptů</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussmann · it4 maturita</p>
+        <h1>Bash skripty</h1>
+        <div class="hero-meta">
+          <span>🐧 Linux</span>
+          <span>⌨️ automatizace</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="zaklady">
+        <h2 class="lesson-sec-title">Základy — vytvoření a spuštění skriptu</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Vytvoření + spuštění</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># 1. Vytvořit skript:</span>
+<span class="bprompt">$ </span><span class="bcmd">mcedit</span> <span class="bpath">skript.sh</span>
+
+<span class="bcmt"># 2. Nastavit spustitelný:</span>
+<span class="bprompt">$ </span><span class="bcmd">chmod</span> <span class="bval">+x</span> <span class="bpath">skript.sh</span>
+
+<span class="bcmt"># 3. Spustit:</span>
+<span class="bprompt">$ </span><span class="bcmd">./skript.sh</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Struktura bash skriptu</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># Shebang — říká systému, čím skript spustit</span>
+
+<span class="bcmt"># Proměnná:</span>
+<span class="bval">jmeno</span>=<span class="bval">"Alice"</span>
+<span class="bcmd">echo</span> <span class="bval">"Ahoj $jmeno"</span>
+
+<span class="bcmt"># Výstup příkazu do proměnné:</span>
+<span class="bval">datum</span>=<span class="bval">`date +%Y-%m-%d`</span>
+<span class="bcmt"># nebo modernější zápis:</span>
+<span class="bval">datum</span>=<span class="bval">$(date +%Y-%m-%d)</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="promenne">
+        <h2 class="lesson-sec-title">Proměnné, pole, parsování textu</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Pole a parsování řetězce</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">prom</span>=<span class="bval">"moje prvni sluzba"</span>
+
+<span class="bcmt"># Rozdělení na pole (podle mezer):</span>
+<span class="bval">pole</span>=(<span class="bval">$prom</span>)
+<span class="bcmd">echo</span> <span class="bval">${pole[0]}</span>       <span class="bcmt"># moje</span>
+<span class="bcmd">echo</span> <span class="bval">${pole[1]}</span>       <span class="bcmt"># prvni</span>
+<span class="bcmd">echo</span> <span class="bval">${#pole[@]}</span>     <span class="bcmt"># počet prvků pole</span>
+
+<span class="bcmt"># Smazání podřetězce:</span>
+<span class="bcmd">echo</span> <span class="bval">$prom</span> | <span class="bcmd">tr</span> <span class="bflag">-d</span> <span class="bval">'prvni'</span>
+
+<span class="bcmt"># Záměna podřetězce:</span>
+<span class="bcmd">echo</span> <span class="bval">$prom</span> | <span class="bcmd">tr</span> <span class="bval">'prvni'</span> <span class="bval">'druha'</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Čtení souboru po řádcích + split podle oddělovače</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># Soubor users.txt: jmeno;heslo;skupina</span>
+<span class="bval">filename</span>=<span class="bval">'users.txt'</span>
+
+<span class="bcmd">cat</span> <span class="bval">$filename</span> | <span class="bflag">while</span> <span class="bcmd">read</span> <span class="bval">line</span>
+<span class="bflag">do</span>
+  <span class="bcmt"># Rozdělení podle středníku:</span>
+  <span class="bval">bar</span>=(<span class="bval">`echo $line | tr ';' ' '`</span>)
+  <span class="bcmd">echo</span> <span class="bval">"Jméno: ${bar[0]}, Heslo: ${bar[1]}, Skupina: ${bar[2]}"</span>
+<span class="bflag">done</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="podminky">
+        <h2 class="lesson-sec-title">Podmínky a cykly</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">if / else — kontrola existence adresáře</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bflag">if</span> <span class="bcmd">test</span> <span class="bflag">-e</span> <span class="bpath">"/tmp/zaloha"</span>; <span class="bflag">then</span>
+  <span class="bcmd">echo</span> <span class="bval">"adresář existuje"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">echo</span> <span class="bval">"adresář neexistuje, bude vytvořen"</span>
+  <span class="bcmd">mkdir</span> <span class="bpath">/tmp/zaloha</span>
+<span class="bflag">fi</span>
+
+<span class="bcmt"># Kontrola návratové hodnoty příkazu ($?):</span>
+<span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/etc.tar.gz</span> <span class="bpath">/etc</span>
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">echo</span> <span class="bval">"OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">echo</span> <span class="bval">"CHYBA"</span>
+<span class="bflag">fi</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">for cyklus přes pole</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># Projít skupiny uživatele a hledat 'adm':</span>
+<span class="bval">skupiny</span>=<span class="bval">`groups`</span>
+<span class="bval">pole</span>=(<span class="bval">$skupiny</span>)
+
+<span class="bflag">for</span> <span class="bval">skupina</span> <span class="bflag">in</span> <span class="bval">${pole[@]}</span>; <span class="bflag">do</span>
+  <span class="bflag">if</span> [ <span class="bval">$skupina</span> = <span class="bval">'adm'</span> ]; <span class="bflag">then</span>
+    <span class="bcmd">echo</span> <span class="bval">"uživatel je ve skupině adm"</span>
+  <span class="bflag">fi</span>
+<span class="bflag">done</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="uzivatel">
+        <h2 class="lesson-sec-title">Vytváření uživatelů ze souboru</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">create-users.sh — čte users.txt</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bcmt"># users.txt formát: jmeno;heslo;skupina1;skupina2</span>
+
+<span class="bval">filename</span>=<span class="bval">'users.txt'</span>
+<span class="bcmd">cat</span> <span class="bval">$filename</span> | <span class="bflag">while</span> <span class="bcmd">read</span> <span class="bval">line</span>
+<span class="bflag">do</span>
+  <span class="bval">bar</span>=(<span class="bval">`echo $line | tr ';' ' '`</span>)
+  <span class="bval">jmeno</span>=<span class="bval">${bar[0]}</span>
+  <span class="bval">heslo</span>=<span class="bval">${bar[1]}</span>
+  <span class="bval">skupina</span>=<span class="bval">${bar[2]}</span>
+
+  <span class="bcmt"># Vytvořit skupinu (pokud neexistuje):</span>
+  <span class="bcmd">groupadd</span> <span class="bflag">-f</span> <span class="bval">$skupina</span>
+
+  <span class="bcmt"># Vytvořit uživatele ve skupině:</span>
+  <span class="bcmd">useradd</span> <span class="bflag">-m -g</span> <span class="bval">$skupina</span> <span class="bval">$jmeno</span>
+
+  <span class="bcmt"># Nastavit heslo:</span>
+  <span class="bcmd">echo</span> <span class="bval">"${jmeno}:${heslo}"</span> | <span class="bcmd">chpasswd</span>
+
+  <span class="bcmd">echo</span> <span class="bval">"Vytvořen uživatel: $jmeno"</span>
+<span class="bflag">done</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="monitoring">
+        <h2 class="lesson-sec-title">Monitorovací skripty</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Kontrola dostupnosti serveru (ping)</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">host</span>=<span class="bval">"192.168.0.1"</span>
+
+<span class="bcmd">ping</span> <span class="bflag">-s 1450 -c 10</span> <span class="bval">$host</span> <span class="bflag">></span> <span class="bpath">/tmp/ping_out.txt</span>
+<span class="bval">ztrata</span>=<span class="bval">`cat /tmp/ping_out.txt | grep 'packet loss' | awk '{print $6}' | tr -d '%'`</span>
+
+<span class="bflag">if</span> [ <span class="bval">$ztrata</span> <span class="bflag">-gt</span> <span class="bval">0</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">echo</span> <span class="bval">"PROBLEM: $host nedostupný, ztráta $ztrata%"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">echo</span> <span class="bval">"OK: $host dostupný"</span>
+<span class="bflag">fi</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Počet odeslaných paketů na eth0</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bprompt">$ </span><span class="bcmd">ifconfig</span> <span class="bval">eth0</span> | <span class="bcmd">grep</span> <span class="bval">'TX packets'</span> | <span class="bcmd">awk</span> <span class="bval">'{print $3}'</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Kontrola počtu souborů uživatele</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">uzivatel</span>=<span class="bval">"student"</span>
+<span class="bval">pocet</span>=<span class="bval">`du /home/$uzivatel | wc -l`</span>
+
+<span class="bflag">if</span> [ <span class="bval">$pocet</span> <span class="bflag">-gt</span> <span class="bval">10000</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">echo</span> <span class="bval">"VAROVÁNÍ: $uzivatel má $pocet souborů!"</span>
+<span class="bflag">fi</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="zaloha">
+        <h2 class="lesson-sec-title">Zálohovací skripty (maturita)</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Záloha adresáře /etc s logováním</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+
+<span class="bcmd">tar</span> <span class="bflag">cvfz</span> <span class="bpath">/tmp/${datum}zaloha.tar.gz</span> <span class="bpath">/etc</span>
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha OK: /tmp/${datum}zaloha.tar.gz"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">logger</span> <span class="bval">"záloha SELHALA"</span>
+<span class="bflag">fi</span></pre>
+        </div>
+
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Záloha MySQL databáze</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt">#!/bin/bash</span>
+<span class="bval">datum</span>=<span class="bval">`date +%d%m%y`</span>
+
+<span class="bcmd">mysqldump</span> <span class="bflag">-u root -p</span><span class="bval">"heslo"</span> <span class="bflag">--all-databases</span> | <span class="bcmd">gzip</span> <span class="bflag">-c</span> <span class="bflag">></span> <span class="bpath">/tmp/${datum}-mysql.gz</span>
+<span class="bflag">if</span> [ <span class="bval">"$?"</span> <span class="bflag">-eq</span> <span class="bval">"0"</span> ]; <span class="bflag">then</span>
+  <span class="bcmd">logger</span> <span class="bval">"MySQL záloha OK"</span>
+<span class="bflag">else</span>
+  <span class="bcmd">logger</span> <span class="bval">"MySQL záloha SELHALA"</span>
+<span class="bflag">fi</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="sit">
+        <h2 class="lesson-sec-title">Síťové skripty</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Počet paketů na port 80 přes iptables</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Přidat pravidlo pro sledování:</span>
+<span class="bprompt">$ </span><span class="bcmd">iptables</span> <span class="bflag">-A OUTPUT -p tcp --dport</span> <span class="bval">80</span> <span class="bflag">-j ACCEPT</span>
+
+<span class="bcmt"># Zobrazit statistiku:</span>
+<span class="bprompt">$ </span><span class="bcmd">iptables</span> <span class="bflag">-L -v</span> | <span class="bcmd">grep</span> <span class="bval">'tcp dpt:http'</span> | <span class="bcmd">awk</span> <span class="bval">'{print $1}'</span>
+
+<span class="bcmt"># Vymazat pravidla:</span>
+<span class="bprompt">$ </span><span class="bcmd">iptables</span> <span class="bflag">-F</span></pre>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussmann.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iptraf | Grussmann | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/grussmann.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">grussmann</a>
+    <span class="sep">/</span>
+    <span class="current">iptraf</span>
+  </nav>
+
+  <div class="page">
+    <aside>
+      <div class="sidebar-title">Obsah</div>
+      <a href="#install"  class="sidebar-link" data-target="install"><span class="sidebar-num">1</span> Instalace</a>
+      <a href="#spusteni" class="sidebar-link" data-target="spusteni"><span class="sidebar-num">2</span> Spuštění</a>
+      <a href="#menu"     class="sidebar-link" data-target="menu"><span class="sidebar-num">3</span> Menu a zobrazení</a>
+      <a href="#filtry"   class="sidebar-link" data-target="filtry"><span class="sidebar-num">4</span> Filtry</a>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-title">Zdroj</div>
+      <a href="https://youtu.be/T94Q_pEvtXY" target="_blank" class="res-badge yt" style="margin:0 0.65rem">▶ YouTube video</a>
+    </aside>
+
+    <main>
+      <div class="hero">
+        <p class="hero-label">// grussmann · it2-pvy</p>
+        <h1>iptraf — síťový provoz</h1>
+        <div class="hero-meta">
+          <span>🐧 Linux</span>
+          <span>📊 monitoring sítě</span>
+        </div>
+      </div>
+
+      <div class="lesson-sec" id="install">
+        <h2 class="lesson-sec-title">Instalace</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Instalace iptraf-ng</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># iptraf-ng je aktualizovaná verze původního iptraf:</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">iptraf-ng</span>
+
+<span class="bcmt"># Starší verze (Debian/Ubuntu):</span>
+<span class="bprompt">$ </span><span class="bcmd">apt-get install</span> <span class="bval">iptraf</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="spusteni">
+        <h2 class="lesson-sec-title">Spuštění</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Spuštění iptraf</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Musí běžet jako root:</span>
+<span class="bprompt">$ </span><span class="bcmd">sudo iptraf-ng</span>
+
+<span class="bcmt"># Monitorovat konkrétní rozhraní přímo:</span>
+<span class="bprompt">$ </span><span class="bcmd">sudo iptraf-ng</span> <span class="bflag">-i</span> <span class="bval">eth0</span>
+
+<span class="bcmt"># Všechna rozhraní najednou:</span>
+<span class="bprompt">$ </span><span class="bcmd">sudo iptraf-ng</span> <span class="bflag">-i</span> <span class="bval">all</span></pre>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="menu">
+        <h2 class="lesson-sec-title">Menu a zobrazení</h2>
+        <div class="lesson-desc">
+          iptraf-ng je textové TUI rozhraní. Ovládá se šipkami a klávesami.
+        </div>
+        <table class="params-table">
+          <thead><tr><th>Položka menu</th><th>Funkce</th></tr></thead>
+          <tbody>
+            <tr><td class="flag">IP traffic monitor</td><td class="desc">živé zobrazení IP paketů na rozhraní</td></tr>
+            <tr><td class="flag">General interface statistics</td><td class="desc">statistiky přenosu pro každé rozhraní (bajty/s, pakety)</td></tr>
+            <tr><td class="flag">Detailed interface stats</td><td class="desc">podrobné statistiky — TCP, UDP, ICMP, ostatní</td></tr>
+            <tr><td class="flag">Statistical breakdowns</td><td class="desc">rozdělení provozu podle protokolu nebo velikosti paketů</td></tr>
+            <tr><td class="flag">LAN station monitor</td><td class="desc">aktivita stanic na LAN (L2)</td></tr>
+          </tbody>
+        </table>
+        <div class="todo-box">
+          <strong>// DOPLNIT — viz YouTube video</strong><br>
+          <a href="https://youtu.be/T94Q_pEvtXY" target="_blank">▶ iptraf — sledování síťového provozu</a><br>
+          Popis jednotlivých obrazovek, jak číst statistiky, klávesové zkratky v TUI
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lesson-sec" id="filtry">
+        <h2 class="lesson-sec-title">Filtry a konfigurace</h2>
+        <div class="bash-block">
+          <div class="bash-header">
+            <span class="bash-title">Filtrování podle portu / IP</span>
+            <button class="bash-copy" onclick="copyBash(this)">kopírovat</button>
+          </div>
+          <pre><span class="bcmt"># Sledovat pouze HTTP provoz (port 80):</span>
+<span class="bprompt">$ </span><span class="bcmd">sudo iptraf-ng</span> <span class="bflag">-f</span> <span class="bval">-i eth0</span>
+<span class="bcmt"># Filtry se konfigurují v menu: Filters → IP</span>
+
+<span class="bcmt"># Logovat výstup do souboru:</span>
+<span class="bprompt">$ </span><span class="bcmd">sudo iptraf-ng</span> <span class="bflag">-L</span> <span class="bpath">/var/log/iptraf.log</span> <span class="bflag">-i</span> <span class="bval">eth0</span></pre>
+        </div>
+        <div class="todo-box">
+          <strong>// DOPLNIT — viz YouTube video</strong><br>
+          Jak nastavit filtry v TUI menu, praktická ukázka zachytávání provozu
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../../assets/js/grussmann.js"></script>
+</body>
+</html>

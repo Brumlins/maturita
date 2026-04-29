@@ -151,6 +151,135 @@ main { padding: 3rem 3rem 6rem; max-width: 860px; }
 /* ── DIVIDER ──────────────────────────────────────────────── */
 .divider { height: 1px; background: var(--border); margin: 2rem 0; }
 
+/* ── BASH / LINUX CODE BLOCK ──────────────────────────────── */
+.bash-block {
+  background: #080a0e; border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
+}
+.bash-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.6rem 1rem; background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.bash-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+.bash-copy {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted);
+  background: none; border: none; cursor: pointer; padding: 2px 8px;
+  border-radius: 4px; transition: all 0.2s;
+}
+.bash-copy:hover  { color: var(--text); background: var(--border); }
+.bash-copy.copied { color: var(--accent2); }
+
+pre {
+  padding: 1.5rem; overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.8;
+}
+
+/* Bash syntax highlighting */
+.bcmd  { color: var(--accent2); font-weight: 700; }   /* příkazy */
+.bflag { color: var(--fn);      }                      /* -flags */
+.bpath { color: var(--num);     }                      /* /cesty */
+.bval  { color: var(--str);     }                      /* hodnoty, stringy */
+.bcmt  { color: var(--cmt);     font-style: italic; }  /* # komentáře */
+.bprompt { color: #3d4f57;      }                      /* user@host:~$ */
+
+/* ── LESSON SECTIONS ──────────────────────────────────────── */
+.lesson-sec { margin: 2.5rem 0; scroll-margin-top: 80px; }
+
+.lesson-sec-title {
+  font-size: 1rem; font-weight: 700; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem; color: var(--text);
+}
+.lesson-sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.lesson-desc {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+  font-size: 0.875rem; line-height: 1.75; color: #b0b8cc;
+}
+.lesson-desc strong { color: var(--text); }
+.lesson-desc em     { color: var(--accent2); font-style: normal; font-weight: 600; }
+.lesson-desc code {
+  font-family: 'JetBrains Mono', monospace; color: var(--fn);
+  font-size: 0.8rem; background: rgba(130,170,255,0.1); padding: 1px 5px; border-radius: 3px;
+}
+
+/* ── NOTE / WARNING / TODO BOXES ─────────────────────────── */
+.note-box, .warn-box, .todo-box {
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.5rem; margin-bottom: 1rem;
+  font-size: 0.875rem; line-height: 1.6; color: #b0b8cc;
+}
+.note-box {
+  background: rgba(62,207,142,0.05);
+  border: 1px solid rgba(62,207,142,0.15);
+  border-left: 3px solid var(--accent2);
+}
+.warn-box {
+  background: rgba(248,113,113,0.05);
+  border: 1px solid rgba(248,113,113,0.15);
+  border-left: 3px solid var(--red);
+}
+.todo-box {
+  background: rgba(245,158,11,0.05);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-left: 3px solid var(--accent3);
+}
+.note-box strong { color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
+.warn-box strong { color: var(--red);     font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
+.todo-box strong { color: var(--accent3); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
+.note-box code, .warn-box code, .todo-box code {
+  font-family: 'JetBrains Mono', monospace; color: var(--fn);
+  font-size: 0.8rem; background: rgba(130,170,255,0.1); padding: 1px 5px; border-radius: 3px;
+}
+
+/* ── PARAMS TABLE ─────────────────────────────────────────── */
+.params-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
+  display: block;
+}
+.params-table th {
+  padding: 0.55rem 1rem; text-align: left;
+  color: var(--muted); font-weight: 400; font-size: 0.7rem;
+  border-bottom: 1px solid var(--border); background: rgba(22,25,32,0.8);
+}
+.params-table td {
+  padding: 0.5rem 1rem; color: var(--text);
+  border-bottom: 1px solid rgba(42,45,58,0.5);
+}
+.params-table tr:last-child td { border-bottom: none; }
+.params-table tr:hover td { background: rgba(255,255,255,0.02); }
+.params-table .flag  { color: var(--fn); }
+.params-table .desc  { color: #b0b8cc; }
+
+/* ── EXPLANATION ──────────────────────────────────────────── */
+.explanation {
+  background: rgba(62,207,142,0.05);
+  border: 1px solid rgba(62,207,142,0.12);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 10px 10px 0;
+  padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+}
+.explanation-title {
+  font-size: 0.72rem; font-family: 'JetBrains Mono', monospace;
+  color: var(--accent2); margin-bottom: 0.75rem; letter-spacing: 0.1em;
+}
+.explanation ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.explanation li {
+  font-size: 0.85rem; color: #b0b8cc; line-height: 1.6;
+  display: flex; gap: 0.75rem;
+}
+.explanation li::before { content: '→'; color: var(--accent2); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
+.explanation code {
+  font-family: 'JetBrains Mono', monospace; color: var(--fn);
+  font-size: 0.8rem; background: rgba(130,170,255,0.1); padding: 1px 5px; border-radius: 3px;
+}
+
+/* ── DIVIDER ──────────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
 /* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 768px) {
   .page { grid-template-columns: 1fr; }
