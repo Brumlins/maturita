@@ -120,8 +120,8 @@ main { padding: 3rem 3rem 6rem; max-width: 900px; }
 .topo-panel {
   position: fixed;
   top: calc(var(--nav-h) + 0.75rem);
-  right: 1rem;
-  width: 900px;
+  right: 2rem;
+  width: 650px;
   z-index: 200;
   background: rgba(16,18,26,0.97);
   border: 1px solid var(--border);
@@ -163,6 +163,15 @@ main { padding: 3rem 3rem 6rem; max-width: 900px; }
 
 .topo-img { width: 100%; border-radius: 8px; display: block; }
 
+.topo-tasks { padding: 0.5rem 0.5rem 1rem; }
+.topo-tasks ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin: 0; padding: 0; }
+.topo-tasks li {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  color: var(--muted); line-height: 1.5; padding: 0.4rem 0.6rem;
+  background: var(--surface); border-radius: 6px;
+  border-left: 2px solid var(--accent3);
+}
+
 /* ── SECTION TITLE ────────────────────────────────────────── */
 .section-title {
   font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;
@@ -173,7 +182,7 @@ main { padding: 3rem 3rem 6rem; max-width: 900px; }
 /* ── IP PLANNING TABLE ────────────────────────────────────── */
 .ip-plan {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; overflow: hidden; margin-bottom: 2rem;
+  border-radius: 10px; overflow-x: auto; margin-bottom: 2rem;
 }
 .ip-plan-header {
   padding: 0.6rem 1rem;
