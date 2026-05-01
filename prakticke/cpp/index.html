@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ | Praktické | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/list.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../index.html">praktické</a>
+    <span class="sep">/</span>
+    <span class="current">C++</span>
+  </nav>
+
+  <div class="hero">
+    <p class="hero-label">// C++ — OOP prověrky</p>
+    <h1>C++ úlohy</h1>
+    <p>Třídy s konstruktory, operátory a privátní logikou &nbsp;·&nbsp; 3 soubory: <code>main.cpp</code> (dáno) + <code>.h</code> + <code>.cpp</code> (ty píšeš)</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Přehled úloh</h2>
+      <span class="section-badge badge-cpp">C++17</span>
+    </div>
+
+    <div style="background:rgba(124,106,247,0.07);border:1px solid rgba(124,106,247,0.2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem 1.5rem;margin-bottom:2rem;font-size:0.88rem;line-height:1.8;">
+      <strong style="color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;">JAK TO CHODÍ NA MATURITĚ</strong><br>
+      Dostaneš hotový <code>main.cpp</code> — ten <strong>nepíšeš</strong>. Tvým úkolem je napsat <code>.h</code> (deklarace třídy) a <code>.cpp</code> (implementace metod) tak, aby se vše přeložilo a fungovalo.
+    </div>
+
+    <div class="projects-grid">
+      <a href="datum/index.html" class="project-card cpp">
+        <span class="project-num">01</span>
+        <div class="project-name">Datum</div>
+        <div class="project-meta">Datum 1970–2050 · 5 bugů opraveno · chybějící metody doplněny</div>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="rodnecislo/index.html" class="project-card cpp">
+        <span class="project-num">02</span>
+        <div class="project-name">Rodné číslo</div>
+        <div class="project-meta">Validace mod 11 · věk · datum narození · 2 bugy opraveny</div>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="soustavy/index.html" class="project-card cpp">
+        <span class="project-num">03</span>
+        <div class="project-name">Číselné soustavy</div>
+        <div class="project-meta">Převod 2–16 · pow() · reverse() · kompletní bez bugů</div>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="zlomek/index.html" class="project-card cpp">
+        <span class="project-num">04</span>
+        <div class="project-name">Zlomek</div>
+        <div class="project-meta">GCD/LCM · operator+= · operator+ · 1 bug opraven</div>
+        <span class="project-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Obecné vzory — co se opakuje</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);margin-bottom:0.75rem;">KONSTRUKTORY (vždy 3)</div>
+        <pre style="font-size:0.78rem;line-height:1.7;padding:0;color:var(--text)">Trida();               // bez parametrů
+Trida(typ1, typ2...);  // s parametry
+Trida(const Trida&);   // kopírovací</pre>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);margin-bottom:0.75rem;">OPERÁTORY</div>
+        <pre style="font-size:0.78rem;line-height:1.7;padding:0;color:var(--text)">Trida& operator=(const Trida&);     // přiřazení
+bool operator==(const Trida&)const; // porovnání
+friend ostream& operator&lt;&lt;(...);   // výpis</pre>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent2);margin-bottom:0.75rem;">VALIDACE (setter vzor)</div>
+        <pre style="font-size:0.78rem;line-height:1.7;padding:0;color:var(--text)">bool set_hodnota(int x) {
+    if (jeValidni(x)) {
+        this-&gt;x = x;
+        return true;
+    }
+    return false;
+}</pre>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent2);margin-bottom:0.75rem;">FRIEND OPERÁTOR &lt;&lt;</div>
+        <pre style="font-size:0.78rem;line-height:1.7;padding:0;color:var(--text)">// V .h:
+friend ostream& operator&lt;&lt;(ostream&, const T&);
+// V .cpp (mimo třídu!):
+ostream& operator&lt;&lt;(ostream &os, const T &t) {
+    os &lt;&lt; t.privatniClen;
+    return os;
+}</pre>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

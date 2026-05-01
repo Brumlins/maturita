@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datum | C++ | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .page        { display: block; max-width: 980px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+    .file-viewer { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.5rem 0; }
+    .ftabs       { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+    .ftab        { display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); border: none; border-right: 1px solid var(--border); background: none; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .ftab.active { color: var(--text); background: #0a0c10; }
+    .ftab:hover:not(.active) { color: var(--text); background: var(--surface2); }
+    .fbadge      { font-size: 0.58rem; padding: 1px 5px; border-radius: 3px; }
+    .fbadge.given{ background: rgba(107,114,128,0.2); color: var(--muted); }
+    .fbadge.write{ background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .fpanel      { display: none; }
+    .fpanel.active { display: block; }
+    pre          { color: #c9d1d9; padding: 1.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.75; margin: 0; }
+    .sec         { font-size: 1rem; font-weight: 700; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+    .sec::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .bug-box     { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.25); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .fix-box     { background: rgba(62,207,142,0.06); border: 1px solid rgba(62,207,142,0.25); border-left: 3px solid var(--accent2); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .lbl         { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; margin-bottom: 0.35rem; }
+    .lbl.red     { color: var(--red); }
+    .lbl.grn     { color: var(--accent2); }
+    .pattern     { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin: 0.7rem 0; }
+    .ptitle      { font-family: 'JetBrains Mono', monospace; font-size: 0.77rem; color: var(--accent); margin-bottom: 0.45rem; }
+    .pdesc       { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .pdesc code  { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.79rem; }
+    .exam-info   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+    .ef          { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .ef-name     { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text); margin-bottom: 0.3rem; }
+    .ef-desc     { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .ef-badge    { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 7px; border-radius: 3px; margin-top: 0.5rem; }
+    .ef-badge.given { background: rgba(107,114,128,0.2); color: var(--muted); }
+    .ef-badge.write { background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .icode       { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.08); padding: 1px 5px; border-radius: 3px; font-size: 0.82rem; }
+    .c-kw { color: #c792ea; }
+    .c-fn { color: #82aaff; }
+    .c-cm { color: #546e7a; font-style: italic; }
+    .c-st { color: #c3e88d; }
+    .c-nm { color: #f78c6c; }
+    .c-tp { color: #ffcb6b; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C++</a>
+    <span class="sep">/</span>
+    <span class="current">Datum</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C++ — OOP prověrka</p>
+      <h1>Datum</h1>
+      <div class="hero-meta">
+        <span>📅 Datum 1.1.1970 – 31.12.2050</span>
+        <span>⚙️ 5 opravených bugů</span>
+        <span>➕ 2 doplněné metody</span>
+      </div>
+    </div>
+
+    <!-- STRUKTURA SOUBORŮ -->
+    <div class="sec">Struktura souborů</div>
+    <div class="exam-info">
+      <div class="ef">
+        <div class="ef-name">main.cpp</div>
+        <div class="ef-desc">Uživatelské rozhraní — vytváří objekty, volá metody, smyčka na přičítání dní.</div>
+        <span class="ef-badge given">DÁNO učitelem</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">datum.h</div>
+        <div class="ef-desc">Deklarace třídy — co třída umí (metody), co si pamatuje (private členy).</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">datum.cpp</div>
+        <div class="ef-desc">Implementace — jak každá metoda funguje uvnitř.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+    </div>
+
+    <!-- PŘEHLED TŘÍDY -->
+    <div class="sec">Rozhraní třídy — co musíš implementovat</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
+      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class Datum &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: int y, m, d</span></div>
+      <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:0.77rem;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 1.25rem;color:var(--muted);font-size:0.67rem;letter-spacing:0.1em;" colspan="3">KONSTRUKTORY</td>
+        </tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">Datum()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">systémové datum (time.h)</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">Datum(int y, int m, int d)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">platné datum nebo fallback na systémové</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">Datum(const Datum&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací</td></tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 1.25rem;color:var(--muted);font-size:0.67rem;letter-spacing:0.1em;" colspan="3">GETTERY &amp; SETTERY</td>
+        </tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">int get_year/month/day() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí rok/měsíc/den</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_year/month/day(int)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví pokud je výsledek platný</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_date(int y, int m, int d)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví celé datum</td></tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 1.25rem;color:var(--muted);font-size:0.67rem;letter-spacing:0.1em;" colspan="3">VÝPOČTY</td>
+        </tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int days_from_1970() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">součet dní od 1. 1. 1970 (roky + měsíce + dny)</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int day_in_week() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">(days+2)%7+1, pondělí=1, 1.1.1970 byl čtvrtek=4</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">bool set_from_days(int days)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví datum z počtu dní od 1970</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent3);">bool change_date(int days)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">přičte dny k aktuálnímu datu</td></tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 1.25rem;color:var(--muted);font-size:0.67rem;letter-spacing:0.1em;" colspan="3">OPERÁTORY</td>
+        </tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">Datum&amp; operator=(const Datum&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">přiřazení, vrátí *this</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">bool operator==(const Datum&amp;) const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">porovnání y==y &amp;&amp; m==m &amp;&amp; d==d</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vypíše datum, dny od 1970, den v týdnu</td></tr>
+      </table>
+    </div>
+
+    <!-- SOUBORY — TABS -->
+    <div class="sec">Kód</div>
+    <div class="file-viewer" id="fv1">
+      <div class="ftabs">
+        <button class="ftab active" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">datum.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-cpp')">datum.cpp <span class="fbadge write">ty píšeš</span></button>
+      </div>
+
+      <!-- main.cpp -->
+      <div id="fv1-t-main" class="fpanel active">
+        <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">"datum.h"</span>
+<span class="c-kw">using</span> std::cout; <span class="c-kw">using</span> std::cin; <span class="c-kw">using</span> std::endl;
+
+<span class="c-kw">void</span> <span class="c-fn">tisk</span>(<span class="c-kw">const char</span>* label, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d) {
+    cout &lt;&lt; label &lt;&lt; endl;
+    cout &lt;&lt; <span class="c-st">"------------------------------------------"</span> &lt;&lt; endl;
+    cout &lt;&lt; d &lt;&lt; endl &lt;&lt; endl;
+}
+
+<span class="c-kw">int</span> <span class="c-fn">nactiInt</span>(<span class="c-kw">const char</span>* prompt) {
+    <span class="c-kw">int</span> val;
+    cout &lt;&lt; prompt;
+    cin &gt;&gt; val;
+    cin.ignore();
+    <span class="c-kw">return</span> val;
+}
+
+<span class="c-kw">int</span> <span class="c-fn">main</span>() {
+    <span class="c-tp">Datum</span> d1;                   <span class="c-cm">// výchozí konstruktor — dnešní datum</span>
+    <span class="c-tp">Datum</span> d2(<span class="c-nm">2000</span>, <span class="c-nm">1</span>, <span class="c-nm">1</span>);         <span class="c-cm">// konstruktor s parametry</span>
+    <span class="c-tp">Datum</span> d3(d2);               <span class="c-cm">// kopírovací konstruktor</span>
+
+    tisk(<span class="c-st">"Objekt d1 vytvoreny vychozim konstruktorem"</span>, d1);
+    tisk(<span class="c-st">"Objekt d2 vytvoreny konstruktorem s parametry"</span>, d2);
+    tisk(<span class="c-st">"Objekt d3 vytvoreny kopirovacim konstruktorem"</span>, d3);
+
+    cout &lt;&lt; <span class="c-st">"Zadani noveho data\n------------------"</span> &lt;&lt; endl;
+    <span class="c-kw">int</span> den   = nactiInt(<span class="c-st">"Zadej den: "</span>);
+    <span class="c-kw">int</span> mesic = nactiInt(<span class="c-st">"Zadej mesic: "</span>);
+    <span class="c-kw">int</span> rok   = nactiInt(<span class="c-st">"Zadej rok: "</span>);
+
+    <span class="c-kw">if</span> (d1.set_date(rok, mesic, den))
+        tisk(<span class="c-st">"\nObjekt d1 po zmene"</span>, d1);
+    <span class="c-kw">else</span>
+        cout &lt;&lt; <span class="c-st">"Neplatne datum!"</span> &lt;&lt; endl;
+
+    <span class="c-kw">int</span> dni = nactiInt(<span class="c-st">"Zadej pocet dni od 1. 1. 1970: "</span>);
+    <span class="c-kw">if</span> (d3.set_from_days(dni))
+        tisk(<span class="c-st">"\nObjekt d3 po prevedeni."</span>, d3);
+
+    cout &lt;&lt; (d1 == d3 ? <span class="c-st">"Objekty d1 a d3 jsou shodne."</span>
+                       : <span class="c-st">"Objekty d1 a d3 nejsou shodne."</span>) &lt;&lt; endl &lt;&lt; endl;
+
+    <span class="c-kw">char</span> stop;
+    <span class="c-kw">do</span> {
+        <span class="c-kw">int</span> pridat = nactiInt(<span class="c-st">"Kolik dnu chces k datu v objektu d3 pricist: "</span>);
+        <span class="c-kw">if</span> (d3.change_date(pridat)) {
+            cout &lt;&lt; <span class="c-st">"\nObjekt d3 po pricteni "</span> &lt;&lt; pridat &lt;&lt; <span class="c-st">" dnu\n------------------------------------------"</span> &lt;&lt; endl;
+            cout &lt;&lt; d3 &lt;&lt; endl &lt;&lt; endl;
+        }
+        cout &lt;&lt; <span class="c-st">"Klavesou 'k' bude zadavani ukonceno: "</span>;
+        cin &gt;&gt; stop; cin.ignore();
+    } <span class="c-kw">while</span> (stop != <span class="c-st">'k'</span> &amp;&amp; stop != <span class="c-st">'K'</span>);
+
+    <span class="c-kw">return</span> <span class="c-nm">0</span>;
+}</pre>
+      </div>
+
+      <!-- datum.h -->
+      <div id="fv1-t-h" class="fpanel">
+        <pre><span class="c-kw">#ifndef</span> DATUM_H
+<span class="c-kw">#define</span> DATUM_H
+<span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
+<span class="c-kw">#endif</span>
+
+<span class="c-kw">const int</span> MIN_ROK = <span class="c-nm">1970</span>;
+<span class="c-kw">const int</span> MAX_ROK = <span class="c-nm">2050</span>;
+
+<span class="c-kw">class</span> <span class="c-tp">Datum</span> {
+<span class="c-kw">public</span>:
+    <span class="c-fn">Datum</span>();
+    <span class="c-fn">Datum</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
+    <span class="c-fn">Datum</span>(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp;);
+
+    <span class="c-kw">int</span>  <span class="c-fn">get_year</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">get_month</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">get_day</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span> <span class="c-fn">set_year</span>(<span class="c-kw">int</span> y);
+    <span class="c-kw">bool</span> <span class="c-fn">set_month</span>(<span class="c-kw">int</span> m);
+    <span class="c-kw">bool</span> <span class="c-fn">set_day</span>(<span class="c-kw">int</span> d);
+    <span class="c-kw">bool</span> <span class="c-fn">set_date</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
+
+    <span class="c-kw">int</span>  <span class="c-fn">days_from_1970</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">day_in_week</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span> <span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days);
+    <span class="c-kw">bool</span> <span class="c-fn">change_date</span>(<span class="c-kw">int</span> days);
+
+    <span class="c-tp">Datum</span>&amp; <span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff);
+    <span class="c-kw">bool</span>   <span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) <span class="c-kw">const</span>;
+    <span class="c-kw">friend</span> std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d);
+
+<span class="c-kw">private</span>:
+    <span class="c-kw">int</span> y, m, d;
+
+    <span class="c-kw">static bool</span> <span class="c-fn">je_valid</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
+    <span class="c-kw">bool</span>        <span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">static bool</span> <span class="c-fn">je_prestupny</span>(<span class="c-kw">int</span> y);
+    <span class="c-kw">static int</span>  <span class="c-fn">pocet_dni</span>(<span class="c-kw">int</span> m, <span class="c-kw">int</span> y);
+    <span class="c-kw">void</span>        <span class="c-fn">system_datum</span>();
+};</pre>
+      </div>
+
+      <!-- datum.cpp -->
+      <div id="fv1-t-cpp" class="fpanel">
+        <pre><span class="c-kw">#include</span> <span class="c-st">"datum.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;ctime&gt;</span>
+
+<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>() { system_datum(); }
+
+<span class="c-kw">void</span> <span class="c-tp">Datum</span>::<span class="c-fn">system_datum</span>() {
+    time_t ts = time(&amp;ts);
+    <span class="c-kw">struct</span> tm* dt = localtime(&amp;ts);
+    y = dt-&gt;tm_year + <span class="c-nm">1900</span>;
+    m = dt-&gt;tm_mon  + <span class="c-nm">1</span>;
+    d = dt-&gt;tm_mday;
+}
+
+<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
+    <span class="c-kw">if</span> (je_valid(y, m, d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">this</span>-&gt;d=d; }
+    <span class="c-kw">else</span> system_datum();
+}
+
+<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; o) { y=o.y; m=o.m; d=o.d; }
+
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_year</span>()  <span class="c-kw">const</span> { <span class="c-kw">return</span> y; }
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_month</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> m; }
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_day</span>()   <span class="c-kw">const</span> { <span class="c-kw">return</span> d; }
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_year</span>(<span class="c-kw">int</span> y) {
+    <span class="c-kw">if</span> (je_valid(y, <span class="c-kw">this</span>-&gt;m, <span class="c-kw">this</span>-&gt;d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">return true</span>; }
+    <span class="c-kw">return false</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_month</span>(<span class="c-kw">int</span> m) {          <span class="c-cm">// ← parametr m, ne y !</span>
+    <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, m, <span class="c-kw">this</span>-&gt;d)) { <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">return true</span>; }
+    <span class="c-kw">return false</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_day</span>(<span class="c-kw">int</span> d) {            <span class="c-cm">// ← parametr d, ne y !</span>
+    <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, <span class="c-kw">this</span>-&gt;m, d)) { <span class="c-kw">this</span>-&gt;d=d; <span class="c-kw">return true</span>; }
+    <span class="c-kw">return false</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_date</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
+    <span class="c-kw">if</span> (je_valid(y, m, d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">this</span>-&gt;d=d; <span class="c-kw">return true</span>; }
+    <span class="c-kw">return false</span>;
+}
+
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">days_from_1970</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">int</span> total = <span class="c-nm">0</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = MIN_ROK; i &lt; y; ++i)          <span class="c-cm">// celé roky</span>
+        total += je_prestupny(i) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">1</span>; i &lt; m; ++i)               <span class="c-cm">// ← bylo: i &lt; pocet_dni(m,y) — BUG!</span>
+        total += pocet_dni(i, y);               <span class="c-cm">// celé měsíce před aktuálním</span>
+    total += d;                                 <span class="c-cm">// dny v aktuálním měsíci</span>
+    <span class="c-kw">return</span> total;
+}
+
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">day_in_week</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> (days_from_1970() + <span class="c-nm">2</span>) % <span class="c-nm">7</span> + <span class="c-nm">1</span>;    <span class="c-cm">// ← bylo +3 — BUG! (pon=1, 1.1.1970=čtvrtek=4)</span>
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days) {       <span class="c-cm">// ← NOVÁ metoda (chyběla)</span>
+    <span class="c-kw">if</span> (days &lt;= <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">int</span> ny = MIN_ROK;
+    <span class="c-kw">while</span> (days &gt; (je_prestupny(ny) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>)) {
+        days -= je_prestupny(ny) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
+        <span class="c-kw">if</span> (++ny &gt; MAX_ROK) <span class="c-kw">return false</span>;
+    }
+    <span class="c-kw">int</span> nm = <span class="c-nm">1</span>;
+    <span class="c-kw">while</span> (days &gt; pocet_dni(nm, ny)) {
+        days -= pocet_dni(nm, ny);
+        ++nm;
+    }
+    y = ny; m = nm; d = days;
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">change_date</span>(<span class="c-kw">int</span> days) {         <span class="c-cm">// ← bylo deklarováno ale chyběla impl.</span>
+    <span class="c-kw">return</span> set_from_days(days_from_1970() + days);
+}
+
+<span class="c-tp">Datum</span>&amp; <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) {
+    y=diff.y; m=diff.m; d=diff.d;
+    <span class="c-kw">return</span> *<span class="c-kw">this</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> y==diff.y &amp;&amp; m==diff.m &amp;&amp; d==diff.d;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_valid</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
+    <span class="c-kw">if</span> (y &lt; MIN_ROK || y &gt; MAX_ROK) <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (m &lt; <span class="c-nm">1</span> || m &gt; <span class="c-nm">12</span>)            <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (d &lt; <span class="c-nm">1</span> || d &gt; pocet_dni(m,y)) <span class="c-kw">return false</span>;
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_prestupny</span>(<span class="c-kw">int</span> y) {
+    <span class="c-kw">return</span> y%<span class="c-nm">4</span>==<span class="c-nm">0</span> &amp;&amp; (y%<span class="c-nm">400</span>==<span class="c-nm">0</span> || y%<span class="c-nm">100</span>!=<span class="c-nm">0</span>);
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> je_prestupny(y); }
+
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">pocet_dni</span>(<span class="c-kw">int</span> m, <span class="c-kw">int</span> y) {
+    <span class="c-kw">int</span> mes[] = {<span class="c-nm">31</span>,<span class="c-nm">28</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>};
+    <span class="c-kw">if</span> (je_prestupny(y)) mes[<span class="c-nm">1</span>] = <span class="c-nm">29</span>;
+    <span class="c-kw">return</span> mes[m-<span class="c-nm">1</span>];
+}
+
+std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d) {
+    os &lt;&lt; d.d &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.m &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.y &lt;&lt; <span class="c-st">", "</span>;  <span class="c-cm">// ← bylo bez ", " — BUG!</span>
+    os &lt;&lt; <span class="c-st">"pocet dni od 1. 1. "</span> &lt;&lt; MIN_ROK &lt;&lt; <span class="c-st">" je "</span> &lt;&lt; d.days_from_1970() &lt;&lt; <span class="c-st">", "</span>;
+    os &lt;&lt; <span class="c-st">"den v tydnu je "</span> &lt;&lt; d.day_in_week() &lt;&lt; <span class="c-st">"."</span>;
+    <span class="c-kw">return</span> os;
+}</pre>
+      </div>
+    </div>
+
+    <!-- OPRAVENÉ BUGY -->
+    <div class="sec">Co bylo špatně — 5 bugů + 2 chybějící metody</div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 1 — set_month / set_day: špatný název parametru</div>
+      <span class="icode">bool set_month(int <b>y</b>)</span> — parametr se jmenoval <code>y</code>, ale tělo metody používalo <code>m</code> (tj. <code>this-&gt;m</code>). Výsledek: <code>this-&gt;m = this-&gt;m</code> — nic se nenastavilo. Stejný bug v <code>set_day</code>.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      Přejmenovat parametr: <span class="icode">bool set_month(int <b>m</b>)</span> a <span class="icode">bool set_day(int <b>d</b>)</span>. Teď <code>m</code> v těle funkce odkazuje na parametr, ne na <code>this-&gt;m</code>.
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 2 — days_from_1970(): špatná podmínka ve smyčce měsíců</div>
+      <span class="icode">for (int i = 1; i &lt; <b>pocet_dni(m,y)</b>; ++i)</span> — iterovalo se od 1 do počtu dní v aktuálním měsíci. Místo toho potřebujeme iterovat od 1 do aktuálního <b>měsíce</b>.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <span class="icode">for (int i = 1; i &lt; <b>m</b>; ++i)</span> — sečte dny všech měsíců <em>před</em> aktuálním.
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 3 — day_in_week(): špatná konstanta (+3 místo +2)</div>
+      <span class="icode">(days_from_1970() + <b>3</b>) % 7 + 1</span> — výsledek byl o 1 posunutý. Ověření: 1.1.1970 byl čtvrtek (=4), days_from_1970 = 1, správně: (1+2)%7+1 = 4 ✓
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <span class="icode">(days_from_1970() + <b>2</b>) % 7 + 1</span>
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 4 — operator&lt;&lt;: chyběla ", " za rokem</div>
+      <span class="icode">os &lt;&lt; d.d &lt;&lt; ". " &lt;&lt; d.m &lt;&lt; ". " &lt;&lt; d.y;</span> — výstup byl: <code>2. 2. 2021pocet dni...</code>
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <span class="icode">os &lt;&lt; d.y &lt;&lt; <b>", "</b>;</span> — výstup: <code>2. 2. 2021, pocet dni od 1. 1. 1970 je 18661, den v tydnu je 2.</code>
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">CHYBĚLO — change_date: deklarováno v .h, ale bez implementace v .cpp</div>
+      Funkce <span class="icode">bool change_date(int days)</span> byla v hlavičce, ale v .cpp nebyla vůbec.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">DOPLNĚNO</div>
+      Implementace přes <code>set_from_days</code>: <span class="icode">return set_from_days(days_from_1970() + days);</span>
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">CHYBĚLO — set_from_days: vyžadováno zadáním, ale nikde nebylo</div>
+      Zadání říká: „Ze zadaného počtu dní bude možno nastavit den, měsíc a rok." — metoda úplně chyběla.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">DOPLNĚNO</div>
+      Algoritmus: odečítá celé roky (respektuje přestupné), pak celé měsíce, zbytek = den.
+    </div>
+
+    <!-- KLÍČOVÉ VZORY -->
+    <div class="sec">Klíčové C++ vzory v tomto příkladu</div>
+
+    <div class="pattern">
+      <div class="ptitle">static member funkce — volatelné bez objektu</div>
+      <div class="pdesc">
+        Funkce jako <code>je_valid()</code>, <code>je_prestupny(int)</code> a <code>pocet_dni()</code> jsou <code>static</code> — nepotřebují <code>this</code>, pracují jen s parametry. Voláš je jako <code>Datum::pocet_dni(m, y)</code> nebo přímo uvnitř třídy jako <code>pocet_dni(m, y)</code>.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">Přetěžování konstruktoru — tři varianty</div>
+      <div class="pdesc">
+        Výchozí konstruktor volá <code>system_datum()</code>. Parametrický nejprve validuje přes <code>je_valid()</code>, při neplatném vstupu fallbackuje na <code>system_datum()</code>. Kopírovací prostě zkopíruje tři int členy.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">friend operator&lt;&lt; — přístup k private bez dědičnosti</div>
+      <div class="pdesc">
+        Deklaruješ v .h: <code>friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const Datum&amp;);</code>. Implementuješ v .cpp <em>mimo třídu</em> (bez <code>Datum::</code>). Protože je <code>friend</code>, má přístup k <code>d.d</code>, <code>d.m</code>, <code>d.y</code> i když jsou private.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">Přestupný rok — vzorec</div>
+      <div class="pdesc">
+        <code>y%4==0 &amp;&amp; (y%400==0 || y%100!=0)</code> — dělitelný 4, ale staletí nejsou přestupná (1900), kromě těch dělitelných 400 (2000).
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(btn, viewerId, panelSuffix) {
+      const viewer = document.getElementById(viewerId);
+      viewer.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      viewer.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      viewer.querySelector('#' + viewerId + '-' + panelSuffix).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zlomek | C++ | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .page        { display: block; max-width: 980px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+    .file-viewer { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.5rem 0; }
+    .ftabs       { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+    .ftab        { display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); border: none; border-right: 1px solid var(--border); background: none; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .ftab.active { color: var(--text); background: #0a0c10; }
+    .ftab:hover:not(.active) { color: var(--text); background: var(--surface2); }
+    .fbadge      { font-size: 0.58rem; padding: 1px 5px; border-radius: 3px; }
+    .fbadge.given{ background: rgba(107,114,128,0.2); color: var(--muted); }
+    .fbadge.write{ background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .fpanel      { display: none; }
+    .fpanel.active { display: block; }
+    pre          { color: #c9d1d9; padding: 1.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.75; margin: 0; }
+    .sec         { font-size: 1rem; font-weight: 700; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+    .sec::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .bug-box     { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.25); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .fix-box     { background: rgba(62,207,142,0.06); border: 1px solid rgba(62,207,142,0.25); border-left: 3px solid var(--accent2); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .lbl         { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; margin-bottom: 0.35rem; }
+    .lbl.red     { color: var(--red); }
+    .lbl.grn     { color: var(--accent2); }
+    .pattern     { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin: 0.7rem 0; }
+    .ptitle      { font-family: 'JetBrains Mono', monospace; font-size: 0.77rem; color: var(--accent); margin-bottom: 0.45rem; }
+    .pdesc       { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .pdesc code  { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.79rem; }
+    .exam-info   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+    .ef          { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .ef-name     { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text); margin-bottom: 0.3rem; }
+    .ef-desc     { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .ef-badge    { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 7px; border-radius: 3px; margin-top: 0.5rem; }
+    .ef-badge.given { background: rgba(107,114,128,0.2); color: var(--muted); }
+    .ef-badge.write { background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .icode       { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.08); padding: 1px 5px; border-radius: 3px; font-size: 0.82rem; }
+    .algo-box    { background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.25); border-left: 3px solid var(--accent3); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; font-size: 0.85rem; line-height: 1.8; }
+    .c-kw { color: #c792ea; }
+    .c-fn { color: #82aaff; }
+    .c-cm { color: #546e7a; font-style: italic; }
+    .c-st { color: #c3e88d; }
+    .c-nm { color: #f78c6c; }
+    .c-tp { color: #ffcb6b; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C++</a>
+    <span class="sep">/</span>
+    <span class="current">Zlomek</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C++ — OOP prověrka</p>
+      <h1>Zlomek</h1>
+      <div class="hero-meta">
+        <span>➗ Čitatel / jmenovatel</span>
+        <span>📐 GCD/LCM z &lt;numeric&gt;</span>
+        <span>⚙️ 1 opravený bug</span>
+      </div>
+    </div>
+
+    <!-- STRUKTURA SOUBORŮ -->
+    <div class="sec">Struktura souborů</div>
+    <div class="exam-info">
+      <div class="ef">
+        <div class="ef-name">main.cpp</div>
+        <div class="ef-desc">Vytvoří zlomky, flip, setFraction, sčítání (+, +=), výpis.</div>
+        <span class="ef-badge given">DÁNO učitelem</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">fraction.h</div>
+        <div class="ef-desc">Deklarace — int numerator, denominator; operátory.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">fraction.cpp</div>
+        <div class="ef-desc">Implementace — gcd, lcm, operator+=, operator+, flip, reduce.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+    </div>
+
+    <!-- ALGORITMY -->
+    <div class="sec">Klíčové algoritmy</div>
+    <div class="algo-box">
+      <strong style="color:var(--accent3);">Sčítání zlomků (operator+=):</strong><br>
+      1. Najdi LCM (nejmenší společný násobek) jmenovatelů: <code>lcm(a, b)</code> z <code>&lt;numeric&gt;</code><br>
+      2. Převeď oba čitatele na společného jmenovatele: <code>lcm/jmen * cit</code><br>
+      3. Sečti čitatele, jmenovatel je lcm<br>
+      Příklad: 3/4 + 1/6 → lcm(4,6)=12 → 9/12 + 2/12 = 11/12
+    </div>
+    <div class="algo-box">
+      <strong style="color:var(--accent3);">Krácení (reduce) pomocí GCD:</strong><br>
+      <code>gcd(numerator, denominator)</code> z <code>&lt;numeric&gt;</code> (C++17)<br>
+      Dělíme oba GCD: 6/10 → gcd(6,10)=2 → 3/5<br>
+      Pokud GCD=1, krácení není možné.
+    </div>
+
+    <!-- PŘEHLED TŘÍDY -->
+    <div class="sec">Rozhraní třídy</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
+      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class fraction &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: int numerator, denominator</span></div>
+      <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:0.77rem;">
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">fraction()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">1/1</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">fraction(int num, int den)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">validuje (den≠0), při neplatném 1/1</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">fraction(const fraction&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací přes setFraction</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">int getNumerator() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí čitatel</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">int getDenominator() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí jmenovatel</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">float toDec() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">(float)num / (float)den</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool flip()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">prohodí num↔den, false pokud num==0</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool reduce()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">zkrátí pomocí gcd, false pokud gcd==1</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool setFraction(int, int)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví, false pokud den==0</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">fraction&amp; operator=(const fraction&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">přiřazení — musí vrátit *this!</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">fraction&amp; operator+=(const fraction&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">sečte in-place pomocí lcm</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--red);">fraction operator+(const fraction&amp;) const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vytvoří kopii, zavolá +=, vrátí kopii</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">abs(num)/abs(den) se znaménkem</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">void swap(int&amp;, int&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private helper pro flip()</td></tr>
+      </table>
+    </div>
+
+    <!-- SOUBORY — TABS -->
+    <div class="sec">Kód</div>
+    <div class="file-viewer" id="fv1">
+      <div class="ftabs">
+        <button class="ftab active" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">fraction.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-cpp')">fraction.cpp <span class="fbadge write">ty píšeš</span></button>
+      </div>
+
+      <!-- main.cpp -->
+      <div id="fv1-t-main" class="fpanel active">
+        <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">"fraction.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;limits&gt;</span>
+<span class="c-kw">using</span> std::cout; <span class="c-kw">using</span> std::endl; <span class="c-kw">using</span> std::cin;
+
+<span class="c-kw">int</span> <span class="c-fn">vstup</span>(<span class="c-kw">const</span> string text) {
+    <span class="c-kw">int</span> input; <span class="c-kw">bool</span> err;
+    <span class="c-kw">do</span> {
+        err = <span class="c-kw">false</span>;
+        cout &lt;&lt; <span class="c-st">"Zadej "</span> &lt;&lt; text &lt;&lt; <span class="c-st">": "</span> &lt;&lt; endl;
+        cin &gt;&gt; input;
+        <span class="c-kw">if</span> (cin.fail() || cin.peek() != <span class="c-st">'\n'</span>) {
+            cout &lt;&lt; <span class="c-st">"Nebylo zadano cele cislo."</span> &lt;&lt; endl;
+            err = <span class="c-kw">true</span>;
+            cin.clear();
+            cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), <span class="c-st">'\n'</span>);
+        }
+    } <span class="c-kw">while</span> (err);
+    <span class="c-kw">return</span> input;
+}
+
+<span class="c-kw">int</span> <span class="c-fn">main</span>() {
+    <span class="c-tp">fraction</span> f1;                      <span class="c-cm">// 1/1</span>
+    <span class="c-tp">fraction</span> f2(<span class="c-nm">3</span>,<span class="c-nm">2</span>);               <span class="c-cm">// 3/2</span>
+    <span class="c-tp">fraction</span> f3(<span class="c-nm">2</span>,<span class="c-nm">6</span>);               <span class="c-cm">// 2/6</span>
+    <span class="c-tp">fraction</span> f4(<span class="c-nm">0</span>,<span class="c-nm">2</span>);               <span class="c-cm">// 0/2</span>
+    <span class="c-tp">fraction</span> f5(f3);                  <span class="c-cm">// kopie f3</span>
+
+    <span class="c-kw">int</span> nahore = vstup(<span class="c-st">"citatele"</span>);
+    <span class="c-kw">int</span> dole   = vstup(<span class="c-st">"jmenovatele"</span>);
+
+    cout &lt;&lt; <span class="c-st">"Objekt "</span> &lt;&lt; f1 &lt;&lt; <span class="c-st">" vytvoreny konstruktorem bez parametru"</span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="c-st">"Objekt "</span> &lt;&lt; f2 &lt;&lt; <span class="c-st">" vytvoreny konstruktorem s parametry"</span>   &lt;&lt; endl;
+    cout &lt;&lt; <span class="c-st">"Objekt "</span> &lt;&lt; f3 &lt;&lt; <span class="c-st">" vytvoreny konstruktorem s parametry"</span>   &lt;&lt; endl;
+    cout &lt;&lt; <span class="c-st">"Objekt "</span> &lt;&lt; f5 &lt;&lt; <span class="c-st">" vytvoreny s kopirovacim konstruktorem"</span>  &lt;&lt; endl;
+
+    <span class="c-kw">if</span> (f2.flip()) cout &lt;&lt; <span class="c-st">"Objekt f2 "</span> &lt;&lt; f2 &lt;&lt; <span class="c-st">" byl otocen"</span> &lt;&lt; endl;
+    <span class="c-kw">if</span> (!f4.flip()) cout &lt;&lt; <span class="c-st">"Objekt f4 "</span> &lt;&lt; f4 &lt;&lt; <span class="c-st">" nelze otocit"</span> &lt;&lt; endl;
+
+    <span class="c-kw">if</span> (f1.setFraction(nahore, dole))
+        cout &lt;&lt; <span class="c-st">"objekt f1 po zmene "</span> &lt;&lt; f1 &lt;&lt; endl;
+    <span class="c-kw">else</span>
+        cout &lt;&lt; <span class="c-st">"jmenovatel nemuze byt nula"</span> &lt;&lt; endl;
+
+    f1 += f2;
+    cout &lt;&lt; f1 &lt;&lt; endl;
+
+    f1 = f2 + f3;
+    cout &lt;&lt; f1 &lt;&lt; endl;
+
+    <span class="c-kw">return</span> <span class="c-nm">0</span>;
+}</pre>
+      </div>
+
+      <!-- fraction.h -->
+      <div id="fv1-t-h" class="fpanel">
+        <pre><span class="c-kw">#ifndef</span> FRACTION_H
+<span class="c-kw">#define</span> FRACTION_H
+<span class="c-kw">#include</span> <span class="c-st">&lt;ostream&gt;</span>
+<span class="c-kw">using</span> std::ostream;
+
+<span class="c-kw">class</span> <span class="c-tp">fraction</span> {
+<span class="c-kw">public</span>:
+    <span class="c-fn">fraction</span>();
+    <span class="c-fn">fraction</span>(<span class="c-kw">int</span> numerator, <span class="c-kw">int</span> denominator);
+    <span class="c-fn">fraction</span>(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp;);
+    ~<span class="c-fn">fraction</span>();
+
+    <span class="c-kw">int</span>   <span class="c-fn">getNumerator</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>   <span class="c-fn">getDenominator</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">float</span> <span class="c-fn">toDec</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span>  <span class="c-fn">flip</span>();
+    <span class="c-kw">bool</span>  <span class="c-fn">reduce</span>();
+    <span class="c-kw">bool</span>  <span class="c-fn">setFraction</span>(<span class="c-kw">int</span> num, <span class="c-kw">int</span> den);
+
+    <span class="c-tp">fraction</span>&amp; <span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp;);
+    <span class="c-tp">fraction</span>&amp; <span class="c-kw">operator</span>+=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp;);
+    <span class="c-tp">fraction</span>  <span class="c-kw">operator</span>+(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp;) <span class="c-kw">const</span>;
+
+<span class="c-kw">private</span>:
+    <span class="c-kw">int</span> numerator;
+    <span class="c-kw">int</span> denominator;
+    <span class="c-kw">void</span> <span class="c-fn">swap</span>(<span class="c-kw">int</span>&amp; num, <span class="c-kw">int</span>&amp; den);
+};
+
+ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp;, <span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp;);
+
+<span class="c-kw">#endif</span></pre>
+      </div>
+
+      <!-- fraction.cpp -->
+      <div id="fv1-t-cpp" class="fpanel">
+        <pre><span class="c-kw">#include</span> <span class="c-st">"fraction.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;numeric&gt;</span>        <span class="c-cm">// std::gcd, std::lcm</span>
+
+<span class="c-tp">fraction</span>::<span class="c-fn">fraction</span>() : numerator(<span class="c-nm">1</span>), denominator(<span class="c-nm">1</span>) {}
+
+<span class="c-tp">fraction</span>::<span class="c-fn">fraction</span>(<span class="c-kw">int</span> num, <span class="c-kw">int</span> den) {
+    <span class="c-kw">if</span> (!setFraction(num, den)) setFraction(<span class="c-nm">1</span>, <span class="c-nm">1</span>);
+}
+
+<span class="c-tp">fraction</span>::<span class="c-fn">fraction</span>(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) {
+    setFraction(a.getNumerator(), a.getDenominator());
+}
+
+<span class="c-tp">fraction</span>::~<span class="c-fn">fraction</span>() {}
+
+<span class="c-kw">int</span>   <span class="c-tp">fraction</span>::<span class="c-fn">getNumerator</span>()   <span class="c-kw">const</span> { <span class="c-kw">return</span> numerator;   }
+<span class="c-kw">int</span>   <span class="c-tp">fraction</span>::<span class="c-fn">getDenominator</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> denominator; }
+<span class="c-kw">float</span> <span class="c-tp">fraction</span>::<span class="c-fn">toDec</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> (<span class="c-kw">float</span>)numerator / (<span class="c-kw">float</span>)denominator;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">fraction</span>::<span class="c-fn">flip</span>() {
+    <span class="c-kw">if</span> (numerator == <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
+    swap(numerator, denominator);
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">fraction</span>::<span class="c-fn">reduce</span>() {
+    <span class="c-kw">int</span> nsd = std::gcd(numerator, denominator);
+    <span class="c-kw">if</span> (nsd == <span class="c-nm">1</span>) <span class="c-kw">return false</span>;
+    numerator   /= nsd;
+    denominator /= nsd;
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">fraction</span>::<span class="c-fn">setFraction</span>(<span class="c-kw">int</span> num, <span class="c-kw">int</span> den) {
+    <span class="c-kw">if</span> (den == <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
+    numerator = num; denominator = den;
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-tp">fraction</span>&amp; <span class="c-tp">fraction</span>::<span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) {
+    setFraction(a.getNumerator(), a.getDenominator());
+    <span class="c-kw">return</span> *<span class="c-kw">this</span>;                         <span class="c-cm">// ← bylo chybějící — BUG!</span>
+}
+
+<span class="c-tp">fraction</span>&amp; <span class="c-tp">fraction</span>::<span class="c-kw">operator</span>+=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) {
+    <span class="c-kw">int</span> lcm  = std::lcm(denominator, a.getDenominator());
+    <span class="c-kw">int</span> cit1 = lcm / denominator * numerator;
+    <span class="c-kw">int</span> cit2 = lcm / a.getDenominator() * a.getNumerator();
+    numerator   = cit1 + cit2;
+    denominator = lcm;
+    <span class="c-kw">return</span> *<span class="c-kw">this</span>;
+}
+
+<span class="c-tp">fraction</span> <span class="c-tp">fraction</span>::<span class="c-kw">operator</span>+(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) <span class="c-kw">const</span> {
+    <span class="c-tp">fraction</span> tmp(*<span class="c-kw">this</span>);     <span class="c-cm">// kopírovací konstruktor</span>
+    tmp += a;                 <span class="c-cm">// zavolá operator+=</span>
+    <span class="c-kw">return</span> tmp;
+}
+
+<span class="c-kw">void</span> <span class="c-tp">fraction</span>::<span class="c-fn">swap</span>(<span class="c-kw">int</span>&amp; num, <span class="c-kw">int</span>&amp; den) {
+    <span class="c-kw">int</span> b = num; num = den; den = b;
+}
+
+ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; c, <span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; d) {
+    <span class="c-kw">if</span> ((d.getNumerator() &lt; <span class="c-nm">0</span> &amp;&amp; d.getDenominator() &gt; <span class="c-nm">0</span>) ||
+        (d.getNumerator() &gt; <span class="c-nm">0</span> &amp;&amp; d.getDenominator() &lt; <span class="c-nm">0</span>))
+        c &lt;&lt; <span class="c-st">"-"</span>;
+    c &lt;&lt; abs(d.getNumerator()) &lt;&lt; <span class="c-st">"/"</span> &lt;&lt; abs(d.getDenominator());
+    <span class="c-kw">return</span> c;
+}</pre>
+      </div>
+    </div>
+
+    <!-- OPRAVENÉ BUGY -->
+    <div class="sec">Co bylo špatně — 1 bug</div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG — operator=: chyběl return *this</div>
+      <code>fraction&amp; fraction::operator=(const fraction&amp; a)</code> volala <code>setFraction()</code> ale nič nevracela. Undefined behavior — kompilátor mohl vrátit cokoliv, nebo program spadnout při řetězeném přiřazení <code>a = b = c</code>.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <strong>Pravidlo:</strong> Každý <code>operator=</code> musí vrátit <span class="icode">return *this;</span>. To umožňuje řetězení: <code>a = b = c</code>.
+    </div>
+
+    <!-- KLÍČOVÉ VZORY -->
+    <div class="sec">Klíčové vzory</div>
+
+    <div class="pattern">
+      <div class="ptitle">operator+= a operator+ — vzájemné delegování</div>
+      <div class="pdesc">
+        <code>operator+=</code> modifikuje <code>this</code> a vrátí <code>*this</code>. <code>operator+</code> je <code>const</code>, vytvoří kopii sebe sama (<code>fraction tmp(*this)</code>), zavolá <code>tmp += a</code>, a vrátí kopii. Díky tomu nemusíš psát logiku dvakrát.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">std::gcd a std::lcm z &lt;numeric&gt; (C++17)</div>
+      <div class="pdesc">
+        <code>#include &lt;numeric&gt;</code> → <code>std::gcd(a, b)</code> a <code>std::lcm(a, b)</code>. Alternativně si můžeš napsat vlastní GCD (Eukleidův algoritmus): <code>while(b) { a%=b; swap(a,b); } return a;</code>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">operator&lt;&lt; — výpis se správným znaménkem</div>
+      <div class="pdesc">
+        Zlomek je záporný pokud mají čitatel a jmenovatel různá znaménka. Kód to testuje explicitně a vypíše <code>"-"</code>, pak <code>abs(num)/abs(den)</code>. Díky tomu se vyhne výpisům jako <code>-3/-4</code>.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">Inicializační seznam konstruktoru</div>
+      <div class="pdesc">
+        <code>fraction::fraction() : numerator(1), denominator(1) {}</code> — dvojtečka za závorkami konstruktoru a seznam <code>člen(hodnota)</code>. Efektivnější než přiřazení v těle konstruktoru (inicializuje místo assign).
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(btn, viewerId, panelSuffix) {
+      const viewer = document.getElementById(viewerId);
+      viewer.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      viewer.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      viewer.querySelector('#' + viewerId + '-' + panelSuffix).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

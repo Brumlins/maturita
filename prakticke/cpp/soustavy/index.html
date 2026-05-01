@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Číselné soustavy | C++ | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .page        { display: block; max-width: 980px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+    .file-viewer { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.5rem 0; }
+    .ftabs       { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+    .ftab        { display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); border: none; border-right: 1px solid var(--border); background: none; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .ftab.active { color: var(--text); background: #0a0c10; }
+    .ftab:hover:not(.active) { color: var(--text); background: var(--surface2); }
+    .fbadge      { font-size: 0.58rem; padding: 1px 5px; border-radius: 3px; }
+    .fbadge.given{ background: rgba(107,114,128,0.2); color: var(--muted); }
+    .fbadge.write{ background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .fpanel      { display: none; }
+    .fpanel.active { display: block; }
+    pre          { color: #c9d1d9; padding: 1.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.75; margin: 0; }
+    .sec         { font-size: 1rem; font-weight: 700; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+    .sec::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .pattern     { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin: 0.7rem 0; }
+    .ptitle      { font-family: 'JetBrains Mono', monospace; font-size: 0.77rem; color: var(--accent); margin-bottom: 0.45rem; }
+    .pdesc       { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .pdesc code  { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.79rem; }
+    .exam-info   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+    .ef          { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .ef-name     { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text); margin-bottom: 0.3rem; }
+    .ef-desc     { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .ef-badge    { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 7px; border-radius: 3px; margin-top: 0.5rem; }
+    .ef-badge.given { background: rgba(107,114,128,0.2); color: var(--muted); }
+    .ef-badge.write { background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .algo-box    { background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.25); border-left: 3px solid var(--accent3); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; font-size: 0.85rem; line-height: 1.8; }
+    .ok-box      { background: rgba(62,207,142,0.06); border: 1px solid rgba(62,207,142,0.2); border-radius: 8px; padding: 0.85rem 1.25rem; margin: 1rem 0; font-size: 0.84rem; }
+    .c-kw { color: #c792ea; }
+    .c-fn { color: #82aaff; }
+    .c-cm { color: #546e7a; font-style: italic; }
+    .c-st { color: #c3e88d; }
+    .c-nm { color: #f78c6c; }
+    .c-tp { color: #ffcb6b; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C++</a>
+    <span class="sep">/</span>
+    <span class="current">Číselné soustavy</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C++ — OOP prověrka</p>
+      <h1>Číselné soustavy</h1>
+      <div class="hero-meta">
+        <span>🔢 Převod 2–16</span>
+        <span>🔄 Interní uložení v desitkové</span>
+        <span>✅ Kompletní, žádné bugy</span>
+      </div>
+    </div>
+
+    <div class="ok-box">
+      <strong style="color:var(--accent2);">Tento příklad je kompletní a bez bugů.</strong> Studuj algoritmy — <code>convertToDec</code> a <code>convertFromDec</code> jsou klíčové.
+    </div>
+
+    <!-- STRUKTURA SOUBORŮ -->
+    <div class="sec">Struktura souborů</div>
+    <div class="exam-info">
+      <div class="ef">
+        <div class="ef-name">main.cpp</div>
+        <div class="ef-desc">Ukázka objektů, smyčka na zadání soustavy a čísla.</div>
+        <span class="ef-badge given">DÁNO učitelem</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">soustava.h</div>
+        <div class="ef-desc">Deklarace — private unsigned int number (v desítkové).</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">soustava.cpp</div>
+        <div class="ef-desc">Implementace — 4 statické pomocné metody pro konverzi.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+    </div>
+
+    <!-- ALGORITMY -->
+    <div class="sec">Klíčové algoritmy</div>
+    <div class="algo-box">
+      <strong style="color:var(--accent3);">convertToDec(string n, int s) — z libovolné do desítkové:</strong><br>
+      Jdi zleva: každá cifra × s^(pozice zprava). Pozice zprava = délka - i - 1.<br>
+      <code>cifry.find(n[i])</code> převede znakovou cifru ('A'=10, 'B'=11...) na číslo.<br>
+      Příklad: "1010" v bin → 1×8 + 0×4 + 1×2 + 0×1 = 10
+    </div>
+    <div class="algo-box">
+      <strong style="color:var(--accent3);">convertFromDec(unsigned int n, int s) — z desítkové do libovolné:</strong><br>
+      Opakuj: zbytek = n % s → přidej cifru, n = n / s. Na konci string otočíme pomocí <code>reverse()</code>.<br>
+      Speciální případ: n==0 → vrátí "0" (prázdná smyčka by vrátila "").
+    </div>
+
+    <!-- PŘEHLED TŘÍDY -->
+    <div class="sec">Rozhraní třídy</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
+      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class soustava &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: unsigned int number (vždy desítkově)</span></div>
+      <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:0.77rem;">
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">soustava()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">number = 0</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">soustava(string n, int s)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">uloží v desítkové, při neplatném = 0</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">soustava(const soustava&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací přes get_number(2) + set_number</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">string get_number(int s) const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí číslo v soustavě s (convertFromDec)</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_number(string n, int s)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">validuje, pak uloží v desítkové (convertToDec)</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static bool sIsValid(int s)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private: 2 ≤ s ≤ 16</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static bool nIsValid(string n, int s)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private: každá cifra musí být v "0123456789ABCDEF" a &lt; s</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static uint convertToDec(string, int)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private: pow() + cifry.find()</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static string convertFromDec(uint, int)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private: opakované % a /, pak reverse()</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vypíše v 2, 10, 16, 8</td></tr>
+      </table>
+    </div>
+
+    <!-- SOUBORY — TABS -->
+    <div class="sec">Kód</div>
+    <div class="file-viewer" id="fv1">
+      <div class="ftabs">
+        <button class="ftab active" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">soustava.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-cpp')">soustava.cpp <span class="fbadge write">ty píšeš</span></button>
+      </div>
+
+      <!-- main.cpp -->
+      <div id="fv1-t-main" class="fpanel active">
+        <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">"soustava.h"</span>
+
+string <span class="c-fn">cislo</span>() {
+    std::cout &lt;&lt; <span class="c-st">"Zadejte cislo :"</span> &lt;&lt; std::endl;
+    string n;
+    std::cin.ignore(<span class="c-nm">255</span>,<span class="c-st">'\n'</span>);
+    std::getline(std::cin, n);
+    <span class="c-kw">return</span> n;
+}
+
+<span class="c-kw">int</span> <span class="c-fn">main</span>() {
+    <span class="c-tp">soustava</span> s1;                      <span class="c-cm">// výchozí → 0</span>
+    <span class="c-tp">soustava</span> s2(<span class="c-st">"1010"</span>, <span class="c-nm">2</span>);          <span class="c-cm">// binární → 10</span>
+    <span class="c-tp">soustava</span> s3(<span class="c-st">"ABCD"</span>, <span class="c-nm">16</span>);         <span class="c-cm">// hex → 43981</span>
+    <span class="c-tp">soustava</span> s4(s2);                  <span class="c-cm">// kopírovací</span>
+
+    std::cout &lt;&lt; <span class="c-st">"Objekt vytvoreny konstruktorem s parametrem"</span> &lt;&lt; std::endl;
+    std::cout &lt;&lt; s2 &lt;&lt; std::endl;
+    std::cout &lt;&lt; s3 &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span class="c-st">"Objekt vytvoreny kopirovacim konstruktorem :"</span> &lt;&lt; s4 &lt;&lt; std::endl;
+
+    <span class="c-kw">int</span> s;
+    std::cout &lt;&lt; <span class="c-st">"Zadejte soustavu :"</span> &lt;&lt; std::endl;
+    std::cin &gt;&gt; s;
+    <span class="c-kw">if</span> (std::cin.fail() || std::cin.peek()!= <span class="c-st">'\n'</span>) {
+        std::cin.clear(); std::cin.ignore(<span class="c-nm">255</span>,<span class="c-st">'\n'</span>);
+        std::cout &lt;&lt; <span class="c-st">"Chybny vstup."</span> &lt;&lt; std::endl;
+    } <span class="c-kw">else</span> {
+        string number = cislo();
+        <span class="c-kw">if</span> (s1.set_number(number, s)) {
+            std::cout &lt;&lt; s1 &lt;&lt; std::endl;
+        } <span class="c-kw">else</span> {
+            std::cout &lt;&lt; <span class="c-st">"Chybne cislo, nebo soustava."</span> &lt;&lt; std::endl;
+        }
+    }
+    <span class="c-kw">return</span> <span class="c-nm">0</span>;
+}</pre>
+      </div>
+
+      <!-- soustava.h -->
+      <div id="fv1-t-h" class="fpanel">
+        <pre><span class="c-kw">#ifndef</span> SOUSTAVA_H
+<span class="c-kw">#define</span> SOUSTAVA_H
+<span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;ostream&gt;</span>
+<span class="c-kw">using</span> std::string;
+<span class="c-kw">using</span> std::ostream;
+
+<span class="c-kw">class</span> <span class="c-tp">soustava</span> {
+<span class="c-kw">public</span>:
+    <span class="c-fn">soustava</span>();
+    <span class="c-fn">soustava</span>(string n, <span class="c-kw">int</span> s);
+    <span class="c-fn">soustava</span>(<span class="c-kw">const</span> <span class="c-tp">soustava</span>&amp; S);
+    ~<span class="c-fn">soustava</span>() = <span class="c-kw">default</span>;
+
+    string <span class="c-fn">get_number</span>(<span class="c-kw">int</span> s) <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span>   <span class="c-fn">set_number</span>(string n, <span class="c-kw">int</span> s);
+
+<span class="c-kw">private</span>:
+    <span class="c-kw">unsigned int</span> number;                          <span class="c-cm">// VŽDY v desítkové!</span>
+
+    <span class="c-kw">static bool</span>        <span class="c-fn">sIsValid</span>(<span class="c-kw">int</span> s);
+    <span class="c-kw">static bool</span>        <span class="c-fn">nIsValid</span>(string n, <span class="c-kw">int</span> s);
+    <span class="c-kw">static unsigned int</span> <span class="c-fn">convertToDec</span>(string n, <span class="c-kw">int</span> s);
+    <span class="c-kw">static</span> string       <span class="c-fn">convertFromDec</span>(<span class="c-kw">unsigned int</span> n, <span class="c-kw">int</span> s);
+};
+
+ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">soustava</span>&amp; s);
+
+<span class="c-kw">#endif</span></pre>
+      </div>
+
+      <!-- soustava.cpp -->
+      <div id="fv1-t-cpp" class="fpanel">
+        <pre><span class="c-kw">#include</span> <span class="c-st">"soustava.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;cmath&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;algorithm&gt;</span>
+
+string cifry = <span class="c-st">"0123456789ABCDEF"</span>;       <span class="c-cm">// globální lookup tabulka</span>
+
+<span class="c-tp">soustava</span>::<span class="c-fn">soustava</span>() : number(<span class="c-nm">0</span>) {}
+
+<span class="c-tp">soustava</span>::<span class="c-fn">soustava</span>(string n, <span class="c-kw">int</span> s) {
+    <span class="c-kw">if</span> (!set_number(n, s)) number = <span class="c-nm">0</span>;
+}
+
+<span class="c-tp">soustava</span>::<span class="c-fn">soustava</span>(<span class="c-kw">const</span> <span class="c-tp">soustava</span>&amp; S) {
+    set_number(S.get_number(<span class="c-nm">2</span>), <span class="c-nm">2</span>);          <span class="c-cm">// zkopíruj přes binární reprezentaci</span>
+}
+
+string <span class="c-tp">soustava</span>::<span class="c-fn">get_number</span>(<span class="c-kw">int</span> s) <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> sIsValid(s) ? convertFromDec(number, s) : <span class="c-st">"0"</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">soustava</span>::<span class="c-fn">set_number</span>(string n, <span class="c-kw">int</span> s) {
+    <span class="c-kw">if</span> (!nIsValid(n, s)) <span class="c-kw">return false</span>;
+    number = convertToDec(n, s);
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">soustava</span>::<span class="c-fn">sIsValid</span>(<span class="c-kw">int</span> s) {
+    <span class="c-kw">return</span> s &gt;= <span class="c-nm">2</span> &amp;&amp; s &lt;= <span class="c-nm">16</span>;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">soustava</span>::<span class="c-fn">nIsValid</span>(string n, <span class="c-kw">int</span> s) {
+    <span class="c-kw">if</span> (!sIsValid(s)) <span class="c-kw">return false</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">0</span>; i &lt; (<span class="c-kw">int</span>)n.length(); i++) {
+        std::size_t found = cifry.find(n[i]);
+        <span class="c-kw">if</span> (found == string::npos || found &gt;= (<span class="c-kw">size_t</span>)s)
+            <span class="c-kw">return false</span>;
+    }
+    <span class="c-kw">return true</span>;
+}
+
+<span class="c-kw">unsigned int</span> <span class="c-tp">soustava</span>::<span class="c-fn">convertToDec</span>(string n, <span class="c-kw">int</span> s) {
+    <span class="c-kw">unsigned int</span> dec = <span class="c-nm">0</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">0</span>; i &lt; (<span class="c-kw">int</span>)n.length(); i++)
+        dec += cifry.find(n[i]) * pow(s, n.length() - i - <span class="c-nm">1</span>);
+    <span class="c-kw">return</span> dec;
+}
+
+string <span class="c-tp">soustava</span>::<span class="c-fn">convertFromDec</span>(<span class="c-kw">unsigned int</span> n, <span class="c-kw">int</span> s) {
+    string tmp = n == <span class="c-nm">0</span> ? <span class="c-st">"0"</span> : <span class="c-st">""</span>;
+    <span class="c-kw">while</span> (n &gt; <span class="c-nm">0</span>) {
+        tmp += cifry[n % s];              <span class="c-cm">// cifry jsou pozpátku!</span>
+        n /= s;
+    }
+    std::reverse(tmp.begin(), tmp.end()); <span class="c-cm">// otočit</span>
+    <span class="c-kw">return</span> tmp;
+}
+
+ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">soustava</span>&amp; s) {
+    os &lt;&lt; <span class="c-st">"Cislo v dvojkove soustave :"</span>    &lt;&lt; s.get_number(<span class="c-nm">2</span>)  &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Cislo v desitkove soustave :"</span>   &lt;&lt; s.get_number(<span class="c-nm">10</span>) &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Cislo v sestnactkove soustave :"</span> &lt;&lt; s.get_number(<span class="c-nm">16</span>) &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Cislo v osmickove soustave :"</span>   &lt;&lt; s.get_number(<span class="c-nm">8</span>)  &lt;&lt; std::endl;
+    <span class="c-kw">return</span> os;
+}</pre>
+      </div>
+    </div>
+
+    <!-- KLÍČOVÉ VZORY -->
+    <div class="sec">Klíčové vzory</div>
+
+    <div class="pattern">
+      <div class="ptitle">Datový model — vše interně jako unsigned int</div>
+      <div class="pdesc">
+        Klíčová myšlenka: číslo se uloží jednou (v desítkové jako <code>unsigned int number</code>). <code>get_number(s)</code> ho vždy znovu převede do požadované soustavy. Díky tomu stačí dvě metody místo ukládání všech reprezentací.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">cifry.find() — převod znak → číslo</div>
+      <div class="pdesc">
+        String <code>cifry = "0123456789ABCDEF"</code> funguje jako lookup tabulka. <code>cifry.find('A')</code> vrátí 10, <code>cifry.find('F')</code> vrátí 15. <code>cifry[10]</code> vrátí 'A'. Elegantní obousměrný převod.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">convertToDec — Hornerovo schéma vs. přímý výpočet</div>
+      <div class="pdesc">
+        Kód používá <code>pow(s, délka-i-1)</code> z <code>&lt;cmath&gt;</code>. Alternativa je Hornerovo schéma (bez pow): <code>dec = dec*s + cifra</code> — efektivnější ale méně přímočaré. Oba přístupy fungují.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">reverse() z &lt;algorithm&gt;</div>
+      <div class="pdesc">
+        <code>convertFromDec</code> staví string pozpátku (nejnižší cifra první). Na konci <code>std::reverse(tmp.begin(), tmp.end())</code> ho otočí. Nutno includovat <code>&lt;algorithm&gt;</code>.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(btn, viewerId, panelSuffix) {
+      const viewer = document.getElementById(viewerId);
+      viewer.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      viewer.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      viewer.querySelector('#' + viewerId + '-' + panelSuffix).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodné číslo | C++ | Maturita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/base.css">
+  <link rel="stylesheet" href="../../../assets/css/sql.css">
+  <style>
+    .page        { display: block; max-width: 980px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+    .file-viewer { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.5rem 0; }
+    .ftabs       { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+    .ftab        { display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); border: none; border-right: 1px solid var(--border); background: none; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .ftab.active { color: var(--text); background: #0a0c10; }
+    .ftab:hover:not(.active) { color: var(--text); background: var(--surface2); }
+    .fbadge      { font-size: 0.58rem; padding: 1px 5px; border-radius: 3px; }
+    .fbadge.given{ background: rgba(107,114,128,0.2); color: var(--muted); }
+    .fbadge.write{ background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .fpanel      { display: none; }
+    .fpanel.active { display: block; }
+    pre          { color: #c9d1d9; padding: 1.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.75; margin: 0; }
+    .sec         { font-size: 1rem; font-weight: 700; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+    .sec::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .bug-box     { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.25); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .fix-box     { background: rgba(62,207,142,0.06); border: 1px solid rgba(62,207,142,0.25); border-left: 3px solid var(--accent2); border-radius: 0 8px 8px 0; padding: 0.85rem 1.2rem; margin: 0.6rem 0; font-size: 0.84rem; line-height: 1.65; }
+    .lbl         { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; margin-bottom: 0.35rem; }
+    .lbl.red     { color: var(--red); }
+    .lbl.grn     { color: var(--accent2); }
+    .pattern     { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin: 0.7rem 0; }
+    .ptitle      { font-family: 'JetBrains Mono', monospace; font-size: 0.77rem; color: var(--accent); margin-bottom: 0.45rem; }
+    .pdesc       { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .pdesc code  { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.79rem; }
+    .exam-info   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+    .ef          { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .ef-name     { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text); margin-bottom: 0.3rem; }
+    .ef-desc     { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .ef-badge    { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 2px 7px; border-radius: 3px; margin-top: 0.5rem; }
+    .ef-badge.given { background: rgba(107,114,128,0.2); color: var(--muted); }
+    .ef-badge.write { background: rgba(62,207,142,0.15); color: var(--accent2); }
+    .icode       { font-family: 'JetBrains Mono', monospace; color: var(--accent2); background: rgba(62,207,142,0.08); padding: 1px 5px; border-radius: 3px; font-size: 0.82rem; }
+    .algo-box    { background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.25); border-left: 3px solid var(--accent3); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; font-size: 0.85rem; line-height: 1.7; }
+    .c-kw { color: #c792ea; }
+    .c-fn { color: #82aaff; }
+    .c-cm { color: #546e7a; font-style: italic; }
+    .c-st { color: #c3e88d; }
+    .c-nm { color: #f78c6c; }
+    .c-tp { color: #ffcb6b; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav>
+    <a href="../../../index.html">🏠 home</a>
+    <span class="sep">/</span>
+    <a href="../../index.html">praktické</a>
+    <span class="sep">/</span>
+    <a href="../index.html">C++</a>
+    <span class="sep">/</span>
+    <span class="current">Rodné číslo</span>
+  </nav>
+
+  <div class="page">
+    <div class="hero">
+      <p class="hero-label">// C++ — OOP prověrka</p>
+      <h1>Rodné číslo</h1>
+      <div class="hero-meta">
+        <span>🪪 Validace mod 11</span>
+        <span>🎂 Věk ze systémového data</span>
+        <span>⚙️ 2 opravené bugy</span>
+      </div>
+    </div>
+
+    <!-- STRUKTURA SOUBORŮ -->
+    <div class="sec">Struktura souborů</div>
+    <div class="exam-info">
+      <div class="ef">
+        <div class="ef-name">main.cpp</div>
+        <div class="ef-desc">Vytvoří objekty, smyčka na zadání RC, výpis výsledků.</div>
+        <span class="ef-badge given">DÁNO učitelem</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">rodne.h</div>
+        <div class="ef-desc">Deklarace třídy — metody, private string rodneCislo.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+      <div class="ef">
+        <div class="ef-name">rodne.cpp</div>
+        <div class="ef-desc">Implementace — validace, parsování data z RC, výpočet věku.</div>
+        <span class="ef-badge write">TY PÍŠEŠ</span>
+      </div>
+    </div>
+
+    <!-- ALGORITMUS VALIDACE -->
+    <div class="sec">Algoritmus validace rodného čísla</div>
+    <div class="algo-box">
+      <strong style="color:var(--accent3);">Jak funguje kontrolní číslice:</strong><br>
+      RC má 10 číslic: <code>RRMMDD/XXXk</code> (nebo bez lomítka: <code>RRMMDDXXXk</code>)<br>
+      1. Číslo z prvních 9 číslic % 11 = zbytek<br>
+      2. Zbytek == poslední číslice → platné<br>
+      3. Zbytek == 10 a poslední == 0 → taky platné (speciální případ)<br>
+      <br>
+      <strong style="color:var(--accent3);">Parsování data z RC:</strong><br>
+      • Rok: <code>substr(0,2)</code> → r &gt; 54 → 1900+r, jinak 2000+r<br>
+      • Měsíc: <code>substr(2,2)</code> → m &gt; 50 → žena (m-50), jinak muž<br>
+      • Den: <code>substr(4,2)</code> → přímo den
+    </div>
+
+    <!-- PŘEHLED TŘÍDY -->
+    <div class="sec">Rozhraní třídy</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
+      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class rodne &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: string rodneCislo</span></div>
+      <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:0.77rem;">
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">default RC = "5451010004"</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">platné → uloží, neplatné → default</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne(const rodne&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">string get_rodne() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí RC</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_rodne(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví pokud platné</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int den() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">stoi(substr(4,2))</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int mesic() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">stoi(substr(2,2)), ženy: -50</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int rok() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">r&gt;54 → 1900+r, jinak 2000+r</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int vek() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">aktuální rok - rok narození (korigovaný o datum)</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent3);">bool pohlavi() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">true = žena (měsíc &gt; 50)</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">RC, narozen, pohlaví, věk</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static bool validace(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private — délka 10, jen číslice, mod 11</td></tr>
+      </table>
+    </div>
+
+    <!-- SOUBORY — TABS -->
+    <div class="sec">Kód</div>
+    <div class="file-viewer" id="fv1">
+      <div class="ftabs">
+        <button class="ftab active" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">rodne.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-cpp')">rodne.cpp <span class="fbadge write">ty píšeš</span></button>
+      </div>
+
+      <!-- main.cpp -->
+      <div id="fv1-t-main" class="fpanel active">
+        <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
+<span class="c-kw">using</span> std::endl; <span class="c-kw">using</span> std::cin; <span class="c-kw">using</span> std::cout;
+
+<span class="c-kw">int</span> <span class="c-fn">main</span>() {
+    string vstup;
+    <span class="c-tp">rodne</span> rc1;                       <span class="c-cm">// výchozí konstruktor</span>
+    cout &lt;&lt; rc1 &lt;&lt; endl;
+
+    <span class="c-tp">rodne</span> rc2(<span class="c-st">"0703253386"</span>);          <span class="c-cm">// konstruktor s parametrem</span>
+    cout &lt;&lt; rc2 &lt;&lt; endl;
+
+    <span class="c-kw">do</span> {
+        cout &lt;&lt; <span class="c-st">"Zadej rodne cislo: "</span> &lt;&lt; endl;
+        std::getline(cin, vstup);
+        <span class="c-kw">if</span> (rc1.set_rodne(vstup)) {
+            cout &lt;&lt; rc1 &lt;&lt; endl;
+        } <span class="c-kw">else</span> {
+            cout &lt;&lt; <span class="c-st">"Chybny vstup"</span> &lt;&lt; endl;
+            cout &lt;&lt; <span class="c-st">"Program bude ukoncen"</span> &lt;&lt; endl;
+            <span class="c-kw">return</span> <span class="c-nm">0</span>;
+        }
+    } <span class="c-kw">while</span> (<span class="c-kw">true</span>);
+}</pre>
+      </div>
+
+      <!-- rodne.h -->
+      <div id="fv1-t-h" class="fpanel">
+        <pre><span class="c-kw">#ifndef</span> RODNE_H
+<span class="c-kw">#define</span> RODNE_H
+<span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;ostream&gt;</span>
+<span class="c-kw">using</span> std::ostream;
+<span class="c-kw">using</span> std::string;
+
+<span class="c-kw">const</span> string default_rc = <span class="c-st">"5451010004"</span>;
+
+<span class="c-kw">class</span> <span class="c-tp">rodne</span> {
+<span class="c-kw">public</span>:
+    <span class="c-fn">rodne</span>();
+    ~<span class="c-fn">rodne</span>();
+    <span class="c-fn">rodne</span>(string);
+    <span class="c-fn">rodne</span>(<span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp;);
+    string <span class="c-fn">get_rodne</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span>   <span class="c-fn">set_rodne</span>(string rodne);
+    <span class="c-kw">int</span>    <span class="c-fn">den</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>    <span class="c-fn">mesic</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>    <span class="c-fn">rok</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>    <span class="c-fn">vek</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span>   <span class="c-fn">pohlavi</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">friend</span> ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp;, <span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp;);
+
+<span class="c-kw">private</span>:
+    string rodneCislo;
+    <span class="c-kw">static bool</span> <span class="c-fn">validace</span>(string rodne);
+};
+
+<span class="c-kw">#endif</span></pre>
+      </div>
+
+      <!-- rodne.cpp -->
+      <div id="fv1-t-cpp" class="fpanel">
+        <pre><span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">&lt;ctime&gt;</span>
+
+<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>()           { rodneCislo = default_rc; }
+<span class="c-tp">rodne</span>::~<span class="c-fn">rodne</span>()          {}
+<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>(string rc)  { <span class="c-kw">if</span> (!set_rodne(rc)) rodneCislo = default_rc; }
+<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>(<span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp; rc) { rodneCislo = rc.get_rodne(); }
+
+string <span class="c-tp">rodne</span>::<span class="c-fn">get_rodne</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> rodneCislo; }
+
+<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">set_rodne</span>(string rc) {
+    <span class="c-kw">if</span> (validace(rc)) { rodneCislo = rc; <span class="c-kw">return true</span>; }
+    <span class="c-kw">return false</span>;
+}
+
+<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">den</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> std::stoi(rodneCislo.substr(<span class="c-nm">4</span>, <span class="c-nm">2</span>));
+}
+
+<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">mesic</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">int</span> m = std::stoi(rodneCislo.substr(<span class="c-nm">2</span>, <span class="c-nm">2</span>));
+    <span class="c-kw">return</span> m &gt; <span class="c-nm">50</span> ? m - <span class="c-nm">50</span> : m;         <span class="c-cm">// ženy mají měsíc +50</span>
+}
+
+<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">rok</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">int</span> r = std::stoi(rodneCislo.substr(<span class="c-nm">0</span>, <span class="c-nm">2</span>));
+    <span class="c-kw">return</span> r &gt; <span class="c-nm">54</span> ? <span class="c-nm">1900</span> + r : <span class="c-nm">2000</span> + r;  <span class="c-cm">// ← bylo: : r — BUG!</span>
+}
+
+<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">vek</span>() <span class="c-kw">const</span> {
+    time_t raw; <span class="c-kw">struct</span> tm* ti;
+    time(&amp;raw); ti = localtime(&amp;raw);
+    <span class="c-kw">int</span> s_rok   = ti-&gt;tm_year + <span class="c-nm">1900</span>;
+    <span class="c-kw">int</span> s_mesic = ti-&gt;tm_mon  + <span class="c-nm">1</span>;
+    <span class="c-kw">int</span> s_den   = ti-&gt;tm_mday;
+    <span class="c-kw">int</span> vek = s_rok - <span class="c-kw">this</span>-&gt;rok();          <span class="c-cm">// ← bylo: s_rok = this->rok() — BUG!</span>
+    <span class="c-kw">if</span> (s_mesic &lt; <span class="c-kw">this</span>-&gt;mesic() ||
+       (s_mesic == <span class="c-kw">this</span>-&gt;mesic() &amp;&amp; s_den &lt; <span class="c-kw">this</span>-&gt;den()))
+        --vek;                               <span class="c-cm">// narozeniny ještě nebyly letos</span>
+    <span class="c-kw">return</span> vek;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">pohlavi</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> std::stoi(rodneCislo.substr(<span class="c-nm">2</span>, <span class="c-nm">2</span>)) &gt; <span class="c-nm">50</span>;  <span class="c-cm">// true = žena</span>
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">validace</span>(string rc) {
+    <span class="c-kw">if</span> (rc.length() != <span class="c-nm">10</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">0</span>; i &lt; (<span class="c-kw">int</span>)rc.length(); ++i)
+        <span class="c-kw">if</span> (rc[i] &lt; <span class="c-st">'0'</span> || rc[i] &gt; <span class="c-st">'9'</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">int</span> zbytek = std::stoi(rc.substr(<span class="c-nm">0</span>,<span class="c-nm">9</span>)) % <span class="c-nm">11</span>;
+    <span class="c-kw">int</span> posl   = std::stoi(rc.substr(<span class="c-nm">9</span>,<span class="c-nm">1</span>));
+    <span class="c-kw">if</span> (zbytek == posl) <span class="c-kw">return true</span>;
+    <span class="c-kw">if</span> (zbytek == <span class="c-nm">10</span> &amp;&amp; posl == <span class="c-nm">0</span>) <span class="c-kw">return true</span>;
+    <span class="c-kw">return false</span>;
+}
+
+ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp; r) {
+    os &lt;&lt; <span class="c-st">"Rodne cislo: "</span>  &lt;&lt; r.rodneCislo &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Narozen:     "</span>  &lt;&lt; r.den() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; r.mesic() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; r.rok() &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Pohlavi:     "</span>  &lt;&lt; (r.pohlavi() ? <span class="c-st">"Zena"</span> : <span class="c-st">"Muz"</span>) &lt;&lt; std::endl;
+    os &lt;&lt; <span class="c-st">"Vek:         "</span>  &lt;&lt; r.vek() &lt;&lt; std::endl;
+    <span class="c-kw">return</span> os;
+}</pre>
+      </div>
+    </div>
+
+    <!-- OPRAVENÉ BUGY -->
+    <div class="sec">Co bylo špatně — 2 bugy</div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 1 — rok(): chybělo 2000+ pro lidi narozené po roce 2000</div>
+      <span class="icode">return r &gt; 54 ? 1900+r : <b>r</b>;</span> — pro rc začínající 03 (nar. 2003) by vrátilo rok 3 místo 2003.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <span class="icode">return r &gt; 54 ? 1900+r : <b>2000+r</b>;</span> — r ≤ 54 → narozeni po 2000 (nebo v 1954, ale ti jsou starší 54 let takže r&gt;54)
+    </div>
+
+    <div class="bug-box">
+      <div class="lbl red">BUG 2 — vek(): přiřazení místo odčítání</div>
+      <span class="icode">int vek = s_rok <b>=</b> this-&gt;rok();</span> — přiřadilo rok narození do s_rok i do vek, výsledek byl rok, ne věk.
+    </div>
+    <div class="fix-box">
+      <div class="lbl grn">OPRAVA</div>
+      <span class="icode">int vek = s_rok <b>-</b> this-&gt;rok();</span> — odečte rok narození od aktuálního roku.
+    </div>
+
+    <!-- KLÍČOVÉ VZORY -->
+    <div class="sec">Klíčové vzory v tomto příkladu</div>
+
+    <div class="pattern">
+      <div class="ptitle">string::substr(pos, len) + stoi()</div>
+      <div class="pdesc">
+        RC je uloženo jako string. Extrahujeme části: <code>rodneCislo.substr(0,2)</code> = první 2 znaky (rok), <code>substr(2,2)</code> = měsíc, <code>substr(4,2)</code> = den. Pak <code>std::stoi()</code> převede string na int.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">static validace — bez objektu, jen čistá funkce</div>
+      <div class="pdesc">
+        <code>validace()</code> je <code>static</code> — nevyžaduje objekt, pracuje jen s parametrem <code>string rc</code>. Voláme ji v konstruktoru: <code>set_rodne(rc)</code> → <code>validace(rc)</code>. Výhodou je, že ji lze volat ještě před vytvořením objektu.
+      </div>
+    </div>
+
+    <div class="pattern">
+      <div class="ptitle">Věk — systémové datum pomocí time.h</div>
+      <div class="pdesc">
+        <code>time_t raw; time(&amp;raw); struct tm* ti = localtime(&amp;raw);</code> — ti→tm_year je roky od 1900, proto +1900. ti→tm_mon je 0-11, proto +1. Věk = s_rok - rok_narozeni, pak korekce: pokud narozeniny ještě nebyly (měsíc nebo den je menší), odečti 1.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(btn, viewerId, panelSuffix) {
+      const viewer = document.getElementById(viewerId);
+      viewer.querySelectorAll('.fpanel').forEach(p => p.classList.remove('active'));
+      viewer.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      viewer.querySelector('#' + viewerId + '-' + panelSuffix).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
