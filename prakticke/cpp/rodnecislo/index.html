@@ -132,13 +132,13 @@
     <div class="sec">Kód</div>
     <div class="file-viewer" id="fv1">
       <div class="ftabs">
-        <button class="ftab active" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
+        <button class="ftab active" onclick="showTab(this,'fv1','t-cpp')">rodne.cpp <span class="fbadge write">ty píšeš</span></button>
         <button class="ftab" onclick="showTab(this,'fv1','t-h')">rodne.h <span class="fbadge write">ty píšeš</span></button>
-        <button class="ftab" onclick="showTab(this,'fv1','t-cpp')">rodne.cpp <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
       </div>
 
       <!-- main.cpp -->
-      <div id="fv1-t-main" class="fpanel active">
+      <div id="fv1-t-main" class="fpanel">
         <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
 <span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
@@ -201,7 +201,7 @@
       </div>
 
       <!-- rodne.cpp -->
-      <div id="fv1-t-cpp" class="fpanel">
+      <div id="fv1-t-cpp" class="fpanel active">
         <pre><span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;ctime&gt;</span>
 
