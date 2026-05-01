@@ -69,7 +69,7 @@
       <div class="hero-meta">
         <span>🪪 Validace mod 11</span>
         <span>🎂 Věk ze systémového data</span>
-        <span>⚙️ 2 opravené bugy</span>
+        <span>🔄 3 konstruktory · friend operator&lt;&lt;</span>
       </div>
     </div>
 
@@ -228,7 +228,7 @@ string <span class="c-tp">rodne</span>::<span class="c-fn">get_rodne</span>() <s
 
 <span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">rok</span>() <span class="c-kw">const</span> {
     <span class="c-kw">int</span> r = std::stoi(rodneCislo.substr(<span class="c-nm">0</span>, <span class="c-nm">2</span>));
-    <span class="c-kw">return</span> r &gt; <span class="c-nm">54</span> ? <span class="c-nm">1900</span> + r : <span class="c-nm">2000</span> + r;  <span class="c-cm">// ← bylo: : r — BUG!</span>
+    <span class="c-kw">return</span> r &gt; <span class="c-nm">54</span> ? <span class="c-nm">1900</span> + r : <span class="c-nm">2000</span> + r;
 }
 
 <span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">vek</span>() <span class="c-kw">const</span> {
@@ -237,7 +237,7 @@ string <span class="c-tp">rodne</span>::<span class="c-fn">get_rodne</span>() <s
     <span class="c-kw">int</span> s_rok   = ti-&gt;tm_year + <span class="c-nm">1900</span>;
     <span class="c-kw">int</span> s_mesic = ti-&gt;tm_mon  + <span class="c-nm">1</span>;
     <span class="c-kw">int</span> s_den   = ti-&gt;tm_mday;
-    <span class="c-kw">int</span> vek = s_rok - <span class="c-kw">this</span>-&gt;rok();          <span class="c-cm">// ← bylo: s_rok = this->rok() — BUG!</span>
+    <span class="c-kw">int</span> vek = s_rok - <span class="c-kw">this</span>-&gt;rok();
     <span class="c-kw">if</span> (s_mesic &lt; <span class="c-kw">this</span>-&gt;mesic() ||
        (s_mesic == <span class="c-kw">this</span>-&gt;mesic() &amp;&amp; s_den &lt; <span class="c-kw">this</span>-&gt;den()))
         --vek;                               <span class="c-cm">// narozeniny ještě nebyly letos</span>
@@ -267,27 +267,6 @@ ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span c
     <span class="c-kw">return</span> os;
 }</pre>
       </div>
-    </div>
-
-    <!-- OPRAVENÉ BUGY -->
-    <div class="sec">Co bylo špatně — 2 bugy</div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 1 — rok(): chybělo 2000+ pro lidi narozené po roce 2000</div>
-      <span class="icode">return r &gt; 54 ? 1900+r : <b>r</b>;</span> — pro rc začínající 03 (nar. 2003) by vrátilo rok 3 místo 2003.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <span class="icode">return r &gt; 54 ? 1900+r : <b>2000+r</b>;</span> — r ≤ 54 → narozeni po 2000 (nebo v 1954, ale ti jsou starší 54 let takže r&gt;54)
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 2 — vek(): přiřazení místo odčítání</div>
-      <span class="icode">int vek = s_rok <b>=</b> this-&gt;rok();</span> — přiřadilo rok narození do s_rok i do vek, výsledek byl rok, ne věk.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <span class="icode">int vek = s_rok <b>-</b> this-&gt;rok();</span> — odečte rok narození od aktuálního roku.
     </div>
 
     <!-- KLÍČOVÉ VZORY -->

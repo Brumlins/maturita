@@ -67,8 +67,8 @@
       <h1>Datum</h1>
       <div class="hero-meta">
         <span>📅 Datum 1.1.1970 – 31.12.2050</span>
-        <span>⚙️ 5 opravených bugů</span>
-        <span>➕ 2 doplněné metody</span>
+        <span>🔄 3 konstruktory · 4 operátory</span>
+        <span>📆 days_from_1970 · day_in_week</span>
       </div>
     </div>
 
@@ -270,12 +270,12 @@
     <span class="c-kw">return false</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_month</span>(<span class="c-kw">int</span> m) {          <span class="c-cm">// ← parametr m, ne y !</span>
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_month</span>(<span class="c-kw">int</span> m) {
     <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, m, <span class="c-kw">this</span>-&gt;d)) { <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">return true</span>; }
     <span class="c-kw">return false</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_day</span>(<span class="c-kw">int</span> d) {            <span class="c-cm">// ← parametr d, ne y !</span>
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_day</span>(<span class="c-kw">int</span> d) {
     <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, <span class="c-kw">this</span>-&gt;m, d)) { <span class="c-kw">this</span>-&gt;d=d; <span class="c-kw">return true</span>; }
     <span class="c-kw">return false</span>;
 }
@@ -289,17 +289,17 @@
     <span class="c-kw">int</span> total = <span class="c-nm">0</span>;
     <span class="c-kw">for</span> (<span class="c-kw">int</span> i = MIN_ROK; i &lt; y; ++i)          <span class="c-cm">// celé roky</span>
         total += je_prestupny(i) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
-    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">1</span>; i &lt; m; ++i)               <span class="c-cm">// ← bylo: i &lt; pocet_dni(m,y) — BUG!</span>
-        total += pocet_dni(i, y);               <span class="c-cm">// celé měsíce před aktuálním</span>
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">1</span>; i &lt; m; ++i)               <span class="c-cm">// celé měsíce před aktuálním</span>
+        total += pocet_dni(i, y);
     total += d;                                 <span class="c-cm">// dny v aktuálním měsíci</span>
     <span class="c-kw">return</span> total;
 }
 
 <span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">day_in_week</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">return</span> (days_from_1970() + <span class="c-nm">2</span>) % <span class="c-nm">7</span> + <span class="c-nm">1</span>;    <span class="c-cm">// ← bylo +3 — BUG! (pon=1, 1.1.1970=čtvrtek=4)</span>
+    <span class="c-kw">return</span> (days_from_1970() + <span class="c-nm">2</span>) % <span class="c-nm">7</span> + <span class="c-nm">1</span>;    <span class="c-cm">// pondělí=1, 1.1.1970 byl čtvrtek=4</span>
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days) {       <span class="c-cm">// ← NOVÁ metoda (chyběla)</span>
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days) {
     <span class="c-kw">if</span> (days &lt;= <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
     <span class="c-kw">int</span> ny = MIN_ROK;
     <span class="c-kw">while</span> (days &gt; (je_prestupny(ny) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>)) {
@@ -315,7 +315,7 @@
     <span class="c-kw">return true</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">change_date</span>(<span class="c-kw">int</span> days) {         <span class="c-cm">// ← bylo deklarováno ale chyběla impl.</span>
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">change_date</span>(<span class="c-kw">int</span> days) {
     <span class="c-kw">return</span> set_from_days(days_from_1970() + days);
 }
 
@@ -348,69 +348,12 @@
 }
 
 std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d) {
-    os &lt;&lt; d.d &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.m &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.y &lt;&lt; <span class="c-st">", "</span>;  <span class="c-cm">// ← bylo bez ", " — BUG!</span>
+    os &lt;&lt; d.d &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.m &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.y &lt;&lt; <span class="c-st">", "</span>;
     os &lt;&lt; <span class="c-st">"pocet dni od 1. 1. "</span> &lt;&lt; MIN_ROK &lt;&lt; <span class="c-st">" je "</span> &lt;&lt; d.days_from_1970() &lt;&lt; <span class="c-st">", "</span>;
     os &lt;&lt; <span class="c-st">"den v tydnu je "</span> &lt;&lt; d.day_in_week() &lt;&lt; <span class="c-st">"."</span>;
     <span class="c-kw">return</span> os;
 }</pre>
       </div>
-    </div>
-
-    <!-- OPRAVENÉ BUGY -->
-    <div class="sec">Co bylo špatně — 5 bugů + 2 chybějící metody</div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 1 — set_month / set_day: špatný název parametru</div>
-      <span class="icode">bool set_month(int <b>y</b>)</span> — parametr se jmenoval <code>y</code>, ale tělo metody používalo <code>m</code> (tj. <code>this-&gt;m</code>). Výsledek: <code>this-&gt;m = this-&gt;m</code> — nic se nenastavilo. Stejný bug v <code>set_day</code>.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      Přejmenovat parametr: <span class="icode">bool set_month(int <b>m</b>)</span> a <span class="icode">bool set_day(int <b>d</b>)</span>. Teď <code>m</code> v těle funkce odkazuje na parametr, ne na <code>this-&gt;m</code>.
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 2 — days_from_1970(): špatná podmínka ve smyčce měsíců</div>
-      <span class="icode">for (int i = 1; i &lt; <b>pocet_dni(m,y)</b>; ++i)</span> — iterovalo se od 1 do počtu dní v aktuálním měsíci. Místo toho potřebujeme iterovat od 1 do aktuálního <b>měsíce</b>.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <span class="icode">for (int i = 1; i &lt; <b>m</b>; ++i)</span> — sečte dny všech měsíců <em>před</em> aktuálním.
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 3 — day_in_week(): špatná konstanta (+3 místo +2)</div>
-      <span class="icode">(days_from_1970() + <b>3</b>) % 7 + 1</span> — výsledek byl o 1 posunutý. Ověření: 1.1.1970 byl čtvrtek (=4), days_from_1970 = 1, správně: (1+2)%7+1 = 4 ✓
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <span class="icode">(days_from_1970() + <b>2</b>) % 7 + 1</span>
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG 4 — operator&lt;&lt;: chyběla ", " za rokem</div>
-      <span class="icode">os &lt;&lt; d.d &lt;&lt; ". " &lt;&lt; d.m &lt;&lt; ". " &lt;&lt; d.y;</span> — výstup byl: <code>2. 2. 2021pocet dni...</code>
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <span class="icode">os &lt;&lt; d.y &lt;&lt; <b>", "</b>;</span> — výstup: <code>2. 2. 2021, pocet dni od 1. 1. 1970 je 18661, den v tydnu je 2.</code>
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">CHYBĚLO — change_date: deklarováno v .h, ale bez implementace v .cpp</div>
-      Funkce <span class="icode">bool change_date(int days)</span> byla v hlavičce, ale v .cpp nebyla vůbec.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">DOPLNĚNO</div>
-      Implementace přes <code>set_from_days</code>: <span class="icode">return set_from_days(days_from_1970() + days);</span>
-    </div>
-
-    <div class="bug-box">
-      <div class="lbl red">CHYBĚLO — set_from_days: vyžadováno zadáním, ale nikde nebylo</div>
-      Zadání říká: „Ze zadaného počtu dní bude možno nastavit den, měsíc a rok." — metoda úplně chyběla.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">DOPLNĚNO</div>
-      Algoritmus: odečítá celé roky (respektuje přestupné), pak celé měsíce, zbytek = den.
     </div>
 
     <!-- KLÍČOVÉ VZORY -->

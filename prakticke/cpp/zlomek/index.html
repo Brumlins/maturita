@@ -69,7 +69,7 @@
       <div class="hero-meta">
         <span>➗ Čitatel / jmenovatel</span>
         <span>📐 GCD/LCM z &lt;numeric&gt;</span>
-        <span>⚙️ 1 opravený bug</span>
+        <span>🔄 operator+= · operator+</span>
       </div>
     </div>
 
@@ -277,7 +277,7 @@ ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp;, <span clas
 
 <span class="c-tp">fraction</span>&amp; <span class="c-tp">fraction</span>::<span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) {
     setFraction(a.getNumerator(), a.getDenominator());
-    <span class="c-kw">return</span> *<span class="c-kw">this</span>;                         <span class="c-cm">// ← bylo chybějící — BUG!</span>
+    <span class="c-kw">return</span> *<span class="c-kw">this</span>;
 }
 
 <span class="c-tp">fraction</span>&amp; <span class="c-tp">fraction</span>::<span class="c-kw">operator</span>+=(<span class="c-kw">const</span> <span class="c-tp">fraction</span>&amp; a) {
@@ -307,18 +307,6 @@ ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; c, <span cl
     <span class="c-kw">return</span> c;
 }</pre>
       </div>
-    </div>
-
-    <!-- OPRAVENÉ BUGY -->
-    <div class="sec">Co bylo špatně — 1 bug</div>
-
-    <div class="bug-box">
-      <div class="lbl red">BUG — operator=: chyběl return *this</div>
-      <code>fraction&amp; fraction::operator=(const fraction&amp; a)</code> volala <code>setFraction()</code> ale nič nevracela. Undefined behavior — kompilátor mohl vrátit cokoliv, nebo program spadnout při řetězeném přiřazení <code>a = b = c</code>.
-    </div>
-    <div class="fix-box">
-      <div class="lbl grn">OPRAVA</div>
-      <strong>Pravidlo:</strong> Každý <code>operator=</code> musí vrátit <span class="icode">return *this;</span>. To umožňuje řetězení: <code>a = b = c</code>.
     </div>
 
     <!-- KLÍČOVÉ VZORY -->
