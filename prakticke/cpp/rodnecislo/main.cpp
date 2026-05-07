@@ -1,23 +1,24 @@
 #include <iostream>
 #include <string>
-#include "rodne.h"
+#include "Rodne.h"
 
 using std::endl;
 using std::cin;
 using std::cout;
+using std::string;
 
 int main() {
     string vstup;
-    rodne rc1;
+    Rodne rc1;
     cout << rc1 << endl;
 
-    rodne rc2("0703253386");
+    Rodne rc2("0703253386");
     cout << rc2 << endl;
 
     do {
         cout << "Zadej rodne cislo: " << endl;
         std::getline(cin, vstup);
-        if (rc1.set_rodne(vstup)) {
+        if (rc1.set_rc(vstup)) {
             cout << rc1 << endl;
         }
         else {
