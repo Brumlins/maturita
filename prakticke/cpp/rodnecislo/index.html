@@ -82,12 +82,12 @@
         <span class="ef-badge given">DÁNO učitelem</span>
       </div>
       <div class="ef">
-        <div class="ef-name">rodne.h</div>
+        <div class="ef-name">Rodne.h</div>
         <div class="ef-desc">Deklarace třídy — metody, private string rodneCislo.</div>
         <span class="ef-badge write">TY PÍŠEŠ</span>
       </div>
       <div class="ef">
-        <div class="ef-name">rodne.cpp</div>
+        <div class="ef-name">Rodne.cpp</div>
         <div class="ef-desc">Implementace — validace, parsování data z RC, výpočet věku.</div>
         <span class="ef-badge write">TY PÍŠEŠ</span>
       </div>
@@ -111,20 +111,21 @@
     <!-- PŘEHLED TŘÍDY -->
     <div class="sec">Rozhraní třídy</div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
-      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class rodne &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: string rodneCislo</span></div>
+      <div style="background:rgba(124,106,247,0.12);border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);font-weight:700;">class Rodne &nbsp;<span style="color:var(--muted);font-weight:400;font-size:0.7rem;">// private: string rc</span></div>
       <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:0.77rem;">
-        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">default RC = "5451010004"</td></tr>
-        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">platné → uloží, neplatné → default</td></tr>
-        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">rodne(const rodne&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací</td></tr>
-        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">string get_rodne() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí RC</td></tr>
-        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_rodne(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví pokud platné</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">Rodne()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">default RC = "5451010004"</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">Rodne(string rodneC)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">platné → uloží, neplatné → default</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--fn);">~Rodne()</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">destruktor (prázdný)</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--fn);">Rodne(const Rodne&amp;)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">kopírovací</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent2);">string get_rc() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">vrátí RC</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent2);">bool set_rc(string rodneC)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">nastaví pokud platné</td></tr>
         <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int den() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">stoi(substr(4,2))</td></tr>
         <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int mesic() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">stoi(substr(2,2)), ženy: -50</td></tr>
-        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int rok() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">r&gt;54 → 1900+r, jinak 2000+r</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int rok() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">r&gt;=54 → 1900+r, jinak 2000+r</td></tr>
         <tr><td style="padding:0.35rem 1.25rem;color:var(--accent3);">int vek() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">aktuální rok - rok narození (korigovaný o datum)</td></tr>
-        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent3);">bool pohlavi() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">true = žena (měsíc &gt; 50)</td></tr>
-        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">RC, narozen, pohlaví, věk</td></tr>
-        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static bool validace(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private — délka 10, jen číslice, mod 11</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--accent3);">bool pohlavi() const</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">true = žena (měsíc &gt; 54)</td></tr>
+        <tr><td style="padding:0.35rem 1.25rem;color:var(--red);">friend ostream&amp; operator&lt;&lt;(...)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">RC, narozen, věk</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.35rem 1.25rem;color:var(--muted);font-style:italic;">static bool je_validni(string)</td><td style="padding:0.35rem;color:var(--muted);font-size:0.75rem;">private — délka 10, jen číslice, mod 11</td></tr>
       </table>
     </div>
 
@@ -132,8 +133,8 @@
     <div class="sec">Kód</div>
     <div class="file-viewer" id="fv1">
       <div class="ftabs">
-        <button class="ftab active" onclick="showTab(this,'fv1','t-cpp')">rodne.cpp <span class="fbadge write">ty píšeš</span></button>
-        <button class="ftab" onclick="showTab(this,'fv1','t-h')">rodne.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab active" onclick="showTab(this,'fv1','t-cpp')">Rodne.cpp <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">Rodne.h <span class="fbadge write">ty píšeš</span></button>
         <button class="ftab" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
       </div>
 
@@ -141,129 +142,159 @@
       <div id="fv1-t-main" class="fpanel">
         <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
-<span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
-<span class="c-kw">using</span> std::endl; <span class="c-kw">using</span> std::cin; <span class="c-kw">using</span> std::cout;
+<span class="c-kw">#include</span> <span class="c-st">"Rodne.h"</span>
+
+<span class="c-kw">using</span> std::endl;
+<span class="c-kw">using</span> std::cin;
+<span class="c-kw">using</span> std::cout;
+<span class="c-kw">using</span> std::string;
 
 <span class="c-kw">int</span> <span class="c-fn">main</span>() {
     string vstup;
-    <span class="c-tp">rodne</span> rc1;                       <span class="c-cm">// výchozí konstruktor</span>
+    <span class="c-tp">Rodne</span> rc1;
     cout &lt;&lt; rc1 &lt;&lt; endl;
 
-    <span class="c-tp">rodne</span> rc2(<span class="c-st">"0703253386"</span>);          <span class="c-cm">// konstruktor s parametrem</span>
+    <span class="c-tp">Rodne</span> rc2(<span class="c-st">"0703253386"</span>);
     cout &lt;&lt; rc2 &lt;&lt; endl;
 
     <span class="c-kw">do</span> {
         cout &lt;&lt; <span class="c-st">"Zadej rodne cislo: "</span> &lt;&lt; endl;
         std::getline(cin, vstup);
-        <span class="c-kw">if</span> (rc1.set_rodne(vstup)) {
+        <span class="c-kw">if</span> (rc1.<span class="c-fn">set_rc</span>(vstup)) {
             cout &lt;&lt; rc1 &lt;&lt; endl;
-        } <span class="c-kw">else</span> {
+        }
+        <span class="c-kw">else</span> {
             cout &lt;&lt; <span class="c-st">"Chybny vstup"</span> &lt;&lt; endl;
             cout &lt;&lt; <span class="c-st">"Program bude ukoncen"</span> &lt;&lt; endl;
             <span class="c-kw">return</span> <span class="c-nm">0</span>;
         }
-    } <span class="c-kw">while</span> (<span class="c-kw">true</span>);
+    }<span class="c-kw">while</span> (<span class="c-kw">true</span>);
 }</pre>
       </div>
 
-      <!-- rodne.h -->
+      <!-- Rodne.h -->
       <div id="fv1-t-h" class="fpanel">
         <pre><span class="c-kw">#ifndef</span> RODNE_H
 <span class="c-kw">#define</span> RODNE_H
+
 <span class="c-kw">#include</span> <span class="c-st">&lt;string&gt;</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;ostream&gt;</span>
-<span class="c-kw">using</span> std::ostream;
-<span class="c-kw">using</span> std::string;
 
-<span class="c-kw">const</span> string default_rc = <span class="c-st">"5451010004"</span>;
+<span class="c-kw">const</span> std::string DEFAULT_RC = <span class="c-st">"5451010004"</span>;
 
-<span class="c-kw">class</span> <span class="c-tp">rodne</span> {
+<span class="c-kw">class</span> <span class="c-tp">Rodne</span> {
 <span class="c-kw">public</span>:
-    <span class="c-fn">rodne</span>();
-    ~<span class="c-fn">rodne</span>();
-    <span class="c-fn">rodne</span>(string);
-    <span class="c-fn">rodne</span>(<span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp;);
-    string <span class="c-fn">get_rodne</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">bool</span>   <span class="c-fn">set_rodne</span>(string rodne);
-    <span class="c-kw">int</span>    <span class="c-fn">den</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">int</span>    <span class="c-fn">mesic</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">int</span>    <span class="c-fn">rok</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">int</span>    <span class="c-fn">vek</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">bool</span>   <span class="c-fn">pohlavi</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">friend</span> ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp;, <span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp;);
+    <span class="c-fn">Rodne</span>();
+    <span class="c-fn">Rodne</span>(std::string rodneC);
+    ~<span class="c-fn">Rodne</span>();
+    <span class="c-fn">Rodne</span>(<span class="c-kw">const</span> <span class="c-tp">Rodne</span>&amp; rodneC);
+
+    std::string <span class="c-fn">get_rc</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span> <span class="c-fn">set_rc</span>(std::string rodneC);
+    <span class="c-kw">int</span>  <span class="c-fn">den</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">mesic</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">rok</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">int</span>  <span class="c-fn">vek</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">bool</span> <span class="c-fn">pohlavi</span>() <span class="c-kw">const</span>;
+
+    <span class="c-kw">friend</span> std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Rodne</span>&amp; rodneC);
 
 <span class="c-kw">private</span>:
-    string rodneCislo;
-    <span class="c-kw">static bool</span> <span class="c-fn">validace</span>(string rodne);
+    std::string rc;
+
+    <span class="c-kw">static bool</span> <span class="c-fn">je_validni</span>(std::string rodneC);
 };
 
-<span class="c-kw">#endif</span></pre>
+<span class="c-kw">#endif</span> <span class="c-cm">//RODNE_H</span></pre>
       </div>
 
-      <!-- rodne.cpp -->
+      <!-- Rodne.cpp -->
       <div id="fv1-t-cpp" class="fpanel active">
-        <pre><span class="c-kw">#include</span> <span class="c-st">"rodne.h"</span>
+        <pre><span class="c-kw">#include</span> <span class="c-st">"Rodne.h"</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;ctime&gt;</span>
 
-<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>()           { rodneCislo = default_rc; }
-<span class="c-tp">rodne</span>::~<span class="c-fn">rodne</span>()          {}
-<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>(string rc)  { <span class="c-kw">if</span> (!set_rodne(rc)) rodneCislo = default_rc; }
-<span class="c-tp">rodne</span>::<span class="c-fn">rodne</span>(<span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp; rc) { rodneCislo = rc.get_rodne(); }
+<span class="c-tp">Rodne</span>::<span class="c-fn">Rodne</span>() {
+    rc = DEFAULT_RC;
+}
 
-string <span class="c-tp">rodne</span>::<span class="c-fn">get_rodne</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> rodneCislo; }
+<span class="c-tp">Rodne</span>::<span class="c-fn">Rodne</span>(std::string rodneC) {
+    <span class="c-kw">if</span> (<span class="c-fn">je_validni</span>(rodneC)) {
+        rc = rodneC;
+    }
+    <span class="c-kw">else</span> {
+        rc = DEFAULT_RC;
+    }
+}
 
-<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">set_rodne</span>(string rc) {
-    <span class="c-kw">if</span> (validace(rc)) { rodneCislo = rc; <span class="c-kw">return true</span>; }
+<span class="c-tp">Rodne</span>::~<span class="c-fn">Rodne</span>() {
+}
+
+<span class="c-tp">Rodne</span>::<span class="c-fn">Rodne</span>(<span class="c-kw">const</span> <span class="c-tp">Rodne</span> &amp;rodneC) {
+    rc = rodneC.<span class="c-fn">get_rc</span>();
+}
+
+std::string <span class="c-tp">Rodne</span>::<span class="c-fn">get_rc</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> rc;
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Rodne</span>::<span class="c-fn">set_rc</span>(std::string rodneC) {
+    <span class="c-kw">if</span> (<span class="c-fn">je_validni</span>(rodneC)) {
+        rc = rodneC;
+        <span class="c-kw">return true</span>;
+    }
     <span class="c-kw">return false</span>;
 }
 
-<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">den</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">return</span> std::stoi(rodneCislo.substr(<span class="c-nm">4</span>, <span class="c-nm">2</span>));
+<span class="c-kw">int</span> <span class="c-tp">Rodne</span>::<span class="c-fn">den</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> <span class="c-fn">stoi</span>(rc.<span class="c-fn">substr</span>(<span class="c-nm">4</span>,<span class="c-nm">2</span>));
 }
 
-<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">mesic</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">int</span> m = std::stoi(rodneCislo.substr(<span class="c-nm">2</span>, <span class="c-nm">2</span>));
-    <span class="c-kw">return</span> m &gt; <span class="c-nm">50</span> ? m - <span class="c-nm">50</span> : m;         <span class="c-cm">// ženy mají měsíc +50</span>
+<span class="c-kw">int</span> <span class="c-tp">Rodne</span>::<span class="c-fn">mesic</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">int</span> mesic = <span class="c-fn">stoi</span>(rc.<span class="c-fn">substr</span>(<span class="c-nm">2</span>,<span class="c-nm">2</span>));
+    <span class="c-kw">return</span> mesic - (mesic &gt; <span class="c-nm">12</span> ? <span class="c-nm">50</span> : <span class="c-nm">0</span>);
 }
 
-<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">rok</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">int</span> r = std::stoi(rodneCislo.substr(<span class="c-nm">0</span>, <span class="c-nm">2</span>));
-    <span class="c-kw">return</span> r &gt; <span class="c-nm">54</span> ? <span class="c-nm">1900</span> + r : <span class="c-nm">2000</span> + r;
+<span class="c-kw">int</span> <span class="c-tp">Rodne</span>::<span class="c-fn">rok</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">int</span> rok = <span class="c-fn">stoi</span>(rc.<span class="c-fn">substr</span>(<span class="c-nm">0</span>,<span class="c-nm">2</span>));
+    <span class="c-kw">return</span> rok + (rok &gt;= <span class="c-nm">54</span> ? <span class="c-nm">1900</span> : <span class="c-nm">2000</span>);
 }
 
-<span class="c-kw">int</span> <span class="c-tp">rodne</span>::<span class="c-fn">vek</span>() <span class="c-kw">const</span> {
-    time_t raw; <span class="c-kw">struct</span> tm* ti;
-    time(&amp;raw); ti = localtime(&amp;raw);
-    <span class="c-kw">int</span> s_rok   = ti-&gt;tm_year + <span class="c-nm">1900</span>;
-    <span class="c-kw">int</span> s_mesic = ti-&gt;tm_mon  + <span class="c-nm">1</span>;
-    <span class="c-kw">int</span> s_den   = ti-&gt;tm_mday;
-    <span class="c-kw">int</span> vek = s_rok - <span class="c-kw">this</span>-&gt;rok();
-    <span class="c-kw">if</span> (s_mesic &lt; <span class="c-kw">this</span>-&gt;mesic() ||
-       (s_mesic == <span class="c-kw">this</span>-&gt;mesic() &amp;&amp; s_den &lt; <span class="c-kw">this</span>-&gt;den()))
-        --vek;                               <span class="c-cm">// narozeniny ještě nebyly letos</span>
-    <span class="c-kw">return</span> vek;
+<span class="c-kw">int</span> <span class="c-tp">Rodne</span>::<span class="c-fn">vek</span>() <span class="c-kw">const</span> {
+    time_t ts = <span class="c-fn">time</span>(&amp;ts);
+    <span class="c-kw">struct</span> tm *dt = <span class="c-fn">localtime</span>(&amp;ts);
+    <span class="c-kw">int</span> rokNow = dt-&gt;tm_year + <span class="c-nm">1900</span>;
+    <span class="c-kw">int</span> mesicNow = dt-&gt;tm_mon + <span class="c-nm">1</span>;
+    <span class="c-kw">int</span> denNow = dt-&gt;tm_mday;
+
+    rokNow = rokNow-<span class="c-fn">rok</span>();
+    <span class="c-kw">if</span> (mesicNow &lt; <span class="c-fn">mesic</span>()) <span class="c-kw">return</span> rokNow-<span class="c-nm">1</span>;
+
+    <span class="c-kw">if</span> (mesicNow==<span class="c-fn">mesic</span>()) {
+        <span class="c-kw">if</span> (denNow&lt;<span class="c-fn">den</span>()) <span class="c-kw">return</span> rokNow-<span class="c-nm">1</span>;
+    }
+    <span class="c-kw">return</span> rokNow;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">pohlavi</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">return</span> std::stoi(rodneCislo.substr(<span class="c-nm">2</span>, <span class="c-nm">2</span>)) &gt; <span class="c-nm">50</span>;  <span class="c-cm">// true = žena</span>
+<span class="c-kw">bool</span> <span class="c-tp">Rodne</span>::<span class="c-fn">pohlavi</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> <span class="c-fn">stoi</span>(rc.<span class="c-fn">substr</span>(<span class="c-nm">2</span>,<span class="c-nm">2</span>)) &gt; <span class="c-nm">54</span>; <span class="c-cm">// zena je true, muz false</span>
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">rodne</span>::<span class="c-fn">validace</span>(string rc) {
-    <span class="c-kw">if</span> (rc.length() != <span class="c-nm">10</span>) <span class="c-kw">return false</span>;
-    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">0</span>; i &lt; (<span class="c-kw">int</span>)rc.length(); ++i)
-        <span class="c-kw">if</span> (rc[i] &lt; <span class="c-st">'0'</span> || rc[i] &gt; <span class="c-st">'9'</span>) <span class="c-kw">return false</span>;
-    <span class="c-kw">int</span> zbytek = std::stoi(rc.substr(<span class="c-nm">0</span>,<span class="c-nm">9</span>)) % <span class="c-nm">11</span>;
-    <span class="c-kw">int</span> posl   = std::stoi(rc.substr(<span class="c-nm">9</span>,<span class="c-nm">1</span>));
-    <span class="c-kw">if</span> (zbytek == posl) <span class="c-kw">return true</span>;
-    <span class="c-kw">if</span> (zbytek == <span class="c-nm">10</span> &amp;&amp; posl == <span class="c-nm">0</span>) <span class="c-kw">return true</span>;
+<span class="c-kw">bool</span> <span class="c-tp">Rodne</span>::<span class="c-fn">je_validni</span>(std::string rodneC) {
+    <span class="c-kw">if</span> (rodneC.<span class="c-fn">length</span>() != <span class="c-nm">10</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">0</span>; i &lt; rodneC.<span class="c-fn">length</span>();i++) {
+        <span class="c-kw">if</span> (rodneC[i] &lt; <span class="c-st">'0'</span> || rodneC[i] &gt; <span class="c-st">'9'</span>) <span class="c-kw">return false</span>;
+    }
+    <span class="c-kw">int</span> zbytek = std::<span class="c-fn">stoi</span>(rodneC.<span class="c-fn">substr</span>(<span class="c-nm">0</span>,<span class="c-nm">9</span>)) % <span class="c-nm">11</span>;
+    <span class="c-kw">int</span> posledni = std::<span class="c-fn">stoi</span>(rodneC.<span class="c-fn">substr</span>(<span class="c-nm">9</span>,<span class="c-nm">1</span>));
+    <span class="c-kw">if</span> (zbytek == posledni) <span class="c-kw">return true</span>;
+    <span class="c-kw">if</span> (zbytek == <span class="c-nm">10</span> &amp;&amp; posledni == <span class="c-nm">0</span>) <span class="c-kw">return true</span>;
     <span class="c-kw">return false</span>;
 }
 
-ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">rodne</span>&amp; r) {
-    os &lt;&lt; <span class="c-st">"Rodne cislo: "</span>  &lt;&lt; r.rodneCislo &lt;&lt; std::endl;
-    os &lt;&lt; <span class="c-st">"Narozen:     "</span>  &lt;&lt; r.den() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; r.mesic() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; r.rok() &lt;&lt; std::endl;
-    os &lt;&lt; <span class="c-st">"Pohlavi:     "</span>  &lt;&lt; (r.pohlavi() ? <span class="c-st">"Zena"</span> : <span class="c-st">"Muz"</span>) &lt;&lt; std::endl;
-    os &lt;&lt; <span class="c-st">"Vek:         "</span>  &lt;&lt; r.vek() &lt;&lt; std::endl;
+std::ostream &amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream &amp;os, <span class="c-kw">const</span> <span class="c-tp">Rodne</span> &amp;rodneC) {
+    os &lt;&lt; <span class="c-st">"Rodne cislo je "</span> &lt;&lt; rodneC.<span class="c-fn">get_rc</span>() &lt;&lt; <span class="c-st">"\nNarozen/a "</span> &lt;&lt; rodneC.<span class="c-fn">den</span>()
+       &lt;&lt; <span class="c-st">"."</span> &lt;&lt; rodneC.<span class="c-fn">mesic</span>() &lt;&lt; <span class="c-st">"."</span> &lt;&lt; rodneC.<span class="c-fn">rok</span>() &lt;&lt; <span class="c-st">"\nVek "</span> &lt;&lt; rodneC.<span class="c-fn">vek</span>()
+       &lt;&lt; std::endl;
     <span class="c-kw">return</span> os;
 }</pre>
       </div>
@@ -275,14 +306,14 @@ ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(ostream&amp; os, <span c
     <div class="pattern">
       <div class="ptitle">string::substr(pos, len) + stoi()</div>
       <div class="pdesc">
-        RC je uloženo jako string. Extrahujeme části: <code>rodneCislo.substr(0,2)</code> = první 2 znaky (rok), <code>substr(2,2)</code> = měsíc, <code>substr(4,2)</code> = den. Pak <code>std::stoi()</code> převede string na int.
+        RC je uloženo jako string. Extrahujeme části: <code>rc.substr(0,2)</code> = první 2 znaky (rok), <code>substr(2,2)</code> = měsíc, <code>substr(4,2)</code> = den. Pak <code>std::stoi()</code> převede string na int.
       </div>
     </div>
 
     <div class="pattern">
       <div class="ptitle">static validace — bez objektu, jen čistá funkce</div>
       <div class="pdesc">
-        <code>validace()</code> je <code>static</code> — nevyžaduje objekt, pracuje jen s parametrem <code>string rc</code>. Voláme ji v konstruktoru: <code>set_rodne(rc)</code> → <code>validace(rc)</code>. Výhodou je, že ji lze volat ještě před vytvořením objektu.
+        <code>je_validni()</code> je <code>static</code> — nevyžaduje objekt, pracuje jen s parametrem <code>string rodneC</code>. Voláme ji v konstruktoru a v <code>set_rc(rc)</code> → <code>je_validni(rc)</code>. Výhodou je, že ji lze volat ještě před vytvořením objektu.
       </div>
     </div>
 

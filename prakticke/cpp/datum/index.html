@@ -81,12 +81,12 @@
         <span class="ef-badge given">DÁNO učitelem</span>
       </div>
       <div class="ef">
-        <div class="ef-name">datum.h</div>
+        <div class="ef-name">Datum.h</div>
         <div class="ef-desc">Deklarace třídy — co třída umí (metody), co si pamatuje (private členy).</div>
         <span class="ef-badge write">TY PÍŠEŠ</span>
       </div>
       <div class="ef">
-        <div class="ef-name">datum.cpp</div>
+        <div class="ef-name">Datum.cpp</div>
         <div class="ef-desc">Implementace — jak každá metoda funguje uvnitř.</div>
         <span class="ef-badge write">TY PÍŠEŠ</span>
       </div>
@@ -129,15 +129,15 @@
     <div class="sec">Kód</div>
     <div class="file-viewer" id="fv1">
       <div class="ftabs">
-        <button class="ftab active" onclick="showTab(this,'fv1','t-cpp')">datum.cpp <span class="fbadge write">ty píšeš</span></button>
-        <button class="ftab" onclick="showTab(this,'fv1','t-h')">datum.h <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab active" onclick="showTab(this,'fv1','t-cpp')">Datum.cpp <span class="fbadge write">ty píšeš</span></button>
+        <button class="ftab" onclick="showTab(this,'fv1','t-h')">Datum.h <span class="fbadge write">ty píšeš</span></button>
         <button class="ftab" onclick="showTab(this,'fv1','t-main')">main.cpp <span class="fbadge given">dáno</span></button>
       </div>
 
       <!-- main.cpp -->
       <div id="fv1-t-main" class="fpanel">
         <pre><span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
-<span class="c-kw">#include</span> <span class="c-st">"datum.h"</span>
+<span class="c-kw">#include</span> <span class="c-st">"Datum.h"</span>
 <span class="c-kw">using</span> std::cout; <span class="c-kw">using</span> std::cin; <span class="c-kw">using</span> std::endl;
 
 <span class="c-kw">void</span> <span class="c-fn">tisk</span>(<span class="c-kw">const char</span>* label, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d) {
@@ -195,12 +195,12 @@
 }</pre>
       </div>
 
-      <!-- datum.h -->
+      <!-- Datum.h -->
       <div id="fv1-t-h" class="fpanel">
         <pre><span class="c-kw">#ifndef</span> DATUM_H
 <span class="c-kw">#define</span> DATUM_H
+
 <span class="c-kw">#include</span> <span class="c-st">&lt;iostream&gt;</span>
-<span class="c-kw">#endif</span>
 
 <span class="c-kw">const int</span> MIN_ROK = <span class="c-nm">1970</span>;
 <span class="c-kw">const int</span> MAX_ROK = <span class="c-nm">2050</span>;
@@ -208,12 +208,14 @@
 <span class="c-kw">class</span> <span class="c-tp">Datum</span> {
 <span class="c-kw">public</span>:
     <span class="c-fn">Datum</span>();
-    <span class="c-fn">Datum</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
     <span class="c-fn">Datum</span>(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp;);
+    <span class="c-fn">Datum</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
+    <span class="c-cm">// destruktor nepotrebujeme, nemame dynamickou alokovanou pamet</span>
 
     <span class="c-kw">int</span>  <span class="c-fn">get_year</span>() <span class="c-kw">const</span>;
     <span class="c-kw">int</span>  <span class="c-fn">get_month</span>() <span class="c-kw">const</span>;
     <span class="c-kw">int</span>  <span class="c-fn">get_day</span>() <span class="c-kw">const</span>;
+
     <span class="c-kw">bool</span> <span class="c-fn">set_year</span>(<span class="c-kw">int</span> y);
     <span class="c-kw">bool</span> <span class="c-fn">set_month</span>(<span class="c-kw">int</span> m);
     <span class="c-kw">bool</span> <span class="c-fn">set_day</span>(<span class="c-kw">int</span> d);
@@ -221,136 +223,175 @@
 
     <span class="c-kw">int</span>  <span class="c-fn">days_from_1970</span>() <span class="c-kw">const</span>;
     <span class="c-kw">int</span>  <span class="c-fn">day_in_week</span>() <span class="c-kw">const</span>;
-    <span class="c-kw">bool</span> <span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days);
-    <span class="c-kw">bool</span> <span class="c-fn">change_date</span>(<span class="c-kw">int</span> days);
+    <span class="c-kw">bool</span> <span class="c-fn">change_date</span>(<span class="c-kw">int</span> d);
+    <span class="c-kw">bool</span> <span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> d);
 
-    <span class="c-tp">Datum</span>&amp; <span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff);
-    <span class="c-kw">bool</span>   <span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) <span class="c-kw">const</span>;
-    <span class="c-kw">friend</span> std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d);
+    <span class="c-kw">friend</span> std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; date);
+    <span class="c-tp">Datum</span>&amp; <span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; date);
+    <span class="c-kw">bool</span> <span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; date) <span class="c-kw">const</span>;
 
 <span class="c-kw">private</span>:
     <span class="c-kw">int</span> y, m, d;
 
-    <span class="c-kw">static bool</span> <span class="c-fn">je_valid</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
-    <span class="c-kw">bool</span>        <span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span>;
     <span class="c-kw">static bool</span> <span class="c-fn">je_prestupny</span>(<span class="c-kw">int</span> y);
+    <span class="c-kw">bool</span>        <span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span>;
+    <span class="c-kw">static bool</span> <span class="c-fn">je_validni</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d);
     <span class="c-kw">static int</span>  <span class="c-fn">pocet_dni</span>(<span class="c-kw">int</span> m, <span class="c-kw">int</span> y);
-    <span class="c-kw">void</span>        <span class="c-fn">system_datum</span>();
-};</pre>
+    <span class="c-kw">void</span>        <span class="c-fn">system_date</span>();
+};
+
+<span class="c-kw">#endif</span> <span class="c-cm">//DATUM_H</span></pre>
       </div>
 
-      <!-- datum.cpp -->
+      <!-- Datum.cpp -->
       <div id="fv1-t-cpp" class="fpanel active">
-        <pre><span class="c-kw">#include</span> <span class="c-st">"datum.h"</span>
+        <pre><span class="c-kw">#include</span> <span class="c-st">"Datum.h"</span>
 <span class="c-kw">#include</span> <span class="c-st">&lt;ctime&gt;</span>
 
-<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>() { system_datum(); }
+<span class="c-kw">const int</span> dny[] = {<span class="c-nm">31</span>,<span class="c-nm">28</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>};
 
-<span class="c-kw">void</span> <span class="c-tp">Datum</span>::<span class="c-fn">system_datum</span>() {
-    time_t ts = time(&amp;ts);
-    <span class="c-kw">struct</span> tm* dt = localtime(&amp;ts);
-    y = dt-&gt;tm_year + <span class="c-nm">1900</span>;
-    m = dt-&gt;tm_mon  + <span class="c-nm">1</span>;
-    d = dt-&gt;tm_mday;
+<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>() {
+    <span class="c-fn">system_date</span>();
+}
+
+<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>(<span class="c-kw">const</span> <span class="c-tp">Datum</span> &amp;date) {
+    <span class="c-kw">this</span>-&gt;y = date.y;
+    <span class="c-kw">this</span>-&gt;m = date.m;
+    <span class="c-kw">this</span>-&gt;d = date.d;
 }
 
 <span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
-    <span class="c-kw">if</span> (je_valid(y, m, d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">this</span>-&gt;d=d; }
-    <span class="c-kw">else</span> system_datum();
+    <span class="c-kw">if</span> (<span class="c-fn">je_validni</span>(y,m,d)) {
+        <span class="c-kw">this</span>-&gt;y = y;
+        <span class="c-kw">this</span>-&gt;m = m;
+        <span class="c-kw">this</span>-&gt;d = d;
+    }
+    <span class="c-kw">else</span> {
+        <span class="c-fn">system_date</span>();
+    }
 }
 
-<span class="c-tp">Datum</span>::<span class="c-fn">Datum</span>(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; o) { y=o.y; m=o.m; d=o.d; }
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_year</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> y;
+}
 
-<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_year</span>()  <span class="c-kw">const</span> { <span class="c-kw">return</span> y; }
-<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_month</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> m; }
-<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_day</span>()   <span class="c-kw">const</span> { <span class="c-kw">return</span> d; }
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_month</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> m;
+}
+
+<span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">get_day</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> d;
+}
 
 <span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_year</span>(<span class="c-kw">int</span> y) {
-    <span class="c-kw">if</span> (je_valid(y, <span class="c-kw">this</span>-&gt;m, <span class="c-kw">this</span>-&gt;d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">return true</span>; }
-    <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (!<span class="c-fn">je_validni</span>(y, <span class="c-kw">this</span>-&gt;m, <span class="c-kw">this</span>-&gt;d)) <span class="c-kw">return false</span>;
+    <span class="c-kw">this</span>-&gt;y=y;
+    <span class="c-kw">return true</span>;
 }
 
 <span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_month</span>(<span class="c-kw">int</span> m) {
-    <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, m, <span class="c-kw">this</span>-&gt;d)) { <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">return true</span>; }
-    <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (!<span class="c-fn">je_validni</span>(<span class="c-kw">this</span>-&gt;y, m, <span class="c-kw">this</span>-&gt;d)) <span class="c-kw">return false</span>;
+    <span class="c-kw">this</span>-&gt;m=m;
+    <span class="c-kw">return true</span>;
 }
 
 <span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_day</span>(<span class="c-kw">int</span> d) {
-    <span class="c-kw">if</span> (je_valid(<span class="c-kw">this</span>-&gt;y, <span class="c-kw">this</span>-&gt;m, d)) { <span class="c-kw">this</span>-&gt;d=d; <span class="c-kw">return true</span>; }
-    <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (!<span class="c-fn">je_validni</span>(<span class="c-kw">this</span>-&gt;y, <span class="c-kw">this</span>-&gt;m, d)) <span class="c-kw">return false</span>;
+    <span class="c-kw">this</span>-&gt;d=d;
+    <span class="c-kw">return true</span>;
 }
 
 <span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_date</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
-    <span class="c-kw">if</span> (je_valid(y, m, d)) { <span class="c-kw">this</span>-&gt;y=y; <span class="c-kw">this</span>-&gt;m=m; <span class="c-kw">this</span>-&gt;d=d; <span class="c-kw">return true</span>; }
-    <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (!<span class="c-fn">je_validni</span>(y, m, d)) <span class="c-kw">return false</span>;
+    <span class="c-kw">this</span>-&gt;y = y;
+    <span class="c-kw">this</span>-&gt;m = m;
+    <span class="c-kw">this</span>-&gt;d = d;
+    <span class="c-kw">return true</span>;
 }
 
 <span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">days_from_1970</span>() <span class="c-kw">const</span> {
     <span class="c-kw">int</span> total = <span class="c-nm">0</span>;
-    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = MIN_ROK; i &lt; y; ++i)          <span class="c-cm">// celé roky</span>
-        total += je_prestupny(i) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
-    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">1</span>; i &lt; m; ++i)               <span class="c-cm">// celé měsíce před aktuálním</span>
-        total += pocet_dni(i, y);
-    total += d;                                 <span class="c-cm">// dny v aktuálním měsíci</span>
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = MIN_ROK; i &lt; y; i++) {
+        total += <span class="c-fn">je_prestupny</span>(i) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
+    }
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-nm">1</span>; i &lt; m; i++) {
+        total += <span class="c-fn">pocet_dni</span>(i, y);
+    }
+    total+=d;
     <span class="c-kw">return</span> total;
 }
 
 <span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">day_in_week</span>() <span class="c-kw">const</span> {
-    <span class="c-kw">return</span> (days_from_1970() + <span class="c-nm">2</span>) % <span class="c-nm">7</span> + <span class="c-nm">1</span>;    <span class="c-cm">// pondělí=1, 1.1.1970 byl čtvrtek=4</span>
+    <span class="c-kw">return</span> (<span class="c-fn">days_from_1970</span>() + <span class="c-nm">2</span>) % <span class="c-nm">7</span> + <span class="c-nm">1</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> days) {
-    <span class="c-kw">if</span> (days &lt;= <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
-    <span class="c-kw">int</span> ny = MIN_ROK;
-    <span class="c-kw">while</span> (days &gt; (je_prestupny(ny) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>)) {
-        days -= je_prestupny(ny) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
-        <span class="c-kw">if</span> (++ny &gt; MAX_ROK) <span class="c-kw">return false</span>;
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">change_date</span>(<span class="c-kw">int</span> d) {
+    <span class="c-kw">return</span> <span class="c-fn">set_from_days</span>(<span class="c-fn">days_from_1970</span>()+d);
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">set_from_days</span>(<span class="c-kw">int</span> d) {
+    <span class="c-kw">int</span> rok = MIN_ROK;
+    <span class="c-kw">int</span> mesic = <span class="c-nm">1</span>;
+    <span class="c-kw">if</span> (d &lt;= <span class="c-nm">0</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">while</span> (d &gt;= (<span class="c-fn">je_prestupny</span>(rok) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>)) {
+        d -= <span class="c-fn">je_prestupny</span>(rok) ? <span class="c-nm">366</span> : <span class="c-nm">365</span>;
+        <span class="c-kw">if</span> (++rok &gt; MAX_ROK) <span class="c-kw">return false</span>;
     }
-    <span class="c-kw">int</span> nm = <span class="c-nm">1</span>;
-    <span class="c-kw">while</span> (days &gt; pocet_dni(nm, ny)) {
-        days -= pocet_dni(nm, ny);
-        ++nm;
+    <span class="c-kw">while</span> (d &gt; <span class="c-fn">pocet_dni</span>(mesic, rok)) {
+        d-=<span class="c-fn">pocet_dni</span>(mesic, rok);
+        mesic++;
     }
-    y = ny; m = nm; d = days;
+    <span class="c-kw">this</span>-&gt;y = rok;
+    <span class="c-kw">this</span>-&gt;m = mesic;
+    <span class="c-kw">this</span>-&gt;d = d;
     <span class="c-kw">return true</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">change_date</span>(<span class="c-kw">int</span> days) {
-    <span class="c-kw">return</span> set_from_days(days_from_1970() + days);
-}
-
-<span class="c-tp">Datum</span>&amp; <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) {
-    y=diff.y; m=diff.m; d=diff.d;
+<span class="c-tp">Datum</span> &amp; <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>=(<span class="c-kw">const</span> <span class="c-tp">Datum</span> &amp;date) {
+    <span class="c-fn">set_date</span>(date.y, date.m, date.d);
     <span class="c-kw">return</span> *<span class="c-kw">this</span>;
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; diff) <span class="c-kw">const</span> {
-    <span class="c-kw">return</span> y==diff.y &amp;&amp; m==diff.m &amp;&amp; d==diff.d;
-}
-
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_valid</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
-    <span class="c-kw">if</span> (y &lt; MIN_ROK || y &gt; MAX_ROK) <span class="c-kw">return false</span>;
-    <span class="c-kw">if</span> (m &lt; <span class="c-nm">1</span> || m &gt; <span class="c-nm">12</span>)            <span class="c-kw">return false</span>;
-    <span class="c-kw">if</span> (d &lt; <span class="c-nm">1</span> || d &gt; pocet_dni(m,y)) <span class="c-kw">return false</span>;
-    <span class="c-kw">return true</span>;
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-kw">operator</span>==(<span class="c-kw">const</span> <span class="c-tp">Datum</span> &amp;date) <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> (d == date.d &amp;&amp; m == date.m &amp;&amp; y == date.y);
 }
 
 <span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_prestupny</span>(<span class="c-kw">int</span> y) {
-    <span class="c-kw">return</span> y%<span class="c-nm">4</span>==<span class="c-nm">0</span> &amp;&amp; (y%<span class="c-nm">400</span>==<span class="c-nm">0</span> || y%<span class="c-nm">100</span>!=<span class="c-nm">0</span>);
+    <span class="c-kw">return</span> y%<span class="c-nm">4</span>==<span class="c-nm">0</span> &amp;&amp; (y % <span class="c-nm">100</span>!=<span class="c-nm">0</span> || y % <span class="c-nm">400</span> == <span class="c-nm">0</span>);
 }
 
-<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span> { <span class="c-kw">return</span> je_prestupny(y); }
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_prestupny</span>() <span class="c-kw">const</span> {
+    <span class="c-kw">return</span> <span class="c-fn">je_prestupny</span>(y);
+}
+
+<span class="c-kw">bool</span> <span class="c-tp">Datum</span>::<span class="c-fn">je_validni</span>(<span class="c-kw">int</span> y, <span class="c-kw">int</span> m, <span class="c-kw">int</span> d) {
+    <span class="c-kw">if</span> (y &lt; MIN_ROK || y &gt; MAX_ROK) <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (m &lt; <span class="c-nm">1</span> || m &gt; <span class="c-nm">12</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">if</span> (d &gt; <span class="c-fn">pocet_dni</span>(m, y) || d &lt; <span class="c-nm">1</span>) <span class="c-kw">return false</span>;
+    <span class="c-kw">return true</span>;
+}
 
 <span class="c-kw">int</span> <span class="c-tp">Datum</span>::<span class="c-fn">pocet_dni</span>(<span class="c-kw">int</span> m, <span class="c-kw">int</span> y) {
-    <span class="c-kw">int</span> mes[] = {<span class="c-nm">31</span>,<span class="c-nm">28</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>,<span class="c-nm">30</span>,<span class="c-nm">31</span>};
-    <span class="c-kw">if</span> (je_prestupny(y)) mes[<span class="c-nm">1</span>] = <span class="c-nm">29</span>;
-    <span class="c-kw">return</span> mes[m-<span class="c-nm">1</span>];
+    <span class="c-kw">if</span> (m==<span class="c-nm">2</span> &amp;&amp; <span class="c-fn">je_prestupny</span>(y)) {
+        <span class="c-kw">return</span> <span class="c-nm">29</span>;
+    }
+    <span class="c-kw">else</span> {
+        <span class="c-kw">return</span> dny[m-<span class="c-nm">1</span>];
+    }
 }
 
-std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; os, <span class="c-kw">const</span> <span class="c-tp">Datum</span>&amp; d) {
-    os &lt;&lt; d.d &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.m &lt;&lt; <span class="c-st">". "</span> &lt;&lt; d.y &lt;&lt; <span class="c-st">", "</span>;
-    os &lt;&lt; <span class="c-st">"pocet dni od 1. 1. "</span> &lt;&lt; MIN_ROK &lt;&lt; <span class="c-st">" je "</span> &lt;&lt; d.days_from_1970() &lt;&lt; <span class="c-st">", "</span>;
-    os &lt;&lt; <span class="c-st">"den v tydnu je "</span> &lt;&lt; d.day_in_week() &lt;&lt; <span class="c-st">"."</span>;
+<span class="c-kw">void</span> <span class="c-tp">Datum</span>::<span class="c-fn">system_date</span>() {
+    time_t timestamp = <span class="c-fn">time</span>(&amp;timestamp);
+    <span class="c-kw">struct</span> tm *datetime = <span class="c-fn">localtime</span>(&amp;timestamp);
+    y = datetime-&gt;tm_year + <span class="c-nm">1900</span>;
+    m = datetime-&gt;tm_mon + <span class="c-nm">1</span>;
+    d = datetime-&gt;tm_mday;
+}
+
+std::ostream &amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream &amp;os, <span class="c-kw">const</span> <span class="c-tp">Datum</span> &amp;date) {
+    os &lt;&lt; date.<span class="c-fn">get_day</span>() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; date.<span class="c-fn">get_month</span>() &lt;&lt; <span class="c-st">". "</span> &lt;&lt; date.<span class="c-fn">get_year</span>()
+       &lt;&lt; <span class="c-st">", pocet dni od 1. 1. 1970 je "</span> &lt;&lt; date.<span class="c-fn">days_from_1970</span>()
+       &lt;&lt; <span class="c-st">", den v tydnu je "</span> &lt;&lt; date.<span class="c-fn">day_in_week</span>() &lt;&lt; <span class="c-st">"."</span> &lt;&lt; std::endl;
     <span class="c-kw">return</span> os;
 }</pre>
       </div>
@@ -362,7 +403,7 @@ std::ostream&amp; <span class="c-kw">operator</span>&lt;&lt;(std::ostream&amp; o
     <div class="pattern">
       <div class="ptitle">static member funkce — volatelné bez objektu</div>
       <div class="pdesc">
-        Funkce jako <code>je_valid()</code>, <code>je_prestupny(int)</code> a <code>pocet_dni()</code> jsou <code>static</code> — nepotřebují <code>this</code>, pracují jen s parametry. Voláš je jako <code>Datum::pocet_dni(m, y)</code> nebo přímo uvnitř třídy jako <code>pocet_dni(m, y)</code>.
+        Funkce jako <code>je_validni()</code>, <code>je_prestupny(int)</code> a <code>pocet_dni()</code> jsou <code>static</code> — nepotřebují <code>this</code>, pracují jen s parametry. Voláš je jako <code>Datum::pocet_dni(m, y)</code> nebo přímo uvnitř třídy jako <code>pocet_dni(m, y)</code>.
       </div>
     </div>
 
