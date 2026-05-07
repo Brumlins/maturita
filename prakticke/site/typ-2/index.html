@@ -18,12 +18,27 @@
       <button class="topo-toggle" onclick="toggleTopo()">−</button>
     </div>
     <div class="topo-panel-body">
-      <img src="TYP-2.jpg" class="topo-img" alt="Topologie sítě TYP-2">
+      <img src="predloha2.png" class="topo-img" alt="Topologie sítě TYP-2">
+      <div class="topo-tasks">
+        <ul>
+          <li>Rozpočítat zadaný IP rozsah pro VLANy a také propojovací podsítě (ty většinou stačí /30)</li>
+          <li>Vytvořit VLANy pro uživatele a přiřadit k portům, pokud bude nutné SSH na switchi, tak si udělat VLAN999 Administrative a spravce-PC by mohl být v portu s VLAN999 nebo nutnost routingu mezi VLANami</li>
+          <li>IP na PCs — buď pevně nastavené, nebo obdrží z DHCP služby, ale z DHCP řešte, až po funkčním routování</li>
+          <li>Mezi switchi propoj zrealizovat jako Link Aggregation, tedy jeden z režimů EtherChannel, nebo jindy LACP, nebo jindy PagP</li>
+          <li>Routování, umět obě metody statické a OSPF, zkusit si pingnout mezi zařízeními COMPANY.local</li>
+          <li>Bude-li požadovaná DHCP, tak může být na Router1, nebo v jiném zadání na Router2</li>
+          <li>Bude-li požadováno SSH, tak může být na Router1, nebo v jiném zadání na Router0, nebo i třeba Switch0</li>
+          <li>Na hraničním routeru děláte DEFAULT ROUTE a tu buď distribuuje ostatním routerům OSPF přes doplněný příkaz, nebo u statického routování to musíte udělat Vy na všech ostatních routerech</li>
+          <li>NAT bude pouze na hraničním Routeru1, překlad private do veřejné jedné IP</li>
+          <li>PORT FORWARDING — přístup z internet serveru na služby FTP 22,23, HTTPS 443 běžící v DMZ školy na zařízení Server0</li>
+          <li>ACL, například z jedné VLANy je povoleno pouze https do dmz Server a z druhé VLANy pouze ftp do tohoto dmz Server0</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <nav>
-    <a href="../../../index.html">🏠 home</a>
+    <a href="../../../index.html"> home</a>
     <span class="sep">/</span>
     <a href="../../index.html">praktické</a>
     <span class="sep">/</span>
@@ -39,7 +54,7 @@
       <div class="progress-wrap">
         <div class="progress-label">
           <span>hotovo</span>
-          <span class="progress-count">0 / 12</span>
+          <span class="progress-count">0 / 13</span>
         </div>
         <div class="progress-bar"><div class="progress-fill"></div></div>
       </div>
@@ -51,32 +66,36 @@
       <div class="sidebar-sep"></div>
 
       <label class="check-item" data-task="a"><div class="check-box"></div><span>a) IP plán</span></label>
-      <label class="check-item" data-task="b"><div class="check-box"></div><span>b) Pevné IP</span></label>
-      <label class="check-item" data-task="c"><div class="check-box"></div><span>c) Link Aggregation</span></label>
-      <label class="check-item" data-task="d"><div class="check-box"></div><span>d) Routing</span></label>
-      <label class="check-item" data-task="e"><div class="check-box"></div><span>e) Ping test</span></label>
-      <label class="check-item" data-task="f"><div class="check-box"></div><span>f) DHCP</span></label>
-      <label class="check-item" data-task="g"><div class="check-box"></div><span>g) SSH</span></label>
-      <label class="check-item" data-task="h"><div class="check-box"></div><span>h) Backup config</span></label>
-      <label class="check-item" data-task="i"><div class="check-box"></div><span>i) Logging</span></label>
-      <label class="check-item" data-task="j"><div class="check-box"></div><span>j) NAT + default route</span></label>
-      <label class="check-item" data-task="k"><div class="check-box"></div><span>k) Port Forwarding</span></label>
-      <label class="check-item" data-task="l"><div class="check-box"></div><span>l) ACL</span></label>
+      <label class="check-item" data-task="b"><div class="check-box"></div><span>b) VLANy</span></label>
+      <label class="check-item" data-task="c"><div class="check-box"></div><span>c) Pevné IP</span></label>
+      <label class="check-item" data-task="d"><div class="check-box"></div><span>d) Trunk SW1 → R2</span></label>
+      <label class="check-item" data-task="e"><div class="check-box"></div><span>e) Link Aggregation</span></label>
+      <label class="check-item" data-task="f"><div class="check-box"></div><span>f) Routing</span></label>
+      <label class="check-item" data-task="g"><div class="check-box"></div><span>g) Ping test</span></label>
+      <label class="check-item" data-task="h"><div class="check-box"></div><span>h) DHCP</span></label>
+      <label class="check-item" data-task="i"><div class="check-box"></div><span>i) SSH</span></label>
+      <label class="check-item" data-task="j"><div class="check-box"></div><span>j) Backup config</span></label>
+      <label class="check-item" data-task="k"><div class="check-box"></div><span>k) Logging</span></label>
+      <label class="check-item" data-task="l"><div class="check-box"></div><span>l) NAT + default route</span></label>
+      <label class="check-item" data-task="m"><div class="check-box"></div><span>m) Port Forwarding</span></label>
+      <label class="check-item" data-task="n"><div class="check-box"></div><span>n) ACL</span></label>
 
       <div class="sidebar-sep"></div>
       <div class="sidebar-title">Navigace</div>
       <a href="#ukol-a" class="sidebar-link" data-target="ukol-a"><span class="sidebar-num">a)</span> IP plán</a>
-      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> Pevné IP</a>
-      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Link Aggregation</a>
-      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Routing</a>
-      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Ping test</a>
-      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> DHCP</a>
-      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> SSH</a>
-      <a href="#ukol-h" class="sidebar-link" data-target="ukol-h"><span class="sidebar-num">h)</span> Backup config</a>
-      <a href="#ukol-i" class="sidebar-link" data-target="ukol-i"><span class="sidebar-num">i)</span> Logging</a>
-      <a href="#ukol-j" class="sidebar-link" data-target="ukol-j"><span class="sidebar-num">j)</span> NAT + default route</a>
-      <a href="#ukol-k" class="sidebar-link" data-target="ukol-k"><span class="sidebar-num">k)</span> Port Forwarding</a>
-      <a href="#ukol-l" class="sidebar-link" data-target="ukol-l"><span class="sidebar-num">l)</span> ACL</a>
+      <a href="#ukol-b" class="sidebar-link" data-target="ukol-b"><span class="sidebar-num">b)</span> VLANy</a>
+      <a href="#ukol-c" class="sidebar-link" data-target="ukol-c"><span class="sidebar-num">c)</span> Pevné IP</a>
+      <a href="#ukol-d" class="sidebar-link" data-target="ukol-d"><span class="sidebar-num">d)</span> Trunk SW1 → R2</a>
+      <a href="#ukol-e" class="sidebar-link" data-target="ukol-e"><span class="sidebar-num">e)</span> Link Aggregation</a>
+      <a href="#ukol-f" class="sidebar-link" data-target="ukol-f"><span class="sidebar-num">f)</span> Routing</a>
+      <a href="#ukol-g" class="sidebar-link" data-target="ukol-g"><span class="sidebar-num">g)</span> Ping test</a>
+      <a href="#ukol-h" class="sidebar-link" data-target="ukol-h"><span class="sidebar-num">h)</span> DHCP</a>
+      <a href="#ukol-i" class="sidebar-link" data-target="ukol-i"><span class="sidebar-num">i)</span> SSH</a>
+      <a href="#ukol-j" class="sidebar-link" data-target="ukol-j"><span class="sidebar-num">j)</span> Backup config</a>
+      <a href="#ukol-k" class="sidebar-link" data-target="ukol-k"><span class="sidebar-num">k)</span> Logging</a>
+      <a href="#ukol-l" class="sidebar-link" data-target="ukol-l"><span class="sidebar-num">l)</span> NAT + default route</a>
+      <a href="#ukol-m" class="sidebar-link" data-target="ukol-m"><span class="sidebar-num">m)</span> Port Forwarding</a>
+      <a href="#ukol-n" class="sidebar-link" data-target="ukol-n"><span class="sidebar-num">n)</span> ACL</a>
     </aside>
 
     <main>
@@ -84,7 +103,7 @@
         <p class="hero-label">// sítě · typ 2</p>
         <h1>Typ 2</h1>
         <div class="hero-meta">
-          <span>📋 12 úkolů</span>
+          <span> 14 úkolů</span>
           <span>🌐 Cisco Packet Tracer</span>
           <span>🏢 COMPANY.local</span>
         </div>
@@ -98,7 +117,7 @@
           <div class="task-letter">a)</div>
           <div class="task-info">
             <div class="task-title">IP plán — subnetting</div>
-            <div class="task-points">FIRMA.NET: zvolte private rozsah až /22</div>
+            <div class="task-points">COMPANY.local: zvolte private rozsah až /22</div>
           </div>
         </div>
         <div class="task-desc">
@@ -148,14 +167,6 @@
                 <td class="net-note">—</td>
               </tr>
               <tr>
-                <td class="net-name">R2 ↔ SW_dmz</td>
-                <td>2 adresy → /30</td>
-                <td class="net-cidr">/30</td>
-                <td class="net-ip">10.1.2.68 – 10.1.2.71</td>
-                <td class="net-mask">255.255.255.252</td>
-                <td class="net-note">—</td>
-              </tr>
-              <tr>
                 <td class="net-name">OUTSIDE (Internet)</td>
                 <td class="net-note">dáno zadáním</td>
                 <td class="net-cidr">/24</td>
@@ -170,18 +181,89 @@
 
       <div class="divider"></div>
 
-      <!-- b) Pevné IP -->
+      <!-- ════════════════════════════════════════════════════
+           b) VLANy — VYTVORENI A PRIRAZENI PORTU
+           ════════════════════════════════════════════════════ -->
       <div class="task" id="ukol-b">
         <div class="task-header">
           <div class="task-letter b">b)</div>
           <div class="task-info">
+            <div class="task-title">VLANy — vytvoření a přiřazení portů na switchi</div>
+            <div class="task-points">SW1, SW2 — VLAN100, VLAN200, VLAN900</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          Vytvořte <strong>VLAN100</strong>, <strong>VLAN200</strong> a <strong>VLAN900 (DMZ)</strong> na obou switchi.
+          Přiřaďte access porty k VLANům a nastavte trunk porty mezi SW1 ↔ SW2.
+          <strong>Mezi switch a routerem není žádné přímé propojení</strong> — R2 používá gateway z VLAN900 (10.1.2.1).
+        </div>
+
+        <div class="ios-block">
+          <div class="ios-header">
+            <span class="ios-device">SW1 / SW2 — VLAN creation + port assignment</span>
+            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
+          </div>
+          <pre>
+<span class="mode">SW1> </span><span class="cmd">enable</span>
+<span class="mode">SW1# </span><span class="cmd">configure terminal</span>
+
+<span class="cmt">! ── Vytvoření VLANů ─────────────────────────────────</span>
+<span class="mode">SW1(config)# </span><span class="cmd">vlan</span> <span class="ios-ip">100</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">name</span> <span class="ios-s">VLAN100</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">exit</span>
+<span class="mode">SW1(config)# </span><span class="cmd">vlan</span> <span class="ios-ip">200</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">name</span> <span class="ios-s">VLAN200</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">exit</span>
+<span class="mode">SW1(config)# </span><span class="cmd">vlan</span> <span class="ios-ip">900</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">name</span> <span class="ios-s">DMZ</span>
+<span class="mode">SW1(config-vlan)# </span><span class="cmd">exit</span>
+
+<span class="cmt">! ── Access porty (PC do VLANu) ───────────────────────</span>
+<span class="mode">SW1(config)# </span><span class="cmd">interface range</span> <span class="iface">FastEthernet0/1-3</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">switchport mode access</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">switchport access vlan</span> <span class="ios-ip">100</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">exit</span>
+
+<span class="mode">SW1(config)# </span><span class="cmd">interface range</span> <span class="iface">FastEthernet0/4-6</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">switchport mode access</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">switchport access vlan</span> <span class="ios-ip">200</span>
+<span class="mode">SW1(config-if-range)# </span><span class="cmd">exit</span>
+
+<span class="cmt">! ─ Trunk port (SW1 ↔ SW2) ───────────────────────────</span>
+<span class="mode">SW1(config)# </span><span class="cmd">interface</span> <span class="iface">FastEthernet0/24</span>
+<span class="mode">SW1(config-if)# </span><span class="cmd">switchport mode trunk</span>
+<span class="mode">SW1(config-if)# </span><span class="cmd">switchport trunk allowed vlan all</span>
+<span class="mode">SW1(config-if)# </span><span class="cmd">exit</span>
+          </pre>
+        </div>
+
+        <div class="explanation">
+          <div class="explanation-title">// VYSVĚTLENÍ</div>
+          <ul>
+            <li><code>vlan 900</code> — DMZ VLAN pro servery (https, ftp-log)</li>
+            <li><code>interface range Fa0/1-3</code> — access porty pro PC ve VLAN100</li>
+            <li><code>interface range Fa0/4-6</code> — access porty pro PC ve VLAN200</li>
+            <li><strong>Žádné přímé propojení mezi switch a routerem</strong> — R2 komunikuje přes VLAN900</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           c) Pevné IP adresy
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-c">
+        <div class="task-header">
+          <div class="task-letter c">c)</div>
+          <div class="task-info">
             <div class="task-title">Pevné IP adresy — PCs a servery</div>
-            <div class="task-points">PC1–PC4, https server, ftp-log server</div>
+            <div class="task-points">PC1–PC4, https server 10.1.2.10, ftp-log server 10.1.2.11</div>
           </div>
         </div>
         <div class="task-desc">
           Nastavte <strong>aspoň na některých zařízeních pevnou IP</strong> pro ověřování.
-          Servery v DMZ mají vždy pevnou IP. Zbytek může dostat IP z DHCP (úkol f).
+          Servery v DMZ mají vždy pevnou IP: <em>https = 10.1.2.10</em>, <em>ftp-log = 10.1.2.11</em>.
         </div>
 
         <div class="ip-plan">
@@ -193,8 +275,8 @@
               <tr><td class="net-name">PC2 (VLAN100)</td><td class="net-ip">10.1.0.11</td><td class="net-mask">255.255.255.0</td><td class="net-ip">10.1.0.1</td></tr>
               <tr><td class="net-name">PC3 (VLAN200)</td><td class="net-ip">10.1.1.10</td><td class="net-mask">255.255.255.0</td><td class="net-ip">10.1.1.1</td></tr>
               <tr><td class="net-name">PC4 (VLAN200)</td><td class="net-ip">10.1.1.11</td><td class="net-mask">255.255.255.0</td><td class="net-ip">10.1.1.1</td></tr>
-              <tr><td class="net-name">https server (DMZ)</td><td class="net-ip">10.1.2.2</td><td class="net-mask">255.255.255.192</td><td class="net-ip">10.1.2.1</td></tr>
-              <tr><td class="net-name">ftp-log server (DMZ)</td><td class="net-ip">10.1.2.3</td><td class="net-mask">255.255.255.192</td><td class="net-ip">10.1.2.1</td></tr>
+              <tr><td class="net-name">https server (DMZ)</td><td class="net-ip">10.1.2.10</td><td class="net-mask">255.255.255.192</td><td class="net-ip">10.1.2.1</td></tr>
+              <tr><td class="net-name">ftp-log server (DMZ)</td><td class="net-ip">10.1.2.11</td><td class="net-mask">255.255.255.192</td><td class="net-ip">10.1.2.1</td></tr>
               <tr><td class="net-name">internetserver</td><td class="net-ip">213.200.13.10</td><td class="net-mask">255.255.255.0</td><td class="net-note">bez gateway</td></tr>
             </tbody>
           </table>
@@ -203,10 +285,67 @@
 
       <div class="divider"></div>
 
-      <!-- c) LINK AGGREGATION -->
-      <div class="task" id="ukol-c">
+      <!-- ════════════════════════════════════════════════════
+           d) TRUNK SW1 → R2
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-d">
         <div class="task-header">
-          <div class="task-letter c">c)</div>
+          <div class="task-letter d">d)</div>
+          <div class="task-info">
+            <div class="task-title">Trunk — SW1 → Router2 (VLAN900)</div>
+            <div class="task-points">Žádné přímé propojení — R2 používá VLAN900 gateway 10.1.2.1</div>
+          </div>
+        </div>
+        <div class="task-desc">
+          <strong>Mezi switch a routerem není žádné přímé propojení.</strong>
+          Router2 používá gateway z VLAN900 → <em>10.1.2.1</em>.
+          Servery v DMZ (https, ftp-log) mají gateway 10.1.2.1.
+          Konfigurujte sub-interface na R2 pro inter-VLAN routing přes VLAN900.
+        </div>
+
+        <div class="ios-block">
+          <div class="ios-header">
+            <span class="ios-device">R2 — inter-VLAN routing přes VLAN900</span>
+            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
+          </div>
+          <pre>
+<span class="cmt">! ── Sub-interface pro VLAN100 ────────────────────────</span>
+<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.100</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">encapsulation dot1Q</span> <span class="ios-ip">100</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.0.1</span> <span class="ios-ip">255.255.255.0</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
+
+<span class="cmt">! ── Sub-interface pro VLAN200 ────────────────────────</span>
+<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.200</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">encapsulation dot1Q</span> <span class="ios-ip">200</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.1.1</span> <span class="ios-ip">255.255.255.0</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">ip helper-address</span> <span class="ios-ip">10.1.2.65</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
+
+<span class="cmt">! ── Sub-interface pro VLAN900 (DMZ) — gateway pro servery ──</span>
+<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.900</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">encapsulation dot1Q</span> <span class="ios-ip">900</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.2.1</span> <span class="ios-ip">255.255.255.192</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">no shutdown</span>
+<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
+          </pre>
+        </div>
+
+        <div class="warn-box">
+          <strong>// POZOR</strong>
+          Mezi SW1 a R2 <strong>není žádné přímé kabelové propojení</strong>. R2 routuje mezi VLANy přes sub-interfaces.
+          VLAN900 slouží jako DMZ — servery mají gateway 10.1.2.1.
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ════════════════════════════════════════════════════
+           e) LINK AGGREGATION
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-e">
+        <div class="task-header">
+          <div class="task-letter e">e)</div>
           <div class="task-info">
             <div class="task-title">Link Aggregation — SW1 ↔ SW2</div>
             <div class="task-points">LACP / PagP / EtherChannel dle zadání</div>
@@ -214,8 +353,7 @@
         </div>
         <div class="task-desc">
           Realizujte Link Aggregation mezi <strong>SW1</strong> a <strong>SW2</strong>.
-          Zadání specifikuje protokol: <em>LACP</em>, <em>PagP</em>, nebo <em>EtherChannel (ON)</em>.
-          Port-channel nastavte jako trunk.
+          Port range: <em>FastEthernet0/1-3</em>. Port-channel nastavte jako trunk.
         </div>
 
         <div class="ios-block">
@@ -225,7 +363,7 @@
           </div>
           <pre>
 <span class="cmt">! SW1</span>
-<span class="mode">SW1(config)# </span><span class="cmd">interface range</span> <span class="iface">GigabitEthernet0/1-2</span>
+<span class="mode">SW1(config)# </span><span class="cmd">interface range</span> <span class="iface">FastEthernet0/1-3</span>
 <span class="mode">SW1(config-if-range)# </span><span class="cmd">channel-protocol lacp</span>
 <span class="mode">SW1(config-if-range)# </span><span class="cmd">channel-group</span> <span class="ios-ip">1</span> <span class="cmd">mode active</span>
 <span class="mode">SW1(config-if-range)# </span><span class="cmd">exit</span>
@@ -233,7 +371,7 @@
 <span class="mode">SW1(config-if)# </span><span class="cmd">switchport mode trunk</span>
 
 <span class="cmt">! SW2</span>
-<span class="mode">SW2(config)# </span><span class="cmd">interface range</span> <span class="iface">GigabitEthernet0/1-2</span>
+<span class="mode">SW2(config)# </span><span class="cmd">interface range</span> <span class="iface">FastEthernet0/1-3</span>
 <span class="mode">SW2(config-if-range)# </span><span class="cmd">channel-protocol lacp</span>
 <span class="mode">SW2(config-if-range)# </span><span class="cmd">channel-group</span> <span class="ios-ip">1</span> <span class="cmd">mode passive</span>
 <span class="mode">SW2(config-if-range)# </span><span class="cmd">exit</span>
@@ -245,19 +383,35 @@
           </pre>
         </div>
 
+        <div class="ios-block">
+          <div class="ios-header">
+            <span class="ios-device">EtherChannel ON — oba switche stejně</span>
+            <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
+          </div>
+          <pre>
+<span class="mode">SW(config)# </span><span class="cmd">interface range</span> <span class="iface">FastEthernet0/1-3</span>
+<span class="mode">SW(config-if-range)# </span><span class="cmd">channel-group</span> <span class="ios-ip">1</span> <span class="cmd">mode on</span>
+<span class="mode">SW(config-if-range)# </span><span class="cmd">exit</span>
+<span class="mode">SW(config)# </span><span class="cmd">interface</span> <span class="iface">Port-channel1</span>
+<span class="mode">SW(config-if)# </span><span class="cmd">switchport mode trunk</span>
+          </pre>
+        </div>
+
         <div class="tip-box">
-          <strong>// TIP — VLANy na SW1 a SW2</strong>
-          Nezapomeňte vytvořit VLANy a přiřadit access porty ještě před nastavením Link Aggregation.
-          <code>vlan 100 / name VLAN100</code> na obou switších.
+          <strong>// TIP</strong>
+          Nezapomeňte nejprve vytvořit VLANy a přiřadit access porty (úkol b),
+          teprve poté nastavte Link Aggregation.
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- d) ROUTING -->
-      <div class="task" id="ukol-d">
+      <!-- ════════════════════════════════════════════════════
+           f) ROUTING
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-f">
         <div class="task-header">
-          <div class="task-letter d">d)</div>
+          <div class="task-letter f">f)</div>
           <div class="task-info">
             <div class="task-title">Routing — inter-VLAN + R1 ↔ R2</div>
             <div class="task-points">R1, R2 — statický i OSPF</div>
@@ -270,27 +424,11 @@
 
         <div class="ios-block">
           <div class="ios-header">
-            <span class="ios-device">R2 — inter-VLAN + propojovací linky</span>
+            <span class="ios-device">R2 — propojovací linky + R1</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0</span>
-<span class="mode">R2(config-if)# </span><span class="cmd">no shutdown</span>
-<span class="mode">R2(config-if)# </span><span class="cmd">exit</span>
-
-<span class="cmt">! VLAN100</span>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.100</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">encapsulation dot1Q</span> <span class="ios-ip">100</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.0.1</span> <span class="ios-ip">255.255.255.0</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
-
-<span class="cmt">! VLAN200</span>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.200</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">encapsulation dot1Q</span> <span class="ios-ip">200</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.1.1</span> <span class="ios-ip">255.255.255.0</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
-
-<span class="cmt">! Propojovací linka R2 ↔ R1</span>
+<span class="cmt">! R2 — propojovací linka R2 ↔ R1</span>
 <span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1</span>
 <span class="mode">R2(config-if)# </span><span class="cmd">ip address</span> <span class="ios-ip">10.1.2.66</span> <span class="ios-ip">255.255.255.252</span>
 <span class="mode">R2(config-if)# </span><span class="cmd">no shutdown</span>
@@ -317,6 +455,7 @@
 <span class="mode">R2(config)# </span><span class="cmd">router ospf</span> <span class="ios-ip">1</span>
 <span class="mode">R2(config-router)# </span><span class="cmd">network</span> <span class="ios-ip">10.1.0.0</span> <span class="ios-ip">0.0.0.255</span> <span class="cmd">area</span> <span class="ios-ip">0</span>
 <span class="mode">R2(config-router)# </span><span class="cmd">network</span> <span class="ios-ip">10.1.1.0</span> <span class="ios-ip">0.0.0.255</span> <span class="cmd">area</span> <span class="ios-ip">0</span>
+<span class="mode">R2(config-router)# </span><span class="cmd">network</span> <span class="ios-ip">10.1.2.0</span> <span class="ios-ip">0.0.0.63</span>  <span class="cmd">area</span> <span class="ios-ip">0</span>
 <span class="mode">R2(config-router)# </span><span class="cmd">network</span> <span class="ios-ip">10.1.2.64</span> <span class="ios-ip">0.0.0.3</span>   <span class="cmd">area</span> <span class="ios-ip">0</span>
 <span class="mode">R2(config-router)# </span><span class="cmd">exit</span>
 
@@ -330,10 +469,12 @@
 
       <div class="divider"></div>
 
-      <!-- e) PING TEST -->
-      <div class="task" id="ukol-e">
+      <!-- ════════════════════════════════════════════════════
+           g) PING TEST
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-g">
         <div class="task-header">
-          <div class="task-letter e">e)</div>
+          <div class="task-letter g">g)</div>
           <div class="task-info">
             <div class="task-title">Ping test — dosažitelnost v COMPANY.local</div>
             <div class="task-points">PC1 ↔ PC3, PC2 ↔ PC4, PC → servery</div>
@@ -354,32 +495,29 @@
 C:\> <span class="cmd">ping</span> <span class="ios-ip">10.1.1.10</span>
 
 <span class="cmt">! Z PC1 na https server v DMZ</span>
-C:\> <span class="cmd">ping</span> <span class="ios-ip">10.1.2.2</span>
+C:\> <span class="cmd">ping</span> <span class="ios-ip">10.1.2.10</span>
 
 <span class="cmt">! Na routeru — ověření routovací tabulky</span>
 <span class="mode">R2# </span><span class="cmd">show ip route</span>
 <span class="mode">R1# </span><span class="cmd">show ip route</span>
 
 <span class="cmt">! Trace route pro diagnostiku</span>
-C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
+C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.10</span>
           </pre>
-        </div>
-
-        <div class="warn-box">
-          <strong>// NEFUNGUJE PING?</strong>
-          Zkontrolujte: (1) trunk port ke switchi, (2) sub-interface encapsulation, (3) no shutdown na všech rozhraních, (4) správná default gateway na PC.
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- f) DHCP -->
-      <div class="task" id="ukol-f">
+      <!-- ════════════════════════════════════════════════════
+           h) DHCP
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-h">
         <div class="task-header">
-          <div class="task-letter f">f)</div>
+          <div class="task-letter h">h)</div>
           <div class="task-info">
             <div class="task-title">DHCP — R1 pro VLAN100 a VLAN200</div>
-            <div class="task-points">Řešte až po funkčním pingu (úkol e)</div>
+            <div class="task-points">Řešte až po funkčním pingu (úkol g)</div>
           </div>
         </div>
         <div class="task-desc">
@@ -409,22 +547,22 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 <span class="mode">R1(dhcp-config)# </span><span class="cmd">dns-server</span> <span class="ios-ip">8.8.8.8</span>
 <span class="mode">R1(dhcp-config)# </span><span class="cmd">exit</span>
 
-<span class="cmt">! R2 — přeposílání DHCP požadavků na R1</span>
+<span class="cmt">! R2 — přeposílání DHCP požadavků na R1 (již nastaveno v sub-if VLAN200)</span>
 <span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.100</span>
 <span class="mode">R2(config-subif)# </span><span class="cmd">ip helper-address</span> <span class="ios-ip">10.1.2.65</span>
 <span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.200</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">ip helper-address</span> <span class="ios-ip">10.1.2.65</span>
           </pre>
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- g) SSH -->
-      <div class="task" id="ukol-g">
+      <!-- ═══════════════════════════════════════════════════
+           i) SSH
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-i">
         <div class="task-header">
-          <div class="task-letter g">g)</div>
+          <div class="task-letter i">i)</div>
           <div class="task-info">
             <div class="task-title">SSH — R1, přístup jen z jednoho VLANu</div>
             <div class="task-points">VLAN100 může, VLAN200 nemůže</div>
@@ -462,10 +600,12 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 
       <div class="divider"></div>
 
-      <!-- h) BACKUP CONFIG -->
-      <div class="task" id="ukol-h">
+      <!-- ════════════════════════════════════════════════════
+           j) BACKUP CONFIG
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-j">
         <div class="task-header">
-          <div class="task-letter h">h)</div>
+          <div class="task-letter j">j)</div>
           <div class="task-info">
             <div class="task-title">Záloha startup-config — SW1 → ftp-log server</div>
             <div class="task-points">FTP záloha přes DMZ</div>
@@ -488,7 +628,7 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
           </div>
           <pre>
 <span class="mode">SW1# </span><span class="cmd">copy startup-config ftp:</span>
-<span class="cmt">! Address or name of remote host? → 10.1.2.3</span>
+<span class="cmt">! Address or name of remote host? → 10.1.2.11</span>
 <span class="cmt">! Destination filename? → SW1-startup</span>
 <span class="cmt">! Username? → cisco  |  Password? → cisco</span>
           </pre>
@@ -497,10 +637,12 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 
       <div class="divider"></div>
 
-      <!-- i) LOGGING -->
-      <div class="task" id="ukol-i">
+      <!-- ════════════════════════════════════════════════════
+           k) LOGGING
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-k">
         <div class="task-header">
-          <div class="task-letter i">i)</div>
+          <div class="task-letter k">k)</div>
           <div class="task-info">
             <div class="task-title">Logging — R1 a R2 → ftp-log server (syslog)</div>
             <div class="task-points">Syslog na ftp-log server v DMZ</div>
@@ -521,12 +663,12 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="mode">R1(config)# </span><span class="cmd">logging host</span> <span class="ios-ip">10.1.2.3</span>
+<span class="mode">R1(config)# </span><span class="cmd">logging host</span> <span class="ios-ip">10.1.2.11</span>
 <span class="mode">R1(config)# </span><span class="cmd">logging trap informational</span>
 <span class="mode">R1(config)# </span><span class="cmd">service timestamps log datetime msec</span>
 <span class="mode">R1(config)# </span><span class="cmd">logging on</span>
 
-<span class="mode">R2(config)# </span><span class="cmd">logging host</span> <span class="ios-ip">10.1.2.3</span>
+<span class="mode">R2(config)# </span><span class="cmd">logging host</span> <span class="ios-ip">10.1.2.11</span>
 <span class="mode">R2(config)# </span><span class="cmd">logging trap informational</span>
 <span class="mode">R2(config)# </span><span class="cmd">service timestamps log datetime msec</span>
 <span class="mode">R2(config)# </span><span class="cmd">logging on</span>
@@ -536,19 +678,21 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 
       <div class="divider"></div>
 
-      <!-- j) NAT + DEFAULT ROUTE -->
-      <div class="task" id="ukol-j">
+      <!-- ════════════════════════════════════════════════════
+           l) NAT + DEFAULT ROUTE
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-l">
         <div class="task-header">
-          <div class="task-letter j">j)</div>
+          <div class="task-letter l">l)</div>
           <div class="task-info">
             <div class="task-title">NAT + Default route — R1</div>
-            <div class="task-points">Pouze VLAN100 má přístup do Internetu</div>
+            <div class="task-points">Pouze VLAN100 má přístup do Internetu · next hop 213.200.13.2</div>
           </div>
         </div>
         <div class="task-desc">
           Na R1 nakonfigurujte <strong>NAT overload</strong> — přístup do Internetu pouze pro zařízení z <em>VLAN100</em>.
           Z VLAN200 přístup do Internetu <strong>není</strong> povolen.
-          Nezapomeňte na <strong>default route</strong> a její distribuci k R2.
+          Nezapomeňte na <strong>default route</strong> (next hop = 213.200.13.2) a její distribuci k R2.
         </div>
 
         <div class="ios-block">
@@ -557,8 +701,8 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="cmt">! Default route na Internet</span>
-<span class="mode">R1(config)# </span><span class="cmd">ip route</span> <span class="ios-ip">0.0.0.0</span> <span class="ios-ip">0.0.0.0</span> <span class="ios-ip">213.200.13.1</span>
+<span class="cmt">! Default route na Internet — next hop = 213.200.13.2</span>
+<span class="mode">R1(config)# </span><span class="cmd">ip route</span> <span class="ios-ip">0.0.0.0</span> <span class="ios-ip">0.0.0.0</span> <span class="ios-ip">213.200.13.2</span>
 
 <span class="cmt">! OSPF — distribuce default route k R2</span>
 <span class="mode">R1(config)# </span><span class="cmd">router ospf</span> <span class="ios-ip">1</span>
@@ -580,7 +724,7 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 
 <span class="cmt">! PAT</span>
 <span class="mode">R1(config)# </span><span class="cmd">ip nat inside source list</span> <span class="ios-s">NAT_VLAN100</span>
-              <span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1</span> <span class="cmd">overload</span>
+               <span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1</span> <span class="cmd">overload</span>
           </pre>
         </div>
 
@@ -593,18 +737,20 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
 
       <div class="divider"></div>
 
-      <!-- k) PORT FORWARDING -->
-      <div class="task" id="ukol-k">
+      <!-- ════════════════════════════════════════════════════
+           m) PORT FORWARDING
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-m">
         <div class="task-header">
-          <div class="task-letter k">k)</div>
+          <div class="task-letter m">m)</div>
           <div class="task-info">
             <div class="task-title">Port Forwarding — Internet → DMZ servery</div>
-            <div class="task-points">R1 — HTTPS (443) → https server · FTP (20,21) → ftp-log server</div>
+            <div class="task-points">R1 — HTTPS (443) → https server 10.1.2.10 · FTP (20,21) → ftp-log 10.1.2.11</div>
           </div>
         </div>
         <div class="task-desc">
-          Zpřístupněte servery v DMZ z Internetu: <em>https/443</em> na https server
-          a <em>FTP (20, 21)</em> na ftp-log server.
+          Zpřístupněte servery v DMZ z Internetu: <em>https/443</em> na https server (10.1.2.10)
+          a <em>FTP (20, 21)</em> na ftp-log server (10.1.2.11).
         </div>
 
         <div class="ios-block">
@@ -613,71 +759,71 @@ C:\> <span class="cmd">tracert</span> <span class="ios-ip">10.1.2.2</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="cmt">! HTTPS → https server</span>
+<span class="cmt">! HTTPS → https server (10.1.2.10)</span>
 <span class="mode">R1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.1.2.2</span> <span class="ios-ip">443</span> <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">443</span>
+               <span class="ios-ip">10.1.2.10</span> <span class="ios-ip">443</span> <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">443</span>
 
-<span class="cmt">! FTP → ftp-log server</span>
+<span class="cmt">! FTP → ftp-log server (10.1.2.11)</span>
 <span class="mode">R1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.1.2.3</span> <span class="ios-ip">21</span>  <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">21</span>
+               <span class="ios-ip">10.1.2.11</span> <span class="ios-ip">21</span>  <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">21</span>
 <span class="mode">R1(config)# </span><span class="cmd">ip nat inside source static tcp</span>
-              <span class="ios-ip">10.1.2.3</span> <span class="ios-ip">20</span>  <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">20</span>
+               <span class="ios-ip">10.1.2.11</span> <span class="ios-ip">20</span>  <span class="ios-ip">213.200.13.X</span> <span class="ios-ip">20</span>
           </pre>
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- l) ACL -->
-      <div class="task" id="ukol-l">
+      <!-- ════════════════════════════════════════════════════
+           n) ACL — podle extendedacl.png
+           ════════════════════════════════════════════════════ -->
+      <div class="task" id="ukol-n">
         <div class="task-header">
-          <div class="task-letter l">l)</div>
+          <div class="task-letter n">n)</div>
           <div class="task-info">
-            <div class="task-title">ACL — VLAN100 může HTTPS, VLAN200 nesmí</div>
-            <div class="task-points">Extended ACL na R2 sub-interfaces</div>
+            <div class="task-title">ACL — extended ACL na R2 sub-interfaces</div>
+            <div class="task-points">VLAN100 → HTTPS (443) na 10.1.2.10 · VLAN200 → deny HTTPS</div>
           </div>
         </div>
         <div class="task-desc">
-          Z <strong>VLAN100</strong> povolte přístup na <em>https server</em> (port 443).
+          Z <strong>VLAN100</strong> povolte přístup na <em>https server</em> (10.1.2.10, port 443).
           Z <strong>VLAN200</strong> komunikaci na https server <strong>úplně zakažte</strong>.
+          Ostatní provoz z obou VLANů povolte.
         </div>
 
         <div class="ios-block">
           <div class="ios-header">
-            <span class="ios-device">R2 — Extended ACL</span>
+            <span class="ios-device">R2 — Extended ACL (HTTPS)</span>
             <button class="ios-copy" onclick="copyCmd(this)">kopírovat</button>
           </div>
           <pre>
-<span class="cmt">! VLAN100 → HTTPS povoleno</span>
-<span class="mode">R2(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN100_OUT</span>
-<span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.1.0.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.1.2.2</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
+<span class="cmt">! Extended ACL — HTTPS přístup</span>
+<span class="mode">R2(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">HTTPS</span>
+<span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.1.0.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.1.2.10</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
+<span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">tcp</span> <span class="ios-ip">10.1.1.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.1.2.10</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
 <span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.1.0.0 0.0.0.255</span> <span class="cmd">any</span>
-<span class="mode">R2(config-ext-nacl)# </span><span class="cmd">exit</span>
-
-<span class="cmt">! VLAN200 → HTTPS zakázáno, ostatní povoleno</span>
-<span class="mode">R2(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN200_OUT</span>
-<span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">tcp</span> <span class="ios-ip">10.1.1.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.1.2.2</span> <span class="ios-op">eq</span> <span class="ios-ip">443</span>
 <span class="mode">R2(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.1.1.0 0.0.0.255</span> <span class="cmd">any</span>
 <span class="mode">R2(config-ext-nacl)# </span><span class="cmd">exit</span>
 
-<span class="cmt">! Aplikace na sub-interfaces</span>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.100</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN100_OUT</span> <span class="cmd">in</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">exit</span>
-<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/0.200</span>
-<span class="mode">R2(config-subif)# </span><span class="cmd">ip access-group</span> <span class="ios-s">VLAN200_OUT</span> <span class="cmd">in</span>
+<span class="cmt">! Aplikace na výstupní interface (směrem k DMZ)</span>
+<span class="mode">R2(config)# </span><span class="cmd">interface</span> <span class="iface">GigabitEthernet0/1</span>
+<span class="mode">R2(config-if)# </span><span class="cmd">ip access-group</span> <span class="ios-s">HTTPS</span> <span class="cmd">out</span>
+<span class="mode">R2(config-if)# </span><span class="cmd">exit</span>
 
 <span class="cmt">! Ověření:</span>
 <span class="mode">R2# </span><span class="cmd">show access-lists</span>
+<span class="mode">R2# </span><span class="cmd">show ip interface GigabitEthernet0/1</span>
           </pre>
         </div>
 
         <div class="explanation">
           <div class="explanation-title">// VYSVĚTLENÍ</div>
           <ul>
-            <li><code>deny</code> je první → zákazová pravidla musí být <strong>před</strong> povoleními</li>
-            <li><code>permit ip ... any</code> na konci zachovává ostatní komunikaci (inter-VLAN, DHCP, atd.)</li>
-            <li>Bez posledního <code>permit</code> by implicit deny zahodil i legitimní provoz</li>
+            <li><code>permit tcp 10.1.0.0/24 → host 10.1.2.10 eq 443</code> — VLAN100 může na HTTPS</li>
+            <li><code>deny tcp 10.1.1.0/24 → host 10.1.2.10 eq 443</code> — VLAN200 nesmí na HTTPS</li>
+            <li><code>permit ip ... any</code> — ostatní provoz z obou VLANů povolen</li>
+            <li>ACL aplikováno <code>out</code> na Gi0/1 (směr k R1/DMZ)</li>
+            <li><code>deny</code> pravidlo musí být <strong>před</strong> obecným <code>permit ip</code></li>
           </ul>
         </div>
       </div>
