@@ -565,7 +565,7 @@
           <pre>
 <span class="mode">Router1(config)# </span><span class="cmd">hostname</span> <span class="ios-s">Router1</span>
 <span class="mode">Router1(config)# </span><span class="cmd">ip domain-name</span> <span class="ios-s">sspu.local</span>
-<span class="mode">Router1(config)# </span><span class="cmd">crypto key generate rsa modulus</span> <span class="ios-ip">1024</span>
+<span class="mode">Router1(config)# </span><span class="cmd">crypto key generate rsa general-keys modulus</span> <span class="ios-ip">1024</span>
 <span class="mode">Router1(config)# </span><span class="cmd">ip ssh version</span> <span class="ios-ip">2</span>
 
 <span class="cmt">! Lokální uživatel</span>
@@ -764,7 +764,7 @@
 <span class="mode">Router0(config)# </span><span class="cmd">ip access-list extended</span> <span class="ios-s">VLAN20_DMZ</span>
 <span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">tcp</span> <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="cmd">host</span> <span class="ios-ip">10.0.3.2</span> <span class="ios-op">eq</span> <span class="ios-s">ftp</span>
 <span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">deny</span>   <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">10.0.3.0 0.0.0.15</span>
-<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">10.0.3.0 0.0.0.15</span>
+<span class="mode">Router0(config-ext-nacl)# </span><span class="ios-op">permit</span> <span class="cmd">ip</span>  <span class="ios-ip">10.0.2.0 0.0.0.255</span> <span class="ios-ip">any</span>
 <span class="mode">Router0(config-ext-nacl)# </span><span class="cmd">exit</span>
 
 <span class="cmt">! Aplikace ACL na vstupní sub-interfaces</span>
