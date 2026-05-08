@@ -1,5 +1,5 @@
 //
-// Created by ucitel on 09.03.2026.
+// Created by filip on 5/8/2026.
 //
 
 #ifndef SOUSTAVA_H
@@ -10,35 +10,22 @@
 using std::string;
 using std::ostream;
 
-
 class soustava {
 public:
     soustava();
-
     soustava(string n, int s);
-
-    soustava(const soustava &Soustava);
-
-    ~soustava() = default;
-
+    soustava(const soustava &cp);
+    ~soustava();
     string get_number(int s)const;
-
     bool set_number(string n, int s);
-
 private:
     unsigned int number;
-
     static bool sIsValid(int s);
-
     static bool nIsValid(string n, int s);
-
     static unsigned int convertToDec(string n, int s);
-
     static string convertFromDec(unsigned int n, int s);
 };
 
-
 ostream &operator <<(ostream &os, const soustava &s);
-
 
 #endif //SOUSTAVA_H

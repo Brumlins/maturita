@@ -1,5 +1,5 @@
 //
-// Created by ucitel on 09.03.2026.
+// Created by filip on 5/8/2026.
 //
 
 #include "soustava.h"
@@ -13,24 +13,25 @@ soustava::soustava(): number(0) {
 
 soustava::soustava(string n, int s) {
     if (!set_number(n, s)) {
-        this->number = 0;
+        number = 0;
     }
 }
 
-soustava::soustava(const soustava &Soustava) {
-    set_number(Soustava.get_number(2), 2);
+soustava::soustava(const soustava &cp): number(cp.number) {
+}
+
+soustava::~soustava() {
 }
 
 string soustava::get_number(int s) const {
-    return sIsValid(s) ? convertFromDec(this->number, s): "0";
+    return sIsValid(s) ? convertFromDec(number, s) : "0";
 }
-
 
 bool soustava::set_number(string n, int s) {
     if (!nIsValid(n, s)) {
         return false;
     }
-    this->number = convertToDec(n, s);
+    number = convertToDec(n, s);
     return true;
 }
 
@@ -71,9 +72,9 @@ string soustava::convertFromDec(unsigned int n, int s) {
 }
 
 ostream & operator<<(ostream &os, const soustava &s) {
-    os << "Cislo ve dvojkove soustave :" << s.get_number(2) << std::endl;
-    os << "Cislo v desitkove soustave :" << s.get_number(10) << std::endl;
-    os << "Cislo v sestnactkove soustave :" << s.get_number(16) << std::endl;
-    os << "Cislo v osmickove soustave :" << s.get_number(8) << std::endl;
+    os << "Cislo v dvojkove soustave: " << s.get_number(2) << std::endl;
+    os << "Cislo v desitkove soustave: " << s.get_number(10) << std::endl;
+    os << "Cislo v sestnactkove soustave: " << s.get_number(16) << std::endl;
+    os << "Cislo v osmickove soustave: " << s.get_number(8) << std::endl;
     return os;
 }
