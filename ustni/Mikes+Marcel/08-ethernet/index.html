@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q08 – Ethernet | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q08</span>
+</nav>
+<div class="hero">
+  <div class="bignr">08</div>
+  <div class="qnum">Otázka 08 / 20 · Mikes &amp; Marcel</div>
+  <h1>Ethernet</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>L1: kabel (Cat5e/6a), optika MM vs SM</li><li>L2: Ethernet rámec – MAC (6B), FCS (CRC-32)</li><li>Hub (L1) vs Switch (L2) – kolizní doména, CSMA/CD</li><li>STP, LACP, VLAN 802.1Q</li></ul>
+</div>
+
+<h2>Fyzická vrstva (L1)</h2>
+<div class="box box-purple">
+  Přenos dat jako elektrické nebo optické signály. Definuje kabely, konektory, kódování signálu (Manchester coding, 4B/5B).
+</div>
+
+<h2>Kabely UTP</h2>
+<table>
+  <tr><th>Kategorie</th><th>Max rychlost</th><th>Max vzdálenost</th><th>Poznámka</th></tr>
+  <tr><td>Cat5e</td><td>1 Gbit/s</td><td>100 m</td><td>Dnes nejrozšířenější</td></tr>
+  <tr><td>Cat6</td><td>10 Gbit/s</td><td>55 m</td><td>Separátor párů</td></tr>
+  <tr><td>Cat6a</td><td>10 Gbit/s</td><td>100 m</td><td>Datová centra</td></tr>
+</table>
+<div class="box box-amber">
+  <strong>UTP</strong> = bez stínění · <strong>FTP</strong> = fólie kolem svazku · <strong>STP</strong> = stínění každého páru<br>
+  4 páry = 8 vodičů. T568B = nejběžnější standard zapojení. MDI-X = auto-rozpoznání rovný/křížený kabel.
+</div>
+
+<h2>Optické kabely</h2>
+<div class="two-col">
+  <div class="card"><h3>Multimode (MM)</h3><p>Jádro 50/62.5 µm – více paprsků (Snellův zákon – totální odraz). Do 550 m při 10G. LED/VCSEL zdroj. Levnější.</p></div>
+  <div class="card"><h3>Singlemode (SM)</h3><p>Jádro 9 µm – jeden paprsek. Desítky km. Laserový zdroj. WAN, metro, DWDM.</p></div>
+</div>
+
+<h2>Linková vrstva (L2) – Ethernet rámec</h2>
+<pre><code>| Preambula | SFD | Cíl MAC | Zdroj MAC | Typ/Délka |  Data (46–1500 B)  | FCS |
+|    7 B    | 1 B |   6 B   |    6 B    |    2 B    |      46–1500 B     | 4 B |
+
+Preambula: 10101010... (synchronizace)
+SFD: 10101011 (Start Frame Delimiter)
+MAC: 6 bytů = 48 bitů (12 hex číslic)   např. AA:BB:CC:DD:EE:FF
+FCS: CRC-32 – kontrolní součet</code></pre>
+
+<h2>MAC adresace a switche</h2>
+<div class="box box-green">
+  Switch se učí MAC adresy a posílá rámec jen na správný port (unicast). Každý port = vlastní kolizní doména. Tabulka MAC adres (CAM table).
+</div>
+<table>
+  <tr><th>Zařízení</th><th>Vrstva</th><th>Chování</th></tr>
+  <tr><td>Hub</td><td>L1</td><td>Posílá bity na všechny porty – jedna kolizní doména</td></tr>
+  <tr><td>Switch</td><td>L2</td><td>Učí se MAC adresy, posílá jen na správný port</td></tr>
+  <tr><td>Router</td><td>L3</td><td>Propojuje sítě, pracuje s IP adresami</td></tr>
+</table>
+
+<h2>CSMA/CD, STP, LACP</h2>
+<pre><code>CSMA/CD: Carrier Sense → Multiple Access → Collision Detection
+→ Jam signal → Random backoff → zkus znovu
+Při full-duplex (switch ↔ NIC) kolize nevznikají!
+
+STP (802.1D) – zabraňuje smyčkám: volí Root Bridge, blokuje porty
+RSTP (802.1w) – rychlejší konvergence
+
+LACP (802.3ad) – agregace linek: více fyzických = jeden logický kanál
+# Linux bonding:
+ip link add bond0 type bond
+ip link set eth0 master bond0</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../07-komunikacni-site-modely/index.html">← Komunikační sítě a modely</a>
+  <a class="nav-btn" href="../09-wifi/index.html">Bezdrátové sítě a WiFi →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Ethernet</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q19 – Vstupní zařízení počítače | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q19</span>
+</nav>
+<div class="hero">
+  <div class="bignr">19</div>
+  <div class="qnum">Otázka 19 / 20 · Mikes &amp; Marcel</div>
+  <h1>Vstupní zařízení počítače</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Membránová vs mechanická vs nůžková klávesnice</li><li>Matice kláves, NKRO, anti-ghosting</li><li>Myš: optická (LED), laserová; DPI, polling rate</li><li>TrackPoint, TouchPad; čtečky OT, EyeTracker, BCI</li></ul>
+</div>
+
+<h2>Klávesnice</h2>
+<div class="box box-purple">
+  Standardní rozložení QWERTY / QWERTZ. Posílá klávesový kód (scan code) → OS → ASCII / Unicode.
+</div>
+<table>
+  <tr><th>Typ</th><th>Princip</th><th>Poznámka</th></tr>
+  <tr><td><strong>Membránová</strong></td><td>Gumová kopule propojuje kontakty na fólii</td><td>Tichá, levná, kratší životnost</td></tr>
+  <tr><td><strong>Mechanická</strong></td><td>Každá klávesa má vlastní mechanický spínač (Cherry MX)</td><td>Přesná odezva, cvaknutí, odolná, dražší</td></tr>
+  <tr><td><strong>Nůžková</strong></td><td>Membránová varianta s křížovým mechanismem</td><td>Nízký zdvih, notebooky</td></tr>
+</table>
+<div class="box box-green">
+  <strong>Matice kláves</strong> – dynamická: klávesy v řádcích a sloupcích. Procesor skenuje průsečíky → souřadnice → scan code.<br>
+  <strong>NKRO</strong> = N-Key Rollover – registruje libovolný počet kláves najednou.<br>
+  <strong>Anti-ghosting</strong> – žádné falešné signály při stisku více kláves.
+</div>
+
+<h2>Myš</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">1963</div><div class="tl-text">Douglas Engelbart – první myš (dřevěná s koly).</div></div>
+  <div class="tl-item"><div class="tl-year">Mech.-optická</div><div class="tl-text">Kulička otáčí dvěma válečky (X a Y), kolečka přerušují světelný paprsek. Zastaralé.</div></div>
+  <div class="tl-item"><div class="tl-year">Optická (LED)</div><div class="tl-text">Kamera snímá povrch, mikroprocesor porovnává snímky a vypočítává pohyb.</div></div>
+  <div class="tl-item"><div class="tl-year">Laserová</div><div class="tl-text">Infračervený laser – přesnější, funguje na skle a kovu.</div></div>
+</div>
+<div class="two-col">
+  <div class="box box-purple"><strong>DPI</strong> – Dots Per Inch: citlivost. Čím vyšší, tím menší pohyb = větší posun kurzoru.</div>
+  <div class="box box-amber"><strong>Polling Rate (Hz)</strong> – jak často myš posílá data (1000 Hz = 1000× za sekundu).</div>
+</div>
+
+<h2>Polohovací alternativy</h2>
+<table>
+  <tr><th>Zařízení</th><th>Princip</th></tr>
+  <tr><td><strong>TrackPoint</strong></td><td>Červený čudlík v klávesnici – tenzometr reaguje na tlak a směr. IBM ThinkPad.</td></tr>
+  <tr><td><strong>TouchPad</strong></td><td>Kapacitní snímač polohy prstu. Notebooky.</td></tr>
+  <tr><td><strong>TrackBall</strong></td><td>"Myš naruby" – kuličkou otáčíš prstem, tělo stojí na místě.</td></tr>
+</table>
+
+<h2>Skenery a biometrika</h2>
+<div class="two-col">
+  <div class="card"><h3>Skenery</h3><p>Stolní (flatbed) – předloha na skle, projíždí osvětlovací rampa + snímač.<br>Čárové kódy – odraz laserového paprsku od pruhů.</p></div>
+  <div class="card"><h3>Biometrická rozhraní</h3><p><strong>Čtečka otisků</strong> – papilární linie.<br><strong>EyeTracker</strong> – sledování pohybu očí.<br><strong>BCI</strong> – Brain-Computer Interface (EEG → ovládání myšlenkou).</p></div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../18-rozhrani-pocitacu/index.html">← Rozhraní počítačů</a>
+  <a class="nav-btn" href="../20-plc-automat/index.html">PLC automat →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Vstupní zařízení počítače</div>
+</body>
+</html>

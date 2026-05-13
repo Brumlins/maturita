@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q05 – Služby | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q05</span>
+</nav>
+<div class="hero">
+  <div class="bignr">05</div>
+  <div class="qnum">Otázka 05 / 20 · Mikes &amp; Marcel</div>
+  <h1>Služby</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Daemon = program na pozadí</li><li>systemctl start/stop/enable/disable/status</li><li>Unit soubory: [Unit], [Service], [Install]</li><li>crontab – minuta hodina den měsíc den_týdne</li></ul>
+</div>
+
+<h2>Co je služba?</h2>
+<div class="box box-green">
+  <strong>Služba (daemon)</strong> = program běžící na pozadí bez interakce s uživatelem. Spouštěna automaticky při startu OS. Zajišťuje funkce sítě, databáze, tisku, bezpečnosti atd.
+</div>
+
+<h2>systemd – správa služeb</h2>
+<div class="box box-purple">
+  <strong>systemd</strong> = moderní init systém Linuxu (PID 1). Nahradil SysV init. Paralelní start, závislosti, žurnálování.
+</div>
+<pre><code># Ovládání
+systemctl start   nginx
+systemctl stop    nginx
+systemctl restart nginx
+systemctl reload  nginx       # reload konfigurace bez restartu
+systemctl status  nginx       # stav + posledních pár řádků logu
+
+# Autostart při bootu
+systemctl enable  nginx
+systemctl disable nginx
+systemctl mask    nginx       # zablokuj (nelze spustit)
+
+# Přehled
+systemctl list-units --type=service --state=running
+systemctl list-unit-files --type=service</code></pre>
+
+<h2>Unit soubor (.service)</h2>
+<pre><code># /etc/systemd/system/mojesluzba.service
+[Unit]
+Description=Moje vlastní služba
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/app
+ExecStart=/opt/app/server
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<pre><code>systemctl daemon-reload          # načti nové unit soubory
+systemctl enable --now mojesluzba</code></pre>
+
+<h2>Logy – journald</h2>
+<pre><code>journalctl -u nginx              # logy konkrétní služby
+journalctl -f                    # live sledování (follow)
+journalctl -n 50                 # posledních 50 řádků
+journalctl --since "1 hour ago"
+journalctl -p err                # pouze chyby</code></pre>
+
+<h2>CRON – plánování úloh</h2>
+<div class="box box-amber">
+  Crontab syntaxe: <code>minuta hodina den_měsíce měsíc den_týdne příkaz</code>
+</div>
+<pre><code>crontab -e              # edituj crontab aktuálního uživatele
+crontab -l              # zobraz
+
+# Příklady
+0 2 * * *   /backup.sh          # každý den ve 2:00
+*/5 * * * * /check.sh           # každých 5 minut
+0 2 * * 0   /weekly.sh          # každou neděli ve 2:00
+0 2 1 * *   /monthly.sh         # 1. v měsíci ve 2:00</code></pre>
+
+<h2>Správa balíčků – apt</h2>
+<pre><code>apt update                  # aktualizuj seznam balíčků
+apt upgrade                 # aktualizuj nainstalované
+apt install nginx           # instaluj
+apt remove nginx            # odinstaluj (zachová konfig)
+apt purge  nginx            # odinstaluj + smaž konfig
+apt autoremove              # odstraň nepotřebné závislosti
+apt search php              # hledání balíčků</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../04-sprava-procesu/index.html">← Správa procesů</a>
+  <a class="nav-btn" href="../06-skripty-v-linuxu/index.html">Skripty v Linuxu →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Služby</div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q13 – Jednočipové mikrokontrolery | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q13</span>
+</nav>
+<div class="hero">
+  <div class="bignr">13</div>
+  <div class="qnum">Otázka 13 / 20 · Mikes &amp; Marcel</div>
+  <h1>Jednočipové mikrokontrolery</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>MCU = CPU + RAM + Flash + periferie v jednom pouzdře</li><li>Von Neumann vs Harvardská architektura</li><li>UART, SPI, I2C, CAN – komunikační rozhraní</li><li>CISC vs RISC; MCU vs SBC (Raspberry Pi)</li></ul>
+</div>
+
+<h2>Co je mikrokontrolér (MCU)?</h2>
+<div class="box box-purple">
+  Monolitický integrovaný obvod (MIO) – integruje CPU, paměti a periferie do jednoho pouzdra. Navržen pro jednoúčelové embedded aplikace (od mikrovlnky přes auto po průmyslové roboty).
+</div>
+
+<h2>Architektura: Von Neumann vs. Harvardská</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Von Neumannova</h3>
+    <ul>
+      <li>Společná paměť pro instrukce i data</li>
+      <li>Jedna sběrnice</li>
+      <li>✓ Jednodušší, levnější</li>
+      <li>✗ Úzké hrdlo (bottleneck)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Harvardská</h3>
+    <ul>
+      <li>Oddělená paměť i sběrnice pro instrukce a data</li>
+      <li>✓ Paralelní zpracování – vyšší rychlost</li>
+      <li>Moderní MCU: AVR, ARM</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Vnitřní struktura MCU</h2>
+<table>
+  <tr><th>Část</th><th>Popis</th></tr>
+  <tr><td><strong>CPU</strong></td><td>Vykonává instrukce programu</td></tr>
+  <tr><td><strong>Flash / ROM</strong></td><td>Trvalé uložení programu (firmware) – nevolatilní</td></tr>
+  <tr><td><strong>SRAM</strong></td><td>Dočasná data, zásobník, proměnné – vymaže se po vypnutí</td></tr>
+  <tr><td><strong>EEPROM</strong></td><td>Trvalé ukládání konfigurace – přepisovatelná, drží bez proudu</td></tr>
+  <tr><td><strong>GPIO</strong></td><td>Vstupně/výstupní piny pro tlačítka, LED, senzory</td></tr>
+  <tr><td><strong>Časovače/Čítače</strong></td><td>Měření času, generování PWM (motory, jas LED)</td></tr>
+  <tr><td><strong>ADC/DAC</strong></td><td>Převodníky analogový ↔ digitální svět</td></tr>
+  <tr><td><strong>Watchdog timer</strong></td><td>Restartuje MCU při zamrznutí programu</td></tr>
+</table>
+
+<h2>Komunikační rozhraní</h2>
+<table>
+  <tr><th>Rozhraní</th><th>Popis</th><th>Použití</th></tr>
+  <tr><td><strong>UART</strong></td><td>Sériová linka, asynchronní, 2 vodiče</td><td>Konzole, GPS, GSM moduly</td></tr>
+  <tr><td><strong>SPI</strong></td><td>Synchronní, velmi rychlá, Master-Slave, 4 vodiče</td><td>Flash, displeje, SD karty</td></tr>
+  <tr><td><strong>I2C</strong></td><td>Dvouvodičová sběrnice, až 127 zařízení na 2 vodiče</td><td>Čidla, EEPROM, RTC</td></tr>
+  <tr><td><strong>CAN</strong></td><td>Robustní, odolná vůči rušení, multimaster</td><td>Automotive (auto)</td></tr>
+</table>
+
+<h2>CISC vs. RISC</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>CISC (Complex)</h3>
+    <p>Složité instrukce – jedna instrukce vykoná mnoho operací. Proměnná délka instrukce. Příklad: x86 (Intel, AMD).</p>
+  </div>
+  <div class="card">
+    <h3>RISC (Reduced)</h3>
+    <p>Jednoduché, stejně dlouhé instrukce – vykonávají se velmi rychle (1 takt). Většina moderních MCU: AVR, ARM, MIPS.</p>
+  </div>
+</div>
+
+<h2>MCU vs. Jednodeskový počítač (SBC)</h2>
+<table>
+  <tr><th>Vlastnost</th><th>MCU (Arduino, PIC)</th><th>SBC (Raspberry Pi)</th></tr>
+  <tr><td>OS</td><td>Bez OS (nebo RTOS)</td><td>Linux, Windows IoT</td></tr>
+  <tr><td>Výkon</td><td>Nízký (MHz)</td><td>Vysoký (GHz)</td></tr>
+  <tr><td>Spotřeba</td><td>Extrémně nízká (mW)</td><td>Vyšší (W)</td></tr>
+  <tr><td>Použití</td><td>Řízení HW v reálném čase</td><td>Multimediální projekty, web server</td></tr>
+</table>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../12-vypocetni-modely/index.html">← Výpočetní modely</a>
+  <a class="nav-btn" href="../14-polovodicove-pameti/index.html">Polovodičové paměti →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Jednočipové mikrokontrolery</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q03 – Správa uživatelů | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q03</span>
+</nav>
+<div class="hero">
+  <div class="bignr">03</div>
+  <div class="qnum">Otázka 03 / 20 · Mikes &amp; Marcel</div>
+  <h1>Správa uživatelů</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>root (UID 0), systémoví, běžní uživatelé</li><li>/etc/passwd, /etc/shadow, /etc/group</li><li>useradd, usermod, userdel, passwd, groupadd</li><li>chmod, chown, SUID/SGID/Sticky, ACL (setfacl)</li></ul>
+</div>
+
+<h2>Typy uživatelů v Linuxu</h2>
+<div class="three-col">
+  <div class="card">
+    <h3>root (UID 0)</h3>
+    <p>Superuživatel – neomezená práva. <kbd>sudo -i</kbd> nebo <kbd>su -</kbd></p>
+  </div>
+  <div class="card">
+    <h3>Systémoví (UID 1–999)</h3>
+    <p>Spouštějí služby (www-data, mysql). Bez domovského adresáře a shellu.</p>
+  </div>
+  <div class="card">
+    <h3>Běžní uživatelé (1000+)</h3>
+    <p>Omezená práva – jen ke svým souborům a nastavením.</p>
+  </div>
+</div>
+
+<h2>Klíčové soubory</h2>
+<table>
+  <tr><th>Soubor</th><th>Obsah (formát)</th></tr>
+  <tr><td><code>/etc/passwd</code></td><td>jméno:x:UID:GID:GECOS:home:shell</td></tr>
+  <tr><td><code>/etc/shadow</code></td><td>hashovaná hesla + expirace (jen root čte)</td></tr>
+  <tr><td><code>/etc/group</code></td><td>jméno:x:GID:členové</td></tr>
+  <tr><td><code>/etc/sudoers</code></td><td>kdo smí volat sudo a pro jaké příkazy</td></tr>
+</table>
+
+<h2>Správa uživatelů – příkazy</h2>
+<pre><code># Vytvoření / mazání
+useradd -m -s /bin/bash -G sudo jan    # -m = domovský adresář
+passwd jan                              # nastavit heslo
+userdel -r jan                          # -r = smaž i domov
+
+# Úprava
+usermod -aG docker jan      # přidat do skupiny
+usermod -L jan              # zamknout účet
+usermod -U jan              # odemknout
+
+# Skupiny
+groupadd vyvojari
+gpasswd -a jan vyvojari     # přidat uživatele do skupiny
+gpasswd -d jan vyvojari     # odebrat
+
+# Přepnutí
+su - jan                    # přepnout na jana
+sudo -u jan příkaz          # spustit jako jan</code></pre>
+
+<h2>Oprávnění (chmod/chown)</h2>
+<div class="box box-purple">
+  <code>ls -l</code> → <code>-rwxr-xr-- jan users 1234 soubor.txt</code><br>
+  <strong>r</strong>=4 čtení, <strong>w</strong>=2 zápis, <strong>x</strong>=1 spuštění<br>
+  Skupiny: vlastník | skupina | ostatní
+</div>
+<pre><code>chmod 755 skript.sh         # rwxr-xr-x
+chmod 644 soubor.txt        # rw-r--r--
+chmod u+x,go-w soubor.txt  # symbolicky
+chown jan:users soubor.txt  # změna vlastníka</code></pre>
+
+<h2>Speciální bity a ACL</h2>
+<table>
+  <tr><th>Bit</th><th>Oktal</th><th>Efekt na souboru</th><th>Efekt na adresáři</th></tr>
+  <tr><td>SUID</td><td>4000</td><td>Spouští se jako vlastník (passwd, sudo)</td><td>–</td></tr>
+  <tr><td>SGID</td><td>2000</td><td>Spouští se jako skupina</td><td>Nové soubory dědí skupinu</td></tr>
+  <tr><td>Sticky</td><td>1000</td><td>–</td><td>Mazat může jen vlastník (/tmp)</td></tr>
+</table>
+<pre><code>getfacl soubor.txt                 # zobraz ACL
+setfacl -m u:jana:rw soubor.txt    # jana: rw
+setfacl -b soubor.txt              # smaž vše ACL</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../02-souborove-systemy/index.html">← Souborové systémy</a>
+  <a class="nav-btn" href="../04-sprava-procesu/index.html">Správa procesů →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Správa uživatelů</div>
+</body>
+</html>

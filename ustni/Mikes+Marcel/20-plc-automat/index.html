@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q20 – PLC automat | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q20</span>
+</nav>
+<div class="hero">
+  <div class="bignr">20</div>
+  <div class="qnum">Otázka 20 / 20 · Mikes &amp; Marcel</div>
+  <h1>PLC automat</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>PLC = průmyslový řadič pro real-time automatizaci</li><li>Bloky: CPU, paměť, napájení, I/O moduly</li><li>Cyklický scan: čtení vstupů → program → zápis výstupů</li><li>Monolitický vs modulární; relé/tranzistor/triak výstupy</li></ul>
+</div>
+
+<h2>Co je PLC?</h2>
+<div class="box box-purple">
+  <strong>PLC</strong> (Programmable Logic Controller) = odolný průmyslový počítač pro automatizaci v reálném čase. Stavěn na nepřetržitý provoz v náročném prostředí (prach, vlhkost, vibrace, EMI). Nahrazuje složité reléové systémy – flexibilní díky softwarovému přeprogramování.
+</div>
+
+<h2>Hardwarová struktura PLC</h2>
+<table>
+  <tr><th>Blok</th><th>Popis</th></tr>
+  <tr><td><strong>CPU</strong></td><td>Vykonává program, řídí komunikaci</td></tr>
+  <tr><td><strong>Paměť</strong></td><td>Flash/EEPROM = program; RAM = pracovní data</td></tr>
+  <tr><td><strong>Napájecí zdroj</strong></td><td>Převádí síťové napětí → 24V DC pro elektroniku</td></tr>
+  <tr><td><strong>I/O moduly</strong></td><td>Vstupy (senzory) a výstupy (akční členy)</td></tr>
+</table>
+
+<h2>Cyklický scan – princip činnosti</h2>
+<div class="box box-green">
+  PLC běží v nekonečné smyčce (skenovací cyklus, trvá jednotky ms):
+</div>
+<pre><code>1. Čtení vstupů     → načte stavy senzorů do paměti
+2. Provedení programu → CPU vyhodnotí logiku krok za krokem
+3. Zápis výstupů    → aktualizuje výstupy (motory, ventily, LED)
+4. Diagnostika      → Watchdog, kontrola chyb, komunikace
+----- opakuje se donekonečna -----</code></pre>
+
+<h2>Typy konstrukce PLC</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Monolitické (Kompaktní)</h3>
+    <p>Vše v jednom pouzdře – CPU, zdroj, pevný počet I/O. ✓ Levnější, menší. ✗ Nelze snadno rozšířit. Pro jednoúčelové stroje.</p>
+  </div>
+  <div class="card">
+    <h3>Modulární</h3>
+    <p>Karty (moduly) v racku – libovolná konfigurace. ✓ Flexibilní, přidej I/O karty, komunikační moduly. ✗ Dražší. Pro složité aplikace.</p>
+  </div>
+</div>
+
+<h2>Digitální a analogové I/O</h2>
+<div class="two-col">
+  <div class="box box-purple">
+    <strong>Digitální (Binární)</strong><br>
+    Stavy 0 / 1 (vypnuto / zapnuto).<br>
+    Vstup: tlačítko, koncové čidlo.<br>
+    Výstup: cívka stykače, LED.
+  </div>
+  <div class="box box-amber">
+    <strong>Analogové</strong><br>
+    Spojité hodnoty (teplota, tlak).<br>
+    Standardní signály: 0–10 V nebo 4–20 mA.<br>
+    Vyžadují ADC převodník.
+  </div>
+</div>
+
+<h2>Typy výstupů PLC</h2>
+<table>
+  <tr><th>Typ</th><th>Princip</th><th>Vlastnosti</th></tr>
+  <tr><td><strong>RLY</strong> (Relé)</td><td>Mechanický kontakt</td><td>AC i DC, odolné, ale hlučné, omezený počet sepnutí</td></tr>
+  <tr><td><strong>DC</strong> (Tranzistor)</td><td>Tranzistor</td><td>Jen DC, velmi rychlé (PWM), bezhlučné, neomezená životnost</td></tr>
+  <tr><td><strong>AC</strong> (Triak)</td><td>Bezkontaktní</td><td>Spínání střídavého proudu bez mechaniky</td></tr>
+</table>
+<div class="box box-green">
+  <strong>Galvanické oddělení</strong> vstupů pomocí <strong>optočlenů</strong> (LED + fototranzistor) – chrání CPU před napěťovými špičkami z průmyslového provozu.
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../19-vstupni-zarizeni/index.html">← Vstupní zařízení počítače</a>
+  <span></span>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · PLC automat</div>
+</body>
+</html>

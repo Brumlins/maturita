@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q12 – Výpočetní modely | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q12</span>
+</nav>
+<div class="hero">
+  <div class="bignr">12</div>
+  <div class="qnum">Otázka 12 / 20 · Mikes &amp; Marcel</div>
+  <h1>Výpočetní modely</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Dávkové zpracování, Klient/Server, P2P</li><li>Virtualizace: Typ 1 (bare-metal) vs Typ 2</li><li>Kontejnery (Docker) – sdílejí jádro OS</li><li>Cloud: IaaS/PaaS/SaaS; veřejný/privátní/hybridní</li></ul>
+</div>
+
+<h2>Dávkové zpracování (RJE)</h2>
+<div class="box box-amber">
+  Data jsou sbírána, zpracována jako celek (dávka) bez uživatelského zásahu. Použití: fakturace, finanční výpočty, generování reportů. Výhoda: efektivita CPU, bez nutnosti interakce.
+</div>
+
+<h2>Klient / Server</h2>
+<div class="two-col">
+  <div class="card"><h3>Klient</h3><p>Iniciuje požadavek, zobrazuje výsledek. Prohlížeč, e-mailový klient, databázová aplikace.</p></div>
+  <div class="card"><h3>Server</h3><p>Čeká na požadavky, zpracovává, vrací odpověď. Apache, MySQL, SMTP server. ✗ SPOF.</p></div>
+</div>
+
+<h2>Peer-to-Peer (P2P)</h2>
+<div class="box box-green">
+  Každý uzel = klient i server. Žádný centrální server. Odolné, škáluje samo. BitTorrent, blockchain, Napster, I2P.
+</div>
+
+<h2>Virtualizace</h2>
+<table>
+  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
+  <tr><td><span class="badge b-purple">Typ 1</span> bare-metal</td><td>Hypervisor přímo na HW – vyšší výkon</td><td>VMware ESXi, Hyper-V, KVM, Xen</td></tr>
+  <tr><td><span class="badge b-amber">Typ 2</span> hosted</td><td>Hypervisor jako aplikace na OS</td><td>VirtualBox, VMware Workstation</td></tr>
+  <tr><td><span class="badge b-green">Kontejner</span></td><td>Sdílí jádro OS – lehčí než VM, rychlý start</td><td>Docker, Kubernetes</td></tr>
+</table>
+
+<h2>Cloud computing</h2>
+<table>
+  <tr><th>Model</th><th>Co poskytuje</th><th>Zákazník spravuje</th><th>Příklady</th></tr>
+  <tr><td><strong>IaaS</strong></td><td>VM, úložiště, sítě</td><td>OS, runtime, aplikace</td><td>AWS EC2, Azure VM</td></tr>
+  <tr><td><strong>PaaS</strong></td><td>Prostředí pro vývoj</td><td>Jen aplikace a data</td><td>Heroku, Google App Engine</td></tr>
+  <tr><td><strong>SaaS</strong></td><td>Hotová aplikace přes internet</td><td>Nic (jen používá)</td><td>Gmail, Microsoft 365</td></tr>
+</table>
+<div class="three-col">
+  <div class="box box-purple"><strong>Veřejný cloud</strong><br>Sdílená infrastruktura. AWS, Azure, GCP.</div>
+  <div class="box box-amber"><strong>Privátní cloud</strong><br>Vlastní datacentrum. OpenStack, VMware.</div>
+  <div class="box box-green"><strong>Hybridní cloud</strong><br>Kombinace – citlivá data on-premise.</div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../11-tcpip-protokoly/index.html">← Základní TCP/IP protokoly</a>
+  <a class="nav-btn" href="../13-mikrokontrolery/index.html">Jednočipové mikrokontrolery →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Výpočetní modely</div>
+</body>
+</html>

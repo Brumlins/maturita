@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q06 – Skripty v Linuxu | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q06</span>
+</nav>
+<div class="hero">
+  <div class="bignr">06</div>
+  <div class="qnum">Otázka 06 / 20 · Mikes &amp; Marcel</div>
+  <h1>Skripty v Linuxu</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Bash skript: shebang, proměnné, $1..$N</li><li>if/elif/else, for, while – podmínky a cykly</li><li>grep, sed, awk, sort, cut – filtrace textu</li><li>Roury (|), přesměrování (>, >>, 2>)</li></ul>
+</div>
+
+<h2>Proč skripty?</h2>
+<div class="box box-green">
+  Automatizace opakujících se úloh, snížení chybovosti, správa serverů a stanic. Shell skript = soubor bash příkazů vykonaných postupně.
+</div>
+
+<h2>Základy bash skriptu</h2>
+<pre><code>#!/bin/bash
+# Shebang – říká shellu, který interpret použít
+
+# Proměnné (bez mezer kolem =!)
+jmeno="Jan"
+vek=25
+echo "Jmenuji se $jmeno a je mi $vek let."
+
+# Vstup od uživatele
+read -p "Zadej jméno: " jmeno
+
+# Poziční parametry
+echo "Skript: $0  Arg1: $1  Počet: $#"
+echo "Exit kód: $?"</code></pre>
+
+<h2>Podmínky</h2>
+<pre><code>if [ "$cislo" -gt 100 ]; then
+    echo "Velké"
+elif [ "$cislo" -gt 50 ]; then
+    echo "Středně velké"
+else
+    echo "Malé"
+fi
+
+# Testovací operátory
+[ -f soubor ]     # je to soubor?
+[ -d adresář ]    # je to adresář?
+[ -z "$str" ]     # prázdný řetězec?
+[ $a -eq $b ]     # čísla se rovnají?
+[ "$s" = "abc" ]  # řetězce se rovnají?</code></pre>
+
+<h2>Cykly</h2>
+<pre><code># For – seznam / rozsah
+for i in {1..10}; do echo $i; done
+for soubor in /tmp/*.log; do rm "$soubor"; done
+
+# While
+while [ "$odpoved" != "ano" ]; do
+    read -p "Pokračovat? " odpoved
+done</code></pre>
+
+<h2>Filtrace textu</h2>
+<table>
+  <tr><th>Nástroj</th><th>Použití</th><th>Příklad</th></tr>
+  <tr><td><code>grep</code></td><td>Hledání vzoru</td><td><code>grep -r "error" /var/log/</code></td></tr>
+  <tr><td><code>sed</code></td><td>Nahrazování, mazání řádků</td><td><code>sed 's/foo/bar/g' file</code></td></tr>
+  <tr><td><code>awk</code></td><td>Zpracování sloupců</td><td><code>awk '{print $1,$3}' file</code></td></tr>
+  <tr><td><code>sort</code></td><td>Řazení</td><td><code>sort -n -r file</code></td></tr>
+  <tr><td><code>cut</code></td><td>Výřez sloupců</td><td><code>cut -d: -f1,7 /etc/passwd</code></td></tr>
+  <tr><td><code>wc</code></td><td>Počítání řádků/slov</td><td><code>wc -l soubor</code></td></tr>
+</table>
+
+<h2>Roury a přesměrování</h2>
+<pre><code>příkaz > soubor.txt       # stdout → soubor (přepis)
+příkaz >> soubor.txt      # stdout → soubor (přidání)
+příkaz 2> chyby.txt       # stderr → soubor
+příkaz &> vše.txt         # stdout + stderr
+
+# Pipeline
+cat /etc/passwd | grep bash | cut -d: -f1 | sort
+ps aux | grep nginx | awk '{print $2}' | xargs kill</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../05-sluzby/index.html">← Služby</a>
+  <a class="nav-btn" href="../07-komunikacni-site-modely/index.html">Komunikační sítě a modely →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Skripty v Linuxu</div>
+</body>
+</html>

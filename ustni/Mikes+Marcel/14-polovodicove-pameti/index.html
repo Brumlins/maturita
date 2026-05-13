@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q14 – Polovodičové paměti | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q14</span>
+</nav>
+<div class="hero">
+  <div class="bignr">14</div>
+  <div class="qnum">Otázka 14 / 20 · Mikes &amp; Marcel</div>
+  <h1>Polovodičové paměti</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Volatilní (RAM) vs nevolatilní (ROM, Flash)</li><li>ROM → PROM → EPROM → EEPROM → Flash</li><li>SRAM (cache L1/L2/L3) vs DRAM (operační RAM)</li><li>DDR1 → DDR2 → DDR3 → DDR4 → DDR5</li></ul>
+</div>
+
+<h2>Základní dělení pamětí</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Podle volatility</h3>
+    <ul>
+      <li><strong>Volatilní</strong> – při odpojení napájení ztrácí data (RAM)</li>
+      <li><strong>Nevolatilní</strong> – data drží bez proudu (ROM, Flash, EEPROM)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Podle přístupu</h3>
+    <ul>
+      <li><strong>RAM</strong> – Random Access Memory – přímý přístup kdekoliv okamžitě</li>
+      <li><strong>SAM</strong> – Sequential Access – sekvenčně (pásky, dnes vzácné)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Paměti ROM – nevolatilní</h2>
+<table>
+  <tr><th>Typ</th><th>Popis</th></tr>
+  <tr><td><strong>ROM</strong></td><td>Data vložena při výrobě, nelze měnit. BIOS starý.</td></tr>
+  <tr><td><strong>PROM</strong></td><td>Programovatelná uživatelem, ale pouze jednou (přepálení propojek).</td></tr>
+  <tr><td><strong>EPROM</strong></td><td>Mazatelná UV zářením (okénko v čipu), znovu programovatelná.</td></tr>
+  <tr><td><strong>EEPROM</strong></td><td>Elektricky mazatelná po bajtech – konfigurace zařízení.</td></tr>
+  <tr><td><strong>Flash</strong></td><td>Moderní EEPROM – maže se po blocích, levná, rychlá. SSD, USB disky.</td></tr>
+</table>
+
+<h2>Operační paměti (RAM / RWM) – volatilní</h2>
+<table>
+  <tr><th>Vlastnost</th><th>SRAM (Static)</th><th>DRAM (Dynamic)</th></tr>
+  <tr><td>Princip</td><td>Bistabilní klopný obvod (tranzistory)</td><td>Kondenzátor (náboj)</td></tr>
+  <tr><td>Rychlost</td><td>Extrémně vysoká</td><td>Nižší</td></tr>
+  <tr><td>Refresh</td><td>Není potřeba</td><td>Nutný (náboj uniká)</td></tr>
+  <tr><td>Cena/hustota</td><td>Drahá, málo bitů na čipu</td><td>Levná, vysoká kapacita</td></tr>
+  <tr><td>Využití</td><td>Cache procesoru (L1, L2, L3)</td><td>Hlavní operační paměť</td></tr>
+</table>
+
+<h2>Vývoj DRAM</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">SDRAM</div><div class="tl-text">Synchronní s hodinami procesoru.</div></div>
+  <div class="tl-item"><div class="tl-year">DDR</div><div class="tl-text">Double Data Rate – přenos na náběžné i sestupné hraně hodinového signálu (2× rychlejší než SDRAM).</div></div>
+  <div class="tl-item"><div class="tl-year">DDR2 → DDR3 → DDR4 → DDR5</div><div class="tl-text">Každá generace = vyšší rychlost, nižší napájení, vyšší kapacita.</div></div>
+</div>
+
+<h2>Klíčové parametry pamětí</h2>
+<div class="three-col">
+  <div class="box box-purple"><strong>Kapacita</strong><br>Množství dat (GB, TB)</div>
+  <div class="box box-green"><strong>Přístupová doba</strong><br>Čas od požadavku po data (ns u RAM)</div>
+  <div class="box box-amber"><strong>Přenosová rychlost</strong><br>GB/s – jak rychle tečou data</div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../13-mikrokontrolery/index.html">← Jednočipové mikrokontrolery</a>
+  <a class="nav-btn" href="../15-mechanicke-pameti/index.html">Mechanické paměti →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Polovodičové paměti</div>
+</body>
+</html>

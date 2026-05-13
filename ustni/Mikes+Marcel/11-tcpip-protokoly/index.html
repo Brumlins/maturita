@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q11 – Základní TCP/IP protokoly | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q11</span>
+</nav>
+<div class="hero">
+  <div class="bignr">11</div>
+  <div class="qnum">Otázka 11 / 20 · Mikes &amp; Marcel</div>
+  <h1>Základní TCP/IP protokoly</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>DHCP DORA: Discover→Offer→Request→Ack</li><li>ARP: IP→MAC (broadcast req, unicast reply)</li><li>DNS záznamy: A, AAAA, MX, CNAME, PTR</li><li>SMTP/POP3/IMAP (email), FTP (port 21/20)</li></ul>
+</div>
+
+<h2>DHCP – přidělení IP adresy</h2>
+<div class="box box-purple">
+  DHCP automaticky přiděluje IP, masku, bránu a DNS. UDP port <strong>67</strong> (server), <strong>68</strong> (klient).
+</div>
+<h3>DORA – 4 kroky</h3>
+<table>
+  <tr><th>Krok</th><th>Zpráva</th><th>Kdo</th><th>Popis</th></tr>
+  <tr><td>1</td><td><strong>D</strong>iscover</td><td>Klient → Broadcast</td><td>Hledám DHCP server (src: 0.0.0.0)</td></tr>
+  <tr><td>2</td><td><strong>O</strong>ffer</td><td>Server → Klient</td><td>Nabízím IP adresu a konfiguraci</td></tr>
+  <tr><td>3</td><td><strong>R</strong>equest</td><td>Klient → Broadcast</td><td>Přijímám nabídku</td></tr>
+  <tr><td>4</td><td><strong>A</strong>cknowledge</td><td>Server → Klient</td><td>Potvrzuji, platí lease time</td></tr>
+</table>
+
+<h2>ARP – překlad IP → MAC</h2>
+<div class="box box-green">
+  ARP zjistí MAC adresu pro danou IP v rámci LAN. Data se na síti posílají podle MAC adres!
+</div>
+<pre><code>ARP Request  (broadcast FF:FF:FF:FF:FF:FF):
+  "Kdo má IP 192.168.1.10? Řekni AA:BB:CC:DD:EE:FF"
+ARP Reply    (unicast):
+  "Já mám tu IP, moje MAC je 11:22:33:44:55:66"
+
+ip neigh show            # ARP cache (Linux)</code></pre>
+
+<h2>DNS – překlad jména → IP</h2>
+<table>
+  <tr><th>Záznam</th><th>Funkce</th><th>Příklad</th></tr>
+  <tr><td><strong>A</strong></td><td>Jméno → IPv4</td><td>seznam.cz → 77.75.79.222</td></tr>
+  <tr><td><strong>AAAA</strong></td><td>Jméno → IPv6</td><td>google.com → 2607:f8b0::…</td></tr>
+  <tr><td><strong>MX</strong></td><td>Mailový server domény</td><td>gmail.com → mail.google.com</td></tr>
+  <tr><td><strong>CNAME</strong></td><td>Alias → jiné jméno</td><td>www.firma.cz → firma.cz</td></tr>
+  <tr><td><strong>PTR</strong></td><td>IP → jméno (reverzní)</td><td>77.75.79.222 → seznam.cz</td></tr>
+</table>
+<pre><code>nslookup www.seznam.cz          # překlad
+nslookup -type=MX gmail.com     # MX záznamy
+dig seznam.cz A                 # detailní dotaz</code></pre>
+
+<h2>HTTP, e-mail, FTP – přehled</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>HTTP metody</h3>
+    <table>
+      <tr><td><code>GET</code></td><td>Získat data</td></tr>
+      <tr><td><code>POST</code></td><td>Odeslat / vytvořit</td></tr>
+      <tr><td><code>PUT</code></td><td>Nahradit celý zdroj</td></tr>
+      <tr><td><code>DELETE</code></td><td>Smazat</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>E-mail a FTP porty</h3>
+    <table>
+      <tr><td>SMTP</td><td>25 / 587</td><td>Odesílání</td></tr>
+      <tr><td>POP3</td><td>110 / 995</td><td>Příjem – stáhne a smaže ze serveru</td></tr>
+      <tr><td>IMAP</td><td>143 / 993</td><td>Příjem – zůstane na serveru</td></tr>
+      <tr><td>FTP</td><td>21 (řídící) / 20 (data)</td><td>Přenos souborů</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../10-internetworking/index.html">← Internetworking</a>
+  <a class="nav-btn" href="../12-vypocetni-modely/index.html">Výpočetní modely →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Základní TCP/IP protokoly</div>
+</body>
+</html>

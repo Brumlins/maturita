@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q09 – Bezdrátové sítě a WiFi | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q09</span>
+</nav>
+<div class="hero">
+  <div class="bignr">09</div>
+  <div class="qnum">Otázka 09 / 20 · Mikes &amp; Marcel</div>
+  <h1>Bezdrátové sítě a WiFi</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>802.11 b/g/n/ac/ax – generace WiFi</li><li>2.4 GHz (kanály 1,6,11) vs 5/6 GHz</li><li>Modulace: AM, FM, PM → OFDM/OFDMA</li><li>WEP (prolomen) → WPA2 (AES) → WPA3 (SAE)</li></ul>
+</div>
+
+<h2>Historie a typy bezdrátové komunikace</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">1969</div><div class="tl-text">ARPANET – základ internetu (vojenský). První bezdrátové tech. využívaly rádiové vlny a mikrovlny.</div></div>
+  <div class="tl-item"><div class="tl-year">1997</div><div class="tl-text">IEEE standardizoval WiFi (802.11) – první standard, 2 Mbit/s.</div></div>
+  <div class="tl-item"><div class="tl-year">2019</div><div class="tl-text">WiFi 6 (802.11ax) – OFDMA, vyšší efektivita a kapacita.</div></div>
+  <div class="tl-item"><div class="tl-year">2024</div><div class="tl-text">WiFi 7 (802.11be) – vyšší rychlosti a efektivnější využití spektra.</div></div>
+</div>
+
+<h2>Standardy IEEE 802.11</h2>
+<table>
+  <tr><th>Standard</th><th>WiFi</th><th>Pásmo</th><th>Max rychlost</th></tr>
+  <tr><td>802.11</td><td>1</td><td>2.4 GHz</td><td>2 Mbit/s</td></tr>
+  <tr><td>802.11b</td><td>2</td><td>2.4 GHz</td><td>11 Mbit/s</td></tr>
+  <tr><td>802.11g</td><td>3</td><td>2.4 GHz</td><td>54 Mbit/s</td></tr>
+  <tr><td>802.11n</td><td>4</td><td>2.4 / 5 GHz</td><td>600 Mbit/s</td></tr>
+  <tr><td>802.11ac</td><td>5</td><td>5 GHz</td><td>3.5 Gbit/s</td></tr>
+  <tr><td>802.11ax</td><td>6/6E</td><td>2.4 / 5 / 6 GHz</td><td>9.6 Gbit/s</td></tr>
+</table>
+
+<h2>Pásma a kanály</h2>
+<div class="two-col">
+  <div class="card"><h3>2.4 GHz</h3><p>13 kanálů (EU). Překrývají se – nepřekrývající: <strong>1, 6, 11</strong>. Ruší Bluetooth, DECT, mikrovlnky. Větší dosah.</p></div>
+  <div class="card"><h3>5 GHz</h3><p>23+ kanálů, nepřekrývají se. Méně rušení, vyšší rychlost, kratší dosah. DFS kanály – sdílení s radary.</p></div>
+</div>
+<div class="box box-amber">
+  Čím nižší frekvence, tím lépe prochází překážkami. 2.4 GHz = větší dosah, 5/6 GHz = větší rychlost.
+</div>
+
+<h2>Modulace signálu</h2>
+<div class="three-col">
+  <div class="box box-purple"><strong>AM</strong> – Amplitudová<br>Mění amplitudu nosné vlny</div>
+  <div class="box box-green"><strong>FM</strong> – Frekvenční<br>Mění frekvenci nosné</div>
+  <div class="box box-amber"><strong>PM</strong> – Fázová<br>Mění fázi; základ OFDM, QAM</div>
+</div>
+
+<h2>Zabezpečení WiFi</h2>
+<table>
+  <tr><th>Standard</th><th>Šifrování</th><th>Stav</th></tr>
+  <tr><td>WEP</td><td>RC4</td><td><span class="badge b-red">Prolomen – nepoužívat!</span></td></tr>
+  <tr><td>WPA</td><td>TKIP/RC4</td><td><span class="badge b-amber">Slabý – přechodový</span></td></tr>
+  <tr><td>WPA2</td><td>AES-CCMP</td><td><span class="badge b-green">Bezpečný (PMKID útok)</span></td></tr>
+  <tr><td>WPA3</td><td>AES-GCMP + SAE</td><td><span class="badge b-green">Nejbezpečnější</span></td></tr>
+</table>
+
+<h2>BSS, SSID, roaming</h2>
+<div class="box box-green">
+  <strong>BSS</strong> = Basic Service Set – jeden AP + klienti<br>
+  <strong>ESS</strong> = Extended – více AP se stejným SSID → roaming<br>
+  <strong>SSID</strong> = název sítě (max 32 znaků)<br>
+  <strong>BSSID</strong> = MAC adresa AP<br>
+  802.11r = fast roaming (rychlé přepojení mezi AP)
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../08-ethernet/index.html">← Ethernet</a>
+  <a class="nav-btn" href="../10-internetworking/index.html">Internetworking →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Bezdrátové sítě a WiFi</div>
+</body>
+</html>

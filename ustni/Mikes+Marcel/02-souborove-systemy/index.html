@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q02 – Souborové systémy | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q02</span>
+</nav>
+<div class="hero">
+  <div class="bignr">02</div>
+  <div class="qnum">Otázka 02 / 20 · Mikes &amp; Marcel</div>
+  <h1>Souborové systémy</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>EXT2/3/4, XFS, Btrfs (Linux)</li><li>FAT32, exFAT, NTFS (Windows)</li><li>Žurnálování – ochrana konzistence dat</li><li>FHS, inode, hard link vs symlink</li></ul>
+</div>
+
+<h2>Co je souborový systém?</h2>
+<div class="box box-green">
+  <strong>Souborový systém (FS)</strong> = způsob organizace a ukládání dat na úložišti. Určuje pojmenování, ukládání a zabezpečení souborů.
+</div>
+
+<h2>Typy FS – Linux</h2>
+<table>
+  <tr><th>FS</th><th>Žurnálování</th><th>Max soubor</th><th>Poznámka</th></tr>
+  <tr><td><strong>EXT2</strong></td><td>Ne</td><td>2 TB</td><td>Bez žurnálování, starý, USB disky</td></tr>
+  <tr><td><strong>EXT3</strong></td><td>Ano</td><td>2 TB</td><td>EXT2 + žurnálování</td></tr>
+  <tr><td><strong>EXT4</strong></td><td>Ano</td><td>16 TB</td><td>Dnes nejrozšířenější Linux FS, extenty</td></tr>
+  <tr><td><strong>XFS</strong></td><td>Ano</td><td>8 EB</td><td>64-bit, výkon při velkých souborech, servery</td></tr>
+  <tr><td><strong>Btrfs</strong></td><td>CoW</td><td>16 EB</td><td>Snapshoty, RAID, CoW</td></tr>
+</table>
+
+<h2>Typy FS – Windows</h2>
+<table>
+  <tr><th>FS</th><th>Max soubor</th><th>Žurnálování</th><th>Poznámka</th></tr>
+  <tr><td><strong>FAT32</strong></td><td>4 GB</td><td>Ne</td><td>Kompatibilita, USB, SD karty</td></tr>
+  <tr><td><strong>exFAT</strong></td><td>16 EB</td><td>Ne</td><td>Velké flash disky, SD karty</td></tr>
+  <tr><td><strong>NTFS</strong></td><td>16 TB</td><td>Ano</td><td>Windows standard, ACL, šifrování EFS</td></tr>
+</table>
+
+<h2>Žurnálování</h2>
+<div class="box box-amber">
+  Žurnál = log operací před jejich provedením. Při pádu systému lze obnovit konzistentní stav bez kontroly celého disku.
+  Typy: <strong>Write-back</strong> (jen metadata) → <strong>Ordered</strong> → <strong>Full</strong> (metadata + data).
+</div>
+
+<h2>Copy-on-Write (CoW)</h2>
+<div class="box box-purple">
+  Při zápisu se nevymaže původní blok – zapíše se nový, pak se aktualizuje ukazatel. Původní data zůstávají → atomické snapshoty. Používá: Btrfs, ZFS, APFS.
+</div>
+
+<h2>FHS – adresářová struktura Linuxu</h2>
+<table>
+  <tr><th>Adresář</th><th>Obsah</th></tr>
+  <tr><td><code>/etc</code></td><td>Konfigurační soubory (passwd, fstab, hostname)</td></tr>
+  <tr><td><code>/home</code></td><td>Domovské adresáře uživatelů</td></tr>
+  <tr><td><code>/var/log</code></td><td>Systémové logy</td></tr>
+  <tr><td><code>/proc</code></td><td>Virtuální FS – info o procesech (PID, CPU, paměť)</td></tr>
+  <tr><td><code>/dev</code></td><td>Zařízení jako soubory (/dev/sda, /dev/null)</td></tr>
+  <tr><td><code>/tmp</code></td><td>Dočasné soubory – mažou se při restartu</td></tr>
+</table>
+
+<h2>Inode</h2>
+<div class="box box-green">
+  <strong>Inode</strong> = datová struktura pro každý soubor. Ukládá: UID, GID, oprávnění, velikost, časy (atime/mtime/ctime), ukazatele na datové bloky. <br>
+  <strong>Nezahrnuje</strong> jméno souboru (to je v adresáři). Hard link = dvě jména → jeden inode.
+</div>
+
+<h2>Praktické příkazy</h2>
+<pre><code>df -hT                    # zobraz FS a jejich obsazenost
+lsblk                     # seznam blokových zařízení
+mkfs.ext4 /dev/sdb1       # formátovat oddíl
+mount /dev/sdb1 /mnt/     # připojit
+stat soubor.txt           # info o inode souboru
+tune2fs -l /dev/sda1      # info o ext4 FS</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../01-operacni-systemy/index.html">← Operační systémy</a>
+  <a class="nav-btn" href="../03-sprava-uzivatelu/index.html">Správa uživatelů →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Souborové systémy</div>
+</body>
+</html>

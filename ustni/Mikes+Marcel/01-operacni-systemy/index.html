@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q01 – Operační systémy | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q01</span>
+</nav>
+<div class="hero">
+  <div class="bignr">01</div>
+  <div class="qnum">Otázka 01 / 20 · Mikes &amp; Marcel</div>
+  <h1>Operační systémy</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Vývoj 1940–2010: dávkové → GUI → cloud</li><li>Monolitické, mikrojádro, hybridní jádro</li><li>Ring 0 (kernel) vs Ring 3 (user space)</li><li>Hlavní funkce: procesy, paměť, soubory, I/O</li></ul>
+</div>
+
+<h2>Vývoj OS</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">1940–50</div><div class="tl-text">Sálové počítače bez OS – programátor ručně zadával instrukce, dávkové zpracování.</div></div>
+  <div class="tl-item"><div class="tl-year">1960–70</div><div class="tl-text">Multiprogramování – více úloh v paměti současně. Vznik <strong>UNIX</strong> (Bell Labs, 1969).</div></div>
+  <div class="tl-item"><div class="tl-year">1970–80</div><div class="tl-text">Víceúlohové systémy, multitasking, správa paměti, vznik timesharingu.</div></div>
+  <div class="tl-item"><div class="tl-year">1980–90</div><div class="tl-text">GUI – Apple Mac, Windows 3.x. MS-DOS pro PC (single-task).</div></div>
+  <div class="tl-item"><div class="tl-year">1991</div><div class="tl-text"><strong>Linux</strong> – Linus Torvalds, open-source, POSIX kompatibilní s UNIX.</div></div>
+  <div class="tl-item"><div class="tl-year">2000–10</div><div class="tl-text">Virtualizace, mobilní OS – Android (2008), iOS (2007).</div></div>
+  <div class="tl-item"><div class="tl-year">2010+</div><div class="tl-text">Cloud integrace, kontejnery, zvýšený důraz na bezpečnost.</div></div>
+</div>
+
+<h2>Struktura OS</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Jádro (Kernel)</h3>
+    <ul>
+      <li>Přímý přístup k HW (Ring 0)</li>
+      <li>Správa paměti, procesů, I/O</li>
+      <li>Ovladače zařízení (drivers)</li>
+      <li>Síťový subsystém</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Uživatelský prostor</h3>
+    <ul>
+      <li>Ring 3 – omezená oprávnění</li>
+      <li>Přístup k HW přes <strong>syscalls</strong></li>
+      <li>Shell, GUI, aplikace</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Typy jader</h2>
+<table>
+  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
+  <tr><td><span class="badge b-purple">Monolitické</span></td><td>Vše v jednom prostoru jádra – rychlé, driver v jádře</td><td>Linux, Unix</td></tr>
+  <tr><td><span class="badge b-green">Mikrojádro</span></td><td>Minimum v jádře, ostatní jako user-space procesy – stabilnější</td><td>Minix, QNX</td></tr>
+  <tr><td><span class="badge b-amber">Hybridní</span></td><td>Kompromis – část v jádře, část vně</td><td>Windows NT, macOS XNU</td></tr>
+</table>
+
+<h2>Hlavní funkce OS</h2>
+<div class="three-col">
+  <div class="box box-purple"><strong>Správa procesů</strong><br>Plánování CPU, multitasking, synchronizace, IPC</div>
+  <div class="box box-green"><strong>Správa paměti</strong><br>RAM, virtuální paměť, stránkování, swap</div>
+  <div class="box box-amber"><strong>Správa souborů</strong><br>FS, oprávnění, adresářová struktura</div>
+</div>
+
+<h2>Systémová volání (syscalls)</h2>
+<div class="box box-purple">
+  Rozhraní mezi aplikací a jádrem. Aplikace nevolá HW přímo – zavolá syscall, jádro ho provede v Ring 0.
+  Příklady: <kbd>open()</kbd>, <kbd>read()</kbd>, <kbd>write()</kbd>, <kbd>fork()</kbd>, <kbd>exec()</kbd>, <kbd>exit()</kbd>
+</div>
+
+<div class="nav-btns">
+  <span></span>
+  <a class="nav-btn" href="../02-souborove-systemy/index.html">Souborové systémy →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Operační systémy</div>
+</body>
+</html>

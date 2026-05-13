@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q07 – Komunikační sítě a modely | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q07</span>
+</nav>
+<div class="hero">
+  <div class="bignr">07</div>
+  <div class="qnum">Otázka 07 / 20 · Mikes &amp; Marcel</div>
+  <h1>Komunikační sítě a modely</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>LAN/MAN/WAN/PAN – rozsahy sítí</li><li>Topologie: bus, hvězda, kruh, mesh</li><li>OSI 7 vrstev – Fyzická → Aplikační</li><li>TCP/IP 4 vrstvy – enkapsulace dat</li></ul>
+</div>
+
+<h2>Typy sítí podle rozsahu</h2>
+<table>
+  <tr><th>Typ</th><th>Rozsah</th><th>Příklad</th></tr>
+  <tr><td><span class="badge b-purple">PAN</span></td><td>do 10 m</td><td>Bluetooth, USB, Zigbee</td></tr>
+  <tr><td><span class="badge b-green">LAN</span></td><td>budova / campus</td><td>Ethernet, WiFi</td></tr>
+  <tr><td><span class="badge b-amber">MAN</span></td><td>město</td><td>Metro Ethernet, kabelová TV</td></tr>
+  <tr><td><span class="badge b-red">WAN</span></td><td>kraj, stát, svět</td><td>Internet, MPLS</td></tr>
+</table>
+
+<h2>Topologie sítí</h2>
+<div class="two-col">
+  <div class="card"><h3>Sběrnicová (Bus)</h3><p>Všichni na jednom koaxiálním kabelu. Kolizní doména = celá síť. Historický 10Base2.</p></div>
+  <div class="card"><h3>Hvězda (Star)</h3><p>Vše se připojuje do centrálního switche. Dnešní standard. Výpadek centra = výpadek sítě.</p></div>
+  <div class="card"><h3>Kruh (Ring)</h3><p>Data obíhají v kruhu. Token Ring. Dnes optické metro (SONET/SDH).</p></div>
+  <div class="card"><h3>Mesh</h3><p>Každý s každým – maximální redundance. Páteřní sítě, IoT.</p></div>
+</div>
+
+<h2>Model ISO/OSI – 7 vrstev</h2>
+<table>
+  <tr><th>#</th><th>Vrstva</th><th>PDU</th><th>Funkce</th><th>Protokoly / zařízení</th></tr>
+  <tr><td>7</td><td><strong>Aplikační</strong></td><td>Data</td><td>Rozhraní pro aplikace</td><td>HTTP, FTP, DNS, SSH</td></tr>
+  <tr><td>6</td><td><strong>Prezentační</strong></td><td>Data</td><td>Kódování, šifrování, komprese</td><td>SSL/TLS, JPEG</td></tr>
+  <tr><td>5</td><td><strong>Relační</strong></td><td>Data</td><td>Správa session</td><td>NetBIOS, RPC</td></tr>
+  <tr><td>4</td><td><strong>Transportní</strong></td><td>Segment</td><td>Spolehlivý přenos E2E, porty</td><td>TCP, UDP</td></tr>
+  <tr><td>3</td><td><strong>Síťová</strong></td><td>Paket</td><td>Logická adresace, směrování</td><td>IP, ICMP → Router</td></tr>
+  <tr><td>2</td><td><strong>Linková</strong></td><td>Rámec</td><td>MAC adresace, přístup k médiu</td><td>Ethernet, WiFi → Switch</td></tr>
+  <tr><td>1</td><td><strong>Fyzická</strong></td><td>Bity</td><td>Elektrické / optické signály</td><td>Kabel, optika → Hub</td></tr>
+</table>
+
+<h2>Model TCP/IP – 4 vrstvy</h2>
+<table>
+  <tr><th>Vrstva TCP/IP</th><th>Odpovídá OSI</th><th>Protokoly</th></tr>
+  <tr><td><strong>Aplikační</strong></td><td>5–7</td><td>HTTP, FTP, DNS, SSH, SMTP, DHCP</td></tr>
+  <tr><td><strong>Transportní</strong></td><td>4</td><td>TCP, UDP</td></tr>
+  <tr><td><strong>Síťová (Internet)</strong></td><td>3</td><td>IPv4, IPv6, ICMP, ARP</td></tr>
+  <tr><td><strong>Vrstva přístupu</strong></td><td>1–2</td><td>Ethernet, WiFi, PPP</td></tr>
+</table>
+
+<h2>Enkapsulace dat</h2>
+<div class="box box-purple">
+  Data procházejí vrstvami <strong>shora dolů</strong> – každá přidá hlavičku. Na druhé straně se zdola nahoru odstraňují.
+</div>
+<pre><code>Aplikace:   [DATA]
+Transport:  [TCP hlavička][DATA]               ← Segment
+Síťová:     [IP hlavička][TCP][DATA]           ← Paket
+Linková:    [Eth hdr][IP][TCP][DATA][FCS]      ← Rámec
+Fyzická:    10110010...  (bity na médiu)</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../06-skripty-v-linuxu/index.html">← Skripty v Linuxu</a>
+  <a class="nav-btn" href="../08-ethernet/index.html">Ethernet →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Komunikační sítě a modely</div>
+</body>
+</html>

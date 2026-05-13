@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q18 – Rozhraní počítačů | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q18</span>
+</nav>
+<div class="hero">
+  <div class="bignr">18</div>
+  <div class="qnum">Otázka 18 / 20 · Mikes &amp; Marcel</div>
+  <h1>Rozhraní počítačů</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Fyzické (konektor) vs logické (protokol) rozhraní</li><li>Paralelní (LPT, PATA) vs sériové (USB, SATA, PCIe)</li><li>RS-232 (15 m, point-to-point) vs RS-485 (1200 m, 32 stanic)</li><li>USB 2/3/C; VGA (analog) → DVI → HDMI → DisplayPort</li></ul>
+</div>
+
+<h2>Základní pojmy</h2>
+<div class="two-col">
+  <div class="card"><h3>Fyzické rozhraní</h3><p>Na co si sáhneš – konektory, piny, kabely, elektrické úrovně napětí.</p></div>
+  <div class="card"><h3>Logické rozhraní</h3><p>Komunikační protokol – pravidla výměny dat (formát paketů, adresace, rychlost).</p></div>
+</div>
+
+<h2>Paralelní vs. Sériové</h2>
+<table>
+  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
+  <tr><td><strong>Paralelní</strong></td><td>Více bitů najednou po více vodičích. Historicky rychlejší, ale problémy s přeslechy při vysokých frekvencích.</td><td>LPT (tiskárny), PATA/IDE, PCI</td></tr>
+  <tr><td><strong>Sériové</strong></td><td>Bity jeden po druhém po jednom páru. Dnes díky technologiím rychlejší než paralelní.</td><td>USB, SATA, PCIe, RS-232</td></tr>
+</table>
+
+<h2>Průmyslová rozhraní</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>RS-232</h3>
+    <ul>
+      <li>Point-to-Point komunikace (2 zařízení)</li>
+      <li>Nevyvážený přenos, náchylné k rušení</li>
+      <li>Max ~15 m, pomalé (do 115 kbit/s)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>RS-485</h3>
+    <ul>
+      <li>Průmyslový standard – až 32 stanic</li>
+      <li>Vyvážený přenos – odolné vůči rušení</li>
+      <li>Až 1200 m vzdálenost, Master-Slave</li>
+    </ul>
+  </div>
+</div>
+
+<h2>USB a SATA</h2>
+<table>
+  <tr><th>Rozhraní</th><th>Max rychlost</th><th>Poznámka</th></tr>
+  <tr><td>USB 2.0</td><td>480 Mbit/s</td><td>Napájení 5V, Plug &amp; Play, stromová topologie</td></tr>
+  <tr><td>USB 3.0 / 3.1</td><td>5–10 Gbit/s</td><td>Modrý konektor</td></tr>
+  <tr><td>USB-C</td><td>až 40 Gbit/s</td><td>Oboustranný, Thunderbolt 4, Power Delivery</td></tr>
+  <tr><td>SATA III</td><td>6 Gbit/s</td><td>Vnitřní HDD/SSD</td></tr>
+  <tr><td>eSATA</td><td>6 Gbit/s</td><td>Externí – stíněný kabel, jiný konektor</td></tr>
+</table>
+
+<h2>Grafická rozhraní (Video)</h2>
+<table>
+  <tr><th>Rozhraní</th><th>Signál</th><th>Popis</th></tr>
+  <tr><td>VGA (D-Sub)</td><td>Analogový</td><td>Starý modrý konektor, max Full HD, náchylný na šum</td></tr>
+  <tr><td>DVI</td><td>Digital / Analog</td><td>DVI-D (jen digitál), DVI-I (obojí)</td></tr>
+  <tr><td>HDMI</td><td>Digitální</td><td>Audio + Video v jednom kabelu, nejběžnější pro TV/monitor</td></tr>
+  <tr><td>DisplayPort</td><td>Digitální</td><td>Vyšší šířka pásma, daisy-chain více monitorů, Gaming</td></tr>
+</table>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../17-zobrazovaci-jednotky/index.html">← Zobrazovací jednotky</a>
+  <a class="nav-btn" href="../19-vstupni-zarizeni/index.html">Vstupní zařízení počítače →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Rozhraní počítačů</div>
+</body>
+</html>

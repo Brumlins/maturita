@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q17 – Zobrazovací jednotky | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q17</span>
+</nav>
+<div class="hero">
+  <div class="bignr">17</div>
+  <div class="qnum">Otázka 17 / 20 · Mikes &amp; Marcel</div>
+  <h1>Zobrazovací jednotky</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Rozlišení, obnovovací frekvence, pozorovací úhel, odezva</li><li>CRT: elektronové dělo + luminofor (historické)</li><li>LCD: TN (rychlé) vs IPS (barvy/úhly); podsvícení</li><li>OLED: pixel svítí sám, absolutní černá, riziko burn-in</li></ul>
+</div>
+
+<h2>Základní parametry displejů</h2>
+<table>
+  <tr><th>Parametr</th><th>Popis</th></tr>
+  <tr><td><strong>Rozlišení</strong></td><td>Počet pixelů: HD 1280×720, Full HD 1920×1080, 4K 3840×2160</td></tr>
+  <tr><td><strong>Obnovovací frekvence</strong></td><td>Hz – jak často se překreslí obraz. Standard 60 Hz, herní 144–360 Hz</td></tr>
+  <tr><td><strong>Pozorovací úhel</strong></td><td>Úhel bez zkreslení barev (IPS ≈ 178°, TN ≈ 160°)</td></tr>
+  <tr><td><strong>Jas</strong></td><td>Udává se v nitech (cd/m²)</td></tr>
+  <tr><td><strong>Doba odezvy</strong></td><td>ms – čas změny pixelu z jedné barvy na druhou</td></tr>
+</table>
+
+<h2>CRT (Cathode Ray Tube)</h2>
+<div class="box box-amber">
+  Elektronové dělo vystřeluje svazek elektronů → elektromagnety ho usměrňují → dopadá na luminofor = bod zazáří.<br>
+  ✓ Skvělý kontrast, téměř nulová odezva. ✗ Obrovské rozměry, velká spotřeba, rentgenové záření. Dnes nevyrábí.
+</div>
+
+<h2>LCD (Liquid Crystal Display)</h2>
+<div class="box box-purple">
+  1. Zdroj světla (podsvícení) → 2. Polarizační filtr → 3. Tekuté krystaly (natáčí se elektrickým polem → mění polarizaci) → 4. Druhý filtr + RGB subpixely
+</div>
+<table>
+  <tr><th>Typ LCD</th><th>Výhody</th><th>Nevýhody</th></tr>
+  <tr><td><strong>TN</strong></td><td>Levné, rychlá odezva (vhodné pro hráče)</td><td>Špatné pozorovací úhly a barvy</td></tr>
+  <tr><td><strong>IPS</strong></td><td>Skvělé barvy, pozorovací úhly ~180°</td><td>Pomalejší, dražší</td></tr>
+  <tr><td><strong>VA</strong></td><td>Vysoký kontrast</td><td>Ghosting, pomalejší</td></tr>
+</table>
+
+<h2>OLED (Organic Light Emitting Diode)</h2>
+<div class="box box-green">
+  Každý pixel svítí sám (organické sloučeniny vyzařují světlo při průtoku proudu).<br>
+  ✓ Absolutní černá (pixel se vypne), nekonečný kontrast, tenké a ohebné panely.<br>
+  ✗ Vypalování obrazu (statické prvky), modrá složka stárne nejrychleji.
+</div>
+
+<h2>E-ink a grafická karta</h2>
+<div class="two-col">
+  <div class="card"><h3>E-ink</h3><p>Mikrokapsle s černým a bílým pigmentem. Energii spotřebuje jen při překreslení. Výborný na slunci, neoptiká oči. Kindle, čtečky.</p></div>
+  <div class="card"><h3>GPU</h3><p><strong>Integrovaná</strong> (součást CPU, sdílí RAM) – kancelář. <strong>Dedikovaná</strong> (NVIDIA/AMD, vlastní VRAM) – hry, 3D, střih.</p></div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../16-tiskarny/index.html">← Tiskárny</a>
+  <a class="nav-btn" href="../18-rozhrani-pocitacu/index.html">Rozhraní počítačů →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Zobrazovací jednotky</div>
+</body>
+</html>

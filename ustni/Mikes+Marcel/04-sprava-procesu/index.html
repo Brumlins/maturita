@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q04 – Správa procesů | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q04</span>
+</nav>
+<div class="hero">
+  <div class="bignr">04</div>
+  <div class="qnum">Otázka 04 / 20 · Mikes &amp; Marcel</div>
+  <h1>Správa procesů</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>Proces = aktivní instance programu</li><li>PID, PPID, UID, nice (-20 až 19)</li><li>Stavy: Running, Sleeping, Zombie, Stopped</li><li>kill, SIGTERM (15), SIGKILL (9), fg/bg/jobs</li></ul>
+</div>
+
+<h2>Co je proces?</h2>
+<div class="box box-purple">
+  <strong>Proces</strong> = aktivní instance programu v paměti. OS mu přiděluje zdroje (CPU čas, paměť). Má vlastní adresový prostor (kód, data, zásobník, halda) a je izolovaný od ostatních.
+</div>
+
+<h2>Vztah proces – vlákno</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Proces</h3>
+    <p>Má vlastní adresový prostor. Izolovaný – pád jednoho neovlivní jiný. Vytváří se přes <kbd>fork()</kbd>.</p>
+  </div>
+  <div class="card">
+    <h3>Vlákno (Thread)</h3>
+    <p>Lehký proces – sdílí adresový prostor s ostatními vlákny téhož procesu. Vlastní zásobník, registry a programový čítač. Rychlejší přepínání, ale race conditions.</p>
+  </div>
+</div>
+
+<h2>Parametry procesu</h2>
+<table>
+  <tr><th>Parametr</th><th>Popis</th></tr>
+  <tr><td><strong>PID</strong></td><td>Process ID – unikátní číslo procesu. systemd/init má vždy PID 1.</td></tr>
+  <tr><td><strong>PPID</strong></td><td>Parent PID – kdo proces vytvořil (fork)</td></tr>
+  <tr><td><strong>UID/GID</strong></td><td>Uživatel a skupina, pod kterou proces běží</td></tr>
+  <tr><td><strong>nice</strong></td><td>Priorita: -20 (nejvyšší) až 19 (nejnižší). Výchozí 0.</td></tr>
+  <tr><td><strong>State</strong></td><td>Running / Ready / Sleeping / Zombie / Stopped</td></tr>
+</table>
+
+<h2>Stavy procesu</h2>
+<div class="three-col">
+  <div class="box box-green"><span class="badge b-green">R Running</span><br>Právě běží na CPU</div>
+  <div class="box box-purple"><span class="badge b-purple">S Sleeping</span><br>Čeká na I/O nebo událost</div>
+  <div class="box box-amber"><span class="badge b-amber">Z Zombie</span><br>Skončil, rodič nepřečetl exit code</div>
+</div>
+
+<h2>Signály a kill</h2>
+<table>
+  <tr><th>Signál</th><th>#</th><th>Popis</th></tr>
+  <tr><td>SIGHUP</td><td>1</td><td>Reload konfigurace</td></tr>
+  <tr><td>SIGINT</td><td>2</td><td>Ctrl+C – přerušení</td></tr>
+  <tr><td>SIGKILL</td><td>9</td><td>Násilné zabití – NELZE zachytit</td></tr>
+  <tr><td>SIGTERM</td><td>15</td><td>Žádost o ukončení (výchozí)</td></tr>
+  <tr><td>SIGSTOP</td><td>19</td><td>Pozastavení – nelze zachytit</td></tr>
+</table>
+
+<h2>Příkazy pro procesy</h2>
+<pre><code>ps aux                    # snapshot všech procesů
+ps -eo pid,ppid,ni,stat,cmd
+top / htop                # interaktivní monitor
+pstree -p                 # strom procesů s PID
+
+kill 1234                 # SIGTERM
+kill -9 1234              # SIGKILL
+killall firefox           # podle jména
+pkill -u jan              # kill všech procesů uživatele
+
+nice -n 10 ./skript.sh    # spustit s nižší prioritou
+renice -n 5 -p 1234       # změnit prioritu běžícího procesu
+
+# Popředí / pozadí
+Ctrl+Z                    # pozastaví aktuální proces
+bg                        # pošle na pozadí
+fg                        # přenese do popředí
+jobs -l                   # seznam jobů</code></pre>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../03-sprava-uzivatelu/index.html">← Správa uživatelů</a>
+  <a class="nav-btn" href="../05-sluzby/index.html">Služby →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Správa procesů</div>
+</body>
+</html>

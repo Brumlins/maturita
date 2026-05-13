@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q10 – Internetworking | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q10</span>
+</nav>
+<div class="hero">
+  <div class="bignr">10</div>
+  <div class="qnum">Otázka 10 / 20 · Mikes &amp; Marcel</div>
+  <h1>Internetworking</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>IP = základ internetworkingu</li><li>IPv4 privátní: 10/8, 172.16/12, 192.168/16</li><li>IPv6: 128 bitů, bez NAT, SLAAC</li><li>Směrování: statické vs RIP/OSPF/BGP</li></ul>
+</div>
+
+<h2>Co je internetworking?</h2>
+<div class="box box-purple">
+  Propojení více různých sítí (LAN, WAN) s různými protokoly a infrastrukturami. Internet je největším příkladem. Základ: <strong>protokol IP</strong> zajišťuje jednotný rámec.
+</div>
+
+<h2>IPv4 adresace</h2>
+<table>
+  <tr><th>Třída</th><th>Rozsah</th><th>Privátní (RFC 1918)</th></tr>
+  <tr><td>A</td><td>1.0.0.0 – 126.x.x.x</td><td>10.0.0.0/8</td></tr>
+  <tr><td>B</td><td>128.0.0.0 – 191.x.x.x</td><td>172.16.0.0/12</td></tr>
+  <tr><td>C</td><td>192.0.0.0 – 223.x.x.x</td><td>192.168.0.0/16</td></tr>
+</table>
+<div class="box box-amber">
+  Zvláštní: <code>127.0.0.1</code> = loopback, <code>169.254.x.x</code> = APIPA (bez DHCP), <code>255.255.255.255</code> = broadcast
+</div>
+
+<h2>IPv6</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Proč IPv6?</h3>
+    <ul>
+      <li>IPv4 vyčerpány 2011 (~4.3 mld. adres)</li>
+      <li>IPv6 = 128 bitů = 3.4 × 10³⁸ adres</li>
+      <li>Zápis: 8 skupin po 4 hex číslic (<code>2001:db8::1</code>)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Výhody IPv6</h3>
+    <ul>
+      <li>NAT nepotřeba – každé zařízení má veřejnou IP</li>
+      <li>Auto-konfigurace (SLAAC)</li>
+      <li>Lepší mobilita (stálá IP při cestování)</li>
+      <li>IPsec vestavěný</li>
+    </ul>
+  </div>
+</div>
+
+<h2>NAT – Network Address Translation</h2>
+<div class="box box-green">
+  Router překládá privátní IP:port ↔ veřejná IP:port. Umožňuje sdílet jednu veřejnou IP pro celou LAN.<br>
+  <strong>SNAT</strong> = masquerade (odchozí), <strong>DNAT</strong> = port forwarding (příchozí)
+</div>
+
+<h2>Směrování</h2>
+<div class="two-col">
+  <div class="card"><h3>Statické</h3><p>Admin ručně zadává záznamy. ✓ Jednoduché, bezpečné. ✗ Neadaptuje se na výpadky.</p>
+  <pre><code>ip route add 10.0.2.0/24 via 192.168.1.1
+ip route add default via 192.168.1.1</code></pre></div>
+  <div class="card"><h3>Dynamické</h3>
+    <table>
+      <tr><th>Protokol</th><th>Algoritmus</th><th>Použití</th></tr>
+      <tr><td>RIP v2</td><td>Bellman-Ford, max 15 hopů</td><td>Malé sítě</td></tr>
+      <tr><td>OSPF</td><td>Dijkstra (SPF), cost metrika</td><td>Enterprise</td></tr>
+      <tr><td>BGP</td><td>Path-vector, AS-path</td><td>Internet (ISP)</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>VLAN a TCP vs UDP</h2>
+<div class="box box-purple">
+  <strong>VLAN (802.1Q)</strong> – logické oddělení L2. Trunk port nese více VLAN (tagované), access port jednu.
+</div>
+<table>
+  <tr><th>Vlastnost</th><th>TCP</th><th>UDP</th></tr>
+  <tr><td>Spojovaný</td><td>✅ 3-way handshake</td><td>❌ connectionless</td></tr>
+  <tr><td>Spolehlivost</td><td>✅ ACK, retransmise</td><td>❌ žádná záruka</td></tr>
+  <tr><td>Rychlost</td><td>Pomalejší (overhead)</td><td>✅ Rychlejší</td></tr>
+  <tr><td>Použití</td><td>HTTP, FTP, SSH, SMTP</td><td>DNS, DHCP, VoIP, gaming</td></tr>
+</table>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../09-wifi/index.html">← Bezdrátové sítě a WiFi</a>
+  <a class="nav-btn" href="../11-tcpip-protokoly/index.html">Základní TCP/IP protokoly →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Internetworking</div>
+</body>
+</html>

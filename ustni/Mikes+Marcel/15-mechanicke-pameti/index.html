@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q15 – Mechanické paměti | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q15</span>
+</nav>
+<div class="hero">
+  <div class="bignr">15</div>
+  <div class="qnum">Otázka 15 / 20 · Mikes &amp; Marcel</div>
+  <h1>Mechanické paměti</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>HDD: plotny, hlavy, cylindr, sektor, cluster</li><li>PATA vs SATA vs SAS/SCSI; DMA</li><li>Optika: pity a landy, laser odraz</li><li>CD (780nm) vs DVD (650nm) vs Blu-ray (405nm)</li></ul>
+</div>
+
+<h2>HDD – Hard Disk Drive</h2>
+<div class="box box-purple">
+  Magnetické paměťové zařízení s přímým přístupem. Data se ukládají pomocí magnetické indukce na rotující plotny.
+</div>
+
+<h2>Konstrukce HDD</h2>
+<table>
+  <tr><th>Část</th><th>Popis</th></tr>
+  <tr><td><strong>Plotny</strong></td><td>Kotouče s magnetickou vrstvou, rotují vysokou rychlostí</td></tr>
+  <tr><td><strong>Čtecí/zápisové hlavy</strong></td><td>"Létají" nanometry nad povrchem ploten na vzduchové polštáři</td></tr>
+  <tr><td><strong>Parkování</strong></td><td>Bezpečnostní přesun hlav mimo plotny při vypnutí (head crash = zničení dat)</td></tr>
+  <tr><td><strong>Stopa (Track)</strong></td><td>Soustředná kružnice na jedné straně plotny</td></tr>
+  <tr><td><strong>Cylindr</strong></td><td>Soubor všech stop se stejným poloměrem přes všechny plotny</td></tr>
+  <tr><td><strong>Sektor</strong></td><td>Nejmenší fyzická část stopy (obvykle 512 B nebo 4 KB)</td></tr>
+  <tr><td><strong>Cluster</strong></td><td>Nejmenší jednotka adresovatelná OS (1+ sektorů)</td></tr>
+</table>
+
+<h2>Rozhraní HDD</h2>
+<table>
+  <tr><th>Rozhraní</th><th>Max rychlost</th><th>Poznámka</th></tr>
+  <tr><td>PATA (IDE)</td><td>133 MB/s</td><td>Starý, paralelní, široké kabely</td></tr>
+  <tr><td>SATA I/II/III</td><td>6 Gb/s</td><td>Moderní sériové, úzký kabel</td></tr>
+  <tr><td>SCSI / SAS</td><td>12 Gb/s+</td><td>Servery – vyšší spolehlivost a rychlost</td></tr>
+</table>
+<div class="box box-green">
+  <strong>DMA</strong> (Direct Memory Access) – disk posílá data přímo do RAM bez zatěžování CPU.
+</div>
+
+<h2>Optická média</h2>
+<div class="box box-amber">
+  Princip: laser dopadá na disk. Na <strong>pitu</strong> (důlek) se světlo rozptýlí = binární změna. Na <strong>landu</strong> (plošce) se odrazí = žádná změna.
+</div>
+<table>
+  <tr><th>Médium</th><th>Kapacita</th><th>Laser</th><th>Poznámka</th></tr>
+  <tr><td>CD</td><td>650–700 MB</td><td>Infračervený (780 nm)</td><td>Hudba, starý SW</td></tr>
+  <tr><td>DVD</td><td>4.7 GB (1 vrstva)</td><td>Červený (650 nm)</td><td>Filmy, data; až 15.9 GB (více vrstev)</td></tr>
+  <tr><td>Blu-ray</td><td>25–50 GB</td><td>Modrý (405 nm)</td><td>Nejkratší vlna = nejvyšší hustota dat</td></tr>
+</table>
+
+<h2>Typy médií</h2>
+<div class="three-col">
+  <div class="box box-purple"><strong>Lisovaná</strong><br>Vyráběna průmyslově, data mechanicky vylisována (stříbrná barva).</div>
+  <div class="box box-green"><strong>CD-R / DVD-R</strong><br>Zápis vypálením organického barviva laserem. Nelze přepsat.</div>
+  <div class="box box-amber"><strong>CD-RW / DVD-RW</strong><br>Přepisovatelná – různý výkon laseru pro čtení / zápis / mazání.</div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../14-polovodicove-pameti/index.html">← Polovodičové paměti</a>
+  <a class="nav-btn" href="../16-tiskarny/index.html">Tiskárny →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Mechanické paměti</div>
+</body>
+</html>

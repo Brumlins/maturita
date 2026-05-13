@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q16 – Tiskárny | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../ustni/index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">mikes+marcel</a>
+  <span class="sep">/</span>
+  <span class="cur">Q16</span>
+</nav>
+<div class="hero">
+  <div class="bignr">16</div>
+  <div class="qnum">Otázka 16 / 20 · Mikes &amp; Marcel</div>
+  <h1>Tiskárny</h1>
+</div>
+<main>
+<div class="summary">
+  <h3>// Klíčové pojmy</h3>
+  <ul><li>RGB = aditivní (monitor) vs CMYK = subtraktivní (tisk)</li><li>Jehličková (průklep), inkoustová (trysky), laserová (toner)</li><li>Laserová: drum → toner → zažehlovka</li><li>DPI (rozlišení), PPM (rychlost), TCO (náklady)</li></ul>
+</div>
+
+<h2>Barevné modely</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>RGB – aditivní</h3>
+    <p>Red + Green + Blue = skládání světla. Používá se u <strong>monitorů</strong>. Součet všech barev = bílá.</p>
+  </div>
+  <div class="card">
+    <h3>CMYK – subtraktivní</h3>
+    <p>Cyan + Magenta + Yellow + Key (Black). Odráží světlo od papíru. Používá se při <strong>tisku</strong>. Černá přidává se zvlášť (CMY → tmavě hnědá, ne černá).</p>
+  </div>
+</div>
+
+<h2>Typy tiskáren</h2>
+<table>
+  <tr><th>Typ</th><th>Princip</th><th>Výhody</th><th>Nevýhody</th></tr>
+  <tr><td><strong>Jehličková</strong></td><td>Jehličky (9 nebo 24) bije přes barvicí pásku na papír</td><td>Průklep kopií, nízké náklady</td><td>Hluk, nízká kvalita</td></tr>
+  <tr><td><strong>Inkoustová</strong></td><td>Vstřikování mikrokapiček inkoustu z trysek</td><td>Skvělé barvy, foto tisk</td><td>Drahý inkoust, zaschnutí trysek</td></tr>
+  <tr><td><strong>Laserová</strong></td><td>Elektrografie – laser, drum, toner, zažehlovka</td><td>Rychlost, nízká cena/stránku, vodě odolný</td><td>Dražší pořizovací cena</td></tr>
+  <tr><td><strong>Termální</strong></td><td>Teplo na speciální papír nebo přes pásku</td><td>Kompaktní, tiché</td><td>Blednutí (přímý termální)</td></tr>
+  <tr><td><strong>3D (FDM)</strong></td><td>Tavení plastového filamentu po vrstvách</td><td>Trojrozměrné objekty</td><td>Pomalé, nutná postprocessing</td></tr>
+</table>
+
+<h2>Laserová tiskárna – krok za krokem</h2>
+<pre><code>1. Laser (nebo LED pole) vykreslí obraz na drum (válec)
+   → vytvoří elektrostatický náboj v místech tisku
+2. Na nabitá místa se přichytí toner (jemný prášek)
+3. Toner se přenese na papír (elektrostaticky)
+4. Zažehlovací jednotka: teplo + tlak → toner se "zataví" do papíru</code></pre>
+
+<h2>Inkoustová tiskárna – technologie hlav</h2>
+<div class="two-col">
+  <div class="card"><h3>Termální (Thermal)</h3><p>Odporové tělísko zahřeje inkoust → bublina → kapka vystřelí. Výrobci: HP, Canon.</p></div>
+  <div class="card"><h3>Piezoelektrická (Piezo)</h3><p>Krystal pod napětím se prohne a mechanicky vytlačí kapku. Výrobce: Epson.</p></div>
+</div>
+
+<h2>Klíčové parametry</h2>
+<div class="three-col">
+  <div class="box box-purple"><strong>DPI</strong><br>Dots Per Inch – rozlišení, hustota bodů</div>
+  <div class="box box-green"><strong>PPM</strong><br>Pages Per Minute – rychlost tisku</div>
+  <div class="box box-amber"><strong>TCO</strong><br>Total Cost of Ownership – celkové náklady (tiskárna + spotřební materiál)</div>
+</div>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../15-mechanicke-pameti/index.html">← Mechanické paměti</a>
+  <a class="nav-btn" href="../17-zobrazovaci-jednotky/index.html">Zobrazovací jednotky →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Tiskárny</div>
+</body>
+</html>
