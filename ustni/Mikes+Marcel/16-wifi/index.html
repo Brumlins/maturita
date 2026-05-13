@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q16 – Bezdrátové sítě a WiFi</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q16 – Bezdrátové sítě a WiFi</a>
+</nav>
+<div class="hero">
+  <span class="num">16</span>
+  <div class="sub">Otázka 16 / 20</div>
+  <h1>Bezdrátové sítě a WiFi</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>802.11b/g/n/ac/ax – generace WiFi (2–9600 Mbit/s)</li><li>2.4 GHz (kanály 1,6,11 nepřekrývají), 5 GHz, 6 GHz</li><li>Modulace: AM, FM, PM → OFDM, OFDMA</li><li>WEP (prolomen) → WPA → WPA2 (AES) → WPA3 (SAE)</li></ul>
+</div>
+
+<h2>Bezdrátové sítě – přehled spektra</h2>
+<div class="box-blue">
+  Elektromagnetické spektrum: rádiové vlny (kHz–GHz) → mikrovlny → infračervené → viditelné → UV → RTG → gama.<br>
+  WiFi využívá <strong>ISM pásma</strong> (bezlicenční): <strong>2.4 GHz</strong>, <strong>5 GHz</strong>, <strong>6 GHz</strong> (WiFi 6E).
+</div>
+
+<h2>Standardy IEEE 802.11</h2>
+<table>
+  <tr><th>Standard</th><th>Název</th><th>Pásmo</th><th>Max rychlost</th><th>Rok</th></tr>
+  <tr><td>802.11</td><td>WiFi 1</td><td>2.4 GHz</td><td>2 Mbit/s</td><td>1997</td></tr>
+  <tr><td>802.11b</td><td>WiFi 2</td><td>2.4 GHz</td><td>11 Mbit/s</td><td>1999</td></tr>
+  <tr><td>802.11g</td><td>WiFi 3</td><td>2.4 GHz</td><td>54 Mbit/s</td><td>2003</td></tr>
+  <tr><td>802.11n</td><td>WiFi 4</td><td>2.4 / 5 GHz</td><td>600 Mbit/s</td><td>2009</td></tr>
+  <tr><td>802.11ac</td><td>WiFi 5</td><td>5 GHz</td><td>3.5 Gbit/s</td><td>2013</td></tr>
+  <tr><td>802.11ax</td><td>WiFi 6/6E</td><td>2.4/5/6 GHz</td><td>9.6 Gbit/s</td><td>2019</td></tr>
+</table>
+
+<h2>Kanály a interference</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>2.4 GHz</h3>
+    <p>13 kanálů (1–13 v EU). Šířka kanálu 22 MHz, vzdálenost 5 MHz → překrývají se. Nepřekrývající se: <strong>kanály 1, 6, 11</strong>. Ruší: Bluetooth, DECT, mikrovlnky.</p>
+  </div>
+  <div class="card">
+    <h3>5 GHz</h3>
+    <p>23+ kanálů po 20 MHz – <strong>nepřekrývají se</strong>. Méně interference, vyšší rychlost, ale kratší dosah. DFS kanály – sdílení s radary.</p>
+  </div>
+</div>
+
+<h2>Modulace signálu</h2>
+<div class="three-col">
+  <div class="box-blue"><strong>AM</strong> – Amplitudová modulace<br>Mění amplitudu nosné vlny. Náchylná na rušení.</div>
+  <div class="box-green"><strong>FM</strong> – Frekvenční modulace<br>Mění frekvenci nosné. Odolnější vůči šumu.</div>
+  <div class="box-yellow"><strong>PM</strong> – Fázová modulace<br>Mění fázi nosné. Základ QAM, OFDM.</div>
+</div>
+<div class="box-blue">
+  WiFi používá <strong>OFDM</strong> (Orthogonal Frequency Division Multiplexing) – rozděluje kanál na stovky subnosných. WiFi 6 přidává <strong>OFDMA</strong> – více uživatelů sdílí kanál najednou (jako LTE).
+</div>
+
+<h2>Zabezpečení WiFi</h2>
+<table>
+  <tr><th>Standard</th><th>Šifrování</th><th>Bezpečnost</th></tr>
+  <tr><td>WEP</td><td>RC4</td><td style="color:red">❌ Prolomen (nepoužívat!)</td></tr>
+  <tr><td>WPA</td><td>TKIP/RC4</td><td style="color:orange">⚠️ Slabý – přechodový</td></tr>
+  <tr><td>WPA2</td><td>AES-CCMP</td><td style="color:green">✅ Bezpečný (PMKID útok)</td></tr>
+  <tr><td>WPA3</td><td>AES-GCMP + SAE</td><td style="color:green">✅ Nejbezpečnější</td></tr>
+</table>
+
+<h2>BSS, SSID, roaming</h2>
+<div class="box-green">
+  <strong>BSS</strong> = Basic Service Set – jeden AP + jeho klienti<br>
+  <strong>ESS</strong> = Extended Service Set – více AP se stejným SSID (roaming)<br>
+  <strong>SSID</strong> = název sítě (max 32 znaků)<br>
+  <strong>BSSID</strong> = MAC adresa AP<br>
+  Roaming: klient se přepojí na silnější AP (802.11r = fast roaming)
+</div>
+
+<div class="nav-btns">
+  <a href="../15-ethernet-hardware/index.html">← Ethernet – síťový hardware</a>
+  <a href="../17-internetworking-ip/index.html">Internetworking – IP adresace →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Bezdrátové sítě a WiFi</div>
+</body></html>

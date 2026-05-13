@@ -1,0 +1,36 @@
+Ethernet
+
+Ukoly vrstev (L1 a L2 model OSI)
+	- co resi ty vrstvy - prenos informaci, prenos resime pomoci nejake fyzikalni veliciny na nejakem kanalu (kabel - napeti, optika - elktromagneticke zareni)
+	- na prvni vrstve prichazi nuly a jednicky
+	- druha vrstva pracuje uz s temi bloky
+
+UTP, FTP, STP - stineni, jsou tam 4 pary (standard t568A/B)
+Ve vsech sitovych kartach dnes je MDI, dokaze automaticky rozeznat jestli pouzivame krizeny nebo nekrizeny kabel.
+Opticke kabely 
+	vyhody:
+		single a multi modovy
+		odolnost proti okolnimu vlivu (teplota)
+		Snelluv zakon k multi modu
+
+Optika/adresace:
+	ethernetova preambule
+	nejaka hlavicka nebo co
+	mac adresy
+	typ ethernetu
+	komunikujeme v ramci lanky
+	l1 - huby, rozvodovace l2- switche
+
+Kolizni domena:
+	puvodne ethernet byl kanal (vodic), mels stanice a sitovky, odpory (kresli random obrazek na tabuli)
+	pristupova metoda CSMA/CD - vysvetlit co to je a jak funguje
+				  - resi kolize na vodici
+				TOHLE UZ DNES NERESIME dnes mame switche, ktere resi tenhle problem
+
+redundance to je ta agregace LACP, STP... jak v packet traceru.
+
+
+lehka historie ethernetu
+
+
+	

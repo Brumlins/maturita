@@ -1,0 +1,41 @@
+fyzicka (prenos elektriny, signalu)
+linkova (prenos framu, fyzicke adresy MAC, kontrola prenosu - pri chybe zahodi)
+sitova (packety, source ip adresy, adresovani, urceni cesty, ztratu poznam - napr v hovoru chybi jedno pismenko (packet loss))
+trasportni (udp, tcp porty)
+relacni
+aplikacni (data)
+
+atm (cely iso osi model, drahe a umeli vsechno, ale narocne), dsl, (je jich hodne, ale nechytli se)
+
+Komunikacni site
+Jejich typy
+PRENOS!!
+- nezasahovat do dat, co nejrychleji prenest data z bodu A do bodu B bez zasahovani do nich
+
+Telekomunikacni site - zajišťují přenos hlasu, videa, signálů.
+
+		Typy přenosu:
+
+			Připojování okruhů – vytvoří se pevné spojení mezi účastníky po dobu komunikace.
+
+			Proudový přenos – data tečou plynule jako proud.
+
+			Princip: stabilní spojení, vhodné pro telefonní hovory.
+
+Datové sítě
+
+	Přenos v podobě paketů (bloků dat).
+
+	Každý paket může jít jinou cestou, na cíli se znovu poskládají.
+
+	Flexibilní, efektivní pro počítačovou komunikaci (internet).
+
+rozdily mezi němi
+
+co to je spojovany prenos (telekomunikace)
+modulace - chceme prenest něco rychleji, používáme vyssi frekvence (rycleji se prenasi). Zamodulovali jsme do nich data.
+multiplex - chceme dannou linku v jeden okamzik mit k ni pristup vice uzivatelu
+ISO/OSI, tcpip model - obrazek ke kazdemu, co kazda vrstva dela, pud
+enkapsulace/dekapsulace - dana vrstva muze komunikovat jen s vrstvou nad a pod, jen se sousedem.
+			- vysvetlit rozdily jake jsou mezi nemi
+priklady nejakych protokolu (ethernet, arp, ip protokol, routovaci protokoly, spolehlivy protokol vs nespolehlivy (tcp vs udp), icmp - prikaz ping (nespolehlivy prenos), https, ftp, ssh, dhcp, dns)

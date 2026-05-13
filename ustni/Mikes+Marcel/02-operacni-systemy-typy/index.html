@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q02 – Typy operačních systémů</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q02 – Typy operačních systémů</a>
+</nav>
+<div class="hero">
+  <span class="num">02</span>
+  <div class="sub">Otázka 2 / 20</div>
+  <h1>Typy operačních systémů</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>Single vs multi-user, single vs multi-tasking</li><li>Desktop, server, mobilní, RTOS, embedded</li><li>Linux distribuce: Debian, Red Hat, Arch</li><li>Windows vs Linux – klíčové rozdíly</li></ul>
+</div>
+
+<h2>Klasifikace operačních systémů</h2>
+
+<h3>Podle počtu uživatelů</h3>
+<div class="two-col">
+  <div class="card">
+    <span class="badge">Single-user</span>
+    <p>Jeden uživatel najednou. Příklady: <strong>MS-DOS</strong>, starší Windows, Android/iOS.</p>
+  </div>
+  <div class="card">
+    <span class="badge badge-green">Multi-user</span>
+    <p>Více uživatelů současně (přihlašování, izolace dat). Příklady: <strong>Linux</strong>, Windows Server, Unix.</p>
+  </div>
+</div>
+
+<h3>Podle počtu úloh (tasků)</h3>
+<div class="two-col">
+  <div class="card">
+    <span class="badge badge-yellow">Single-tasking</span>
+    <p>Jeden program najednou – MS-DOS. Jednoduchý, deterministický.</p>
+  </div>
+  <div class="card">
+    <span class="badge badge-green">Multi-tasking</span>
+    <p>Více programů zdánlivě najednou. Preemptivní (OS přerušuje) nebo kooperativní (program sám předá řízení).</p>
+  </div>
+</div>
+
+<h3>Podle architektury</h3>
+<table>
+  <tr><th>Typ OS</th><th>Charakteristika</th><th>Příklady</th></tr>
+  <tr><td>Desktopový</td><td>GUI, interakce s uživatelem, multitasking</td><td>Windows 11, Ubuntu, macOS</td></tr>
+  <tr><td>Serverový</td><td>Stabilita, bezpečnost, bez GUI (headless), správa sítě</td><td>Windows Server, Debian, RHEL</td></tr>
+  <tr><td>Mobilní</td><td>Úspora baterie, dotykové rozhraní, sandboxing aplikací</td><td>Android, iOS</td></tr>
+  <tr><td>Real-time (RTOS)</td><td>Deterministická odezva v pevném čase – kritické systémy</td><td>FreeRTOS, VxWorks, QNX</td></tr>
+  <tr><td>Embedded</td><td>Malá paměť, specifický HW, bez MMU</td><td>FreeRTOS, Zephyr, uC/OS</td></tr>
+</table>
+
+<h2>Distribuce Linuxu</h2>
+<div class="three-col">
+  <div class="card">
+    <h3>Debian/Ubuntu rodina</h3>
+    <p>Správce balíčků <kbd>apt</kbd><br>Ubuntu LTS = stabilní pro servery<br>Kali Linux = penetrační testování</p>
+  </div>
+  <div class="card">
+    <h3>Red Hat rodina</h3>
+    <p>Správce balíčků <kbd>dnf</kbd>/<kbd>rpm</kbd><br>RHEL, Fedora, CentOS<br>Dominuje v enterprise</p>
+  </div>
+  <div class="card">
+    <h3>Arch / rolling</h3>
+    <p>Správce balíčků <kbd>pacman</kbd><br>Vždy nejnovější verze balíčků<br>Manjaro = uživatelsky přívětivý Arch</p>
+  </div>
+</div>
+
+<h2>Windows vs Linux – srovnání</h2>
+<table>
+  <tr><th>Vlastnost</th><th>Windows</th><th>Linux</th></tr>
+  <tr><td>Licence</td><td>Proprietární, placený</td><td>Open-source (GPL)</td></tr>
+  <tr><td>Shell</td><td>PowerShell / cmd</td><td>Bash, Zsh, Fish</td></tr>
+  <tr><td>Souborový systém</td><td>NTFS, exFAT</td><td>ext4, XFS, Btrfs, ZFS</td></tr>
+  <tr><td>Správa SW</td><td>Instalátor .exe/.msi</td><td>Správce balíčků (apt, dnf)</td></tr>
+  <tr><td>Bezpečnost</td><td>ACL, UAC, Defender</td><td>DAC, MAC (SELinux/AppArmor)</td></tr>
+</table>
+
+<div class="nav-btns">
+  <a href="../01-operacni-systemy-vyvoj/index.html">← Vývoj OS a jeho struktura</a>
+  <a href="../03-souborove-systemy-typy/index.html">Typy souborových systémů →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Typy operačních systémů</div>
+</body></html>

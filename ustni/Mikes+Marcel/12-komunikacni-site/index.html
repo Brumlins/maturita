@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q12 – Komunikační sítě a topologie</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q12 – Komunikační sítě a topologie</a>
+</nav>
+<div class="hero">
+  <span class="num">12</span>
+  <div class="sub">Otázka 12 / 20</div>
+  <h1>Komunikační sítě a topologie</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>PAN/LAN/MAN/WAN – rozsahy sítí</li><li>Topologie: bus, hvězda, kruh, mesh, strom</li><li>ARPANET → Internet (1969–1995)</li><li>Přenosová média: UTP, optika, WiFi</li></ul>
+</div>
+
+<h2>Typy komunikačních sítí</h2>
+<table>
+  <tr><th>Typ</th><th>Rozsah</th><th>Příklad</th></tr>
+  <tr><td><strong>PAN</strong> – Personal Area</td><td>do 10 m</td><td>Bluetooth, USB, Zigbee</td></tr>
+  <tr><td><strong>LAN</strong> – Local Area</td><td>budova, campus</td><td>Ethernet, WiFi, firemní síť</td></tr>
+  <tr><td><strong>MAN</strong> – Metropolitan</td><td>město</td><td>Metro Ethernet, kabelová TV</td></tr>
+  <tr><td><strong>WAN</strong> – Wide Area</td><td>kraj, stát, svět</td><td>Internet, MPLS</td></tr>
+</table>
+
+<h2>Síťové topologie</h2>
+<div class="three-col">
+  <div class="card">
+    <h3>Sběrnicová (Bus)</h3>
+    <p>Všichni na jednom koaxiálním kabelu. Kolizní doména = celá síť. Historický Ethernet 10Base2.</p>
+  </div>
+  <div class="card">
+    <h3>Hvězda (Star)</h3>
+    <p>Vše se připojuje do centrálního switche/hubu. Dnešní standard. Výpadek centra = výpadek sítě.</p>
+  </div>
+  <div class="card">
+    <h3>Kruh (Ring)</h3>
+    <p>Token Ring – data obíhají v kruhu. Historické (Token Ring). Dnes optické metro sítě (SONET).</p>
+  </div>
+</div>
+<div class="two-col">
+  <div class="card">
+    <h3>Mesh</h3>
+    <p>Každý s každým – maximální redundance. Full mesh vs. partial mesh. Páteřní sítě, IoT.</p>
+  </div>
+  <div class="card">
+    <h3>Stromová (Tree)</h3>
+    <p>Hierarchická – páteřní switche → distribuční → přístupové. Typická firemní síť.</p>
+  </div>
+</div>
+
+<h2>Historie – ARPANET</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">1969</div><div class="tl-text">ARPANET – první zpráva UCLA → SRI (systém zhavaroval po 2 písmenech „LO" z „LOGIN").</div></div>
+  <div class="tl-item"><div class="tl-year">1972</div><div class="tl-text">E-mail – Ray Tomlinson zavedl <code>@</code> adresování.</div></div>
+  <div class="tl-item"><div class="tl-year">1974</div><div class="tl-text">TCP/IP – Cerf a Kahn publikují návrh (RFC 675).</div></div>
+  <div class="tl-item"><div class="tl-year">1983</div><div class="tl-text">ARPANET přechází na TCP/IP. Vzniká rozdíl MILNET (vojenský) a ARPANET (výzkumný).</div></div>
+  <div class="tl-item"><div class="tl-year">1991</div><div class="tl-text">World Wide Web – Tim Berners-Lee, CERN. HTTP, HTML, URL.</div></div>
+  <div class="tl-item"><div class="tl-year">1995</div><div class="tl-text">Privatizace internetu – NSFnet nahrazen komerčními páteřemi.</div></div>
+</div>
+
+<h2>Přenosová média</h2>
+<table>
+  <tr><th>Medium</th><th>Max rychlost</th><th>Max vzdálenost</th><th>Použití</th></tr>
+  <tr><td>UTP Cat5e</td><td>1 Gbit/s</td><td>100 m</td><td>LAN Ethernet</td></tr>
+  <tr><td>UTP Cat6a</td><td>10 Gbit/s</td><td>100 m</td><td>Datová centra</td></tr>
+  <tr><td>Optika multimode</td><td>10 Gbit/s</td><td>550 m</td><td>Páteř budovy</td></tr>
+  <tr><td>Optika singlemode</td><td>100 Gbit/s+</td><td>80+ km</td><td>WAN, metro</td></tr>
+  <tr><td>WiFi 802.11ac</td><td>3.5 Gbit/s</td><td>~50 m</td><td>WLAN</td></tr>
+</table>
+
+<div class="nav-btns">
+  <a href="../11-skripty-filtrace/index.html">← Filtrace a zpracování textu</a>
+  <a href="../13-iso-osi-tcpip/index.html">ISO/OSI a TCP/IP modely →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Komunikační sítě a topologie</div>
+</body></html>

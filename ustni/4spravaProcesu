@@ -1,0 +1,42 @@
+Sprava procesu
+
+proces - spusteny program (program ze souboru z pameti a ten se zpracovava - bezici program)
+ulozeny na disku - soubor
+
+
+nemusi byt jeden, ale rozdeleny na mensi casti (vlakna)
+
+na cem bezi
+	sprava procesoru (hardware)
+	proces je program a musi bezet na HW (treba cpu)
+	cpu ma taky vlakna jako proces
+	(drive jeden vypocetni blok, dnes ma vic jader, vlaken, takze vic tech bloku v jednom)
+
+jake ma casti
+	management - 	
+		koho spustil, 
+		kdo ho spustil, 
+		priorita, 
+		ID,
+		parent (prvni program ma PID 1 a ma za ukol spustit dale), 
+		na jakem terminalu
+
+stavy -
+	ze zacatku je soubor na disku, jak skonci taky
+	vytahne z pameti, zacne zpracovavat v cpu (hardwaru)
+	5 stavu:
+	po nacteni nebezi, je ready (pripraven, ze muze vykonavat) -> run -> sleep/pause -> stop
+
+spusteni:
+	interaktivni - v terminalu primo napisu program (napr.: mc)
+	neinteraktivne (bezi na pozadi) - s & (napr.: mc&) -> fg (mc)
+	planovac spusteni 
+
+prepinani: fg bg
+
+ukonceni procesu - kill all apod.
+
+uprava priority - co to je priorita procesu
+	pri spusteni je standartni priorita - (-19 az 19)
+	spusteni s jinou prioritou - nice (nice -n 10 mc)
+	uprava priority beziciho programu - ri nice

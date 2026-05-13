@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q20 – Výpočetní modely a cloud</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q20 – Výpočetní modely a cloud</a>
+</nav>
+<div class="hero">
+  <span class="num">20</span>
+  <div class="sub">Otázka 20 / 20</div>
+  <h1>Výpočetní modely a cloud</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>Klient/Server – centralizovaná správa, SPOF</li><li>P2P – každý je klient i server, BitTorrent, blockchain</li><li>Virtualizace: Typ 1 (bare-metal), Typ 2 (hosted), Docker</li><li>Cloud: IaaS / PaaS / SaaS; veřejný / privátní / hybridní</li></ul>
+</div>
+
+<h2>Výpočetní modely</h2>
+
+<h3>Klient/Server</h3>
+<div class="two-col">
+  <div class="box-blue">
+    <strong>Klient</strong> = iniciuje požadavek, zobrazuje výsledek (prohlížeč, aplikace)<br>
+    <strong>Server</strong> = čeká na požadavky, zpracovává, vrací odpověď (web, databáze, e-mail)<br>
+    Centralizovaná správa, snadná aktualizace, SPOF (single point of failure).
+  </div>
+  <div class="box-green">
+    <strong>Příklady:</strong><br>
+    • Webový prohlížeč ↔ Apache/Nginx<br>
+    • E-mailový klient ↔ SMTP/IMAP server<br>
+    • Databázová aplikace ↔ MySQL/PostgreSQL<br>
+    • SSH klient ↔ SSH server
+  </div>
+</div>
+
+<h3>Peer-to-Peer (P2P)</h3>
+<div class="box-yellow">
+  Každý uzel je zároveň klientem i serverem. Žádný centrální server. Odolné proti výpadku, škáluje samo. Využití: BitTorrent, blockchain, Napster, Skype (historicky), I2P.
+</div>
+
+<h2>Virtualizace</h2>
+<div class="box-blue">
+  <strong>Virtualizace</strong> = spuštění více virtuálních počítačů (VM) na jednom fyzickém hostiteli. Hypervisor spravuje sdílení HW zdrojů.
+</div>
+<div class="two-col">
+  <div class="card">
+    <h3>Typ 1 – bare-metal hypervisor</h3>
+    <p>Běží přímo na HW (bez OS). Vyšší výkon. Příklady: <strong>VMware ESXi, Microsoft Hyper-V, KVM (Linux), Xen</strong>.</p>
+  </div>
+  <div class="card">
+    <h3>Typ 2 – hosted hypervisor</h3>
+    <p>Běží jako aplikace na OS. Pomalejší (dvojitá virtualizace). Příklady: <strong>VirtualBox, VMware Workstation, Parallels</strong>.</p>
+  </div>
+</div>
+
+<h3>Kontejnerizace</h3>
+<div class="box-green">
+  <strong>Kontejner</strong> = izolovaný proces sdílející jádro OS hostitele. Lehčí než VM, rychlý start. <strong>Docker</strong> = nejrozšířenější platforma. <strong>Kubernetes</strong> = orchestrace kontejnerů (škálování, balancování).
+</div>
+<pre><code>docker run -d -p 80:80 nginx          # spusť kontejner
+docker ps                              # zobraz běžící kontejnery
+docker exec -it mojec bash             # shell v kontejneru
+docker-compose up -d                   # více kontejnerů dle YAML</code></pre>
+
+<h2>Cloud computing</h2>
+<table>
+  <tr><th>Model</th><th>Co poskytuje</th><th>Příklady</th><th>Zákazník spravuje</th></tr>
+  <tr><td><strong>IaaS</strong> – Infrastruktura</td><td>VM, úložiště, sítě</td><td>AWS EC2, Azure VM, GCP Compute</td><td>OS, runtime, aplikace</td></tr>
+  <tr><td><strong>PaaS</strong> – Platforma</td><td>Prostředí pro vývoj a nasazení</td><td>Heroku, Google App Engine, Azure App</td><td>Jen aplikace a data</td></tr>
+  <tr><td><strong>SaaS</strong> – Software</td><td>Hotová aplikace přes internet</td><td>Gmail, Microsoft 365, Salesforce</td><td>Nic (jen používá)</td></tr>
+</table>
+
+<h2>Typy cloudu</h2>
+<div class="three-col">
+  <div class="box-blue"><strong>Veřejný cloud</strong><br>Sdílená infrastruktura poskytovatele. Platíš za spotřebu. AWS, Azure, GCP.</div>
+  <div class="box-yellow"><strong>Privátní cloud</strong><br>Vlastní datacentrum nebo dedikované zdroje. Kontrola, compliance. OpenStack, VMware vCloud.</div>
+  <div class="box-green"><strong>Hybridní cloud</strong><br>Kombinace – citlivá data on-premise, ostatní ve veřejném cloudu. Nejčastější enterprise model.</div>
+</div>
+
+<div class="nav-btns">
+  <a href="../19-tcpip-protokoly/index.html">← Základní TCP/IP protokoly</a>
+  <span></span>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Výpočetní modely a cloud</div>
+</body></html>

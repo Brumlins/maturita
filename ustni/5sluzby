@@ -1,0 +1,22 @@
+Sluzby
+Programy nebo procesy, které běží na pozadí v počítači.	
+Nabízejí určité funkce nebo zdroje nezávisle na konkrétním uživateli (fungují i bez přihlášení uživatele).
+
+typy a priklady:
+	tiskove sluzby (cups - linux, printing service - windows)
+	webove sluzby (apache)
+	sdileni (samba, nfs)
+	ssh
+	database (mysql)
+
+ovladani:
+	systemctl
+	cron - planovac uloh v linuxu 
+	     - jak vypada jeho struktura 
+	     - jak funguji syntaxy
+
+	shadow
+
+instalace:
+	balicky Debian v cmd
+	

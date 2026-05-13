@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q06 – Práva, ACL a adresářové služby</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q06 – Práva, ACL a adresářové služby</a>
+</nav>
+<div class="hero">
+  <span class="num">06</span>
+  <div class="sub">Otázka 6 / 20</div>
+  <h1>Práva, ACL a adresářové služby</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>chmod (symbolicky i numericky), chown, chgrp</li><li>SUID (4), SGID (2), Sticky bit (1)</li><li>ACL: getfacl / setfacl – granulární oprávnění</li><li>LDAP (port 389/636) a Active Directory</li></ul>
+</div>
+
+<h2>Oprávnění v Linuxu (DAC)</h2>
+<div class="box-blue">
+  Každý soubor má <strong>vlastníka (user)</strong>, <strong>skupinu (group)</strong> a práva pro <strong>ostatní (other)</strong>. Tři sady: čtení (r=4), zápis (w=2), spuštění (x=1).
+</div>
+<pre><code>ls -l soubor.txt
+# -rwxr-xr-- 1 jan vyvojari 1234 Jan 10 09:00 soubor.txt
+#  ^^^------  vlastník=rwx, skupina=r-x, ostatní=r--
+
+# Symbolicky
+chmod u+x skript.sh          # přidat execute vlastníkovi
+chmod go-w soubor.txt        # odebrat write skupině a ostatním
+chmod a=r soubor.txt         # nastavit jen read pro všechny
+
+# Numericky (octal)
+chmod 755 skript.sh          # rwxr-xr-x
+chmod 644 soubor.txt         # rw-r--r--
+chmod 600 /etc/secret        # rw------- (jen vlastník)
+chmod 700 ~/privatni/        # rwx------ (adresář jen vlastník)
+
+# Vlastník a skupina
+chown jan soubor.txt
+chown jan:vyvojari soubor.txt
+chgrp vyvojari soubor.txt
+chown -R jan:jan /var/www/   # rekurzivně</code></pre>
+
+<h2>Speciální bity</h2>
+<table>
+  <tr><th>Bit</th><th>Octal</th><th>Na souboru</th><th>Na adresáři</th></tr>
+  <tr><td><strong>SUID</strong></td><td>4000</td><td>Spustí se jako vlastník (passwd, sudo)</td><td>Bez efektu</td></tr>
+  <tr><td><strong>SGID</strong></td><td>2000</td><td>Spustí se jako skupina</td><td>Nové soubory dědí skupinu adresáře</td></tr>
+  <tr><td><strong>Sticky</strong></td><td>1000</td><td>—</td><td>Mazat může jen vlastník (/tmp)</td></tr>
+</table>
+<pre><code>chmod u+s /usr/bin/passwd    # SUID
+chmod g+s /var/shared/       # SGID na adresáři
+chmod +t  /tmp               # Sticky bit
+chmod 4755 skript.sh         # SUID + rwxr-xr-x</code></pre>
+
+<h2>ACL – Access Control Lists</h2>
+<div class="box-yellow">
+  Standardní Unix oprávnění umožňují nastavit práva pouze pro jednoho uživatele, jednu skupinu a ostatní. <strong>ACL</strong> umožňují granulární nastavení pro libovolné množství uživatelů a skupin.
+</div>
+<pre><code># Zobrazit ACL
+getfacl soubor.txt
+
+# Nastavit ACL pro uživatele
+setfacl -m u:jana:rw soubor.txt      # jana může číst a psát
+setfacl -m g:audit:r soubor.txt      # skupina audit jen číst
+setfacl -m o::--- soubor.txt         # ostatní vůbec nic
+
+# Výchozí ACL (dědí nové soubory v adresáři)
+setfacl -d -m u:jana:rw /var/shared/
+
+# Odebrat ACL
+setfacl -x u:jana soubor.txt
+setfacl -b soubor.txt                # smaž vše ACL
+
+# Výstup getfacl:
+# user::rw-
+# user:jana:rw-
+# group::r--
+# mask::rw-
+# other::---</code></pre>
+
+<h2>LDAP a Active Directory</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>LDAP</h3>
+    <p>Lightweight Directory Access Protocol – protokol pro přístup k adresářovým službám. Hierarchická struktura (DC, OU, CN). Port <strong>389</strong> (plain), <strong>636</strong> (LDAPS).</p>
+  </div>
+  <div class="card">
+    <h3>Active Directory (AD)</h3>
+    <p>Microsoft implementace LDAP + Kerberos. Domény, OU, GPO (Group Policy Objects). Centrální správa uživatelů Windows sítě. Na Linuxu lze připojit přes <strong>SSSD</strong> nebo <strong>realmd</strong>.</p>
+  </div>
+</div>
+
+<div class="nav-btns">
+  <a href="../05-sprava-uzivatelu-typy/index.html">← Správa uživatelů</a>
+  <a href="../07-sprava-procesu-zaklady/index.html">Správa procesů – základy →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Práva, ACL a adresářové služby</div>
+</body></html>

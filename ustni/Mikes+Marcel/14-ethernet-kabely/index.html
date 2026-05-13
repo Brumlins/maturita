@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q14 – Ethernet – kabely a fyzická vrstva</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q14 – Ethernet – kabely a fyzická vrstva</a>
+</nav>
+<div class="hero">
+  <span class="num">14</span>
+  <div class="sub">Otázka 14 / 20</div>
+  <h1>Ethernet – kabely a fyzická vrstva</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>Cat5e (1G/100m), Cat6 (10G/55m), Cat6a (10G/100m)</li><li>UTP/FTP/STP – stupně stínění, 4 páry, MDI-X</li><li>T568B – pořadí vodičů v konektoru RJ-45</li><li>Ethernetový rámec: preambula, MAC, typ, data, FCS</li></ul>
+</div>
+
+<h2>Kabely UTP / FTP / STP</h2>
+<table>
+  <tr><th>Kategorie</th><th>Max rychlost</th><th>Max vzdálenost</th><th>Poznámka</th></tr>
+  <tr><td>Cat3</td><td>10 Mbit/s</td><td>100 m</td><td>Starý telefon, historický Ethernet</td></tr>
+  <tr><td>Cat5</td><td>100 Mbit/s</td><td>100 m</td><td>FastEthernet</td></tr>
+  <tr><td>Cat5e</td><td>1 Gbit/s</td><td>100 m</td><td>Dnes nejrozšířenější</td></tr>
+  <tr><td>Cat6</td><td>10 Gbit/s</td><td>55 m</td><td>Separátor párů, plný výkon 1G/100m</td></tr>
+  <tr><td>Cat6a</td><td>10 Gbit/s</td><td>100 m</td><td>Augmented – datová centra</td></tr>
+  <tr><td>Cat7</td><td>10+ Gbit/s</td><td>100 m</td><td>Stínění každého páru (S/FTP)</td></tr>
+</table>
+
+<div class="box-blue">
+  <strong>UTP</strong> = Unshielded – bez stínění (běžná kabeláž)<br>
+  <strong>FTP</strong> = Foiled – stínění celého svazku fólií<br>
+  <strong>STP</strong> = Shielded – stínění každého páru + celku<br>
+  4 páry = 8 vodičů. MDI-X (Auto-MDI) = switch auto-rozpozná rovný/křížený kabel.
+</div>
+
+<h2>Standard T568A vs T568B</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>T568B (nejčastější v EU/US)</h3>
+    <pre><code>Pin 1: Bílá-oranžová
+Pin 2: Oranžová
+Pin 3: Bílá-zelená
+Pin 4: Modrá
+Pin 5: Bílá-modrá
+Pin 6: Zelená
+Pin 7: Bílá-hnědá
+Pin 8: Hnědá</code></pre>
+  </div>
+  <div class="card">
+    <h3>Rovný vs. křížený kabel</h3>
+    <p><strong>Rovný (patch)</strong>: oba konce stejný standard → PC ↔ Switch</p>
+    <p><strong>Křížený (crossover)</strong>: A na jednom, B na druhém → PC ↔ PC (dnes auto-MDI-X)</p>
+  </div>
+</div>
+
+<h2>Ethernetový rámec (IEEE 802.3)</h2>
+<div class="card">
+  <pre><code>| Preambula | SFD | Cíl MAC | Zdroj MAC | Typ/Délka | Data (46-1500B) | FCS |
+|   7B      | 1B  |   6B    |    6B     |    2B     |    46–1500 B    | 4B  |
+
+Preambula: 10101010... (synchronizace)
+SFD: 10101011 (Start Frame Delimiter)
+MAC: 6 bytů = 48 bitů (12 hex číslic)
+FCS: Frame Check Sequence (CRC-32)</code></pre>
+</div>
+
+<h2>Optické kabely</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Multimode (MM)</h3>
+    <p>Jádro 50/62.5 µm – více paprsků různými úhly (módy). Do 550 m při 10G. Levnější vysílač (LED/VCSEL). Snellův zákon – totální odraz.</p>
+  </div>
+  <div class="card">
+    <h3>Singlemode (SM)</h3>
+    <p>Jádro 9 µm – jeden paprsek přímou cestou. Desítky km bez zesilovače. Drahý laserový vysílač. WAN, metro, DWDM.</p>
+  </div>
+</div>
+<div class="box-yellow">
+  <strong>Snellův zákon:</strong> n₁·sin(θ₁) = n₂·sin(θ₂) — popisuje lom světla na rozhraní. Při překročení kritického úhlu nastává totální odraz → základ multimode optiky.
+</div>
+
+<div class="nav-btns">
+  <a href="../13-iso-osi-tcpip/index.html">← ISO/OSI a TCP/IP modely</a>
+  <a href="../15-ethernet-hardware/index.html">Ethernet – síťový hardware →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Ethernet – kabely a fyzická vrstva</div>
+</body></html>

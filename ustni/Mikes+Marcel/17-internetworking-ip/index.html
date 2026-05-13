@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q17 – Internetworking – IP adresace</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q17 – Internetworking – IP adresace</a>
+</nav>
+<div class="hero">
+  <span class="num">17</span>
+  <div class="sub">Otázka 17 / 20</div>
+  <h1>Internetworking – IP adresace</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>IPv4 = 32 bit, privátní: 10/8, 172.16/12, 192.168/16</li><li>IPv6 = 128 bit, bez NAT, SLAAC auto-konfigurace</li><li>CIDR notace, podsítě, výpočet sítě a broadcastu</li><li>TTL – zabraňuje smyčkám, traceroute exploituje TTL</li></ul>
+</div>
+
+<h2>IPv4 – adresace</h2>
+<div class="box-blue">
+  IPv4 adresa = 32 bitů zapsaných jako 4 čísla 0–255 oddělená tečkami. Součástí je maska podsítě (prefix). Celkem ~4.3 miliardy adres – vyčerpány 2011.
+</div>
+<table>
+  <tr><th>Třída</th><th>Rozsah</th><th>Privátní rozsah (RFC 1918)</th></tr>
+  <tr><td>A</td><td>1.0.0.0 – 126.255.255.255</td><td>10.0.0.0/8</td></tr>
+  <tr><td>B</td><td>128.0.0.0 – 191.255.255.255</td><td>172.16.0.0/12</td></tr>
+  <tr><td>C</td><td>192.0.0.0 – 223.255.255.255</td><td>192.168.0.0/16</td></tr>
+</table>
+<div class="box-yellow">
+  Zvláštní adresy: <code>127.0.0.1</code> = loopback, <code>169.254.x.x</code> = APIPA (bez DHCP), <code>0.0.0.0</code> = neurčeno, <code>255.255.255.255</code> = broadcast.
+</div>
+
+<h2>Podsítě a CIDR</h2>
+<pre><code># CIDR notace: adresa/prefix
+192.168.1.0/24     # maska 255.255.255.0, 254 hostů
+192.168.1.0/25     # maska 255.255.255.128, 126 hostů
+10.0.0.0/8         # maska 255.0.0.0, ~16 mil. hostů
+
+# Výpočet sítě
+ip addr                         # Linux
+ipconfig /all                   # Windows
+ipcalc 192.168.1.100/24         # kalkulačka</code></pre>
+
+<h2>IPv6 – proč a jak</h2>
+<div class="two-col">
+  <div class="box-blue">
+    <strong>128 bitů</strong> = 3.4 × 10³⁸ adres. Zápis: 8 skupin po 4 hex číslicích, odděleny <code>:</code><br>
+    Zkrácení: <code>::</code> = skupina nul, vedoucí nuly lze vynechat.<br>
+    <code>2001:db8::1</code> = plně <code>2001:0db8:0000:0000:0000:0000:0000:0001</code>
+  </div>
+  <div class="box-green">
+    <strong>Výhody IPv6:</strong><br>
+    ✓ NAT nepotřeba – každé zařízení má veřejnou adresu<br>
+    ✓ Auto-konfigurace (SLAAC)<br>
+    ✓ Lepší podpora mobility<br>
+    ✓ IPsec v základu<br>
+    ✓ Efektivnější směrování (hierarchie)
+  </div>
+</div>
+
+<h2>NAT – Network Address Translation</h2>
+<div class="box-yellow">
+  <strong>NAT</strong>: router překládá privátní IP:port na veřejnou IP:port. Umožňuje sdílet jednu veřejnou IP pro celou LAN. Typy: <strong>SNAT</strong> (masquerade, výchozí), <strong>DNAT</strong> (port forwarding), <strong>PAT</strong> (= NAPT, překlad portů).
+</div>
+
+<h2>IP hlavička a TTL</h2>
+<table>
+  <tr><th>Pole</th><th>Velikost</th><th>Popis</th></tr>
+  <tr><td>Version</td><td>4 bity</td><td>4 = IPv4, 6 = IPv6</td></tr>
+  <tr><td>IHL</td><td>4 bity</td><td>Délka hlavičky (min 20 bytů)</td></tr>
+  <tr><td>TTL</td><td>8 bitů</td><td>Time To Live – snižuje se na každém routeru o 1. Při 0 → packet zahozen (ICMP Time Exceeded)</td></tr>
+  <tr><td>Protocol</td><td>8 bitů</td><td>6 = TCP, 17 = UDP, 1 = ICMP</td></tr>
+  <tr><td>Source IP</td><td>32 bitů</td><td>IP odesílatele</td></tr>
+  <tr><td>Dest IP</td><td>32 bitů</td><td>IP příjemce</td></tr>
+</table>
+<div class="box-blue">
+  TTL výchozí hodnoty: Windows = 128, Linux = 64, Cisco = 255. <code>traceroute</code> / <code>tracert</code> exploituje TTL k mapování trasy.
+</div>
+
+<div class="nav-btns">
+  <a href="../16-wifi/index.html">← Bezdrátové sítě a WiFi</a>
+  <a href="../18-smerovani-tcp-udp/index.html">Směrování a transportní vrstva →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Internetworking – IP adresace</div>
+</body></html>

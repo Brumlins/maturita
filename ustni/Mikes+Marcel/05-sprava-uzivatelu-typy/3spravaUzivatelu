@@ -1,0 +1,42 @@
+Sprava uzivatelu
+
+proc - povodne byl 1 uzivatel, 1 proces bla bla
+	kdyz pustime vic uzivatelu, musime je ridit
+
+takze co - kdo muze zasahovat do souboru atd
+
+3 typy - spravci
+	uzivatel
+	host - muze se dostat, je vic omezeny jak uzivatel (treba muze jen cist)
+
+skupiny uzivatelu - omezovani pristupu, spuseni programu a ovladani tiskaren atd. 
+	typy skupin:
+		admin
+		user
+		host
+
+kde jsou ulozeny:
+	ve win jsou specialni databaze
+	v linuxu jsou v etc/
+
+zakl. a rozsirena prava uzivatele
+	v linuxu rozlisujeme na vlastniky k objektu a vsichni ostatni.
+	ve windows si ke kazdemu uzivateli nastavit jak chcete
+
+	v linuxu to tak proste nebylo (vytvorit specialni skupinu, ale pak to zavedl, ale win to mel od zacatku) - ROZSIRENA PRAVA
+
+	setf acl 
+	getf acl
+	
+
+org. glob. skupiny (ve skole)
+	vsichni pod jednim uctem.
+
+- kazdy svuj ucet, aby se nezasahovalo do nastaveni ostatnich.
+- DOMENY 
+	spravce neobchazi pocitace, ale ze existuje domenovy pocitac/server a ma svoji databazi
+	vytvari se pocitace (ucty), jak to vytvori (ucet) jen pripoji a hotovo
+	spec. utilita - join to domain
+
+	takze na jakemkoliv pocitaci jakykoliv user a kazdy ma svuj, ktery je ovladatelny z nejake utility z hlavniho serveru
+	active directory

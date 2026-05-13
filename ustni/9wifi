@@ -1,0 +1,43 @@
+Bezdratove site a Wifi
+
+WLAN
+W - wireless
+LAN - lokalni
+
+802.11 - wifi
+802.3 - ethernet
+
+zarizeni musi splnovat - nerusit okolni zarizeni
+			 limity odhledne zareni
+
+obrovske spectrum - od hz do 10 na 20 (10**20)
+
+licencni - zavolate na urad telekomunikacni a koupite frekvenci, co je vase
+bezlicencni-
+	2.4Ghz - wifi, bluetooth, dect, mikrovlnka
+	5 - wifi
+	6 - wifi
+
+kazdy blok se deli na frekvence
+2.4 = 2401 - 2423
+nejake kanaly se prekryvaji
+
+5 - kanaly se neprekryvaji, je jich vice
+
+
+cim mene hz, tim lepe prekazi pres prekazky
+
+1 gen - 802.11 2.4, max 2mbit/s
+2 gen - 802.11b 2.4, max 11mbit/s
+3 gen - 802.11g 2.4, max 54mbit/s
+4 gen - 802.11n 2.4 nebo 5, max 600mbit/s
+5 gen - 802.11ac 5, max 600mbit/s
+viz prezentace - 
+https://opava-my.sharepoint.com/personal/mikes_sspu-opava_cz/_layouts/15/onedrive.aspx?ct=1759215615573&or=OWA%2DNTB%2DGroups&ga=1&id=%2Fpersonal%2Fmikes%5Fsspu%2Dopava%5Fcz%2FDocuments%2F%5FVyuka%2FPCS%2FPCS%2DIT4%2F02%20IT4%20TABULE%20aktu%C3%A1ln%C3%AD%2F06%20P%C5%98EDN%C3%81%C5%A0KY%20Peterka%2FB5%20PCS%20WLAN%2Epdf&parent=%2Fpersonal%2Fmikes%5Fsspu%2Dopava%5Fcz%2FDocuments%2F%5FVyuka%2FPCS%2FPCS%2DIT4%2F02%20IT4%20TABULE%20aktu%C3%A1ln%C3%AD%2F06%20P%C5%98EDN%C3%81%C5%A0KY%20Peterka
+
+modulace signalu - 
+frekvencni 
+amplitudova  
+fazova 
+
+kombinace techto modulaci zajistuje rychlost

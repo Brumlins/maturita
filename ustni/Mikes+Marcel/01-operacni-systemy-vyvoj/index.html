@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q01 – Vývoj OS a jeho struktura</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q01 – Vývoj OS a jeho struktura</a>
+</nav>
+<div class="hero">
+  <span class="num">01</span>
+  <div class="sub">Otázka 1 / 20</div>
+  <h1>Vývoj OS a jeho struktura</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>Dávkové zpracování → multiprogramming → GUI → mobilní éra</li><li>Jádro: monolitické, mikrojádro, hybridní</li><li>Ring 0 (jádro) vs Ring 3 (uživatelský prostor)</li><li>Hlavní funkce OS: procesy, paměť, soubory, I/O</li></ul>
+</div>
+
+<h2>Historie operačních systémů</h2>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-year">1940–50</div><div class="tl-text">Počítač bez OS – programátor ručně zadával instrukce přepínači, vakuové trubice (ENIAC, UNIVAC).</div></div>
+  <div class="tl-item"><div class="tl-year">1955–65</div><div class="tl-text"><strong>Dávkové zpracování</strong> – děrné štítky / páska, operátor vkládal „dávky" úloh. Jeden program najednou.</div></div>
+  <div class="tl-item"><div class="tl-year">1965–80</div><div class="tl-text"><strong>Multiprogramming</strong> – více programů v paměti současně, CPU přepíná při I/O. Vznik UNIX (Bell Labs 1969).</div></div>
+  <div class="tl-item"><div class="tl-year">1980</div><div class="tl-text"><strong>PC éra</strong> – MS-DOS (1981), single-user, single-task. Příkazy z příkazového řádku.</div></div>
+  <div class="tl-item"><div class="tl-year">1985–95</div><div class="tl-text"><strong>GUI</strong> – Apple Macintosh, Windows 3.x. Multitasking pro domácí uživatele.</div></div>
+  <div class="tl-item"><div class="tl-year">1991</div><div class="tl-text"><strong>Linux</strong> – Linus Torvalds, open-source jádro, POSIX kompatibilní s UNIX.</div></div>
+  <div class="tl-item"><div class="tl-year">2000+</div><div class="tl-text">Moderní OS: Windows NT architektura, macOS (XNU), Android/iOS – mobilní éra. Virtualizace, cloud.</div></div>
+</div>
+
+<h2>Základní struktura OS</h2>
+<div class="two-col">
+  <div class="card">
+    <h3>Jádro (Kernel)</h3>
+    <p>Nejnižší vrstva – přímý přístup k hardwaru. Řídí:</p>
+    <ul>
+      <li>Správu paměti (RAM, stránkování)</li>
+      <li>Plánování procesů (scheduler)</li>
+      <li>Ovladače zařízení (drivers)</li>
+      <li>Síťový subsystém</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Uživatelský prostor</h3>
+    <p>Programy nemají přímý přístup k HW – volají jádro přes <strong>systémová volání (syscalls)</strong>.</p>
+    <ul>
+      <li>Shell (bash, zsh)</li>
+      <li>Grafické prostředí (X11, Wayland)</li>
+      <li>Uživatelské aplikace</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Typy jader</h2>
+<table>
+  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
+  <tr><td><strong>Monolitické</strong></td><td>Vše v jednom prostoru jádra – rychlé, ale nestabilní při pádu ovladače</td><td>Linux, Unix</td></tr>
+  <tr><td><strong>Mikrojádro</strong></td><td>Minimum v jádře, ostatní jako procesy – stabilnější, ale pomalejší IPC</td><td>Minix, QNX</td></tr>
+  <tr><td><strong>Hybridní</strong></td><td>Kompromis – část služeb v jádře, část vně</td><td>Windows NT, macOS XNU</td></tr>
+</table>
+
+<h2>Hlavní funkce OS</h2>
+<div class="three-col">
+  <div class="box-blue"><strong>Správa procesů</strong><br>Plánování CPU, multitasking, synchronizace, meziprocesová komunikace</div>
+  <div class="box-green"><strong>Správa paměti</strong><br>Alokace RAM, virtuální paměť, stránkování, swap</div>
+  <div class="box-yellow"><strong>Správa souborů</strong><br>Souborové systémy (ext4, NTFS), oprávnění, adresářová struktura</div>
+</div>
+
+<div class="nav-btns">
+  <span></span>
+  <a href="../02-operacni-systemy-typy/index.html">Typy operačních systémů →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Vývoj OS a jeho struktura</div>
+</body></html>

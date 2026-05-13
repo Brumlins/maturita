@@ -1,0 +1,24 @@
+Skripty
+
+vyznam:
+	jsou to zalgoritmizovane nejake postupy, ktere chci pouzit pro nejake znovu pouziti = program
+
+zakladni konstruknce: 
+	striktni pravidla
+	nacteni informaci
+	nesmi byt mezery ( pom=20 correct, com = 20 bad .... bash asi)
+	konstrukce input a output (>>, <, echo atd.)\
+	jednoduce podminky (if, for)
+	cyklus (while)
+	read (vstup z klavesnice)
+
+cron (stejne jako v Sluzbach)
+
+filtrovani pomoci zakladnich externich rikazu 
+(awk, sed, grep) - jak funguji tyto zakladni prikazy jak funguji
+
+
+
+	
+	
+	

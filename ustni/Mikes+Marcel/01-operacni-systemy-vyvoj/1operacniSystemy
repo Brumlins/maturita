@@ -1,0 +1,17 @@
+Operacni systemy
+
+Vyvoj - puvodne pocitace byly vysadou saloveho zpracovani, ted se zamerme na novejsi, od 80. let (pocitace)
+	jake byly operacni systemy (salovy), uzivatele chteji mit info u sebe
+	
+	- OS - v celem pc pracoval 1 uzivatel, postupem casu se to zmenilo, aby tam pracovalo vice uzivatelu (vice uzivatelske systemy)
+
+
+Struktura - co to je - Operacni system je prostredi mezi hardwarem a softwarem
+	management procesoru, pameti, externi pameti (filesystem), uzivatelu, vstupne/vystupe zarizeni
+
+GUI serverova reseni, windowsova reseni, admini v command line
+
+zavedeni OS - jak probiha bootovani pc, zapnete pocitac, ocheckuje hardware, mate pripojene disky, z kteryho disku se ma bootovat. Master (rozdeleni disku, z jake se ma bootovat)
+	jak dojit k prihlaseni na pc
+
+proc mame logy - applikacni, systemovy, a jeste jeden (neslysel jsem) -  kde jsou ulozee (spis linux, klidne i windows)

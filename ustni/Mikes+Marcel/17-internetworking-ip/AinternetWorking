@@ -1,0 +1,24 @@
+Internetworking
+
+S rozvojem tech siti lokalnich se jsme chteli zglobalizovat ten internet
+Bezne jsme pracovali s routerem, ma za ukol propojovat lanky, minimalne 2 porty pro 2 lanky
+L3 - switch - umoznuje pokrocilou komunikaci mezi vlanami
+
+Sitovy hardware
+	adresace
+		IPv4 postupne prechazime pomalu na IPv6, protoze nemame dostatek IPv4 adres.
+		proto mame ted privatni ip a verejne ip (NAT)
+		jak se ty ip zapisuji, vyhody ipv6 - nemusime resit nat, port forwarding
+						   - pri cestovani pres zemekouli tak budeme mit na mobilu porad stejnou ip adresu
+
+Zakladni popis IP packetu 
+			- hlavicka .... nestihl jsem napsat
+			- nastavena defaultni hodnota TTP, vysvetleni jak to funguje a proc to mame
+
+routovani delime na staticke a dynamicke
+			- vyhody a nevyhody
+			- rip, ospf
+
+ctvrta vrstva - vzpomenout si na porty: jak funguji a k cemu je mame, [ip:port]
+		
+		

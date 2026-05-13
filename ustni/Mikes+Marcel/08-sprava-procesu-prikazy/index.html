@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q08 – Správa procesů – příkazy</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q08 – Správa procesů – příkazy</a>
+</nav>
+<div class="hero">
+  <span class="num">08</span>
+  <div class="sub">Otázka 8 / 20</div>
+  <h1>Správa procesů – příkazy</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>ps aux, top, htop – zobrazení procesů</li><li>Signály: SIGTERM (15), SIGKILL (9), SIGHUP (1)</li><li>kill, killall, pkill – ukončení procesů</li><li>fg, bg, jobs – správa na pozadí</li></ul>
+</div>
+
+<h2>Zobrazení procesů</h2>
+<pre><code># Snapshot procesů
+ps aux                      # všechny procesy, detailní
+ps -ef                      # formát se PPID
+ps -eo pid,ppid,ni,stat,cmd # vlastní sloupce
+
+# Interaktivní monitor
+top                         # tradiční
+htop                        # barevný, myš (apt install htop)
+
+# Strom procesů
+pstree -p                   # zobrazí PID
+
+# Procesy konkrétního uživatele
+ps -u jan</code></pre>
+
+<h2>Signály a kill</h2>
+<table>
+  <tr><th>Signál</th><th>Číslo</th><th>Význam</th></tr>
+  <tr><td>SIGHUP</td><td>1</td><td>Znovu načti konfiguraci (hangup)</td></tr>
+  <tr><td>SIGINT</td><td>2</td><td>Přerušení (Ctrl+C)</td></tr>
+  <tr><td>SIGQUIT</td><td>3</td><td>Ukončení s core dump (Ctrl+\)</td></tr>
+  <tr><td>SIGKILL</td><td>9</td><td><strong>Okamžité zabití</strong> – nelze zachytit!</td></tr>
+  <tr><td>SIGTERM</td><td>15</td><td>Žádost o ukončení (výchozí pro kill)</td></tr>
+  <tr><td>SIGSTOP</td><td>19</td><td>Pozastavení – nelze zachytit</td></tr>
+  <tr><td>SIGCONT</td><td>18</td><td>Pokračování (fg/bg)</td></tr>
+</table>
+<pre><code># Poslat signál procesu
+kill 1234                   # SIGTERM (15) – slušné ukončení
+kill -9 1234                # SIGKILL – násilné zabití
+kill -HUP 1234              # reload konfigurace
+killall firefox             # kill podle jména
+pkill -u jan                # kill všech procesů uživatele jan</code></pre>
+
+<h2>Popředí a pozadí (fg/bg)</h2>
+<pre><code># Spustit na pozadí
+./skript.sh &
+
+# Přesunout do pozadí (suspenduj Ctrl+Z, pak bg)
+Ctrl+Z          # pozastaví aktuální proces
+bg              # pustí ho na pozadí
+fg              # přenese zpět do popředí
+fg %2           # přenese job číslo 2
+
+# Seznam jobů
+jobs -l</code></pre>
+
+<h2>Sledování zdrojů</h2>
+<pre><code># CPU a paměť
+vmstat 2 5          # každé 2s, 5 vzorků
+free -h             # přehled RAM
+cat /proc/meminfo   # detaily paměti
+lscpu               # info o CPU
+
+# Disk I/O
+iostat -x 2
+iotop               # jako top, ale pro I/O
+
+# Síťové připojení
+ss -tulnp           # otevřené porty a procesy
+netstat -tulnp      # starší alternativa</code></pre>
+
+<div class="nav-btns">
+  <a href="../07-sprava-procesu-zaklady/index.html">← Správa procesů – základy</a>
+  <a href="../09-sluzby-cron/index.html">Služby, CRON a správa balíčků →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | Správa procesů – příkazy</div>
+</body></html>

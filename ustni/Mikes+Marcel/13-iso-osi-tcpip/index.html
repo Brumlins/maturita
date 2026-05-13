@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q13 – ISO/OSI a TCP/IP modely</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">🏠 Přehled</a>
+  <span class="sep">›</span>
+  <a href="#">Q13 – ISO/OSI a TCP/IP modely</a>
+</nav>
+<div class="hero">
+  <span class="num">13</span>
+  <div class="sub">Otázka 13 / 20</div>
+  <h1>ISO/OSI a TCP/IP modely</h1>
+</div>
+<main>
+<div class="summary card">
+  <h3>📌 Klíčové body</h3>
+  <ul><li>7 vrstev OSI: fyzická → linková → síťová → transportní → relační → prezentační → aplikační</li><li>4 vrstvy TCP/IP: přístup → internet → transport → aplikace</li><li>Enkapsulace: data → segment → paket → rámec → bity</li><li>OSI = teoretický referenční model, TCP/IP = praxe</li></ul>
+</div>
+
+<h2>Model ISO/OSI – 7 vrstev</h2>
+<table>
+  <tr><th>#</th><th>Vrstva</th><th>PDU</th><th>Funkce</th><th>Protokoly / zařízení</th></tr>
+  <tr><td>7</td><td><strong>Aplikační</strong></td><td>Data</td><td>Rozhraní pro aplikace</td><td>HTTP, FTP, SMTP, DNS, SSH</td></tr>
+  <tr><td>6</td><td><strong>Prezentační</strong></td><td>Data</td><td>Kódování, šifrování, komprese</td><td>SSL/TLS, JPEG, MPEG</td></tr>
+  <tr><td>5</td><td><strong>Relační</strong></td><td>Data</td><td>Správa spojení (session)</td><td>NetBIOS, RPC, PPTP</td></tr>
+  <tr><td>4</td><td><strong>Transportní</strong></td><td>Segment</td><td>Spolehlivý přenos E2E, porty</td><td>TCP, UDP</td></tr>
+  <tr><td>3</td><td><strong>Síťová</strong></td><td>Paket</td><td>Logická adresace, směrování</td><td>IP, ICMP, OSPF – Router</td></tr>
+  <tr><td>2</td><td><strong>Linková</strong></td><td>Rámec</td><td>MAC adresace, přístup k médiu</td><td>Ethernet, WiFi – Switch</td></tr>
+  <tr><td>1</td><td><strong>Fyzická</strong></td><td>Bity</td><td>Elektrické/optické signály</td><td>Kabel, optika, Hub</td></tr>
+</table>
+
+<h2>Model TCP/IP – 4 vrstvy</h2>
+<table>
+  <tr><th>Vrstva TCP/IP</th><th>Odpovídá OSI</th><th>Protokoly</th></tr>
+  <tr><td><strong>Aplikační</strong></td><td>Vrstvy 5–7</td><td>HTTP, HTTPS, FTP, SMTP, DNS, SSH, DHCP</td></tr>
+  <tr><td><strong>Transportní</strong></td><td>Vrstva 4</td><td>TCP, UDP</td></tr>
+  <tr><td><strong>Síťová (Internet)</strong></td><td>Vrstva 3</td><td>IPv4, IPv6, ICMP, ARP</td></tr>
+  <tr><td><strong>Vrstva přístupu</strong></td><td>Vrstvy 1–2</td><td>Ethernet, WiFi, PPP</td></tr>
+</table>
+
+<h2>Enkapsulace dat</h2>
+<div class="box-blue">
+  Při odesílání data procházejí vrstvami <strong>shora dolů</strong> – každá vrstva přidá svoji hlavičku (encapsulation). Na druhé straně se hlavičky odstraňují zdola nahoru (decapsulation).
+</div>
+<div class="card">
+  <pre><code>Aplikace:   [DATA]
+Transport:  [TCP hlavička][DATA]              ← Segment
+Síťová:     [IP hlavička][TCP hlavička][DATA] ← Paket
+Linková:    [Eth hlavička][IP][TCP][DATA][FCS] ← Rámec
+Fyzická:    101011001010110... (bity na kabelu)</code></pre>
+</div>
+
+<h2>OSI vs TCP/IP – proč to vědět?</h2>
+<div class="two-col">
+  <div class="box-yellow">
+    <strong>OSI</strong> = referenční model (teoria), 7 vrstev – detailně popisuje funkce. Nikdy nebyl plně implementován jako celek, ale používáme ho pro popis a troubleshooting.
+  </div>
+  <div class="box-green">
+    <strong>TCP/IP</strong> = praktický model, 4 vrstvy – skutečně implementovaný základ internetu. Vznikl dříve než OSI, proto ne vždy přesně odpovídá.
+  </div>
+</div>
+
+<div class="nav-btns">
+  <a href="../12-komunikacni-site/index.html">← Komunikační sítě a topologie</a>
+  <a href="../14-ethernet-kabely/index.html">Ethernet – kabely a fyzická vrstva →</a>
+</div>
+</main>
+<div class="footer">Maturita 2025 – Informatika | ISO/OSI a TCP/IP modely</div>
+</body></html>

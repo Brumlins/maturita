@@ -1,0 +1,18 @@
+Souborove systemy
+
+proc? aby se uzivatel (os) dostal rychleji k informacim - abyste se vyznali v souborech pouzivate adresare
+
+zakl. typy - NTFS (win), ext (linux)
+	jsou schopny ukladat velke mnozstvi info do 1 souboru
+	jsou schopny komunikovat s velkyma fyzickyma diskama (drive moc neslo)
+	transakcnost s databazi - databaze jsou mnozstvi tabulek na sobe navazane (konzistentni napr pri aktualizaci)
+	audity - kdo s kym s jakym souborem muze pracovat
+	disk je hardware, ale pocitac s ni nepracuje. pracuje s partition z disku. Partition je logicka cast fyzickeho disku
+	zakl. adresare ubuntu - /home, /etc, /mnt, /bin, /sbin, /var
+	jak se odkazovat do adresaru - "/", klidne 3 disky, ve windows nejde. (mount na /mnt treba, /mnt1 atd a vse je proste pod /)
+	I-node - jak si os v fs drzi informace. pri ulozeni dopisu na disk se musi vytvorit misto, pak kdo to ulozil, kdy a proste info o vsem (organizuje si to)
+		pri ulozei se udela i-node (rekord), uvolni se misto, info o vsem, ulozi to a tohle se jmenuje i-node
+		v i-node se da zvysit counter, nekopiruje ale vyjde z dat a poznaci si, ze je vice referenci u dat
+
+u flashky - FAT, FAT32, u CD/DVD - ISO9660
+	

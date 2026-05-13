@@ -1,0 +1,52 @@
+Popis zakladnich tcp ip protokolu
+10-15slidu
+
+DHCP, ARP, DNS, HTTP, HTTPS, POP3, SMTP, IMAP, FTP -
+
+arp - ziskat mac adresu vzdaleneho uzlu
+4 kroky
+v 0200 dhcp obrazek
+
+arp request
+arp reply
+
+arp protocol
+
+dns - internet pracuje na adresach, dns pracuje na jmenach
+
+korenova domena - TLD domena 2 trida
+
+popsat obrazek DNS dotaz
+preloz mi www.seznam.cz na ip adresu
+DNS server je resolver, zjisti jmeno za ip adresu, zepta se korenoveho, ceskeho
+a pak na www.seznam.cz
+
+DNS databaze, polozky
+A je ip adresa
+AAAA je ipv6
+MX mailovy server
+
+DNS databaze - praxe
+nslookup www.seznam.cz
+77.75.79.222
+
+packet tracer nemusime uz probirat
+
+
+pop3 imap je prijem (mail)
+pop3 - mailbox server na program uzivatele (na serveru to uz nebude, presune)
+imap - stahuje do ostatnich zarizeni (zustane na serveru)
+
+smtp je zaslani
+smtp - odeslat do mailboxu a preposilat uzivateli
+
+ftp - hodne typu, strucne popsat
+zasilani a vymena souboru
+obrazek
+
+ping - lanka komunikuje na mac adresach routeru (ARP)
+
+0060 ARP - moc detailni
+0200 DHCP DNS - hlavne z tohoto
+0210 HTTP HTTPS
+get post put delete
