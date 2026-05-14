@@ -23,62 +23,94 @@
   <h1>Rozhraní počítačů</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Fyzické (konektor) vs logické (protokol) rozhraní</li><li>Paralelní (LPT, PATA) vs sériové (USB, SATA, PCIe)</li><li>RS-232 (15 m, point-to-point) vs RS-485 (1200 m, 32 stanic)</li><li>USB 2/3/C; VGA (analog) → DVI → HDMI → DisplayPort</li></ul>
-</div>
 
-<h2>Základní pojmy</h2>
-<div class="two-col">
-  <div class="card"><h3>Fyzické rozhraní</h3><p>Na co si sáhneš – konektory, piny, kabely, elektrické úrovně napětí.</p></div>
-  <div class="card"><h3>Logické rozhraní</h3><p>Komunikační protokol – pravidla výměny dat (formát paketů, adresace, rychlost).</p></div>
-</div>
+<h2>18.1 Základní pojmy</h2>
+<ul>
+  <li><strong>Fyzické rozhraní</strong>: To, na co si můžeš sáhnout – konektory, piny, kabely, elektrické úrovně napětí.</li>
+  <li><strong>Logické rozhraní</strong>: Komunikační protokol – pravidla, jak si zařízení vyměňují data (formát paketů, adresace, rychlost).</li>
+</ul>
 
-<h2>Paralelní vs. Sériové</h2>
-<table>
-  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
-  <tr><td><strong>Paralelní</strong></td><td>Více bitů najednou po více vodičích. Historicky rychlejší, ale problémy s přeslechy při vysokých frekvencích.</td><td>LPT (tiskárny), PATA/IDE, PCI</td></tr>
-  <tr><td><strong>Sériové</strong></td><td>Bity jeden po druhém po jednom páru. Dnes díky technologiím rychlejší než paralelní.</td><td>USB, SATA, PCIe, RS-232</td></tr>
-</table>
-
-<h2>Průmyslová rozhraní</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>RS-232</h3>
+<h2>18.2 Základní dělení rozhraní</h2>
+<h3>Paralelní vs. Sériové</h3>
+<ul>
+  <li><strong>Paralelní</strong>: Přenáší více bitů současně po více vodičích (např. 8 bitů najednou). Historicky bylo rychlejší, ale dnes naráží na problém přeslechů a synchronizace při vysokých frekvencích.
     <ul>
-      <li>Point-to-Point komunikace (2 zařízení)</li>
-      <li>Nevyvážený přenos, náchylné k rušení</li>
-      <li>Max ~15 m, pomalé (do 115 kbit/s)</li>
+      <li><em>Příklady:</em> LPT (tiskárny), staré disky (<strong>PATA/IDE</strong>), sběrnice <strong>PCI</strong>.</li>
     </ul>
-  </div>
-  <div class="card">
-    <h3>RS-485</h3>
+  </li>
+  <li><strong>Sériové</strong>: Přenáší bity jeden po druhém za sebou po jednom páru vodičů. Díky moderním technologiím je dnes mnohem rychlejší než paralelní.
     <ul>
-      <li>Průmyslový standard – až 32 stanic</li>
-      <li>Vyvážený přenos – odolné vůči rušení</li>
-      <li>Až 1200 m vzdálenost, Master-Slave</li>
+      <li><em>Příklady:</em> <strong>USB, SATA</strong> (Disky), <strong>PCIe</strong> (GPU), <strong>RS-232</strong> (Console).</li>
     </ul>
-  </div>
-</div>
+  </li>
+</ul>
+<h3>Další kategorie</h3>
+<ul>
+  <li><strong>Drátové</strong> (Wired): Přenos po kovovém kabelu (elektřina) nebo optickém vlákně (světlo).</li>
+  <li><strong>Bezdrátové</strong> (Wireless): Přenos pomocí rádiových vln (Bluetooth, Wi-Fi, Zigbee).</li>
+  <li><strong>Digitální vs. Analogové</strong>:
+    <ul>
+      <li><em>Analogové</em>: Signál se mění spojitě (např. <strong>VGA</strong> pro obraz, <strong>Jack</strong> pro zvuk). Náchylné k rušení.</li>
+      <li><em>Digitální</em>: Přenáší pouze 0 a 1 (<strong>HDMI, DisplayPort, USB</strong>). Odolnější a čistší přenos.</li>
+    </ul>
+  </li>
+  <li><strong>Univerzální vs. Jednoúčelové</strong>:
+    <ul>
+      <li><em>Univerzální</em>: Připojíš cokoliv (USB [<strong>Universal</strong> Serial Bus]).</li>
+      <li><em>Jednoúčelové</em>: Jen pro grafiku (AGP) nebo jen pro zvuk.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>USB a SATA</h2>
+<h2>18.3 Průmyslová a komunikační rozhraní</h2>
+<h3>RS-232 (Sériový port)</h3>
+<ul>
+  <li>Starý standard pro komunikaci dvou zařízení (Point-to-Point).</li>
+  <li>Nevyvážený přenos: Náchylné k rušení.</li>
+  <li>Využívá vysoká napětí.</li>
+  <li>Vzdálenost cca do 15 metrů.</li>
+</ul>
+<h3>RS-485</h3>
+<ul>
+  <li>Průmyslový standard pro více zařízení (až 32 stanic na jedné lince).</li>
+  <li>Extrémně odolné proti rušení, vzdálenosti až 1200 metrů.</li>
+  <li>Funguje v režimu Master-Slave.</li>
+</ul>
+
+<h2>18.4 Periferní a datová rozhraní</h2>
+<h3>USB (Universal Serial Bus)</h3>
+<ul>
+  <li>Dnes nejrozšířenější univerzální sběrnice.</li>
+  <li><strong>Vlastnosti</strong>: Napájení (5V), Plug &amp; Play (připojení za chodu), stromová topologie.</li>
+  <li><strong>Verze</strong>:
+    <ul>
+      <li>USB 2.0 (480 Mb/s)</li>
+      <li>USB 3.0/3.1 (5 Gb/s a více) – poznáš je podle modré barvy konektoru.</li>
+    </ul>
+  </li>
+</ul>
+<h3>SATA a eSATA</h3>
+<ul>
+  <li><strong>SATA</strong>: Sériové rozhraní pro vnitřní disky (HDD/SSD).</li>
+  <li><strong>eSATA</strong>: Externí verze SATA. Má stíněný kabel a jiný konektor.</li>
+  <li><strong>eSATAp</strong> (Power over eSATA): Kombinovaný port, který umí napájet zařízení bez externího zdroje (kombinuje USB a eSATA).</li>
+</ul>
+
+<h2>18.5 Grafická rozhraní (Video)</h2>
 <table>
-  <tr><th>Rozhraní</th><th>Max rychlost</th><th>Poznámka</th></tr>
-  <tr><td>USB 2.0</td><td>480 Mbit/s</td><td>Napájení 5V, Plug &amp; Play, stromová topologie</td></tr>
-  <tr><td>USB 3.0 / 3.1</td><td>5–10 Gbit/s</td><td>Modrý konektor</td></tr>
-  <tr><td>USB-C</td><td>až 40 Gbit/s</td><td>Oboustranný, Thunderbolt 4, Power Delivery</td></tr>
-  <tr><td>SATA III</td><td>6 Gbit/s</td><td>Vnitřní HDD/SSD</td></tr>
-  <tr><td>eSATA</td><td>6 Gbit/s</td><td>Externí – stíněný kabel, jiný konektor</td></tr>
+  <tr><th>Rozhraní</th><th>Typ signálu</th><th>Charakteristika</th></tr>
+  <tr><td><strong>VGA (D-Sub)</strong></td><td>Analogový</td><td>Starý modrý konektor. Náchylný na šum, max Full HD.</td></tr>
+  <tr><td><strong>DVI</strong></td><td>Digitální i Analog</td><td>Existuje víc verzí (DVI-D jen digitál, DVI-I obojí).</td></tr>
+  <tr><td><strong>HDMI</strong></td><td>Digitální</td><td>Přenáší obraz i zvuk. Standard pro TV a domácí kino.</td></tr>
+  <tr><td><strong>DisplayPort (DP)</strong></td><td>Digitální</td><td>Nejmodernější. Obrovské datové toky, ideální pro 4K+ a vysoké frekvence.</td></tr>
 </table>
 
-<h2>Grafická rozhraní (Video)</h2>
-<table>
-  <tr><th>Rozhraní</th><th>Signál</th><th>Popis</th></tr>
-  <tr><td>VGA (D-Sub)</td><td>Analogový</td><td>Starý modrý konektor, max Full HD, náchylný na šum</td></tr>
-  <tr><td>DVI</td><td>Digital / Analog</td><td>DVI-D (jen digitál), DVI-I (obojí)</td></tr>
-  <tr><td>HDMI</td><td>Digitální</td><td>Audio + Video v jednom kabelu, nejběžnější pro TV/monitor</td></tr>
-  <tr><td>DisplayPort</td><td>Digitální</td><td>Vyšší šířka pásma, daisy-chain více monitorů, Gaming</td></tr>
-</table>
+<h2>18.6 Bezdrátová rozhraní: Bluetooth</h2>
+<ul>
+  <li>Krátkodosahová rádiová komunikace (pásmo 2,4 GHz).</li>
+  <li>FHSS: Technologie přeskakování frekvencí (1600× za sekundu), aby se zabránilo rušení jinými zařízeními (třeba tvou Wi-Fi).</li>
+  <li>Třídy (Class): Určují výkon a dosah (Class 1 až 100m, Class 2 běžných 10m).</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../17-zobrazovaci-jednotky/index.html">← Zobrazovací jednotky</a>

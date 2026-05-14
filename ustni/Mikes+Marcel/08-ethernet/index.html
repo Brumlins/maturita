@@ -20,75 +20,154 @@
 <div class="hero">
   <div class="bignr">08</div>
   <div class="qnum">Otázka 08 / 20 · Mikes &amp; Marcel</div>
-  <h1>Ethernet</h1>
+  <h1>Vrstva síťového rozhraní – Ethernet</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>L1: kabel (Cat5e/6a), optika MM vs SM</li><li>L2: Ethernet rámec – MAC (6B), FCS (CRC-32)</li><li>Hub (L1) vs Switch (L2) – kolizní doména, CSMA/CD</li><li>STP, LACP, VLAN 802.1Q</li></ul>
-</div>
 
-<h2>Fyzická vrstva (L1)</h2>
-<div class="box box-purple">
-  Přenos dat jako elektrické nebo optické signály. Definuje kabely, konektory, kódování signálu (Manchester coding, 4B/5B).
-</div>
+<h2>8.1 Úkol fyzické a linkové vrstvy</h2>
+<p>Přenos informací řešíme pomocí nějaké fyzikální veličiny na nějakém kanálu (kabel – napětí, optika – elektromagnetické záření). Na první vrstvě přicházejí nuly a jedničky. Druhá vrstva pracuje už s těmi bloky (rámci).</p>
 
-<h2>Kabely UTP</h2>
-<table>
-  <tr><th>Kategorie</th><th>Max rychlost</th><th>Max vzdálenost</th><th>Poznámka</th></tr>
-  <tr><td>Cat5e</td><td>1 Gbit/s</td><td>100 m</td><td>Dnes nejrozšířenější</td></tr>
-  <tr><td>Cat6</td><td>10 Gbit/s</td><td>55 m</td><td>Separátor párů</td></tr>
-  <tr><td>Cat6a</td><td>10 Gbit/s</td><td>100 m</td><td>Datová centra</td></tr>
-</table>
-<div class="box box-amber">
-  <strong>UTP</strong> = bez stínění · <strong>FTP</strong> = fólie kolem svazku · <strong>STP</strong> = stínění každého páru<br>
-  4 páry = 8 vodičů. T568B = nejběžnější standard zapojení. MDI-X = auto-rozpoznání rovný/křížený kabel.
-</div>
+<h3>8.1.1 Fyzická vrstva (Layer 1)</h3>
+<p>Fyzická vrstva zajišťuje <strong>přenos dat v podobě elektrických nebo optických signálů</strong>. Zároveň určuje typ použitého kabelu, konektory a způsob kódování signálu.</p>
+<ul>
+  <li>V Ethernetu se využívají různé typy kabelů:
+    <ul>
+      <li><strong>Kroucená dvojlinka (UTP, STP)</strong> – přenáší data pomocí elektrických impulsů.</li>
+      <li><strong>Optická vlákna</strong> – přenáší data pomocí světelných impulsů.</li>
+    </ul>
+  </li>
+  <li>Ethernet podporuje různé způsoby kódování signálu:
+    <ul>
+      <li><strong>Manchester coding</strong> – používá se pro synchronizaci dat a hodinového signálu.</li>
+      <li><strong>4B/5B encoding</strong> – umožňuje efektivnější přenos binárních dat.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Optické kabely</h2>
-<div class="two-col">
-  <div class="card"><h3>Multimode (MM)</h3><p>Jádro 50/62.5 µm – více paprsků (Snellův zákon – totální odraz). Do 550 m při 10G. LED/VCSEL zdroj. Levnější.</p></div>
-  <div class="card"><h3>Singlemode (SM)</h3><p>Jádro 9 µm – jeden paprsek. Desítky km. Laserový zdroj. WAN, metro, DWDM.</p></div>
-</div>
+<h3>8.1.2 Linková vrstva (Layer 2)</h3>
+<p>Linková vrstva zajišťuje <strong>přenos dat mezi přímo propojenými uzly</strong>, řídí přístup k přenosovému médiu a provádí detekci chyb.</p>
+<ul>
+  <li><strong>MAC adresy</strong> jsou unikátní identifikátory zařízení v síti.</li>
+  <li><strong>Rámce</strong> obsahují data, MAC adresu odesílatele a příjemce, kontrolní součet pro detekci chyb.</li>
+  <li><strong>Detekce chyb</strong> v Ethernetu využívá různé metody:
+    <ul>
+      <li><strong>Parita</strong> – přidání jednoho bitu k datům pro kontrolu správnosti.</li>
+      <li><strong>Kontrolní součet (Checksum)</strong> – matematická metoda ověřující integritu dat.</li>
+      <li><strong>Cyclic Redundancy Check (CRC)</strong> – polynomiální metoda vhodná pro velké objemy dat.</li>
+    </ul>
+  </li>
+  <li>Linková vrstva se dělí na dvě podvrstvy:
+    <ul>
+      <li><strong>LLC (Logical Link Control)</strong> – zajišťuje řízení toku a multiplexování dat.</li>
+      <li><strong>MAC (Media Access Control)</strong> – spravuje přístup k přenosovému médiu.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Linková vrstva (L2) – Ethernet rámec</h2>
-<pre><code>| Preambula | SFD | Cíl MAC | Zdroj MAC | Typ/Délka |  Data (46–1500 B)  | FCS |
-|    7 B    | 1 B |   6 B   |    6 B    |    2 B    |      46–1500 B     | 4 B |
+<h2>8.2 Tři typy médií pro přenos v počítačových sítích</h2>
+<ol>
+  <li><strong>Metalická (měděná) média</strong> – kroucená dvojlinka (UTP, STP), koaxiální kabel.</li>
+  <li><strong>Optická média</strong> – optická vlákna pro vysokorychlostní přenos.</li>
+  <li><strong>Bezdrátová média</strong> – Wi-Fi, Bluetooth, satelitní přenosy.</li>
+</ol>
 
-Preambula: 10101010... (synchronizace)
-SFD: 10101011 (Start Frame Delimiter)
-MAC: 6 bytů = 48 bitů (12 hex číslic)   např. AA:BB:CC:DD:EE:FF
-FCS: CRC-32 – kontrolní součet</code></pre>
+<h2>8.3 Standardy kabelů Cat3 až Cat6a, T568A/B, křížené kabely</h2>
+<ul>
+  <li><strong>Cat3</strong> – starší kabeláž, podporuje pouze 10 Mbps.</li>
+  <li><strong>Cat5</strong> – podporuje až 100 Mbps (100BASE-T).</li>
+  <li><strong>Cat5e</strong> – vylepšená verze, lepší ochrana proti přeslechům, rychlosti až 1 Gbps.</li>
+  <li><strong>Cat6</strong> – umožňuje 1 Gbps na delší vzdálenosti, 10 Gbps na kratší vzdálenosti (do 55 m).</li>
+  <li><strong>Cat6a</strong> – podpora 10 Gbps do 100 m, zlepšené stínění.</li>
+</ul>
+<p><strong>UTP, FTP, STP</strong> – stínění, jsou tam 4 páry (8 vodičů).</p>
+<p><strong>Standardy zapojení UTP kabelů:</strong></p>
+<ul>
+  <li><strong>T568A/B</strong> – definují, jak jsou zapojeny vodiče do konektoru RJ-45. (oranž/bílá, oranžová, zele/bílá, modrá, modro/bílá, zelená, hnědo/bílá, hnědá)</li>
+  <li><strong>Křížené kabely (Crossover)</strong> – používají se pro přímé propojení dvou zařízení bez switche.</li>
+  <li>Ve všech síťových kartách dnes je <strong>MDI</strong>, dokáže automaticky rozeznat jestli používáme křížený nebo nekřížený kabel.</li>
+</ul>
 
-<h2>MAC adresace a switche</h2>
-<div class="box box-green">
-  Switch se učí MAC adresy a posílá rámec jen na správný port (unicast). Každý port = vlastní kolizní doména. Tabulka MAC adres (CAM table).
-</div>
-<table>
-  <tr><th>Zařízení</th><th>Vrstva</th><th>Chování</th></tr>
-  <tr><td>Hub</td><td>L1</td><td>Posílá bity na všechny porty – jedna kolizní doména</td></tr>
-  <tr><td>Switch</td><td>L2</td><td>Učí se MAC adresy, posílá jen na správný port</td></tr>
-  <tr><td>Router</td><td>L3</td><td>Propojuje sítě, pracuje s IP adresami</td></tr>
-</table>
+<h2>8.4 Optické rozvody a Snellův zákon</h2>
+<ul>
+  <li>Optické rozvody umožňují vysokou rychlost a šířku pásma.</li>
+  <li>Snellův zákon popisuje lom světla mezi různými prostředími.</li>
+  <li>Index lomu ovlivňuje, jak se světlo šíří v optických vláknech.</li>
+  <li>Typy optických vláken: <strong>jednovidové (single-mode)</strong> a <strong>vícevidové (multi-mode)</strong>. Snellův zákon se používá k multi modu.</li>
+</ul>
 
-<h2>CSMA/CD, STP, LACP</h2>
-<pre><code>CSMA/CD: Carrier Sense → Multiple Access → Collision Detection
-→ Jam signal → Random backoff → zkus znovu
-Při full-duplex (switch ↔ NIC) kolize nevznikají!
+<h2>8.5 Základní popis rámce</h2>
+<p>Ethernetový rámec je základní jednotkou přenosu dat na linkové vrstvě.</p>
+<ul>
+  <li><strong>Preambule</strong> – synchronizace mezi odesílatelem a příjemcem.</li>
+  <li><strong>Start Frame Delimiter (SFD)</strong> – označuje začátek rámce.</li>
+  <li><strong>Hlavička rámce</strong> – obsahuje MAC adresy odesílatele a příjemce.</li>
+  <li><strong>Payload</strong> – přenášená data.</li>
+  <li><strong>FCS (Frame Check Sequence)</strong> – kontrolní součet pomocí CRC pro detekci chyb.</li>
+</ul>
 
-STP (802.1D) – zabraňuje smyčkám: volí Root Bridge, blokuje porty
-RSTP (802.1w) – rychlejší konvergence
+<h2>8.6 Historie Ethernetu, standardy</h2>
+<ul>
+  <li><strong>1973</strong> – vyvinut v laboratořích Xerox PARC.</li>
+  <li><strong>1983</strong> – standardizován IEEE jako IEEE 802.3.</li>
+  <li>Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps), 10G, 40G, 100G Ethernet.</li>
+  <li><strong>2020+</strong> – vývoj standardů 400G a 800G Ethernet.</li>
+  <li><strong>IEEE 802.3af/at/bt</strong> – standardy pro Power over Ethernet (PoE).</li>
+</ul>
 
-LACP (802.3ad) – agregace linek: více fyzických = jeden logický kanál
-# Linux bonding:
-ip link add bond0 type bond
-ip link set eth0 master bond0</code></pre>
+<h2>8.7 Adresace v Ethernetu</h2>
+<ul>
+  <li><strong>MAC adresa</strong> – 48bitový unikátní identifikátor síťového zařízení – Používá se k doručování rámců v LAN.</li>
+  <li><strong>Unicastová MAC adresa</strong> – doručuje rámec konkrétnímu zařízení.</li>
+  <li><strong>Multicastová MAC adresa</strong> – doručuje rámec skupině zařízení.</li>
+  <li><strong>Broadcastová MAC adresa</strong> – doručuje rámec všem zařízením v síti.</li>
+</ul>
+<p>L1 – huby, rozvodovače. L2 – switche. Komunikujeme v rámci LAN.</p>
+
+<h2>8.8 Kolizní doména, přístupová metoda a způsob řešení kolize</h2>
+<ul>
+  <li><strong>Kolizní doména</strong> – síťový segment, kde může dojít ke kolizi dat při souběžném vysílání více zařízení. Původně ethernet byl kanál (vodič), měl stanice a síťovky.</li>
+  <li><strong>CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</strong> – metoda, která detekuje kolize a řídí opětovné vysílání dat. Řeší kolize na vodiči. <strong>Dnes to neřešíme</strong> – dnes máme switche, které řeší tento problém.</li>
+  <li><strong>Řešení kolizí</strong> – čekání náhodného časového intervalu před opětovným vysíláním.</li>
+</ul>
+
+<h2>8.9 Síťový hardware zajišťující funkcionalitu a jejich rozdíly</h2>
+<ul>
+  <li><strong>Hub</strong> – přeposílá data všem zařízením, způsobuje kolize.</li>
+  <li><strong>Switch</strong> – inteligentně přeposílá data pouze na správný port.</li>
+  <li><strong>Router</strong> – propojuje různé sítě a směruje pakety.</li>
+  <li><strong>Bridge</strong> – spojuje segmenty sítě.</li>
+  <li><strong>Repeater</strong> – zesiluje signál pro delší přenos.</li>
+  <li><strong>Access Point</strong> – umožňuje bezdrátové připojení k síti.</li>
+</ul>
+
+<h2>8.10 Zajištění redundance a navýšení přenosové kapacity přenosové linky</h2>
+<ul>
+  <li><strong>Redundance</strong> – záložní spojení pro vyšší spolehlivost.</li>
+  <li><strong>LACP (Link Aggregation Control Protocol)</strong> – kombinace více fyzických spojení do jednoho.</li>
+  <li><strong>EtherChannel</strong> – seskupení více spojů do jednoho logického.</li>
+</ul>
+
+<h2>8.11 STP (Spanning Tree Protocol)</h2>
+<p>STP je protokol, který zabraňuje smyčkám v síti a zajišťuje efektivní přenos dat.</p>
+<ul>
+  <li><strong>Root bridge</strong> – centrální bod sítě, ke kterému se určují nejkratší cesty.</li>
+  <li><strong>Konvergence</strong> – proces stabilizace sítě při změně topologie (30–50 sekund).</li>
+  <li><strong>RSTP (Rapid Spanning Tree Protocol)</strong> – vylepšená verze STP s rychlejší rekonvergencí.</li>
+  <li><strong>BPDU (Bridge Protocol Data Units)</strong> – zprávy používané k volbě root bridge.</li>
+  <li><strong>Porty v STP:</strong>
+    <ul>
+      <li><strong>Root port</strong> – nejkratší cesta k root bridge.</li>
+      <li><strong>Designated port</strong> – posílá data do segmentu.</li>
+      <li><strong>Blocked port</strong> – brání smyčkám.</li>
+    </ul>
+  </li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../07-komunikacni-site-modely/index.html">← Komunikační sítě a modely</a>
   <a class="nav-btn" href="../09-wifi/index.html">Bezdrátové sítě a WiFi →</a>
 </div>
 </main>
-<div class="footer">maturita 2025 · informatika · Ethernet</div>
+<div class="footer">maturita 2025 · informatika · Vrstva síťového rozhraní – Ethernet</div>
 </body>
 </html>

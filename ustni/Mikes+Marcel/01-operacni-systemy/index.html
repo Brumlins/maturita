@@ -23,63 +23,145 @@
   <h1>Operační systémy</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Vývoj 1940–2010: dávkové → GUI → cloud</li><li>Monolitické, mikrojádro, hybridní jádro</li><li>Ring 0 (kernel) vs Ring 3 (user space)</li><li>Hlavní funkce: procesy, paměť, soubory, I/O</li></ul>
-</div>
 
-<h2>Vývoj OS</h2>
+<h2>1.1 Vývoj operačních systémů</h2>
+<p><strong>Historie OS (1940–1990)</strong></p>
 <div class="timeline">
-  <div class="tl-item"><div class="tl-year">1940–50</div><div class="tl-text">Sálové počítače bez OS – programátor ručně zadával instrukce, dávkové zpracování.</div></div>
-  <div class="tl-item"><div class="tl-year">1960–70</div><div class="tl-text">Multiprogramování – více úloh v paměti současně. Vznik <strong>UNIX</strong> (Bell Labs, 1969).</div></div>
-  <div class="tl-item"><div class="tl-year">1970–80</div><div class="tl-text">Víceúlohové systémy, multitasking, správa paměti, vznik timesharingu.</div></div>
-  <div class="tl-item"><div class="tl-year">1980–90</div><div class="tl-text">GUI – Apple Mac, Windows 3.x. MS-DOS pro PC (single-task).</div></div>
-  <div class="tl-item"><div class="tl-year">1991</div><div class="tl-text"><strong>Linux</strong> – Linus Torvalds, open-source, POSIX kompatibilní s UNIX.</div></div>
-  <div class="tl-item"><div class="tl-year">2000–10</div><div class="tl-text">Virtualizace, mobilní OS – Android (2008), iOS (2007).</div></div>
-  <div class="tl-item"><div class="tl-year">2010+</div><div class="tl-text">Cloud integrace, kontejnery, zvýšený důraz na bezpečnost.</div></div>
+  <div class="tl-item">
+    <div class="tl-year">1940–1950</div>
+    <div class="tl-text"><strong>Počátky</strong> – OS pro sálové počítače, dávkové zpracování úloh.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">1960–1970</div>
+    <div class="tl-text"><strong>Dávkové zpracování</strong> – zavedeno multiprogramování, umožnění běhu více úloh.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">1970–1980</div>
+    <div class="tl-text"><strong>Víceúlohové systémy</strong> – zavedení Unixu, multitasking a správa paměti.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">1980–1990</div>
+    <div class="tl-text"><strong>Grafická rozhraní</strong> – vznik GUI, rozvoj osobních počítačů.</div>
+  </div>
+</div>
+<p><strong>Moderní OS (1990–současnost)</strong></p>
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-year">1990–2000</div>
+    <div class="tl-text"><strong>Otevřené a uzavřené OS</strong> – Linux (otevřený) vs. Windows (uzavřený).</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">2000–2010</div>
+    <div class="tl-text"><strong>Virtualizace a mobilní OS</strong> – virtualizace, příchod Androidu a iOS.</div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">2010–současnost</div>
+    <div class="tl-text"><strong>Cloud a zabezpečení</strong> – cloudová integrace, zvýšený důraz na bezpečnost.</div>
+  </div>
 </div>
 
-<h2>Struktura OS</h2>
+<h2>1.2 Struktura OS</h2>
+<p>Operační systém je <strong>prostředí mezi hardwarem a softwarem</strong>. Spravuje: procesor, paměť, externí paměť (filesystem), uživatele, vstupně/výstupní zařízení.</p>
+<ul>
+  <li><strong>Jádro (Kernel)</strong> – spravuje hardware a zdroje, může být <strong>monolitické</strong> (Linux) nebo <strong>mikrojádro</strong> (Minix).</li>
+  <li><strong>Správa procesorů</strong> – alokace procesorového času procesům.</li>
+  <li><strong>Procesy a vlákna</strong> – multitasking, dělení na procesy a lehčí vlákna.</li>
+  <li><strong>Systémová volání</strong> – rozhraní mezi aplikacemi a jádrem OS.</li>
+</ul>
+
+<h2>1.2.1 Funkce operačního systému</h2>
+<ul>
+  <li>Základ pro práci OS je hardware (počítač)</li>
+  <li>Přebírá pod svoji kontrolu veškeré části počítače</li>
+  <li>Přiděluje procesům (= spuštěný program) část paměti, kterou mohou používat pro čtení/zápis</li>
+  <li>Přiděluje procesům periférie (tiskárny, skenery, disk, atd.)</li>
+  <li>Má pod kontrolou procesor (přiděluje část procesoru procesům)</li>
+  <li>Stará se o systém souborů, vytváří a ruší soubory a adresáře</li>
+</ul>
+
+<h2>1.3 Typy OS</h2>
+<ul>
+  <li><strong>Mono-uživatelský</strong> – určen pro jednoho uživatele (Windows, macOS).</li>
+  <li><strong>Víceuživatelské víceúlohové (multi-user multi-task)</strong> – možnost zpracovávat požadavky více uživatelů přihlášených do systému.</li>
+  <li><strong>Diskový OS</strong> – spravuje soubory na discích (NTFS, FAT32, ext4).</li>
+  <li><strong>Síťový OS</strong> – správa síťových zdrojů a komunikace (Windows Server, Novell NetWare).</li>
+  <li><strong>Virtualizační OS</strong> – umožňuje běh více virtuálních strojů (VMware, Hyper-V).</li>
+  <li><strong>Desktop</strong> – slouží uživateli „na stole" (osobní počítač), cílem je nabídnout jednoduchost, práci s mnoha aplikacemi.</li>
+  <li><strong>Otevřený operační systém</strong> – otevřené operační systémy mají veřejně dostupný zdrojový kód (Linux – Fedora, OpenSUSE, Linux Mint).</li>
+  <li><strong>Server</strong> – obsluhují uživatele internetu a provádějí složité výpočty, cílem je nabídnout vysoký výpočetní výkon, snadnou údržbu, odolnost proti útokům, možnost úpravy systému.</li>
+  <li><strong>Jednouživatelské jednoúlohové (single-user single-task)</strong> – bez ochrany souborů a disků, neumožňuje běh více procesů najednou.</li>
+  <li><strong>Jednouživatelské víceúlohové (single-user multi-task)</strong> – multitasking, možnost běhu více procesů najednou.</li>
+</ul>
+
+<h2>1.4 CLI / GUI rozdíl a využití</h2>
 <div class="two-col">
   <div class="card">
-    <h3>Jádro (Kernel)</h3>
+    <h3>CLI (Command Line Interface)</h3>
     <ul>
-      <li>Přímý přístup k HW (Ring 0)</li>
-      <li>Správa paměti, procesů, I/O</li>
-      <li>Ovladače zařízení (drivers)</li>
-      <li>Síťový subsystém</li>
+      <li>Textové rozhraní</li>
+      <li>Využívá terminálu</li>
+      <li>Efektivní pro pokročilé uživatele nebo administrátory</li>
+    </ul>
+    <p><strong>Výhody:</strong></p>
+    <ul>
+      <li>Efektivita, rychlost</li>
+      <li>Automatizace pomocí skriptů</li>
+      <li>Menší nároky na systémové prostředky</li>
+    </ul>
+    <p><strong>Nevýhody:</strong></p>
+    <ul>
+      <li>Obtížnější pro začátečníky</li>
+      <li>Méně intuitivní než GUI</li>
+      <li>Vyžaduje znalost příkazů a syntaxe</li>
     </ul>
   </div>
   <div class="card">
-    <h3>Uživatelský prostor</h3>
+    <h3>GUI (Graphical User Interface)</h3>
     <ul>
-      <li>Ring 3 – omezená oprávnění</li>
-      <li>Přístup k HW přes <strong>syscalls</strong></li>
-      <li>Shell, GUI, aplikace</li>
+      <li>Grafické rozhraní</li>
+    </ul>
+    <p><strong>Výhody:</strong></p>
+    <ul>
+      <li>Vizualizace dat a informací</li>
+      <li>Intuitivní pro začátečníky</li>
+    </ul>
+    <p><strong>Nevýhody:</strong></p>
+    <ul>
+      <li>Vyšší nároky na systémové prostředky</li>
+      <li>Méně efektivní</li>
+      <li>Omezená</li>
     </ul>
   </div>
 </div>
 
-<h2>Typy jader</h2>
-<table>
-  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
-  <tr><td><span class="badge b-purple">Monolitické</span></td><td>Vše v jednom prostoru jádra – rychlé, driver v jádře</td><td>Linux, Unix</td></tr>
-  <tr><td><span class="badge b-green">Mikrojádro</span></td><td>Minimum v jádře, ostatní jako user-space procesy – stabilnější</td><td>Minix, QNX</td></tr>
-  <tr><td><span class="badge b-amber">Hybridní</span></td><td>Kompromis – část v jádře, část vně</td><td>Windows NT, macOS XNU</td></tr>
-</table>
+<h2>1.5 Proces zavedení a spuštění OS</h2>
+<ol>
+  <li><strong>POST (Power-On Self Test)</strong> – kontrola hardware.</li>
+  <li><strong>Načtení zaváděcího sektoru</strong> – bootloader načte jádro OS.</li>
+  <li><strong>Zavedení jádra OS</strong> – inicializace systémových zdrojů.</li>
+  <li><strong>Spuštění systémových procesů</strong> – aktivace základních služeb OS.</li>
+  <li><strong>Aktivace uživatelského rozhraní</strong> – GUI nebo CLI pro interakci s uživatelem.</li>
+</ol>
 
-<h2>Hlavní funkce OS</h2>
-<div class="three-col">
-  <div class="box box-purple"><strong>Správa procesů</strong><br>Plánování CPU, multitasking, synchronizace, IPC</div>
-  <div class="box box-green"><strong>Správa paměti</strong><br>RAM, virtuální paměť, stránkování, swap</div>
-  <div class="box box-amber"><strong>Správa souborů</strong><br>FS, oprávnění, adresářová struktura</div>
-</div>
-
-<h2>Systémová volání (syscalls)</h2>
-<div class="box box-purple">
-  Rozhraní mezi aplikací a jádrem. Aplikace nevolá HW přímo – zavolá syscall, jádro ho provede v Ring 0.
-  Příklady: <kbd>open()</kbd>, <kbd>read()</kbd>, <kbd>write()</kbd>, <kbd>fork()</kbd>, <kbd>exec()</kbd>, <kbd>exit()</kbd>
-</div>
+<h2>1.6 Logy v operačním systému</h2>
+<p><strong>Definice:</strong> Logy jsou záznamy událostí, slouží k diagnostice, sledování výkonu a zabezpečení.</p>
+<p><strong>Typy logů:</strong></p>
+<ul>
+  <li><strong>Systémové logy</strong> – informace o chodu OS.</li>
+  <li><strong>Aplikační logy</strong> – chování jednotlivých aplikací.</li>
+  <li><strong>Bezpečnostní logy</strong> – pokusy o přístup, ochrana proti útokům.</li>
+  <li><strong>Transakční logy</strong> – změny v databázích.</li>
+  <li><strong>Logy o výkonu</strong> – sledování systémových zdrojů.</li>
+</ul>
+<p><strong>Logování v Linuxu a Windows</strong></p>
+<ul>
+  <li><strong>Linux</strong> – logy v <kbd>/var/log/syslog</kbd>, nástroj syslog.
+    <ul>
+      <li>Příkaz: <kbd>tail -f /var/log/syslog</kbd></li>
+    </ul>
+  </li>
+  <li><strong>Windows</strong> – Prohlížeč událostí (<kbd>eventvwr.msc</kbd>), logy aplikací, systému a zabezpečení.</li>
+</ul>
 
 <div class="nav-btns">
   <span></span>

@@ -23,58 +23,181 @@
   <h1>Komunikační sítě a modely</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>LAN/MAN/WAN/PAN – rozsahy sítí</li><li>Topologie: bus, hvězda, kruh, mesh</li><li>OSI 7 vrstev – Fyzická → Aplikační</li><li>TCP/IP 4 vrstvy – enkapsulace dat</li></ul>
-</div>
 
-<h2>Typy sítí podle rozsahu</h2>
+<h2>7.1.1 Co je to komunikační síť</h2>
+<p>Komunikační síť je <strong>infrastruktura umožňující přenos informací mezi různými zařízeními</strong> (počítače, servery, telefony, tiskárny). Mohou být propojeny pomocí <strong>kabelů (optické vlákno, koaxiální kabely) nebo bezdrátových technologií (Wi-Fi, satelitní spojení)</strong>.</p>
+<p><strong>Funkce komunikačních sítí:</strong></p>
+<ul>
+  <li>Umožňují sdílení dat mezi uživateli.</li>
+  <li>Efektivní komunikace na lokální i globální úrovni.</li>
+  <li>Zajišťují propojení v rámci organizací i celosvětového internetu.</li>
+</ul>
+<p>Hlavním účelem komunikačních sítí je <strong>sdílení dat</strong>, efektivní spolupráce mezi uživateli a <strong>globální propojení</strong> (např. internet). Cíl přenosu: nezasahovat do dat, co nejrychleji přenést data z bodu A do bodu B.</p>
+
+<h2>7.1.2 Diagram a prvky komunikační sítě</h2>
+<p><strong>Topologie sítí:</strong> Mesh, Star, Fully connected, Tree, Bus, Ring, Daisy chained (Line).</p>
+<p><strong>Uzly (Nodes)</strong> – Každé aktivní zařízení v síti (počítač, server, tiskárna, mobilní zařízení).</p>
+<p><strong>Komunikační kanály:</strong></p>
+<ul>
+  <li><strong>Kabelové</strong> – ethernet, optická vlákna.</li>
+  <li><strong>Bezdrátové</strong> – Wi-Fi, Bluetooth, mobilní sítě (4G, 5G).</li>
+</ul>
+<p><strong>Síťová zařízení:</strong></p>
+<ul>
+  <li><strong>Router</strong> – směruje data mezi různými sítěmi (např. domácí sítí a internetem).</li>
+  <li><strong>Switch (přepínač)</strong> – propojuje zařízení v rámci lokální sítě (LAN).</li>
+  <li><strong>Access point</strong> – rozšiřuje bezdrátovou síť.</li>
+</ul>
+
+<h2>7.1.3 Typy sítí</h2>
+<p><strong>Podle druhu přenosu dat:</strong></p>
+<ul>
+  <li><strong>Komutační sítě</strong> – Přepojování okruhů, typické pro starší telefonní sítě. Připojování okruhů – vytvoří se pevné spojení mezi účastníky po dobu komunikace. Princip: stabilní spojení, vhodné pro telefonní hovory.</li>
+  <li><strong>Paketové sítě</strong> – Data rozdělena na menší pakety, každá část může cestovat jinou trasou (např. internet). Každý paket může jít jinou cestou, na cíli se znovu poskládají. Flexibilní, efektivní pro počítačovou komunikaci.</li>
+  <li><strong>Proudový přenos</strong> – data tečou plynule jako proud.</li>
+</ul>
+<p><strong>Modulace</strong> – chceme přenést něco rychleji, používáme vyšší frekvence. Zamodulovali jsme do nich data.</p>
+<p><strong>Multiplex</strong> – chceme danou linku v jeden okamžik mít k dispozici více uživatelům.</p>
+<p><strong>Podle vlastnictví:</strong></p>
+<ul>
+  <li><strong>Privátní</strong> – Uzavřené sítě spravované konkrétní organizací.</li>
+  <li><strong>Veřejné</strong> – Přístupné široké veřejnosti (např. internet, Wi-Fi hotspoty).</li>
+  <li><strong>Datové</strong> – Navrženy pro přenos velkého množství dat (např. páteřní sítě).</li>
+  <li><strong>VPN</strong> – zabezpečené připojení k síti přes internet.</li>
+</ul>
+
+<h2>7.1.4 Taxonometrie sítí</h2>
+<ul>
+  <li><strong>LAN (Local Area Network)</strong> – Malá síť v kanceláři či domácnosti.</li>
+  <li><strong>MAN (Metropolitan Area Network)</strong> – Síť pokrývající větší město nebo univerzitu.</li>
+  <li><strong>WAN (Wide Area Network)</strong> – Rozsáhlé sítě propojující kontinenty, největší WAN = internet.</li>
+  <li><strong>VPN (Virtual Private Network)</strong> – Šifrované spojení mezi dvěma body přes veřejnou síť.</li>
+</ul>
+<p><strong>Podle organizační rozlehlosti:</strong></p>
+<ul>
+  <li><strong>Intranet</strong> – Interní síť organizace, která je uzavřena pro veřejnost.</li>
+  <li><strong>Internet</strong> – Globální síť propojující miliardy zařízení.</li>
+  <li><strong>Extranet</strong> – Částečně přístupná externím uživatelům.</li>
+</ul>
+
+<h2>7.1.5 Historie počítačových sítí a přístup k médiu</h2>
+<p><strong>Počátky (1960–1980):</strong></p>
+<ul>
+  <li><strong>ARPANET (1969)</strong> – První síť propojující počítače pomocí přepojování paketů.</li>
+  <li><strong>ALOHA NET</strong> – První bezdrátová síť.</li>
+  <li><strong>TCP/IP protokol (70. léta)</strong> – Standardizace přenosu dat.</li>
+  <li><strong>Ethernet (80. léta)</strong> – Rozšíření kabelového propojení mezi počítači.</li>
+</ul>
+<p><strong>Ethernet:</strong> Používá hvězdicovou topologii (zařízení připojena ke switchi nebo routeru). Data jsou přenášena v rámcích obsahujících MAC adresy odesílatele a příjemce. Každé zařízení má jedinečnou MAC adresu.</p>
+<p><strong>Rozvoj (1990–současnost):</strong></p>
+<ul>
+  <li><strong>90. léta</strong> – Zavedení World Wide Web (WWW) a rozmach internetu.</li>
+  <li><strong>Po roce 2000</strong> – Připojení dostupné v domácnostech, nástup Wi-Fi.</li>
+  <li><strong>Současnost</strong> – Rozvoj 5G sítí, IoT zařízení, cloudové technologie.</li>
+</ul>
+
+<h2>7.2 Modely počítačových sítí ISO/OSI a TCP/IP</h2>
+<p>Počítačová síť je skupina propojených zařízení, která umožňuje sdílení dat a zdrojů. Sítě se liší svou velikostí a účelem.</p>
+<p><strong>Význam síťových modelů:</strong></p>
+<ul>
+  <li><strong>Standardizace komunikace</strong> – Zařízení různých výrobců mohou spolupracovat.</li>
+  <li><strong>Rozdělení funkcí do vrstev</strong> – Umožňuje efektivní návrh a správu sítí.</li>
+  <li><strong>Zjednodušení vývoje síťových protokolů a aplikací.</strong></li>
+</ul>
+
+<h3>7.2.1 OSI Model</h3>
+<p>OSI model (Open Systems Interconnection) je <strong>teoretický model</strong> vyvinutý organizací ISO pro <strong>standardizaci síťové komunikace</strong>.</p>
+<p><strong>Výhody OSI modelu:</strong></p>
+<ul>
+  <li><strong>Modularita</strong> – Každá vrstva má specifickou funkci a může být upravena samostatně.</li>
+  <li><strong>Flexibilita</strong> – Umožňuje snadnou integraci nových technologií.</li>
+  <li><strong>Standardizace</strong> – Různé systémy mohou vzájemně komunikovat.</li>
+</ul>
+
+<h3>7.2.2 Struktura OSI modelu</h3>
 <table>
-  <tr><th>Typ</th><th>Rozsah</th><th>Příklad</th></tr>
-  <tr><td><span class="badge b-purple">PAN</span></td><td>do 10 m</td><td>Bluetooth, USB, Zigbee</td></tr>
-  <tr><td><span class="badge b-green">LAN</span></td><td>budova / campus</td><td>Ethernet, WiFi</td></tr>
-  <tr><td><span class="badge b-amber">MAN</span></td><td>město</td><td>Metro Ethernet, kabelová TV</td></tr>
-  <tr><td><span class="badge b-red">WAN</span></td><td>kraj, stát, svět</td><td>Internet, MPLS</td></tr>
+  <tr><th>Vrstva</th><th>Název</th><th>Funkce</th><th>PDU</th></tr>
+  <tr><td>7</td><td>Aplikační</td><td>Síťové služby pro uživatele (e-maily, web, FTP)</td><td>Data</td></tr>
+  <tr><td>6</td><td>Prezentační</td><td>Převod dat do srozumitelného formátu (šifrování, komprese)</td><td>Data</td></tr>
+  <tr><td>5</td><td>Relační</td><td>Správa a udržování komunikačních relací mezi aplikacemi</td><td>Data</td></tr>
+  <tr><td>4</td><td>Transportní</td><td>Spolehlivý přenos dat mezi zařízeními (TCP/UDP)</td><td>TCP – Segment / UDP – Datagram</td></tr>
+  <tr><td>3</td><td>Síťová</td><td>Směrování paketů v síti (IP adresy)</td><td>Pakety</td></tr>
+  <tr><td>2</td><td>Linková</td><td>Správa přenosu dat v rámci lokální sítě (rámce, Ethernet); fyzické adresy MAC; kontrola přenosu – při chybě zahodí</td><td>Rámec (frame)</td></tr>
+  <tr><td>1</td><td>Fyzická</td><td>Přenos surových dat (bitů) přes fyzická média (kabely, Wi-Fi); přenos elektriny, signálů</td><td>Bity (0,1)</td></tr>
+</table>
+<p><strong>Spolupráce vrstev:</strong> Každá vrstva komunikuje <strong>se sousedními vrstvami</strong> (jen se sousedem). Zajišťuje se <strong>plynulý tok informací</strong> mezi odesílatelem a příjemcem.</p>
+
+<h3>7.2.3 TCP/IP model</h3>
+<p>TCP/IP (Transmission Control Protocol / Internet Protocol) je <strong>praktický model</strong> používaný pro <strong>přenos dat v reálných sítích, včetně internetu</strong>.</p>
+<table>
+  <tr><th>Vrstva</th><th>Název</th><th>Funkce</th><th>PDU</th></tr>
+  <tr><td>4</td><td>Aplikační</td><td>Síťové služby (HTTP, FTP, SMTP, DNS)</td><td>Data</td></tr>
+  <tr><td>3</td><td>Transportní</td><td>Spolehlivý (TCP) nebo nespolehlivý (UDP) přenos dat</td><td>TCP – Segment / UDP – Datagram</td></tr>
+  <tr><td>2</td><td>Internetová</td><td>Směrování paketů (IP, ICMP)</td><td>Pakety</td></tr>
+  <tr><td>1</td><td>Síťové rozhraní</td><td>Fyzický přenos dat (Ethernet, Wi-Fi)</td><td>Bity (0,1)</td></tr>
+</table>
+<p><strong>Protokoly v TCP/IP modelu:</strong></p>
+<table>
+  <tr><th>Vrstva</th><th>Protokoly</th><th>Funkce</th></tr>
+  <tr><td>Aplikační</td><td>HTTP, FTP, SMTP</td><td>Web, soubory, e-maily</td></tr>
+  <tr><td>Transportní</td><td>TCP, UDP</td><td>Spolehlivý / nespolehlivý přenos</td></tr>
+  <tr><td>Internetová</td><td>IP, ICMP</td><td>Směrování, zprávy o chybách</td></tr>
+  <tr><td>Síťové rozhraní</td><td>Ethernet, Wi-Fi</td><td>Fyzické propojení</td></tr>
+</table>
+<p><strong>Výhody TCP/IP modelu:</strong></p>
+<ul>
+  <li><strong>Praktické použití</strong> – Funguje v reálných sítích.</li>
+  <li><strong>Jednodušší než OSI model</strong> – Pouze 4 vrstvy.</li>
+  <li><strong>Základ internetu</strong> – Standardizovaná komunikace pro globální propojení.</li>
+</ul>
+
+<h3>Porovnání obou modelů</h3>
+<table>
+  <tr><th>OSI model</th><th>TCP/IP model</th></tr>
+  <tr><td>7 vrstev</td><td>4 vrstvy</td></tr>
+  <tr><td>Teoretický model</td><td>Praktický model</td></tr>
+  <tr><td>Přesně definované vrstvy</td><td>Některé vrstvy jsou sloučeny</td></tr>
+  <tr><td>Použitelný pro širokou škálu technologií</td><td>Primárně pro internetovou komunikaci</td></tr>
 </table>
 
-<h2>Topologie sítí</h2>
-<div class="two-col">
-  <div class="card"><h3>Sběrnicová (Bus)</h3><p>Všichni na jednom koaxiálním kabelu. Kolizní doména = celá síť. Historický 10Base2.</p></div>
-  <div class="card"><h3>Hvězda (Star)</h3><p>Vše se připojuje do centrálního switche. Dnešní standard. Výpadek centra = výpadek sítě.</p></div>
-  <div class="card"><h3>Kruh (Ring)</h3><p>Data obíhají v kruhu. Token Ring. Dnes optické metro (SONET/SDH).</p></div>
-  <div class="card"><h3>Mesh</h3><p>Každý s každým – maximální redundance. Páteřní sítě, IoT.</p></div>
-</div>
+<h3>Praktické využití modelů v síti</h3>
+<p><strong>OSI model:</strong></p>
+<ul>
+  <li><strong>Diagnostika problémů</strong> – Pomáhá najít poruchy v síťové komunikaci.</li>
+  <li><strong>Vývoj technologií</strong> – Poskytuje rámec pro nové síťové protokoly.</li>
+</ul>
+<p><strong>TCP/IP model:</strong></p>
+<ul>
+  <li><strong>Základ internetu</strong> – Používán ve všech moderních sítích.</li>
+  <li><strong>Síťové aplikace</strong> – Webové prohlížeče, e-maily, VoIP služby.</li>
+</ul>
+<p><strong>Příklady použití:</strong></p>
+<ul>
+  <li><strong>E-maily</strong> – SMTP (odesílání), IMAP/POP3 (příjem).</li>
+  <li><strong>Webový provoz</strong> – HTTP/HTTPS pro načítání webových stránek.</li>
+  <li><strong>Databáze</strong> – Propojení aplikací s databázemi pomocí ODBC/JDBC.</li>
+</ul>
 
-<h2>Model ISO/OSI – 7 vrstev</h2>
-<table>
-  <tr><th>#</th><th>Vrstva</th><th>PDU</th><th>Funkce</th><th>Protokoly / zařízení</th></tr>
-  <tr><td>7</td><td><strong>Aplikační</strong></td><td>Data</td><td>Rozhraní pro aplikace</td><td>HTTP, FTP, DNS, SSH</td></tr>
-  <tr><td>6</td><td><strong>Prezentační</strong></td><td>Data</td><td>Kódování, šifrování, komprese</td><td>SSL/TLS, JPEG</td></tr>
-  <tr><td>5</td><td><strong>Relační</strong></td><td>Data</td><td>Správa session</td><td>NetBIOS, RPC</td></tr>
-  <tr><td>4</td><td><strong>Transportní</strong></td><td>Segment</td><td>Spolehlivý přenos E2E, porty</td><td>TCP, UDP</td></tr>
-  <tr><td>3</td><td><strong>Síťová</strong></td><td>Paket</td><td>Logická adresace, směrování</td><td>IP, ICMP → Router</td></tr>
-  <tr><td>2</td><td><strong>Linková</strong></td><td>Rámec</td><td>MAC adresace, přístup k médiu</td><td>Ethernet, WiFi → Switch</td></tr>
-  <tr><td>1</td><td><strong>Fyzická</strong></td><td>Bity</td><td>Elektrické / optické signály</td><td>Kabel, optika → Hub</td></tr>
-</table>
-
-<h2>Model TCP/IP – 4 vrstvy</h2>
-<table>
-  <tr><th>Vrstva TCP/IP</th><th>Odpovídá OSI</th><th>Protokoly</th></tr>
-  <tr><td><strong>Aplikační</strong></td><td>5–7</td><td>HTTP, FTP, DNS, SSH, SMTP, DHCP</td></tr>
-  <tr><td><strong>Transportní</strong></td><td>4</td><td>TCP, UDP</td></tr>
-  <tr><td><strong>Síťová (Internet)</strong></td><td>3</td><td>IPv4, IPv6, ICMP, ARP</td></tr>
-  <tr><td><strong>Vrstva přístupu</strong></td><td>1–2</td><td>Ethernet, WiFi, PPP</td></tr>
-</table>
-
-<h2>Enkapsulace dat</h2>
-<div class="box box-purple">
-  Data procházejí vrstvami <strong>shora dolů</strong> – každá přidá hlavičku. Na druhé straně se zdola nahoru odstraňují.
-</div>
-<pre><code>Aplikace:   [DATA]
-Transport:  [TCP hlavička][DATA]               ← Segment
-Síťová:     [IP hlavička][TCP][DATA]           ← Paket
-Linková:    [Eth hdr][IP][TCP][DATA][FCS]      ← Rámec
-Fyzická:    10110010...  (bity na médiu)</code></pre>
+<h2>7.3.5 Enkapsulace a dekapsulace</h2>
+<p><strong>Enkapsulace:</strong></p>
+<ul>
+  <li>Proces, kdy každá vrstva přidává k datům svoji vlastní hlavičku.</li>
+  <li>Probíhá na straně odesílatele.</li>
+  <li>Příklad: Data → TCP hlavička → IP hlavička → Ethernetová hlavička → Rámec.</li>
+</ul>
+<p><strong>Dekapsulace:</strong></p>
+<ul>
+  <li>Opačný proces, kdy každá vrstva odstraní svou hlavičku.</li>
+  <li>Probíhá na straně příjemce.</li>
+  <li>Příklad: Rámec → Ethernetová hlavička odstraněna → IP hlavička odstraněna → TCP hlavička odstraněna → Data.</li>
+</ul>
+<p><strong>Daná vrstva může komunikovat jen s vrstvou nad a pod (jen se sousedem).</strong></p>
+<p><strong>Význam:</strong></p>
+<ul>
+  <li>Správné doručování dat mezi vrstvami.</li>
+  <li>Oddělení funkcí jednotlivých vrstev, což zvyšuje efektivitu síťové komunikace.</li>
+  <li>Zajištění integrity přenosu.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../06-skripty-v-linuxu/index.html">← Skripty v Linuxu</a>

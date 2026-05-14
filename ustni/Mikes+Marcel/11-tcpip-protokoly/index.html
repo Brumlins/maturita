@@ -20,78 +20,189 @@
 <div class="hero">
   <div class="bignr">11</div>
   <div class="qnum">Otázka 11 / 20 · Mikes &amp; Marcel</div>
-  <h1>Základní TCP/IP protokoly</h1>
+  <h1>Popis základních TCP/IP protokolů</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>DHCP DORA: Discover→Offer→Request→Ack</li><li>ARP: IP→MAC (broadcast req, unicast reply)</li><li>DNS záznamy: A, AAAA, MX, CNAME, PTR</li><li>SMTP/POP3/IMAP (email), FTP (port 21/20)</li></ul>
-</div>
 
-<h2>DHCP – přidělení IP adresy</h2>
-<div class="box box-purple">
-  DHCP automaticky přiděluje IP, masku, bránu a DNS. UDP port <strong>67</strong> (server), <strong>68</strong> (klient).
-</div>
-<h3>DORA – 4 kroky</h3>
-<table>
-  <tr><th>Krok</th><th>Zpráva</th><th>Kdo</th><th>Popis</th></tr>
-  <tr><td>1</td><td><strong>D</strong>iscover</td><td>Klient → Broadcast</td><td>Hledám DHCP server (src: 0.0.0.0)</td></tr>
-  <tr><td>2</td><td><strong>O</strong>ffer</td><td>Server → Klient</td><td>Nabízím IP adresu a konfiguraci</td></tr>
-  <tr><td>3</td><td><strong>R</strong>equest</td><td>Klient → Broadcast</td><td>Přijímám nabídku</td></tr>
-  <tr><td>4</td><td><strong>A</strong>cknowledge</td><td>Server → Klient</td><td>Potvrzuji, platí lease time</td></tr>
-</table>
+<h2>11.1 TCP/IP model</h2>
+<p>TCP/IP (Transmission Control Protocol / Internet Protocol) je základní síťový protokolový model používaný v internetu a počítačových sítích.</p>
+<ul>
+  <li><strong>TCP/IP je organizován do čtyř vrstev</strong>, kde každá má specifickou funkci:
+    <ul>
+      <li><strong>Aplikační vrstva</strong> – poskytuje síťové služby (HTTP, FTP, DNS, SMTP).</li>
+      <li><strong>Transportní vrstva</strong> – zajišťuje spolehlivý (TCP) nebo nespolehlivý (UDP) přenos dat.</li>
+      <li><strong>Síťová vrstva</strong> – směrování dat mezi sítěmi (IP, ICMP, ARP).</li>
+      <li><strong>Vrstva síťového rozhraní</strong> – připojení k fyzickému médiu (Ethernet, Wi-Fi).</li>
+    </ul>
+  </li>
+  <li>Model TCP/IP je jednodušší než OSI model (který má 7 vrstev), ale plní podobný účel.</li>
+</ul>
 
-<h2>ARP – překlad IP → MAC</h2>
-<div class="box box-green">
-  ARP zjistí MAC adresu pro danou IP v rámci LAN. Data se na síti posílají podle MAC adres!
-</div>
-<pre><code>ARP Request  (broadcast FF:FF:FF:FF:FF:FF):
-  "Kdo má IP 192.168.1.10? Řekni AA:BB:CC:DD:EE:FF"
-ARP Reply    (unicast):
-  "Já mám tu IP, moje MAC je 11:22:33:44:55:66"
+<h2>11.2 DHCP (Dynamic Host Configuration Protocol)</h2>
+<ul>
+  <li><strong>Co DHCP poskytuje:</strong>
+    <ul>
+      <li>IP adresu – dynamicky přidělenou adresu pro komunikaci v síti.</li>
+      <li>Masku podsítě – definuje velikost a strukturu sítě.</li>
+      <li>Výchozí bránu (gateway) – směřuje síťový provoz mimo lokální síť.</li>
+      <li>DNS servery – zajišťují překlad doménových jmen na IP adresy.</li>
+      <li>Volitelné informace – např. NTP servery pro synchronizaci času.</li>
+    </ul>
+  </li>
+  <li>Hlavní fáze přidělení IP adresy pomocí DHCP:
+    <ul>
+      <li><strong>DHCP DISCOVER</strong> – klient vyšle žádost o IP adresu.</li>
+      <li><strong>DHCP OFFER</strong> – server nabídne dostupnou IP adresu.</li>
+      <li><strong>DHCP REQUEST</strong> – klient potvrzuje nabídnutou IP adresu.</li>
+      <li><strong>DHCP ACKNOWLEDGE</strong> – server potvrdí přidělení IP adresy.</li>
+    </ul>
+  </li>
+  <li><strong>Výhody DHCP:</strong>
+    <ul>
+      <li>Automatizace správy IP adres v síti.</li>
+      <li>Eliminace chyb způsobených ruční konfigurací.</li>
+      <li>Efektivní využití dostupných IP adres.</li>
+    </ul>
+  </li>
+</ul>
 
-ip neigh show            # ARP cache (Linux)</code></pre>
+<h2>11.3 ARP (Address Resolution Protocol)</h2>
+<p><strong>Definice:</strong> ARP slouží <strong>k zjištění MAC adresy</strong> zařízení na základě jeho IP adresy.</p>
+<ul>
+  <li><strong>Proces ARP:</strong>
+    <ul>
+      <li>Zařízení A chce poslat data na zařízení B, ale nezná jeho MAC adresu.</li>
+      <li>Zařízení A vyšle ARP požadavek („Kdo má tuto IP adresu?") – ARP request (broadcast).</li>
+      <li>Zařízení B odpoví ARP odpovědí a sdělí svou MAC adresu – ARP reply (unicast).</li>
+      <li>Zařízení A si tuto MAC adresu uloží do ARP tabulky.</li>
+    </ul>
+  </li>
+  <li>Ping – linka komunikuje na MAC adresách routeru (ARP).</li>
+  <li>Bezpečnostní hrozba: <strong>ARP spoofing</strong>
+    <ul>
+      <li>Útočník podvrhne svou MAC adresu do ARP tabulky oběti.</li>
+      <li>Zařízení v síti pak komunikují s útočníkem místo s routerem.</li>
+      <li>Útočník může odposlouchávat nebo manipulovat s daty.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>DNS – překlad jména → IP</h2>
-<table>
-  <tr><th>Záznam</th><th>Funkce</th><th>Příklad</th></tr>
-  <tr><td><strong>A</strong></td><td>Jméno → IPv4</td><td>seznam.cz → 77.75.79.222</td></tr>
-  <tr><td><strong>AAAA</strong></td><td>Jméno → IPv6</td><td>google.com → 2607:f8b0::…</td></tr>
-  <tr><td><strong>MX</strong></td><td>Mailový server domény</td><td>gmail.com → mail.google.com</td></tr>
-  <tr><td><strong>CNAME</strong></td><td>Alias → jiné jméno</td><td>www.firma.cz → firma.cz</td></tr>
-  <tr><td><strong>PTR</strong></td><td>IP → jméno (reverzní)</td><td>77.75.79.222 → seznam.cz</td></tr>
-</table>
-<pre><code>nslookup www.seznam.cz          # překlad
-nslookup -type=MX gmail.com     # MX záznamy
-dig seznam.cz A                 # detailní dotaz</code></pre>
+<h2>11.4 DNS (Domain Name System)</h2>
+<p><strong>Definice:</strong> DNS převádí doménová jména (např. www.example.com) na IP adresy (např. 192.168.1.1).</p>
+<ul>
+  <li><strong>DNS funguje jako telefonní seznam internetu.</strong> Internet pracuje na adresách, DNS pracuje na jménech.</li>
+  <li>Hlavní součásti DNS systému:
+    <ul>
+      <li><strong>DNS Resolver</strong> – přijímá požadavky na překlad doménových jmen. Zjistí jméno za IP adresu, zeptá se kořenového serveru, poté TLD serveru (např. .cz), poté autoritativního serveru (např. seznam.cz).</li>
+      <li><strong>DNS servery</strong> – poskytují odpovědi na DNS dotazy.</li>
+      <li><strong>DNS zóny</strong> – ukládají záznamy o doménách.</li>
+    </ul>
+  </li>
+  <li>Kořenová doména → TLD doména (2. třída) → konkrétní doména.</li>
+  <li><strong>DNS databáze – záznamy:</strong>
+    <ul>
+      <li><strong>A</strong> – IP adresa (IPv4).</li>
+      <li><strong>AAAA</strong> – IPv6 adresa.</li>
+      <li><strong>MX</strong> – mailový server domény.</li>
+    </ul>
+  </li>
+  <li><strong>DNS databáze – praxe:</strong><br>
+    <kbd>nslookup www.seznam.cz</kbd> → 77.75.79.222</li>
+</ul>
 
-<h2>HTTP, e-mail, FTP – přehled</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>HTTP metody</h3>
-    <table>
-      <tr><td><code>GET</code></td><td>Získat data</td></tr>
-      <tr><td><code>POST</code></td><td>Odeslat / vytvořit</td></tr>
-      <tr><td><code>PUT</code></td><td>Nahradit celý zdroj</td></tr>
-      <tr><td><code>DELETE</code></td><td>Smazat</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h3>E-mail a FTP porty</h3>
-    <table>
-      <tr><td>SMTP</td><td>25 / 587</td><td>Odesílání</td></tr>
-      <tr><td>POP3</td><td>110 / 995</td><td>Příjem – stáhne a smaže ze serveru</td></tr>
-      <tr><td>IMAP</td><td>143 / 993</td><td>Příjem – zůstane na serveru</td></tr>
-      <tr><td>FTP</td><td>21 (řídící) / 20 (data)</td><td>Přenos souborů</td></tr>
-    </table>
-  </div>
-</div>
+<h2>11.5 HTTP a HTTPS (Hypertext Transfer Protocol / Secure)</h2>
+<p><strong>Definice:</strong> HTTP je protokol používaný pro <strong>přenos webových stránek a dat</strong> mezi klientem a serverem.</p>
+<ul>
+  <li><strong>Základní vlastnosti HTTP:</strong>
+    <ul>
+      <li>Slouží k výměně dokumentů ve formátu HTML.</li>
+      <li>Používá princip dotaz-odpověď mezi klientem (webovým prohlížečem) a serverem.</li>
+      <li>Je bezstavový – každá komunikace je nezávislá, což řeší cookies nebo sessions.</li>
+    </ul>
+  </li>
+  <li><strong>HTTPS zajišťuje bezpečnost přenosu</strong> pomocí šifrování:
+    <ul>
+      <li><strong>SSL/TLS</strong> – zabezpečuje komunikaci mezi klientem a serverem.</li>
+      <li><strong>Autentizace serveru</strong> – ověření, že komunikujete se správným serverem.</li>
+      <li><strong>Integrita dat</strong> – ochrana proti neoprávněné manipulaci s daty.</li>
+    </ul>
+  </li>
+  <li>Základní metody HTTP:
+    <ul>
+      <li><strong>GET</strong> – žádost o zobrazení zdroje (webové stránky).</li>
+      <li><strong>POST</strong> – odeslání dat na server (např. formulář).</li>
+      <li><strong>PUT</strong> – nahrazení existujícího zdroje novými daty.</li>
+      <li><strong>DELETE</strong> – odstranění zdroje.</li>
+      <li><strong>HEAD</strong> – vrací pouze hlavičky, ne obsah stránky.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>11.6 POP3, SMTP a IMAP (E-mailové protokoly)</h2>
+<ul>
+  <li><strong>POP3</strong> (Post Office Protocol 3)
+    <ul>
+      <li>Slouží k stahování e-mailů z e-mailového serveru na místní zařízení.</li>
+      <li>Po stažení jsou e-maily obvykle odstraněny ze serveru (přesune mailbox na program uživatele, na serveru to už nebude).</li>
+      <li>Umožňuje čtení e-mailů offline.</li>
+    </ul>
+  </li>
+  <li><strong>SMTP</strong> (Simple Mail Transfer Protocol)
+    <ul>
+      <li>Používá se pro odesílání e-mailů mezi servery.</li>
+      <li>E-mailový klient odesílá zprávu na SMTP server, který ji doručí příjemci.</li>
+      <li>Odeslat do mailboxu a přeposílat uživateli.</li>
+    </ul>
+  </li>
+  <li><strong>IMAP</strong> (Internet Message Access Protocol)
+    <ul>
+      <li>Umožňuje správu e-mailů přímo na serveru.</li>
+      <li>Uživatel může organizovat e-maily bez jejich stahování (zůstane na serveru).</li>
+      <li>Synchronizuje e-maily na více zařízeních.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>11.7 FTP (File Transfer Protocol)</h2>
+<p><strong>Definice:</strong> FTP je platformně nezávislý protokol pro přenos souborů mezi klientem a serverem. Zasílání a výměna souborů.</p>
+<ul>
+  <li><strong>Používá dva porty:</strong>
+    <ul>
+      <li><strong>TCP/21</strong> – ovládací kanál pro příkazy.</li>
+      <li><strong>TCP/20</strong> – datový kanál pro přenos souborů.</li>
+    </ul>
+  </li>
+  <li><strong>Hlavní vlastnosti FTP:</strong>
+    <ul>
+      <li>Podporuje textový i binární přenos dat.</li>
+      <li>Lze jej používat přes webové prohlížeče nebo specializované FTP klienty.</li>
+      <li>Vyžaduje uživatelské jméno a heslo pro přihlášení.</li>
+    </ul>
+  </li>
+  <li>Bezpečnostní nevýhody:
+    <ul>
+      <li>Přihlašovací údaje i data jsou přenášena nešifrovaně.</li>
+      <li>Zabezpečené varianty:
+        <ul>
+          <li><strong>FTPS (FTP Secure)</strong> – používá SSL/TLS pro šifrování.</li>
+          <li><strong>SFTP (Secure FTP)</strong> – běží nad SSH protokolem.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Režimy přenosu dat:</strong>
+    <ul>
+      <li><strong>Pasivní režim</strong> – klient zahajuje spojení pro přenos dat (užitečné v sítích s NAT).</li>
+      <li><strong>Aktivní režim</strong> – server zahajuje spojení, klient pouze naslouchá.</li>
+    </ul>
+  </li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../10-internetworking/index.html">← Internetworking</a>
   <a class="nav-btn" href="../12-vypocetni-modely/index.html">Výpočetní modely →</a>
 </div>
 </main>
-<div class="footer">maturita 2025 · informatika · Základní TCP/IP protokoly</div>
+<div class="footer">maturita 2025 · informatika · Popis základních TCP/IP protokolů</div>
 </body>
 </html>

@@ -23,52 +23,76 @@
   <h1>Tiskárny</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>RGB = aditivní (monitor) vs CMYK = subtraktivní (tisk)</li><li>Jehličková (průklep), inkoustová (trysky), laserová (toner)</li><li>Laserová: drum → toner → zažehlovka</li><li>DPI (rozlišení), PPM (rychlost), TCO (náklady)</li></ul>
-</div>
 
-<h2>Barevné modely</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>RGB – aditivní</h3>
-    <p>Red + Green + Blue = skládání světla. Používá se u <strong>monitorů</strong>. Součet všech barev = bílá.</p>
-  </div>
-  <div class="card">
-    <h3>CMYK – subtraktivní</h3>
-    <p>Cyan + Magenta + Yellow + Key (Black). Odráží světlo od papíru. Používá se při <strong>tisku</strong>. Černá přidává se zvlášť (CMY → tmavě hnědá, ne černá).</p>
-  </div>
-</div>
+<h2>16.1 Barevné modely: RGB vs. CMYK</h2>
+<ul>
+  <li><strong>RGB</strong> (Red, Green, Blue): <strong>Aditivní model</strong> (skládání světla). Používá se u monitorů. Součet všech barev dává bílou.</li>
+  <li><strong>CMYK</strong> (Cyan, Magenta, Yellow, Key/Black): <strong>Subtraktivní model</strong> (odrážení světla od papíru). Základní barvy jsou <strong>azurová, purpurová a žlutá</strong>. Černá (Key) se přidává zvlášť, protože smícháním CMY barev vznikne jen tmavě hnědá a je to neekonomické.</li>
+</ul>
 
-<h2>Typy tiskáren</h2>
-<table>
-  <tr><th>Typ</th><th>Princip</th><th>Výhody</th><th>Nevýhody</th></tr>
-  <tr><td><strong>Jehličková</strong></td><td>Jehličky (9 nebo 24) bije přes barvicí pásku na papír</td><td>Průklep kopií, nízké náklady</td><td>Hluk, nízká kvalita</td></tr>
-  <tr><td><strong>Inkoustová</strong></td><td>Vstřikování mikrokapiček inkoustu z trysek</td><td>Skvělé barvy, foto tisk</td><td>Drahý inkoust, zaschnutí trysek</td></tr>
-  <tr><td><strong>Laserová</strong></td><td>Elektrografie – laser, drum, toner, zažehlovka</td><td>Rychlost, nízká cena/stránku, vodě odolný</td><td>Dražší pořizovací cena</td></tr>
-  <tr><td><strong>Termální</strong></td><td>Teplo na speciální papír nebo přes pásku</td><td>Kompaktní, tiché</td><td>Blednutí (přímý termální)</td></tr>
-  <tr><td><strong>3D (FDM)</strong></td><td>Tavení plastového filamentu po vrstvách</td><td>Trojrozměrné objekty</td><td>Pomalé, nutná postprocessing</td></tr>
-</table>
+<h2>16.2 Jehličkové tiskárny</h2>
+<p><strong>Nejstarší typ</strong>, který se stále používá.</p>
+<ul>
+  <li><strong>Princip</strong>: Tisková hlava s řadou jehliček (9 nebo 24) bije přes barvicí pásku do papíru.</li>
+  <li><strong>Výhody</strong>: Extrémně nízké náklady, možnost tisku s průklepem (více kopií najednou – např. faktury, sklady).</li>
+  <li><strong>Nevýhody</strong>: Velký hluk, nízká kvalita a rychlost.</li>
+</ul>
 
-<h2>Laserová tiskárna – krok za krokem</h2>
-<pre><code>1. Laser (nebo LED pole) vykreslí obraz na drum (válec)
-   → vytvoří elektrostatický náboj v místech tisku
-2. Na nabitá místa se přichytí toner (jemný prášek)
-3. Toner se přenese na papír (elektrostaticky)
-4. Zažehlovací jednotka: teplo + tlak → toner se "zataví" do papíru</code></pre>
+<h2>16.3 Inkoustové tiskárny</h2>
+<p>Ideální pro domácí použití a tisk fotografií.</p>
+<ul>
+  <li><strong>Princip</strong>: Vstřikování mikroskopických kapiček inkoustu z trysek na papír.</li>
+  <li><strong>Technologie tiskových hlav</strong>:
+    <ul>
+      <li><strong>Termální</strong> (Thermal): Odporové tělísko zahřeje inkoust, vznikne bublina, která vystřelí kapku (používá HP, Canon).</li>
+      <li><strong>Piezoelektrická</strong> (Piezo): Krystal se pod napětím prohne a mechanicky vytlačí kapku (používá Epson).</li>
+    </ul>
+  </li>
+  <li><strong>Typy inkoustů</strong>:
+    <ul>
+      <li><strong>Báze barviva</strong> (Dye): Živé barvy, skvělé na fotky, ale časem blednou.</li>
+      <li><strong>Pigmentové</strong>: Odolnější proti vodě a světlu, vhodné na text a dokumenty.</li>
+    </ul>
+  </li>
+  <li><strong>Výhody</strong>: Skvělé barvy, nízká pořizovací cena.</li>
+  <li><strong>Nevýhody</strong>: Drahý provoz (cartridge) a riziko zaschnutí inkoustu v tryskách.</li>
+</ul>
 
-<h2>Inkoustová tiskárna – technologie hlav</h2>
-<div class="two-col">
-  <div class="card"><h3>Termální (Thermal)</h3><p>Odporové tělísko zahřeje inkoust → bublina → kapka vystřelí. Výrobci: HP, Canon.</p></div>
-  <div class="card"><h3>Piezoelektrická (Piezo)</h3><p>Krystal pod napětím se prohne a mechanicky vytlačí kapku. Výrobce: Epson.</p></div>
-</div>
+<h2>16.4 Laserové a LED tiskárny</h2>
+<p>Nejlepší na texty, kancelářské dokumenty.</p>
+<ul>
+  <li><strong>Princip</strong> (Elektrografie):
+    <ol>
+      <li><strong>Laser</strong> (nebo LED pole) vykreslí obraz na rotující polovodičový válec (drum), čímž tam vytvoří elektrostatický náboj.</li>
+      <li>Na nabitá místa se přichytí <strong>toner</strong> (jemný prášek).</li>
+      <li><strong>Toner se přenese na papír.</strong></li>
+      <li>V zažehlovací jednotce se teplem a tlakem <strong>toner do papíru "zataví".</strong></li>
+    </ol>
+  </li>
+  <li><strong>LED tiskárny</strong>: Místo jednoho laseru s pohyblivým zrcátkem mají celou řadu LED diod nad válcem. Jsou díky tomu <strong>mechanicky jednodušší a tišší</strong>.</li>
+  <li><strong>Výhody</strong>: Rychlost, stálost tisku (nerozmaže se), nízká cena za stránku.</li>
+</ul>
 
-<h2>Klíčové parametry</h2>
-<div class="three-col">
-  <div class="box box-purple"><strong>DPI</strong><br>Dots Per Inch – rozlišení, hustota bodů</div>
-  <div class="box box-green"><strong>PPM</strong><br>Pages Per Minute – rychlost tisku</div>
-  <div class="box box-amber"><strong>TCO</strong><br>Total Cost of Ownership – celkové náklady (tiskárna + spotřební materiál)</div>
-</div>
+<h2>16.5 Termální tiskárny</h2>
+<p>Nachází je u pokladen (účtenky) nebo při tisku štítků.</p>
+<ul>
+  <li><strong>Přímý termální tisk</strong>: Teplo působí přímo na speciální termopapír, který v místě zahřátí zčerná. (Nevýhoda: Účtenky na slunci blednou).</li>
+  <li><strong>Termotransferový tisk</strong>: Teplo přenáší barvu ze speciální pásky (ribbon) na běžný papír nebo plast. Velmi odolné (Karty, průkazy).</li>
+</ul>
+
+<h2>16.6 3D tiskárny</h2>
+<p>Vytvářejí trojrozměrné objekty z digitálního modelu.</p>
+<ul>
+  <li><strong>Filament (FDM/FFF):</strong> Nejběžnější – tavení plastové struny (filamentu) a nanášení po vrstvách.</li>
+  <li><strong>SLA:</strong> Vytvrzování tekuté pryskyřice (resinu) pomocí UV laseru (vysoká přesnost).</li>
+</ul>
+
+<h2>Klíčové parametry a servis</h2>
+<ul>
+  <li><strong>DPI (Dots Per Inch):</strong> Rozlišení (hustota bodů). Čím vyšší, tím jemnější tisk.</li>
+  <li><strong>PPM (Pages Per Minute):</strong> Rychlost tisku.</li>
+  <li><strong>TCO (Total Cost of Ownership):</strong> Celkové náklady (cena tiskárny + cena tonerů/papíru za několik let).</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../15-mechanicke-pameti/index.html">← Mechanické paměti</a>

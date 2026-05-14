@@ -23,74 +23,99 @@
   <h1>Správa procesů</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Proces = aktivní instance programu</li><li>PID, PPID, UID, nice (-20 až 19)</li><li>Stavy: Running, Sleeping, Zombie, Stopped</li><li>kill, SIGTERM (15), SIGKILL (9), fg/bg/jobs</li></ul>
-</div>
 
-<h2>Co je proces?</h2>
-<div class="box box-purple">
-  <strong>Proces</strong> = aktivní instance programu v paměti. OS mu přiděluje zdroje (CPU čas, paměť). Má vlastní adresový prostor (kód, data, zásobník, halda) a je izolovaný od ostatních.
-</div>
+<h2>4.1 Co je proces, vztah proces a vlákno</h2>
+<p>Proces je <strong>aktivní instance programu</strong>, jíž operační systém <strong>přiděluje zdroje jako procesorový čas a paměť</strong>. Procesy umožňují <strong>efektivní a bezpečné provádění více úloh současně</strong>.</p>
+<p>Proces = spuštěný program (program ze souboru z paměti a ten se zpracovává – běžící program). Uložený na disku – soubor. CPU má také vlákna jako proces (dříve jeden výpočetní blok, dnes má víc jader, vláken – víc těch bloků v jednom).</p>
 
-<h2>Vztah proces – vlákno</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>Proces</h3>
-    <p>Má vlastní adresový prostor. Izolovaný – pád jednoho neovlivní jiný. Vytváří se přes <kbd>fork()</kbd>.</p>
-  </div>
-  <div class="card">
-    <h3>Vlákno (Thread)</h3>
-    <p>Lehký proces – sdílí adresový prostor s ostatními vlákny téhož procesu. Vlastní zásobník, registry a programový čítač. Rychlejší přepínání, ale race conditions.</p>
-  </div>
-</div>
+<h3>4.1.1 Vztah procesu a vlákna</h3>
+<ul>
+  <li>Proces se skládá z <strong>jednoho nebo více vláken</strong>, která sdílejí systémové zdroje.</li>
+  <li>Vlákna mohou běžet <strong>nezávisle</strong>, což umožňuje <strong>paralelní zpracování úloh</strong>.</li>
+  <li>Každé vlákno má <strong>vlastní programový čítač, stav registrů a zásobník</strong>.</li>
+</ul>
 
-<h2>Parametry procesu</h2>
-<table>
-  <tr><th>Parametr</th><th>Popis</th></tr>
-  <tr><td><strong>PID</strong></td><td>Process ID – unikátní číslo procesu. systemd/init má vždy PID 1.</td></tr>
-  <tr><td><strong>PPID</strong></td><td>Parent PID – kdo proces vytvořil (fork)</td></tr>
-  <tr><td><strong>UID/GID</strong></td><td>Uživatel a skupina, pod kterou proces běží</td></tr>
-  <tr><td><strong>nice</strong></td><td>Priorita: -20 (nejvyšší) až 19 (nejnižší). Výchozí 0.</td></tr>
-  <tr><td><strong>State</strong></td><td>Running / Ready / Sleeping / Zombie / Stopped</td></tr>
-</table>
+<h2>4.2 Základní parametry procesu</h2>
+<p>Jádro operačního systému sleduje u každého procesu klíčové parametry:</p>
+<ul>
+  <li><strong>PID (Process ID):</strong> Unikátní identifikátor procesu. První program má PID 1 a má za úkol spustit další.</li>
+  <li><strong>PPID (Parent Process ID):</strong> Identifikátor rodičovského procesu.</li>
+  <li><strong>UID (User ID):</strong> Identifikuje uživatele, který proces spustil.</li>
+  <li><strong>UGID (User Group ID):</strong> Skupinový identifikátor uživatele.</li>
+  <li><strong>Stav procesu:</strong> Aktuální stav, přidělené systémové zdroje a priorita.</li>
+  <li><strong>Priorita:</strong> Určuje, jak často a jak dlouho bude procesu přidělován procesor. (-19 až 19)</li>
+  <li>Na jakém terminálu proces běží.</li>
+</ul>
 
-<h2>Stavy procesu</h2>
-<div class="three-col">
-  <div class="box box-green"><span class="badge b-green">R Running</span><br>Právě běží na CPU</div>
-  <div class="box box-purple"><span class="badge b-purple">S Sleeping</span><br>Čeká na I/O nebo událost</div>
-  <div class="box box-amber"><span class="badge b-amber">Z Zombie</span><br>Skončil, rodič nepřečetl exit code</div>
-</div>
+<h2>4.3 Stavy procesu</h2>
+<ul>
+  <li><strong>Nový</strong> – Proces je inicializován.</li>
+  <li><strong>Běžící</strong> – Proces je aktivně zpracováván CPU.</li>
+  <li><strong>Čekající</strong> – Proces čeká na zdroj nebo událost.</li>
+  <li><strong>Připravený</strong> – Proces čeká na přidělení CPU (ready – připraven, že může vykonávat).</li>
+  <li><strong>Ukončený</strong> – Proces dokončil činnost.</li>
+</ul>
+<p>Ze začátku je soubor na disku, jak skončí taky. Vytáhne z paměti, začne zpracovávat v CPU (hardware): ready → run → sleep/pause → stop.</p>
 
-<h2>Signály a kill</h2>
-<table>
-  <tr><th>Signál</th><th>#</th><th>Popis</th></tr>
-  <tr><td>SIGHUP</td><td>1</td><td>Reload konfigurace</td></tr>
-  <tr><td>SIGINT</td><td>2</td><td>Ctrl+C – přerušení</td></tr>
-  <tr><td>SIGKILL</td><td>9</td><td>Násilné zabití – NELZE zachytit</td></tr>
-  <tr><td>SIGTERM</td><td>15</td><td>Žádost o ukončení (výchozí)</td></tr>
-  <tr><td>SIGSTOP</td><td>19</td><td>Pozastavení – nelze zachytit</td></tr>
-</table>
+<h2>4.4 Spuštění procesu</h2>
+<ul>
+  <li><strong>Interaktivní spuštění</strong> – Uživatel spustí proces manuálně (v terminálu přímo napíšu program, např.: <kbd>mc</kbd>).</li>
+  <li><strong>Neinteraktivní spuštění</strong> – Automatické spuštění systémem (běží na pozadí) – s <kbd>&amp;</kbd> (např.: <kbd>mc&amp;</kbd>) → <kbd>fg</kbd> (mc).</li>
+  <li><strong>Nastavení priority</strong> – Proces může mít vyšší nebo nižší prioritu pro přidělování CPU.</li>
+  <li><strong>Plánovač spuštění</strong> – cron.</li>
+</ul>
 
-<h2>Příkazy pro procesy</h2>
-<pre><code>ps aux                    # snapshot všech procesů
-ps -eo pid,ppid,ni,stat,cmd
-top / htop                # interaktivní monitor
-pstree -p                 # strom procesů s PID
+<h2>4.5 Přepínání mezi procesy na popředí a pozadí</h2>
+<ul>
+  <li><strong>Popředí</strong> – Proces umožňuje interakci s uživatelem.</li>
+  <li><strong>Pozadí</strong> – Proces běží bez přímé interakce.</li>
+  <li><strong>Přepínání mezi režimy</strong> – Např. příkaz <kbd>bg</kbd> (přesune proces na pozadí) nebo <kbd>fg</kbd> (vrátí proces do popředí).</li>
+</ul>
 
-kill 1234                 # SIGTERM
-kill -9 1234              # SIGKILL
-killall firefox           # podle jména
-pkill -u jan              # kill všech procesů uživatele
+<h3>4.5.1 Příkazy pro správu procesů v Linuxu</h3>
+<ul>
+  <li>Spuštění procesu na pozadí: <kbd>program_name &amp;</kbd></li>
+  <li>Pozastavení procesu: <kbd>Ctrl + Z</kbd></li>
+</ul>
 
-nice -n 10 ./skript.sh    # spustit s nižší prioritou
-renice -n 5 -p 1234       # změnit prioritu běžícího procesu
+<h2>4.6 Ukončení procesu</h2>
+<ul>
+  <li><strong>Normální ukončení</strong> – Proces dokončí svůj úkol.</li>
+  <li><strong>Násilné ukončení</strong> – V případě chyby nebo zablokování.</li>
+</ul>
 
-# Popředí / pozadí
-Ctrl+Z                    # pozastaví aktuální proces
-bg                        # pošle na pozadí
-fg                        # přenese do popředí
-jobs -l                   # seznam jobů</code></pre>
+<h3>4.6.1 Ukončení procesů v Linuxu</h3>
+<ul>
+  <li><kbd>kill PID</kbd> – Ukončí proces podle jeho identifikátoru.</li>
+  <li><kbd>kill -9 PID</kbd> – Vynucené ukončení procesu.</li>
+  <li><kbd>pkill nazev_procesu</kbd> – Ukončí všechny instance programu podle názvu.</li>
+</ul>
+
+<h2>4.7 Úprava priority procesu</h2>
+<ul>
+  <li><kbd>nice -n [hodnota] [příkaz]</kbd> – Nastavení priority při spuštění. (např. <kbd>nice -n 10 mc</kbd>)</li>
+  <li><kbd>renice [hodnota] -p [PID]</kbd> – Změna priority běžícího procesu.</li>
+  <li><strong>Vyšší priorita</strong> → Častější přístup k CPU.</li>
+  <li><strong>Nižší priorita</strong> → Méně časté přidělování CPU.</li>
+</ul>
+
+<h3>4.7.1 Důležité nástroje a příkazy</h3>
+<ul>
+  <li><kbd>ps</kbd> – Zobrazení běžících procesů, staticky.</li>
+  <li><kbd>top</kbd> / <kbd>htop</kbd> – Monitoring procesů v reálném čase, dynamicky, interaktivně.</li>
+  <li><strong>Task Manager (Windows)</strong> – Grafický nástroj pro správu procesů.</li>
+</ul>
+
+<h3>4.7.2 Výpis procesů a signály jádra</h3>
+<ul>
+  <li><kbd>top</kbd> / <kbd>htop</kbd> – Dynamické sledování výkonu.</li>
+  <li><strong>Jádro OS posílá signály procesům:</strong>
+    <ul>
+      <li>SIGTERM – Žádost o ukončení.</li>
+      <li>SIGKILL – Vynucené ukončení.</li>
+    </ul>
+  </li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../03-sprava-uzivatelu/index.html">← Správa uživatelů</a>

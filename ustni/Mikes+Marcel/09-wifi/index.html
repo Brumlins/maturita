@@ -23,63 +23,143 @@
   <h1>Bezdrátové sítě a WiFi</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>802.11 b/g/n/ac/ax – generace WiFi</li><li>2.4 GHz (kanály 1,6,11) vs 5/6 GHz</li><li>Modulace: AM, FM, PM → OFDM/OFDMA</li><li>WEP (prolomen) → WPA2 (AES) → WPA3 (SAE)</li></ul>
-</div>
 
-<h2>Historie a typy bezdrátové komunikace</h2>
-<div class="timeline">
-  <div class="tl-item"><div class="tl-year">1969</div><div class="tl-text">ARPANET – základ internetu (vojenský). První bezdrátové tech. využívaly rádiové vlny a mikrovlny.</div></div>
-  <div class="tl-item"><div class="tl-year">1997</div><div class="tl-text">IEEE standardizoval WiFi (802.11) – první standard, 2 Mbit/s.</div></div>
-  <div class="tl-item"><div class="tl-year">2019</div><div class="tl-text">WiFi 6 (802.11ax) – OFDMA, vyšší efektivita a kapacita.</div></div>
-  <div class="tl-item"><div class="tl-year">2024</div><div class="tl-text">WiFi 7 (802.11be) – vyšší rychlosti a efektivnější využití spektra.</div></div>
-</div>
+<h2>9.1 Historie bezdrátových sítí</h2>
+<ul>
+  <li>Internet vznikl v 60. letech 20. století, původně pro vojenské účely (ARPANET – US ARMY).</li>
+  <li>První bezdrátové technologie využívaly rádiové vlny a mikrovlny.</li>
+  <li><strong>Wi-Fi (Wireless Fidelity)</strong> bylo standardizováno <strong>IEEE</strong> v roce <strong>1997</strong>.</li>
+  <li>Postupem času došlo k masovému rozšíření Wi-Fi v domácnostech, firmách i veřejných prostorech.</li>
+  <li>2019 – 802.11ax (Wi-Fi 6, vyšší efektivita a kapacita).</li>
+  <li>2024 – Wi-Fi 7 (802.11be) – vyšší rychlosti a efektivnější využití spektra.</li>
+</ul>
+<p>WLAN = Wireless LAN. Wi-Fi = 802.11, Ethernet = 802.3.</p>
 
-<h2>Standardy IEEE 802.11</h2>
+<h2>9.2 Typy bezdrátové komunikace</h2>
+<p>Zařízení musí splňovat – nerušit okolní zařízení, limity ohledně záření. Obrovské spektrum – od Hz do 10<sup>20</sup>.</p>
+
+<h3>9.2.1 Rádiová komunikace</h3>
+<ul>
+  <li>Přenos dat pomocí elektromagnetických vln.</li>
+  <li>Wi-Fi využívá frekvenční pásma <strong>2,4 GHz</strong> a <strong>5 GHz</strong> (nově i 6 GHz pro Wi-Fi 6E).</li>
+</ul>
+
+<h3>9.2.2 Mikrovlnná komunikace</h3>
+<ul>
+  <li>Frekvence 1 GHz až 30 GHz.</li>
+  <li>Používána pro satelitní spoje, telekomunikace.</li>
+</ul>
+
+<h3>9.2.3 Infračervená komunikace</h3>
+<ul>
+  <li>Krátký dosah, vyžaduje přímou viditelnost.</li>
+  <li>Použití: Dálkové ovladače.</li>
+</ul>
+
+<h2>9.3 Podle technologie</h2>
+<ul>
+  <li><strong>Wi-Fi</strong> – nejrozšířenější technologie pro LAN.</li>
+  <li><strong>Bluetooth</strong> – přenos na krátké vzdálenosti.</li>
+  <li><strong>LTE/5G</strong> – mobilní datové sítě.</li>
+  <li><strong>Satelitní komunikace</strong> – přenos dat přes družice.</li>
+  <li><strong>ZigBee, LoRa</strong> – technologie pro IoT zařízení.</li>
+</ul>
+<p><strong>Bezlicenční pásma:</strong> 2,4 GHz (Wi-Fi, Bluetooth, DECT, mikrovlnka), 5 GHz (Wi-Fi), 6 GHz (Wi-Fi).</p>
+<p><strong>Licenční pásmo</strong> – zavoláte na úřad telekomunikační a koupíte frekvenci, co je vaše.</p>
+<p>Čím méně Hz, tím lépe překáží přes překážky. Každý blok se dělí na frekvence: 2,4 = 2401–2423 MHz. Některé kanály se překrývají. 5 GHz – kanály se nepřekrývají, je jich více.</p>
+
+<h3>9.3.1 Komunikace Infrastructure vs. Ad-hoc</h3>
+<h4>9.3.1.1 Infrastructure mode</h4>
+<ul>
+  <li>Použití centrálního <strong>Access Pointu (AP)</strong>.</li>
+  <li>Spravuje komunikaci a připojuje zařízení do LAN/internetu.</li>
+  <li>Výhody: <strong>Centralizovaná kontrola</strong>, bezpečnost, snadná správa.</li>
+</ul>
+<h4>9.3.2 Ad-hoc mode</h4>
+<ul>
+  <li><strong>Peer-to-peer komunikace</strong> – zařízení komunikují přímo bez AP.</li>
+  <li>Výhody: Rychlé a jednoduché spojení, vhodné pro dočasné sítě.</li>
+</ul>
+
+<h2>9.4 Normy Wi-Fi Ethernetu</h2>
 <table>
-  <tr><th>Standard</th><th>WiFi</th><th>Pásmo</th><th>Max rychlost</th></tr>
-  <tr><td>802.11</td><td>1</td><td>2.4 GHz</td><td>2 Mbit/s</td></tr>
-  <tr><td>802.11b</td><td>2</td><td>2.4 GHz</td><td>11 Mbit/s</td></tr>
-  <tr><td>802.11g</td><td>3</td><td>2.4 GHz</td><td>54 Mbit/s</td></tr>
-  <tr><td>802.11n</td><td>4</td><td>2.4 / 5 GHz</td><td>600 Mbit/s</td></tr>
-  <tr><td>802.11ac</td><td>5</td><td>5 GHz</td><td>3.5 Gbit/s</td></tr>
-  <tr><td>802.11ax</td><td>6/6E</td><td>2.4 / 5 / 6 GHz</td><td>9.6 Gbit/s</td></tr>
+  <tr><th>Norma</th><th>Rychlost</th><th>Frekvenční pásmo</th><th>Vlastnosti</th></tr>
+  <tr><td>802.11b</td><td>11 Mbps</td><td>2,4 GHz</td><td>První široce používaná verze</td></tr>
+  <tr><td>802.11g</td><td>54 Mbps</td><td>2,4 GHz</td><td>Vyšší rychlost, kompatibilní s b</td></tr>
+  <tr><td>802.11n</td><td>až 600 Mbps</td><td>2,4 GHz, 5 GHz</td><td>Podpora MIMO (více antén)</td></tr>
+  <tr><td>802.11ac</td><td>1+ Gbps</td><td>5 GHz</td><td>Vysoké rychlosti, beamforming</td></tr>
+  <tr><td>802.11ax</td><td>10 Gbps</td><td>2,4 GHz, 5 GHz, 6 GHz</td><td>Wi-Fi 6, vyšší efektivita, OFDMA</td></tr>
+</table>
+<p>Generace: 1. gen – 802.11 (2,4 GHz, max 2 Mbit/s), 2. gen – 802.11b (11 Mbit/s), 3. gen – 802.11g (54 Mbit/s), 4. gen – 802.11n (600 Mbit/s), 5. gen – 802.11ac (600 Mbit/s).</p>
+
+<h2>9.5 Prvky Wi-Fi sítě</h2>
+<ul>
+  <li><strong>Access Point (AP)</strong> – centrální bod komunikace.</li>
+  <li><strong>Klientská zařízení</strong> – notebooky, telefony, IoT.</li>
+  <li><strong>Router</strong> – směrování paketů do internetu.</li>
+  <li><strong>Mesh systémy</strong> – více AP pro plynulé pokrytí.</li>
+  <li><strong>Extender (opakovač signálu)</strong> – zesiluje signál Wi-Fi.</li>
+</ul>
+
+<h2>9.6 BSS, SSID, BSSID, ES, DS</h2>
+<ul>
+  <li><strong>BSS (Basic Service Set)</strong> – Jedna Wi-Fi síť obsluhovaná jedním AP.</li>
+  <li><strong>SSID (Service Set Identifier)</strong> – Název Wi-Fi sítě, který vidí uživatelé.</li>
+  <li><strong>BSSID (Basic Service Set Identifier)</strong> – MAC adresa AP identifikující konkrétní síť.</li>
+  <li><strong>ES (Extended Service Set)</strong> – Propojení více AP pro pokrytí větší oblasti (např. v budově).</li>
+  <li><strong>DS (Distribution System)</strong> – Systém propojující jednotlivé AP navzájem a s kabelovou sítí.</li>
+</ul>
+
+<h2>9.7 Možné režimy fungování Wi-Fi Access Pointu, A-C-R-WDS</h2>
+<ul>
+  <li><strong>Access Point (A)</strong> – Standardní režim – AP připojuje zařízení k síti.</li>
+  <li><strong>Client (C)</strong> – AP funguje jako klient k jinému AP.</li>
+  <li><strong>Repeater (R)</strong> – Zesilovač signálu, prodlužuje dosah sítě.</li>
+  <li><strong>Wireless Distribution System (WDS)</strong> – Propojení více AP bez kabelů.</li>
+  <li><strong>Bridge Mode</strong> – Propojuje dvě sítě.</li>
+  <li><strong>Mesh Mode</strong> – Vytváří dynamickou síť s více AP.</li>
+</ul>
+
+<h2>9.8 Postup přihlášení stanice k Wi-Fi síti</h2>
+<ol>
+  <li><strong>Skenování</strong> – Stanice vyhledává dostupné SSID v okolí.</li>
+  <li><strong>Asociace</strong> – Připojení ke konkrétnímu AP (BSSID), rezervace kapacity.</li>
+  <li><strong>Autentifikace</strong> – Ověření uživatele (WPA2, WPA3).</li>
+  <li><strong>Přidělení IP adresy</strong> – Pomocí protokolu DHCP.</li>
+</ol>
+
+<h2>9.9 Metoda přístupu a řešení kolize při komunikaci, autentifikace</h2>
+<ul>
+  <li><strong>CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)</strong>:
+    <ul>
+      <li>Stanice „naslouchá" na kanálu před vysíláním dat.</li>
+      <li>Při detekci obsazeného kanálu čeká s odesláním.</li>
+    </ul>
+  </li>
+  <li><strong>Kolize</strong>: Pokud dojde ke kolizi, stanice čeká náhodně dlouhou dobu (backoff) a opakuje přenos.</li>
+  <li><strong>Autentifikace</strong>: Bezpečnostní protokoly <strong>WPA, WPA2, WPA3</strong> zajišťují šifrování dat a ověření uživatele.</li>
+  <li><strong>EAP (Extensible Authentication Protocol)</strong> – používaný v podnikových sítích.</li>
+  <li><strong>MAC Filtering</strong> – povolení pouze známých MAC adres.</li>
+</ul>
+
+<h2>9.10 L2 rámec pro Wi-Fi vs. kabelové spojení</h2>
+<table>
+  <tr><th>Vlastnost</th><th>Wi-Fi rámec</th><th>Ethernet rámec</th></tr>
+  <tr><td>Identifikace sítě</td><td>Obsahuje SSID a BSSID</td><td>Nepotřebuje SSID, spojení pevné</td></tr>
+  <tr><td>Přenos dat</td><td>Obsahuje management rámec (síla signálu, kvalita)</td><td>Přímé připojení, bez potřeby management dat</td></tr>
+  <tr><td>Stabilita</td><td>Náchylnější na interference</td><td>Stabilnější, robustnější</td></tr>
+  <tr><td>Kolizní doména</td><td>Řeší kolize pomocí CSMA/CA</td><td>CSMA/CD u klasického Ethernetu</td></tr>
 </table>
 
-<h2>Pásma a kanály</h2>
-<div class="two-col">
-  <div class="card"><h3>2.4 GHz</h3><p>13 kanálů (EU). Překrývají se – nepřekrývající: <strong>1, 6, 11</strong>. Ruší Bluetooth, DECT, mikrovlnky. Větší dosah.</p></div>
-  <div class="card"><h3>5 GHz</h3><p>23+ kanálů, nepřekrývají se. Méně rušení, vyšší rychlost, kratší dosah. DFS kanály – sdílení s radary.</p></div>
-</div>
-<div class="box box-amber">
-  Čím nižší frekvence, tím lépe prochází překážkami. 2.4 GHz = větší dosah, 5/6 GHz = větší rychlost.
-</div>
-
-<h2>Modulace signálu</h2>
-<div class="three-col">
-  <div class="box box-purple"><strong>AM</strong> – Amplitudová<br>Mění amplitudu nosné vlny</div>
-  <div class="box box-green"><strong>FM</strong> – Frekvenční<br>Mění frekvenci nosné</div>
-  <div class="box box-amber"><strong>PM</strong> – Fázová<br>Mění fázi; základ OFDM, QAM</div>
-</div>
-
-<h2>Zabezpečení WiFi</h2>
-<table>
-  <tr><th>Standard</th><th>Šifrování</th><th>Stav</th></tr>
-  <tr><td>WEP</td><td>RC4</td><td><span class="badge b-red">Prolomen – nepoužívat!</span></td></tr>
-  <tr><td>WPA</td><td>TKIP/RC4</td><td><span class="badge b-amber">Slabý – přechodový</span></td></tr>
-  <tr><td>WPA2</td><td>AES-CCMP</td><td><span class="badge b-green">Bezpečný (PMKID útok)</span></td></tr>
-  <tr><td>WPA3</td><td>AES-GCMP + SAE</td><td><span class="badge b-green">Nejbezpečnější</span></td></tr>
-</table>
-
-<h2>BSS, SSID, roaming</h2>
-<div class="box box-green">
-  <strong>BSS</strong> = Basic Service Set – jeden AP + klienti<br>
-  <strong>ESS</strong> = Extended – více AP se stejným SSID → roaming<br>
-  <strong>SSID</strong> = název sítě (max 32 znaků)<br>
-  <strong>BSSID</strong> = MAC adresa AP<br>
-  802.11r = fast roaming (rychlé přepojení mezi AP)
-</div>
+<h2>9.11 Jak lze navýšit přenosovou rychlost?</h2>
+<ul>
+  <li>Použití vyššího pásma (5 GHz, 6 GHz Wi-Fi 6E, Wi-Fi 7).</li>
+  <li>Více antén (MIMO technologie, MU-MIMO, OFDMA). Kombinace modulací zajišťuje rychlost.</li>
+  <li>Lepší modulace signálu (QAM 256, QAM 1024, QAM 4096 u Wi-Fi 7). Frekvenční, amplitudová, fázová modulace.</li>
+  <li>Agregace kanálů (channel bonding, až 320 MHz u Wi-Fi 7).</li>
+  <li>Beamforming – směrové vysílání signálu k zařízení.</li>
+  <li>Wi-Fi roaming – plynulé přechody mezi AP v mesh sítích.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../08-ethernet/index.html">← Ethernet</a>

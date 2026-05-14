@@ -23,80 +23,184 @@
   <h1>Internetworking</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>IP = základ internetworkingu</li><li>IPv4 privátní: 10/8, 172.16/12, 192.168/16</li><li>IPv6: 128 bitů, bez NAT, SLAAC</li><li>Směrování: statické vs RIP/OSPF/BGP</li></ul>
-</div>
 
-<h2>Co je internetworking?</h2>
-<div class="box box-purple">
-  Propojení více různých sítí (LAN, WAN) s různými protokoly a infrastrukturami. Internet je největším příkladem. Základ: <strong>protokol IP</strong> zajišťuje jednotný rámec.
-</div>
+<h2>10.1 Význam a důvod</h2>
+<p><strong>Internetworking</strong> znamená <strong>propojení více různých sítí</strong> (například LAN a WAN), často využívajících různé protokoly a infrastruktury.</p>
+<p><strong>Význam:</strong></p>
+<ul>
+  <li>Umožňuje <strong>globální propojení systémů, aplikací a zařízení</strong>.</li>
+  <li><strong>Internet</strong> je největším příkladem internetworkingu.</li>
+  <li><strong>Škálovatelnost</strong> – umožňuje růst sítě bez omezení topologie.</li>
+  <li><strong>Interoperabilita</strong> – propojení různých technologií a výrobců.</li>
+</ul>
+<p><strong>Klíčové technologie:</strong></p>
+<ul>
+  <li><strong>Protokoly (zejména IP)</strong> zajišťují jednotný komunikační rámec.</li>
+</ul>
+<p><strong>Výhody:</strong></p>
+<ul>
+  <li>Sdílení zdrojů (datová centra, cloudové aplikace).</li>
+  <li>Centralizovaná správa sítí.</li>
+  <li>Komunikace napříč geografickými oblastmi.</li>
+</ul>
+<p>S rozvojem lokálních sítí jsme chtěli globalizovat internet. Router má za úkol propojovat sítě, má minimálně 2 porty pro 2 sítě. L3 switch umožňuje pokročilou komunikaci mezi VLANami.</p>
 
-<h2>IPv4 adresace</h2>
+<h2>10.2 Síťový hardware zajišťující funkcionalitu</h2>
 <table>
-  <tr><th>Třída</th><th>Rozsah</th><th>Privátní (RFC 1918)</th></tr>
-  <tr><td>A</td><td>1.0.0.0 – 126.x.x.x</td><td>10.0.0.0/8</td></tr>
-  <tr><td>B</td><td>128.0.0.0 – 191.x.x.x</td><td>172.16.0.0/12</td></tr>
-  <tr><td>C</td><td>192.0.0.0 – 223.x.x.x</td><td>192.168.0.0/16</td></tr>
+  <tr><th>Zařízení</th><th>Funkce</th></tr>
+  <tr><td><strong>Router</strong></td><td>Směruje data mezi různými sítěmi, pracuje na síťové vrstvě (L3), používá IP adresy.</td></tr>
+  <tr><td><strong>Switch</strong></td><td>Propojuje zařízení v rámci jedné LAN sítě, pracuje na linkové vrstvě (L2).</td></tr>
+  <tr><td><strong>Firewall</strong></td><td>Bezpečnostní prvek, filtruje příchozí a odchozí provoz dle pravidel (softwarový/hardwarový).</td></tr>
+  <tr><td><strong>Access Point</strong></td><td>Zajišťuje bezdrátovou komunikaci (Wi-Fi), připojuje bezdrátová zařízení k LAN.</td></tr>
+  <tr><td><strong>Gateway</strong></td><td>Propojuje sítě s různými protokoly (např. IPv4 ↔ IPv6).</td></tr>
 </table>
-<div class="box box-amber">
-  Zvláštní: <code>127.0.0.1</code> = loopback, <code>169.254.x.x</code> = APIPA (bez DHCP), <code>255.255.255.255</code> = broadcast
-</div>
 
-<h2>IPv6</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>Proč IPv6?</h3>
+<h2>10.3 Základní popis IP packetu</h2>
+<p><strong>Struktura IP packetu:</strong></p>
+<ul>
+  <li><strong>IP hlavička</strong>:
     <ul>
-      <li>IPv4 vyčerpány 2011 (~4.3 mld. adres)</li>
-      <li>IPv6 = 128 bitů = 3.4 × 10³⁸ adres</li>
-      <li>Zápis: 8 skupin po 4 hex číslic (<code>2001:db8::1</code>)</li>
+      <li>Zdrojová IP adresa</li>
+      <li>Cílová IP adresa</li>
+      <li>Verze IP (IPv4/IPv6)</li>
+      <li>Délka packetu</li>
+      <li><strong>TTL (Time To Live)</strong> – omezuje počet skoků, aby packet nezacyklil. Každý router sníží TTL o 1; když dosáhne 0, packet je zahozen. Má nastavenou defaultní hodnotu.</li>
     </ul>
-  </div>
-  <div class="card">
-    <h3>Výhody IPv6</h3>
+  </li>
+  <li><strong>Payload</strong>:
     <ul>
-      <li>NAT nepotřeba – každé zařízení má veřejnou IP</li>
-      <li>Auto-konfigurace (SLAAC)</li>
-      <li>Lepší mobilita (stálá IP při cestování)</li>
-      <li>IPsec vestavěný</li>
+      <li>Přenášená data (např. webová stránka, e-mail).</li>
     </ul>
-  </div>
-</div>
+  </li>
+  <li><strong>Fragmentace</strong>:
+    <ul>
+      <li>Rozdělení velkého packetu na menší fragmenty kvůli maximální velikosti sítě.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>NAT – Network Address Translation</h2>
-<div class="box box-green">
-  Router překládá privátní IP:port ↔ veřejná IP:port. Umožňuje sdílet jednu veřejnou IP pro celou LAN.<br>
-  <strong>SNAT</strong> = masquerade (odchozí), <strong>DNAT</strong> = port forwarding (příchozí)
-</div>
+<h2>10.4 Adresace na L3 vrstvě – IPv4 a IPv6</h2>
+<p><strong>IPv4:</strong></p>
+<ul>
+  <li>32bitová adresa ve formátu: 192.168.0.1.</li>
+  <li>Omezený počet adres (cca 4,3 miliardy).</li>
+  <li><strong>Speciální IPv4 adresy:</strong>
+    <ul>
+      <li><strong>Loopback (127.0.0.1 – 127.255.255.255)</strong> – testování vlastního stroje.</li>
+      <li><strong>Broadcast (255.255.255.255)</strong> – zpráva pro všechna zařízení v síti.</li>
+      <li><strong>APIPA (169.254.x.x)</strong> – automatická konfigurace bez DHCP.</li>
+    </ul>
+  </li>
+</ul>
+<p><strong>IPv6:</strong></p>
+<ul>
+  <li>128bitová adresa ve formátu: 2001:0db8:85a3:0000:0000:8a2e:0370:7334.</li>
+  <li>Prakticky nevyčerpatelný adresní prostor.</li>
+</ul>
+<p><strong>Výhody IPv6:</strong></p>
+<ul>
+  <li>Jednodušší automatická konfigurace.</li>
+  <li>Vestavěná podpora bezpečnosti (IPSec).</li>
+  <li>Lepší podpora mobilních zařízení.</li>
+  <li>Není třeba řešit NAT ani port forwarding.</li>
+  <li>Při cestování přes zeměkouli bude mít mobilní zařízení pořád stejnou IP adresu.</li>
+  <li><strong>Typy IPv6 adres:</strong>
+    <ul>
+      <li><strong>Global Unicast</strong> – veřejná adresa směrovatelná na internetu.</li>
+      <li><strong>Link-Local</strong> – automaticky přiřazená adresa pro lokální komunikaci.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Směrování</h2>
-<div class="two-col">
-  <div class="card"><h3>Statické</h3><p>Admin ručně zadává záznamy. ✓ Jednoduché, bezpečné. ✗ Neadaptuje se na výpadky.</p>
-  <pre><code>ip route add 10.0.2.0/24 via 192.168.1.1
-ip route add default via 192.168.1.1</code></pre></div>
-  <div class="card"><h3>Dynamické</h3>
-    <table>
-      <tr><th>Protokol</th><th>Algoritmus</th><th>Použití</th></tr>
-      <tr><td>RIP v2</td><td>Bellman-Ford, max 15 hopů</td><td>Malé sítě</td></tr>
-      <tr><td>OSPF</td><td>Dijkstra (SPF), cost metrika</td><td>Enterprise</td></tr>
-      <tr><td>BGP</td><td>Path-vector, AS-path</td><td>Internet (ISP)</td></tr>
-    </table>
-  </div>
-</div>
-
-<h2>VLAN a TCP vs UDP</h2>
-<div class="box box-purple">
-  <strong>VLAN (802.1Q)</strong> – logické oddělení L2. Trunk port nese více VLAN (tagované), access port jednu.
-</div>
+<h2>10.5 Privátní rozsahy IPv4</h2>
 <table>
-  <tr><th>Vlastnost</th><th>TCP</th><th>UDP</th></tr>
-  <tr><td>Spojovaný</td><td>✅ 3-way handshake</td><td>❌ connectionless</td></tr>
-  <tr><td>Spolehlivost</td><td>✅ ACK, retransmise</td><td>❌ žádná záruka</td></tr>
-  <tr><td>Rychlost</td><td>Pomalejší (overhead)</td><td>✅ Rychlejší</td></tr>
-  <tr><td>Použití</td><td>HTTP, FTP, SSH, SMTP</td><td>DNS, DHCP, VoIP, gaming</td></tr>
+  <tr><th>Třída</th><th>Rozsah</th><th>Použití</th></tr>
+  <tr><td>A</td><td>10.0.0.0 – 10.255.255.255</td><td>Velké sítě</td></tr>
+  <tr><td>B</td><td>172.16.0.0 – 172.31.255.255</td><td>Střední sítě</td></tr>
+  <tr><td>C</td><td>192.168.0.0 – 192.168.255.255</td><td>Malé sítě</td></tr>
 </table>
+<ul>
+  <li><strong>Veřejné adresy</strong> – Routovatelné, musí být jedinečné.</li>
+  <li><strong>Privátní adresy</strong> – Nepoužívají se na internetu, často spolu s NAT.</li>
+</ul>
+<p>Postupně přecházíme na IPv6, protože nemáme dostatek IPv4 adres. Proto máme privátní IP a veřejné IP (NAT).</p>
+
+<h2>10.6 Privátní rozsahy IPv6</h2>
+<table>
+  <tr><th>Typ IPv6 adresy</th><th>Funkce</th></tr>
+  <tr><td><strong>Globální unicast</strong></td><td>Pro komunikaci na internetu, jedinečné adresy.</td></tr>
+  <tr><td><strong>Link-local</strong></td><td>Komunikace mezi zařízeními na stejné lince, bez routeru.</td></tr>
+  <tr><td><strong>Multicast</strong></td><td>Komunikace se skupinou zařízení najednou.</td></tr>
+</table>
+<p>IPv6 <strong>nepoužívá NAT</strong> díky dostatečnému adresnímu prostoru.</p>
+
+<h2>10.7 Směrování základní pojmy</h2>
+<ul>
+  <li><strong>Routing</strong> – Výběr cesty pro packet v síti.</li>
+  <li><strong>Směrovací tabulka</strong> – Obsahuje známé sítě a nejlepší cesty k nim.</li>
+</ul>
+<p><strong>Směrovací metriky:</strong></p>
+<ul>
+  <li>Počet skoků (Hop count).</li>
+  <li>Šířka pásma (Bandwidth).</li>
+  <li>Zpoždění (Latency).</li>
+</ul>
+
+<h3>10.7.1 Směrování statické, popis</h3>
+<table>
+  <tr><th>Výhody</th><th>Nevýhody</th></tr>
+  <tr><td>Stabilní a předvídatelné</td><td>Manuální údržba při změnách sítí</td></tr>
+  <tr><td>Nízké nároky na routery</td><td>Nevhodné pro velké dynamické sítě</td></tr>
+</table>
+<p>Používá se v <strong>malých nebo stabilních sítích</strong>.</p>
+
+<h3>10.7.2 Směrování dynamické, popis</h3>
+<p>Routery se automaticky učí nové cesty pomocí protokolů:</p>
+<table>
+  <tr><th>Protokol</th><th>Charakteristika</th></tr>
+  <tr><td><strong>RIP</strong></td><td>Starší protokol, max 15 skoků, využívá hop count.</td></tr>
+  <tr><td><strong>OSPF</strong></td><td>Používá se ve velkých sítích, nejkratší cesta dle metrik.</td></tr>
+  <tr><td><strong>BGP</strong></td><td>Směrování mezi autonomními systémy na internetu.</td></tr>
+</table>
+
+<h2>10.8 Směrování mezi VLANami</h2>
+<ul>
+  <li><strong>VLAN (Virtual LAN)</strong> – Rozděluje síť na logické části pro bezpečnost a efektivitu.</li>
+  <li><strong>Router-on-a-stick</strong> – Jeden router obsluhuje více VLAN pomocí trunkingu.</li>
+  <li><strong>Multilayer switch</strong> – Kombinuje funkce routeru a switche, směruje mezi VLAN na HW úrovni.</li>
+</ul>
+
+<h2>10.9 Protokoly transportní vrstvy, port</h2>
+<ul>
+  <li><strong>TCP (Transmission Control Protocol)</strong> – spolehlivý přenos, kontrola chyb (např. HTTP, FTP, SSH).</li>
+  <li><strong>UDP (User Datagram Protocol)</strong> – rychlý, ale nespolehlivý přenos (např. VoIP, video streaming).</li>
+  <li><strong>QUIC (Quick UDP Internet Connections)</strong> – moderní protokol, který nahrazuje TCP v některých aplikacích (Google, HTTP/3).</li>
+</ul>
+<p><strong>Porty a jejich využití:</strong></p>
+<ul>
+  <li><strong>HTTP</strong> – 80</li>
+  <li><strong>HTTPS</strong> – 443</li>
+  <li><strong>FTP</strong> – 21</li>
+  <li><strong>SSH</strong> – 22</li>
+  <li><strong>SNMP</strong> – 161 (monitorování sítě)</li>
+</ul>
+<p><strong>Ephemeral Ports (Dočasné porty)</strong></p>
+<ul>
+  <li><strong>Dynamicky přidělované porty klientským aplikacím (49152–65535).</strong></li>
+  <li>Používány např. při komunikaci s webovými servery.</li>
+</ul>
+<p>Port identifikuje konkrétní aplikaci/službu na zařízení. Komunikace probíhá pomocí [ip:port], např. 192.168.1.1:80.</p>
+
+<h2>10.10 Shrnutí</h2>
+<ul>
+  <li>Internetworking propojuje různé sítě a umožňuje globální komunikaci.</li>
+  <li>Klíčovými prvky jsou <strong>routery, switche, firewally, access pointy</strong>.</li>
+  <li>IP packet přenáší data mezi zařízeními, adresace probíhá pomocí IPv4 a IPv6.</li>
+  <li>Směrování může být <strong>statické nebo dynamické (RIP, OSPF, BGP)</strong>.</li>
+  <li>Pro komunikaci mezi VLAN se používají routery nebo multilayer switche.</li>
+  <li>Transportní vrstva používá protokoly <strong>TCP a UDP</strong>.</li>
+  <li>Porty umožňují správné doručení dat aplikacím.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../09-wifi/index.html">← Bezdrátové sítě a WiFi</a>

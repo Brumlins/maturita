@@ -23,52 +23,61 @@
   <h1>Vstupní zařízení počítače</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Membránová vs mechanická vs nůžková klávesnice</li><li>Matice kláves, NKRO, anti-ghosting</li><li>Myš: optická (LED), laserová; DPI, polling rate</li><li>TrackPoint, TouchPad; čtečky OT, EyeTracker, BCI</li></ul>
-</div>
 
-<h2>Klávesnice</h2>
-<div class="box box-purple">
-  Standardní rozložení QWERTY / QWERTZ. Posílá klávesový kód (scan code) → OS → ASCII / Unicode.
-</div>
-<table>
-  <tr><th>Typ</th><th>Princip</th><th>Poznámka</th></tr>
-  <tr><td><strong>Membránová</strong></td><td>Gumová kopule propojuje kontakty na fólii</td><td>Tichá, levná, kratší životnost</td></tr>
-  <tr><td><strong>Mechanická</strong></td><td>Každá klávesa má vlastní mechanický spínač (Cherry MX)</td><td>Přesná odezva, cvaknutí, odolná, dražší</td></tr>
-  <tr><td><strong>Nůžková</strong></td><td>Membránová varianta s křížovým mechanismem</td><td>Nízký zdvih, notebooky</td></tr>
-</table>
-<div class="box box-green">
-  <strong>Matice kláves</strong> – dynamická: klávesy v řádcích a sloupcích. Procesor skenuje průsečíky → souřadnice → scan code.<br>
-  <strong>NKRO</strong> = N-Key Rollover – registruje libovolný počet kláves najednou.<br>
-  <strong>Anti-ghosting</strong> – žádné falešné signály při stisku více kláves.
-</div>
+<h2>19.1 Klávesnice (Keyboard)</h2>
+<p>Zařízení pro vkládání textu a příkazů. Standardní rozložení je <strong>QWERTY</strong> (nebo české <strong>QWERTZ</strong>).</p>
+<h3>Konstrukce kláves</h3>
+<ul>
+  <li><strong>Membránové</strong> (Rubber Dome): Nejběžnější a levné. Pod klávesou je gumová "kopule". Při stisku se protlačí a spojí kontakty na fólii pod ní. Jsou tiché, ale mají měkký stisk a nižší životnost.</li>
+  <li><strong>Mechanické</strong>: Každá klávesa má vlastní samostatný mechanický spínač (např. značka Cherry MX). Jsou odolné, mají přesnou odezvu (cvaknutí), ale jsou dražší a hlučnější.</li>
+  <li><strong>Nůžkové</strong> (Scissor): Varianta membránových kláves v noteboocích. Mají nízký zdvih a stabilní stisk díky křížovému mechanismu.</li>
+</ul>
+<h3>Logika fungování (Matice)</h3>
+<ul>
+  <li><strong>Statická</strong>: Každá klávesa má vlastní vodič (nepraktické, mnoho drátů).</li>
+  <li><strong>Dynamická</strong> (Matice): Klávesy jsou uspořádány do řádků a sloupců. Procesor neustále "skenuje" řádky a sloupce. Pokud stiskneš klávesu, sepneš konkrétní průsečík. Procesor najde souřadnice, převede je na ASCII kód a pošle do PC.</li>
+</ul>
+<h3>Multimediální a herní funkce</h3>
+<ul>
+  <li><strong>Makra</strong>: Programovatelné klávesy pro složité sekvence příkazů.</li>
+  <li><strong>N-Key Rollover</strong> (NKRO): Schopnost klávesnice zaznamenat stisk mnoha kláves najednou (důležité pro hráče).</li>
+  <li><strong>Anti-ghosting</strong>: Zajišťuje, aby při stisku více kláves nedocházelo k falešným signálům.</li>
+</ul>
 
-<h2>Myš</h2>
-<div class="timeline">
-  <div class="tl-item"><div class="tl-year">1963</div><div class="tl-text">Douglas Engelbart – první myš (dřevěná s koly).</div></div>
-  <div class="tl-item"><div class="tl-year">Mech.-optická</div><div class="tl-text">Kulička otáčí dvěma válečky (X a Y), kolečka přerušují světelný paprsek. Zastaralé.</div></div>
-  <div class="tl-item"><div class="tl-year">Optická (LED)</div><div class="tl-text">Kamera snímá povrch, mikroprocesor porovnává snímky a vypočítává pohyb.</div></div>
-  <div class="tl-item"><div class="tl-year">Laserová</div><div class="tl-text">Infračervený laser – přesnější, funguje na skle a kovu.</div></div>
-</div>
-<div class="two-col">
-  <div class="box box-purple"><strong>DPI</strong> – Dots Per Inch: citlivost. Čím vyšší, tím menší pohyb = větší posun kurzoru.</div>
-  <div class="box box-amber"><strong>Polling Rate (Hz)</strong> – jak často myš posílá data (1000 Hz = 1000× za sekundu).</div>
-</div>
+<h2>19.2 Polohovací zařízení (Myši a spol.)</h2>
+<h3>Počítačová myš</h3>
+<p>Vynalezl ji Douglas Engelbart v roce 1963 (původně dřevěná).</p>
+<ol>
+  <li><strong>Mechanicko-optické</strong> (kuličkové): Pogumovaná kulička otáčí dvěma válečky (osa X a Y). Na nich jsou kolečka s otvory, která přerušují světelný paprsek. (Zastaralé).</li>
+  <li><strong>Optické</strong> (LED): Malá kamera vespod snímá povrch osvětlený LED diodou. Procesor porovnává tisíce snímků za sekundu a vypočítává směr pohybu.</li>
+  <li><strong>Laserové</strong>: Místo LED využívají infračervený laser. Jsou přesnější, neviditelné a fungují i na problematických površích (sklo, kov).</li>
+</ol>
+<h3>Parametry myší</h3>
+<ul>
+  <li><strong>DPI</strong> (Dots Per Inch): Citlivost. Čím vyšší DPI, tím menší pohyb rukou stačí k posunu kurzoru přes celou obrazovku.</li>
+  <li><strong>Odezva</strong> (Polling Rate): Udává se v Hz (např. 1000 Hz znamená, že myš posílá data 1000× za sekundu).</li>
+</ul>
 
-<h2>Polohovací alternativy</h2>
-<table>
-  <tr><th>Zařízení</th><th>Princip</th></tr>
-  <tr><td><strong>TrackPoint</strong></td><td>Červený čudlík v klávesnici – tenzometr reaguje na tlak a směr. IBM ThinkPad.</td></tr>
-  <tr><td><strong>TouchPad</strong></td><td>Kapacitní snímač polohy prstu. Notebooky.</td></tr>
-  <tr><td><strong>TrackBall</strong></td><td>"Myš naruby" – kuličkou otáčíš prstem, tělo stojí na místě.</td></tr>
-</table>
+<h2>19.3 Specifická ovládání</h2>
+<ul>
+  <li><strong>TrackPoint</strong>: Červený "čudlík" uprostřed klávesnice. Funguje na principu tenzometru – reaguje na tlak a směr, kterým do něj tlačíš. První byl na <strong>IBM Thinkpadu 700</strong> :3</li>
+  <li><strong>TouchPad</strong>: Snímá polohu prstu.</li>
+  <li><strong>TrackBall</strong>: "Myš naruby". Kuličkou otáčíš prstem nebo dlaní, zatímco tělo zařízení stojí na místě.</li>
+</ul>
 
-<h2>Skenery a biometrika</h2>
-<div class="two-col">
-  <div class="card"><h3>Skenery</h3><p>Stolní (flatbed) – předloha na skle, projíždí osvětlovací rampa + snímač.<br>Čárové kódy – odraz laserového paprsku od pruhů.</p></div>
-  <div class="card"><h3>Biometrická rozhraní</h3><p><strong>Čtečka otisků</strong> – papilární linie.<br><strong>EyeTracker</strong> – sledování pohybu očí.<br><strong>BCI</strong> – Brain-Computer Interface (EEG → ovládání myšlenkou).</p></div>
-</div>
+<h2>19.4 Skenery (Digitalizace obrazu)</h2>
+<p>Převedou 2D fyzickou verzi (papír) do digitální podoby pomocí snímače (převodník světla na elektrické napětí).</p>
+<ul>
+  <li><strong>Stolní</strong> (Flatbed): Předloha leží na skle, pod ním projíždí osvětlovací rampa a snímač.</li>
+  <li><strong>Ruční / Skener čárových kódů</strong>: Používá se v obchodech. Čte odraz laserového paprsku od černých a bílých pruhů kódu.</li>
+</ul>
+
+<h2>19.5 Moderní a biometrická rozhraní</h2>
+<ul>
+  <li><strong>Čtečka otisků prstů</strong>: Snímá unikátní kresbu papilárních linií.</li>
+  <li><strong>EyeTracker</strong>: Kamera sleduje pohyb očí. Používá se pro lidi s handicapem nebo pro analýzu toho, kam se uživatel dívá na webu.</li>
+  <li><strong>BCI</strong> (Brain-Computer Interface): Rozhraní mozek-počítač. Snímá elektrickou aktivitu mozku (EEG) a umožňuje ovládat počítač pouhou myšlenkou.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../18-rozhrani-pocitacu/index.html">← Rozhraní počítačů</a>

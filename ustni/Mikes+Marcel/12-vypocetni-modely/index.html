@@ -23,47 +23,232 @@
   <h1>Výpočetní modely</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Dávkové zpracování, Klient/Server, P2P</li><li>Virtualizace: Typ 1 (bare-metal) vs Typ 2</li><li>Kontejnery (Docker) – sdílejí jádro OS</li><li>Cloud: IaaS/PaaS/SaaS; veřejný/privátní/hybridní</li></ul>
-</div>
 
-<h2>Dávkové zpracování (RJE)</h2>
-<div class="box box-amber">
-  Data jsou sbírána, zpracována jako celek (dávka) bez uživatelského zásahu. Použití: fakturace, finanční výpočty, generování reportů. Výhoda: efektivita CPU, bez nutnosti interakce.
-</div>
+<h2>12.1 Dávkové zpracování RJE (Remote Job Entry)</h2>
+<p>Dávkové zpracování je metoda, kde jsou úkoly shromažďovány a zpracovány jako celek (dávka) v určitém časovém intervalu.</p>
+<ul>
+  <li><strong>Proces dávkového zpracování:</strong>
+    <ul>
+      <li><strong>Shromáždění dat</strong> – data jsou sbírána v určitém období.</li>
+      <li><strong>Zpracování</strong> – dávka je zpracována najednou bez uživatelského zásahu.</li>
+      <li><strong>Výstup</strong> – výsledky jsou generovány po dokončení dávky.</li>
+    </ul>
+  </li>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Fakturace a finanční výpočty.</li>
+      <li>Noční zpracování velkých objemů dat.</li>
+      <li>Superpočítače a vědecké výpočty.</li>
+    </ul>
+  </li>
+  <li>Výhody / nevýhody:
+    <ul>
+      <li>Efektivita při zpracování velkého množství dat.</li>
+      <li>Není vhodné pro interaktivní úlohy.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Klient / Server</h2>
-<div class="two-col">
-  <div class="card"><h3>Klient</h3><p>Iniciuje požadavek, zobrazuje výsledek. Prohlížeč, e-mailový klient, databázová aplikace.</p></div>
-  <div class="card"><h3>Server</h3><p>Čeká na požadavky, zpracovává, vrací odpověď. Apache, MySQL, SMTP server. ✗ SPOF.</p></div>
-</div>
+<h2>12.2 Host / terminál</h2>
+<p>Model, kde centrální <strong>server (host)</strong> poskytuje výpočetní služby a <strong>terminály</strong> fungují pouze jako uživatelská rozhraní.</p>
+<ul>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li><strong>Bankovní systémy</strong> – přístup k databázím přes jednoduché terminály.</li>
+      <li><strong>Zdravotnictví</strong> – nemocniční informační systémy.</li>
+      <li><strong>Call centra</strong> – pracovníci přistupují k centrálním systémům.</li>
+      <li><strong>Školství</strong> – terminály v učebnách propojené s centrálním serverem.</li>
+    </ul>
+  </li>
+  <li><strong>Výhody:</strong>
+    <ul>
+      <li>Centrální správa softwaru a bezpečnosti.</li>
+      <li>Snížení nákladů na koncová zařízení.</li>
+    </ul>
+  </li>
+  <li><strong>Nevýhody:</strong>
+    <ul>
+      <li>Závislost na serveru – výpadek serveru znamená výpadek celé sítě.</li>
+      <li>Omezená flexibilita – uživatelé nemohou instalovat vlastní aplikace.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Peer-to-Peer (P2P)</h2>
-<div class="box box-green">
-  Každý uzel = klient i server. Žádný centrální server. Odolné, škáluje samo. BitTorrent, blockchain, Napster, I2P.
-</div>
+<h2>12.3 Desktop / PC</h2>
+<p>Model, kde uživatelé mají samostatné stolní počítače s plnou výpočetní kapacitou.</p>
+<ul>
+  <li><strong>Hlavní vlastnosti:</strong>
+    <ul>
+      <li><strong>Vysoký výkon</strong> – vhodné pro zpracování textu, grafiku, hry.</li>
+      <li><strong>Flexibilita</strong> – možnost instalace vlastního softwaru.</li>
+      <li><strong>Nízké vstupní náklady</strong> – ideální pro domácnosti a malé podniky.</li>
+    </ul>
+  </li>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Kancelářská práce.</li>
+      <li>Domácí použití, internet, hraní her.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Virtualizace</h2>
-<table>
-  <tr><th>Typ</th><th>Popis</th><th>Příklady</th></tr>
-  <tr><td><span class="badge b-purple">Typ 1</span> bare-metal</td><td>Hypervisor přímo na HW – vyšší výkon</td><td>VMware ESXi, Hyper-V, KVM, Xen</td></tr>
-  <tr><td><span class="badge b-amber">Typ 2</span> hosted</td><td>Hypervisor jako aplikace na OS</td><td>VirtualBox, VMware Workstation</td></tr>
-  <tr><td><span class="badge b-green">Kontejner</span></td><td>Sdílí jádro OS – lehčí než VM, rychlý start</td><td>Docker, Kubernetes</td></tr>
-</table>
+<h2>12.4 Potřeba sdílení – nutnost LAN</h2>
+<ul>
+  <li>Sdílení dat a zdrojů vyžaduje lokální síť (LAN).</li>
+  <li>LAN podporuje počítače v rámci organizace pro efektivnější spolupráci.</li>
+</ul>
 
-<h2>Cloud computing</h2>
-<table>
-  <tr><th>Model</th><th>Co poskytuje</th><th>Zákazník spravuje</th><th>Příklady</th></tr>
-  <tr><td><strong>IaaS</strong></td><td>VM, úložiště, sítě</td><td>OS, runtime, aplikace</td><td>AWS EC2, Azure VM</td></tr>
-  <tr><td><strong>PaaS</strong></td><td>Prostředí pro vývoj</td><td>Jen aplikace a data</td><td>Heroku, Google App Engine</td></tr>
-  <tr><td><strong>SaaS</strong></td><td>Hotová aplikace přes internet</td><td>Nic (jen používá)</td><td>Gmail, Microsoft 365</td></tr>
-</table>
-<div class="three-col">
-  <div class="box box-purple"><strong>Veřejný cloud</strong><br>Sdílená infrastruktura. AWS, Azure, GCP.</div>
-  <div class="box box-amber"><strong>Privátní cloud</strong><br>Vlastní datacentrum. OpenStack, VMware.</div>
-  <div class="box box-green"><strong>Hybridní cloud</strong><br>Kombinace – citlivá data on-premise.</div>
-</div>
+<h2>12.5 File server / Workstation</h2>
+<p>Model, kde různé servery poskytují specifické služby uživatelským stanicím.</p>
+<ul>
+  <li><strong>File server</strong> – centralizované úložiště dat, dostupné více uživatelům.</li>
+  <li><strong>Workstation</strong> – uživatelská stanice pro práci s daty, používané pro náročné úlohy.</li>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Kancelářské prostředí se sdílenými soubory a tiskovými službami.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.6 Klient Server</h2>
+<p>Architektura, kde <strong>klientské aplikace</strong> posílají požadavky <strong>serverovým aplikacím</strong>, které je zpracovávají.</p>
+<p><strong>Hlavní komponenty:</strong></p>
+<ul>
+  <li><strong>Klient</strong> – uživatelské zařízení (PC, mobil), které posílá požadavky.</li>
+  <li><strong>Server</strong> – centrální jednotka spravující data a aplikace.</li>
+</ul>
+<ul>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Webové aplikace, databázové systémy, podnikové aplikace.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.7 Peer-to-peer (P2P)</h2>
+<p>Každé zařízení v síti funguje jako <strong>klient i server</strong>, sdílí zdroje přímo bez centrálního serveru.</p>
+<p><strong>Charakteristiky:</strong></p>
+<ul>
+  <li><strong>Decentralizace</strong> – žádný centrální bod.</li>
+  <li><strong>Flexibilita</strong> – snadné přidávání a odebírání zařízení.</li>
+  <li><strong>Sdílení zdrojů</strong> – soubory, výpočetní výkon.</li>
+</ul>
+<ul>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Sdílení souborů (např. BitTorrent).</li>
+      <li>Blockchain technologie.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.8 Desktop / Network-centric computing</h2>
+<ul>
+  <li><strong>Desktop computing</strong> – všechny aplikace a data jsou na lokálním PC.</li>
+  <li><strong>Network-centric computing</strong> – aplikace a data jsou umístěny na serveru.</li>
+</ul>
+
+<h2>12.9 Tenký / tlustý klient</h2>
+<ul>
+  <li><strong>Tenký klient</strong> – většina výpočtů probíhá na serveru.
+    <ul>
+      <li><strong>Příklady:</strong> Citrix, Windows Remote Desktop.</li>
+    </ul>
+  </li>
+  <li><strong>Tlustý klient</strong> – výpočty probíhají lokálně, ale využívá se přístup k síťovým zdrojům.</li>
+</ul>
+
+<h2>12.10 Webové aplikace a jejich vývoj včetně Rich Internet Applications (RIA)</h2>
+<ul>
+  <li><strong>Webové aplikace</strong> – běží ve webovém prohlížeči (např. Gmail, Google Docs).</li>
+  <li><strong>RIA (Rich Internet Applications)</strong> – webové aplikace s interaktivitou blízkou desktopovým aplikacím (např. Adobe Flash, JavaFX).</li>
+</ul>
+
+<h2>12.11 Streaming aplikací</h2>
+<ul>
+  <li>Aplikace se spouštějí na vzdáleném serveru a streamují se na klienta.</li>
+  <li><strong>Příklad:</strong> Google Stadia, Nvidia GeForce Now.</li>
+</ul>
+
+<h2>12.12 Server-based computing</h2>
+<ul>
+  <li>Výpočty probíhají na centrálním serveru.</li>
+  <li>Klienti zobrazují pouze výstup.</li>
+  <li>Použití v terminálových službách (RDP, Citrix).</li>
+</ul>
+
+<h2>12.13 Cloud computing</h2>
+<ul>
+  <li>Výpočetní zdroje poskytované na vyžádání přes internet.</li>
+  <li><strong>Modely nasazení:</strong>
+    <ul>
+      <li>Veřejný cloud – služby poskytované třetí stranou (AWS, Google Cloud).</li>
+      <li>Privátní cloud – provozován interně organizací.</li>
+      <li>Hybridní cloud – kombinace veřejného a privátního cloudu.</li>
+    </ul>
+  </li>
+  <li><strong>Výhody:</strong>
+    <ul>
+      <li>Snížení nákladů na hardware.</li>
+      <li>Možnost škálování výkonu dle potřeby.</li>
+    </ul>
+  </li>
+  <li><strong>Nevýhody:</strong>
+    <ul>
+      <li>Závislost na internetovém připojení.</li>
+      <li>Bezpečnostní rizika spojená s ukládáním dat u poskytovatele.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.14 Virtualizace a hypervizor</h2>
+<p>Virtualizace umožňuje běh více operačních systémů na jednom fyzickém stroji.</p>
+<ul>
+  <li><strong>Typy hypervizorů:</strong>
+    <ul>
+      <li><strong>Type 1 (bare-metal)</strong> – běží přímo na hardwaru (např. VMware ESXi, Microsoft Hyper-V).</li>
+      <li><strong>Type 2 (hostovaný)</strong> – běží uvnitř operačního systému (např. VirtualBox, VMware Workstation).</li>
+    </ul>
+  </li>
+  <li><strong>Použití:</strong>
+    <ul>
+      <li>Datová centra.</li>
+      <li>Testovací a vývojová prostředí.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.15 IaaS, SaaS, PaaS</h2>
+<ul>
+  <li><strong>IaaS (Infrastructure as a Service)</strong> – Hardware, který máš na starost.
+    <ul>
+      <li>Poskytuje virtuální servery, úložiště, sítě přes internet.</li>
+      <li>Příklad: AWS, Azure, Google Cloud.</li>
+    </ul>
+  </li>
+  <li><strong>PaaS (Platform as a Service)</strong> – Hardware managuje firma, ty jen věci na něm.
+    <ul>
+      <li>Nabízí vývojové prostředí pro aplikace bez správy infrastruktury.</li>
+      <li>Příklad: Heroku, Google App Engine.</li>
+    </ul>
+  </li>
+  <li><strong>SaaS (Software as a Service)</strong> – Firma managuje vše, ty to jen používáš.
+    <ul>
+      <li>Software poskytovaný jako služba přes internet.</li>
+      <li>Příklad: Google Docs, Microsoft Office 365.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>12.16 Shrnutí klíčových bodů</h2>
+<ul>
+  <li><strong>Výpočetní modely</strong> určují, jak jsou spravovány výpočetní zdroje.</li>
+  <li><strong>Dávkové zpracování</strong> je vhodné pro hromadné úlohy bez interakce uživatele.</li>
+  <li><strong>Host/terminál</strong> model centralizuje výpočetní výkon.</li>
+  <li><strong>Klient/server</strong> je nejběžnější model podnikových aplikací.</li>
+  <li><strong>P2P</strong> umožňuje decentralizovanou distribuci zdrojů.</li>
+  <li><strong>Cloud computing</strong> poskytuje IT služby přes internet.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../11-tcpip-protokoly/index.html">← Základní TCP/IP protokoly</a>

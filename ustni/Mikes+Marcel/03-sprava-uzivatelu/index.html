@@ -23,77 +23,96 @@
   <h1>Správa uživatelů</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>root (UID 0), systémoví, běžní uživatelé</li><li>/etc/passwd, /etc/shadow, /etc/group</li><li>useradd, usermod, userdel, passwd, groupadd</li><li>chmod, chown, SUID/SGID/Sticky, ACL (setfacl)</li></ul>
-</div>
 
-<h2>Typy uživatelů v Linuxu</h2>
-<div class="three-col">
-  <div class="card">
-    <h3>root (UID 0)</h3>
-    <p>Superuživatel – neomezená práva. <kbd>sudo -i</kbd> nebo <kbd>su -</kbd></p>
-  </div>
-  <div class="card">
-    <h3>Systémoví (UID 1–999)</h3>
-    <p>Spouštějí služby (www-data, mysql). Bez domovského adresáře a shellu.</p>
-  </div>
-  <div class="card">
-    <h3>Běžní uživatelé (1000+)</h3>
-    <p>Omezená práva – jen ke svým souborům a nastavením.</p>
-  </div>
-</div>
+<h2>3.1 Význam</h2>
+<p>Správa uživatelů je <strong>zásadní pro bezpečnost, organizaci a řízení přístupu v operačních systémech</strong>. Původně byl jen 1 uživatel, 1 proces — když pustíme více uživatelů, musíme je řídit (kdo může zasahovat do souborů atd.).</p>
+<p><strong>Hlavní funkce:</strong></p>
+<ul>
+  <li>Přidělování oprávnění a správa přístupu k souborům a službám.</li>
+  <li>Zajištění, že každý uživatel má přístup pouze ke svým zdrojům.</li>
+  <li>Zvýšení bezpečnosti systému.</li>
+  <li>Možnost sledování činností jednotlivých uživatelů pomocí logování.</li>
+</ul>
 
-<h2>Klíčové soubory</h2>
-<table>
-  <tr><th>Soubor</th><th>Obsah (formát)</th></tr>
-  <tr><td><code>/etc/passwd</code></td><td>jméno:x:UID:GID:GECOS:home:shell</td></tr>
-  <tr><td><code>/etc/shadow</code></td><td>hashovaná hesla + expirace (jen root čte)</td></tr>
-  <tr><td><code>/etc/group</code></td><td>jméno:x:GID:členové</td></tr>
-  <tr><td><code>/etc/sudoers</code></td><td>kdo smí volat sudo a pro jaké příkazy</td></tr>
-</table>
+<h2>3.2 Typy uživatelů v Linuxu</h2>
+<ul>
+  <li><strong>Root (superuživatel):</strong> Má neomezený přístup k celému systému a může provádět jakékoliv změny.</li>
+  <li><strong>Systémoví uživatelé:</strong> Používáni pro běh specifických služeb (např. Apache, MySQL).</li>
+  <li><strong>Běžní uživatelé:</strong> Mají omezená práva, přístup pouze ke svým souborům a nastavením.</li>
+  <li><strong>Hosté:</strong> Dočasní uživatelé s velmi omezenými oprávněními.</li>
+  <li><strong>Hostovaní uživatelé</strong> – přístup na PC pomocí SSH nebo FTP.</li>
+</ul>
 
-<h2>Správa uživatelů – příkazy</h2>
-<pre><code># Vytvoření / mazání
-useradd -m -s /bin/bash -G sudo jan    # -m = domovský adresář
-passwd jan                              # nastavit heslo
-userdel -r jan                          # -r = smaž i domov
+<h2>3.3 Skupiny uživatelů</h2>
+<p><strong>Skupiny</strong> umožňují <strong>snadnější správu oprávnění</strong> tím, že se místo jednotlivých uživatelů <strong>přiřazují práva celé skupině</strong>.</p>
+<ul>
+  <li>Sdílený přístup k souborům a službám.</li>
+  <li>Týmové projekty, kde skupina vývojářů má přístup k určité složce.</li>
+  <li>Omezení přístupu na základě pracovního zařazení.</li>
+</ul>
+<p>Typy skupin: <strong>admin, user, host</strong>. Omezování přístupu, spuštění programů a ovládání tiskáren atd.</p>
 
-# Úprava
-usermod -aG docker jan      # přidat do skupiny
-usermod -L jan              # zamknout účet
-usermod -U jan              # odemknout
+<h3>3.3.1 Skupiny ve Windows</h3>
+<ul>
+  <li><strong>Lokální, doménové, administrátor.</strong></li>
+  <li><strong>Windows Domain Group Policy</strong> – nástroj, umožňující centralizovanou správu uživatelských účtů.</li>
+</ul>
 
-# Skupiny
-groupadd vyvojari
-gpasswd -a jan vyvojari     # přidat uživatele do skupiny
-gpasswd -d jan vyvojari     # odebrat
+<h2>3.4 Kde jsou informace o uživatelích uloženy v Linuxu</h2>
+<ul>
+  <li><kbd>/etc/passwd</kbd> – textový soubor v Unixu; informace o uživatelských účtech.</li>
+  <li><kbd>/etc/groups</kbd> – textový soubor v Unixu; informace o skupinách uživatelů.</li>
+  <li><kbd>/etc/shadow</kbd> – Ukládá hesla v zašifrované formě.</li>
+</ul>
+<p>Ve Windows jsou speciální databáze (Registry). V Linuxu jsou vše v /etc/.</p>
 
-# Přepnutí
-su - jan                    # přepnout na jana
-sudo -u jan příkaz          # spustit jako jan</code></pre>
+<h2>3.5 Práva uživatelů a skupin k souborům a složkám</h2>
+<p><strong>Základní práva:</strong></p>
+<ul>
+  <li><strong>r (read)</strong> – Čtení souboru nebo seznamu složek.</li>
+  <li><strong>w (write)</strong> – Zápis do souboru nebo modifikace složky.</li>
+  <li><strong>x (execute)</strong> – Spuštění souboru nebo přístup ke složce.</li>
+</ul>
+<p>V Linuxu rozlišujeme vlastníky k objektu a všichni ostatní. Ve Windows si ke každému uživateli nastavit jak chcete. Linux zavedl rozšířená práva (ACL) — Windows to měl od začátku.</p>
 
-<h2>Oprávnění (chmod/chown)</h2>
-<div class="box box-purple">
-  <code>ls -l</code> → <code>-rwxr-xr-- jan users 1234 soubor.txt</code><br>
-  <strong>r</strong>=4 čtení, <strong>w</strong>=2 zápis, <strong>x</strong>=1 spuštění<br>
-  Skupiny: vlastník | skupina | ostatní
-</div>
-<pre><code>chmod 755 skript.sh         # rwxr-xr-x
-chmod 644 soubor.txt        # rw-r--r--
-chmod u+x,go-w soubor.txt  # symbolicky
-chown jan:users soubor.txt  # změna vlastníka</code></pre>
+<p><strong>Rozšířená práva:</strong></p>
+<ul>
+  <li><strong>SUID</strong> – Program se spustí s oprávněními vlastníka souboru.</li>
+  <li><strong>SGID</strong> – Program se spustí s oprávněními skupiny.</li>
+  <li><strong>Sticky bit</strong> – Pouze vlastník nebo root může soubory mazat.</li>
+</ul>
 
-<h2>Speciální bity a ACL</h2>
-<table>
-  <tr><th>Bit</th><th>Oktal</th><th>Efekt na souboru</th><th>Efekt na adresáři</th></tr>
-  <tr><td>SUID</td><td>4000</td><td>Spouští se jako vlastník (passwd, sudo)</td><td>–</td></tr>
-  <tr><td>SGID</td><td>2000</td><td>Spouští se jako skupina</td><td>Nové soubory dědí skupinu</td></tr>
-  <tr><td>Sticky</td><td>1000</td><td>–</td><td>Mazat může jen vlastník (/tmp)</td></tr>
-</table>
-<pre><code>getfacl soubor.txt                 # zobraz ACL
-setfacl -m u:jana:rw soubor.txt    # jana: rw
-setfacl -b soubor.txt              # smaž vše ACL</code></pre>
+<p><strong>Nastavení a změna práv:</strong></p>
+<ul>
+  <li><strong>Symbolická forma:</strong> <kbd>chmod u+r file.txt</kbd> (přidání práva čtení pro uživatele).</li>
+  <li><strong>Číselná forma:</strong> <kbd>chmod 755 file.txt</kbd> (uživatel má plná práva, skupina a ostatní mají pouze čtení a spouštění).</li>
+  <li><strong>Změna vlastníka:</strong> <kbd>chown user:group file.txt</kbd></li>
+  <li><strong>Změna skupiny:</strong> <kbd>chgrp groupname file.txt</kbd></li>
+</ul>
+
+<h2>3.6 Rozšířený systém práv (ACL – access control lists)</h2>
+<p><strong>ACL</strong> umožňuje <strong>flexibilnější správu práv nad rámec základního systému RWX</strong>.</p>
+<ul>
+  <li><strong>Zobrazení ACL:</strong> <kbd>getfacl filename</kbd></li>
+  <li><strong>Nastavení ACL:</strong> <kbd>setfacl -m u:username:rwx filename</kbd></li>
+  <li><strong>Odebrání ACL:</strong> <kbd>setfacl -x u:username filename</kbd></li>
+  <li><strong>Resetování ACL:</strong> <kbd>setfacl -b filename</kbd></li>
+</ul>
+
+<h2>3.7 Globální uživatelé a skupiny (centrální správa)</h2>
+<p>Správce neobchází počítače — existuje doménový počítač/server, který má svoji databázi. Vytváří se počítače (účty), jak je vytvoří (účet), jen připojí a hotovo. Na jakémkoliv počítači jakýkoliv user a každý má svůj účet, který je ovladatelný z hlavního serveru.</p>
+<ul>
+  <li><strong>LDAP (Lightweight Directory Access Protocol)</strong> – používaný pro centrální správu uživatelů a skupin.</li>
+  <li><strong>Windows Active Directory (AD):</strong>
+    <ul>
+      <li>Systém pro správu uživatelů a skupin v podnikových sítích.</li>
+      <li>Spravuje autentizaci a autorizaci.</li>
+      <li>Umožňuje jednotné přihlášení k síťovým službám.</li>
+      <li>Speciální utilita – join to domain.</li>
+    </ul>
+  </li>
+  <li><strong>Kerberos</strong> – protokol pro ověřování uživatelů v síti.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../02-souborove-systemy/index.html">← Souborové systémy</a>

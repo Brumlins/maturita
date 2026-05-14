@@ -23,83 +23,99 @@
   <h1>Služby</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Daemon = program na pozadí</li><li>systemctl start/stop/enable/disable/status</li><li>Unit soubory: [Unit], [Service], [Install]</li><li>crontab – minuta hodina den měsíc den_týdne</li></ul>
-</div>
 
-<h2>Co je služba?</h2>
-<div class="box box-green">
-  <strong>Služba (daemon)</strong> = program běžící na pozadí bez interakce s uživatelem. Spouštěna automaticky při startu OS. Zajišťuje funkce sítě, databáze, tisku, bezpečnosti atd.
-</div>
+<h2>5.1 Význam</h2>
+<p>Služba je <strong>speciální typ programu</strong>, který <strong>běží na pozadí operačního systému bez přímé interakce s uživatelem</strong>. Služby mohou být automaticky spouštěny při startu systému a <strong>zajišťují důležité funkce</strong>, jako je <strong>správa sítí, databází nebo zabezpečení</strong>. Nabízejí určité funkce nebo zdroje nezávisle na konkrétním uživateli (fungují i bez přihlášení uživatele).</p>
 
-<h2>systemd – správa služeb</h2>
-<div class="box box-purple">
-  <strong>systemd</strong> = moderní init systém Linuxu (PID 1). Nahradil SysV init. Paralelní start, závislosti, žurnálování.
-</div>
-<pre><code># Ovládání
-systemctl start   nginx
-systemctl stop    nginx
-systemctl restart nginx
-systemctl reload  nginx       # reload konfigurace bez restartu
-systemctl status  nginx       # stav + posledních pár řádků logu
+<h3>5.1.1 Hlavní funkce služeb</h3>
+<ul>
+  <li>Běží na pozadí operačního systému.</li>
+  <li>Dají se spouštět automaticky při startu OS.</li>
+  <li>Poskytují klíčové funkce pro chod systému (například tisková služba, ovladače).</li>
+</ul>
 
-# Autostart při bootu
-systemctl enable  nginx
-systemctl disable nginx
-systemctl mask    nginx       # zablokuj (nelze spustit)
+<h2>5.2 Ovládání služeb – zastavení, spuštění, povolení a zakázání</h2>
+<p><strong>Systemctl</strong> je centrální <strong>nástroj pro správu služeb a jejich stavu</strong> pro Linux systémy používající <strong>systemd</strong>. Pomocí něj můžeme <strong>kontrolovat stav služby, její nastavení a měnit chování</strong>.</p>
 
-# Přehled
-systemctl list-units --type=service --state=running
-systemctl list-unit-files --type=service</code></pre>
+<p><strong>Správa služeb v Linuxu (systemd):</strong></p>
+<ul>
+  <li><strong>Zastavení služby:</strong> <kbd>systemctl stop [název_služby]</kbd></li>
+  <li><strong>Spuštění služby:</strong> <kbd>systemctl start [název_služby]</kbd></li>
+  <li><strong>Restart služby:</strong> <kbd>systemctl restart [název_služby]</kbd></li>
+  <li><strong>Znovunačtení:</strong> <kbd>systemctl reload [název_služby]</kbd></li>
+  <li><strong>Kontrola stavu služby:</strong> <kbd>systemctl status [název_služby]</kbd></li>
+  <li><strong>Povolení služby při startu:</strong> <kbd>systemctl enable [název_služby]</kbd></li>
+  <li><strong>Zakázání služby při startu:</strong> <kbd>systemctl disable [název_služby]</kbd></li>
+  <li><strong>Seznam aktivních služeb:</strong> <kbd>systemctl list-units --type=service</kbd></li>
+</ul>
 
-<h2>Unit soubor (.service)</h2>
-<pre><code># /etc/systemd/system/mojesluzba.service
-[Unit]
-Description=Moje vlastní služba
-After=network.target
+<p><strong>Správa služeb ve Windows (Services.msc a příkazový řádek):</strong></p>
+<ul>
+  <li><strong>Spuštění služby:</strong> <kbd>sc start [název_služby]</kbd></li>
+  <li><strong>Zastavení služby:</strong> <kbd>sc stop [název_služby]</kbd></li>
+  <li><strong>Kontrola stavu služby:</strong> <kbd>sc query [název_služby]</kbd></li>
+  <li><strong>Povolení služby při startu:</strong> <kbd>sc config [název_služby] start= auto</kbd></li>
+  <li><strong>Zakázání služby při startu:</strong> <kbd>sc config [název_služby] start= disabled</kbd></li>
+</ul>
 
-[Service]
-Type=simple
-User=www-data
-WorkingDirectory=/opt/app
-ExecStart=/opt/app/server
-Restart=always
-RestartSec=5
+<h2>5.3 Příklady služeb běžících v PC</h2>
+<p><strong>Služby na serveru:</strong></p>
+<ul>
+  <li><strong>Webový server:</strong> Apache, Nginx.</li>
+  <li><strong>Databázový server:</strong> MySQL – správa dat pro aplikace.</li>
+  <li><strong>Síťové služby:</strong> SSH (sshd) – vzdálená správa serveru.</li>
+  <li><strong>Monitoring:</strong> Nagios, Prometheus – sledují stav systému.</li>
+</ul>
+<p><strong>Služby na desktopovém systému (linux):</strong></p>
+<ul>
+  <li><strong>Tiskové služby:</strong> CUPS – správa tiskových úloh. (Windows: Printing Service)</li>
+  <li><strong>Síťové služby:</strong> NetworkManager – správa síťových připojení.</li>
+  <li><strong>Zabezpečení:</strong> Firewalld, uwf – správa firewallu.</li>
+  <li>Sdílení: Samba, NFS.</li>
+</ul>
 
-[Install]
-WantedBy=multi-user.target</code></pre>
-<pre><code>systemctl daemon-reload          # načti nové unit soubory
-systemctl enable --now mojesluzba</code></pre>
+<h2>5.4 Plánovač úloh v Linuxu</h2>
+<p><strong>CRON</strong> je <strong>plánovací nástroj v Linuxu</strong>, který <strong>umožňuje automatické spouštění úloh ve specifických časových intervalech</strong>.</p>
+<ul>
+  <li><strong>Uživatelský cron:</strong> Každý uživatel může naplánovat úlohy (např. zálohování dat).</li>
+  <li><strong>Administratorský cron:</strong> Spravuje systémové úlohy (např. aktualizace, čištění logů).</li>
+</ul>
+<p><strong>Příklady zápisu do crontabu:</strong></p>
+<p><kbd>* * * * * command</kbd> = Min (0-59) | H (0-23) | Dm (month 1-31) | M (1-12) | Dw (week 1-7)</p>
+<ul>
+  <li>Denní záloha ve 22:00: <kbd>0 22 * * * /usr/bin/backup.sh</kbd></li>
+  <li>Aktualizace každé pondělí ve 3:00 (Debian): <kbd>0 3 * * 1 apt update -y &amp;&amp; apt upgrade -y</kbd></li>
+  <li>Čištění logů každou neděli ve 2:00: <kbd>0 2 * * 7 /usr/bin/logrotate</kbd></li>
+</ul>
+<p><strong>Plánování úloh ve Windows (Task Scheduler):</strong></p>
+<ul>
+  <li>Umožňuje nastavit úlohy na základě času, událostí nebo podmínek.</li>
+  <li>Lze použít grafické rozhraní nebo příkazový řádek.</li>
+</ul>
 
-<h2>Logy – journald</h2>
-<pre><code>journalctl -u nginx              # logy konkrétní služby
-journalctl -f                    # live sledování (follow)
-journalctl -n 50                 # posledních 50 řádků
-journalctl --since "1 hour ago"
-journalctl -p err                # pouze chyby</code></pre>
+<h2>5.5 Instalace softwaru v Linuxu</h2>
+<p>Instalace softwaru v Linuxu <strong>probíhá přes balíčkovací systémy</strong>, které <strong>spravují závislosti a zajišťují snadnou instalaci, aktualizaci a odstranění programů</strong>.</p>
+<p><strong>Nejčastější balíčkovací systémy:</strong></p>
+<table>
+  <tr><th>Distribuce</th><th>Balíčkovací systém</th><th>Příkaz</th></tr>
+  <tr><td>Debian/Ubuntu</td><td>APT</td><td><kbd>sudo apt install [balíček]</kbd></td></tr>
+  <tr><td>Fedora</td><td>DNF</td><td><kbd>sudo dnf install [balíček]</kbd></td></tr>
+</table>
+<p><strong>Další užitečné příkazy:</strong></p>
+<ul>
+  <li><strong>Aktualizace repozitářů:</strong> <kbd>sudo apt update</kbd></li>
+  <li><strong>Aktualizace nainstalovaného softwaru:</strong> <kbd>sudo apt upgrade</kbd></li>
+  <li><strong>Odstranění programu:</strong> <kbd>sudo apt remove [balíček]</kbd></li>
+</ul>
 
-<h2>CRON – plánování úloh</h2>
-<div class="box box-amber">
-  Crontab syntaxe: <code>minuta hodina den_měsíce měsíc den_týdne příkaz</code>
-</div>
-<pre><code>crontab -e              # edituj crontab aktuálního uživatele
-crontab -l              # zobraz
-
-# Příklady
-0 2 * * *   /backup.sh          # každý den ve 2:00
-*/5 * * * * /check.sh           # každých 5 minut
-0 2 * * 0   /weekly.sh          # každou neděli ve 2:00
-0 2 1 * *   /monthly.sh         # 1. v měsíci ve 2:00</code></pre>
-
-<h2>Správa balíčků – apt</h2>
-<pre><code>apt update                  # aktualizuj seznam balíčků
-apt upgrade                 # aktualizuj nainstalované
-apt install nginx           # instaluj
-apt remove nginx            # odinstaluj (zachová konfig)
-apt purge  nginx            # odinstaluj + smaž konfig
-apt autoremove              # odstraň nepotřebné závislosti
-apt search php              # hledání balíčků</code></pre>
+<h2>5.6 Linux vs Windows klíčové rozdíly</h2>
+<table>
+  <tr><th>Funkce</th><th>Linux (systemd)</th><th>Windows</th></tr>
+  <tr><td>Správa služeb</td><td>systemctl</td><td>services.msc</td></tr>
+  <tr><td>Automatizace úloh</td><td>CRON</td><td>Task Scheduler</td></tr>
+  <tr><td>Instalace softwaru</td><td>apt install</td><td>Windows Installer</td></tr>
+  <tr><td>Konfigurace</td><td>/etc</td><td>Registry</td></tr>
+</table>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../04-sprava-procesu/index.html">← Správa procesů</a>

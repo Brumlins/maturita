@@ -23,56 +23,69 @@
   <h1>Mechanické paměti</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>HDD: plotny, hlavy, cylindr, sektor, cluster</li><li>PATA vs SATA vs SAS/SCSI; DMA</li><li>Optika: pity a landy, laser odraz</li><li>CD (780nm) vs DVD (650nm) vs Blu-ray (405nm)</li></ul>
-</div>
 
-<h2>HDD – Hard Disk Drive</h2>
-<div class="box box-purple">
-  Magnetické paměťové zařízení s přímým přístupem. Data se ukládají pomocí magnetické indukce na rotující plotny.
-</div>
+<h2>15.1 Pevné disky (HDD – Hard Disk Drive)</h2>
+<p>HDD je <strong>magnetické paměťové zařízení</strong> s přímým přístupem. Data se ukládají pomocí magnetické indukce.</p>
+<h3>Konstrukce a princip</h3>
+<ul>
+  <li><strong>Plotny</strong>: Kotouče s magnetickou vrstvou, které rotují vysokou rychlostí.</li>
+  <li><strong>Čtecí/zápisové hlavy</strong>: "Létají" na tenké vrstvě vzduchu, nanometry nad povrchem ploten.</li>
+  <li><strong>Parkování</strong>: Bezpečnostní proces, kdy se hlavy při vypnutí přesunou mimo plotny, aby nedošlo k poškození povrchu (tzv. "head crash").</li>
+  <li><strong>Geometrie</strong>:
+    <ul>
+      <li><strong>Stopa</strong> (Track): Soustředná kružnice na jedné straně plotny.</li>
+      <li><strong>Cylindr</strong> (Válec): Soubor všech stop se stejným poloměrem nad sebou přes všechny plotny.</li>
+      <li><strong>Sektor</strong>: Nejmenší fyzická část stopy (obvykle 512 B nebo 4 KB).</li>
+      <li><strong>Cluster</strong> (Sektorová skupina): Nejmenší jednotka, kterou <strong>OS</strong> dokáže adresovat (skládá se z jednoho nebo více sektorů).</li>
+    </ul>
+  </li>
+</ul>
+<h3>Rozhraní (připojení k desce)</h3>
+<ul>
+  <li><strong>PATA</strong> (IDE): Starší, paralelní rozhraní s širokými kabely (max 133 MB/s).</li>
+  <li><strong>SATA</strong>: Moderní sériové rozhraní (SATA I/II/III). Verze III má rychlost až 6 Gb/s.</li>
+  <li><strong>SCSI / SAS</strong>: Používané hlavně v serverech pro vyšší spolehlivost a rychlost.</li>
+  <li><strong>DMA</strong>: Technologie umožňující disku posílat data přímo do paměti RAM bez zatěžování procesoru.</li>
+</ul>
 
-<h2>Konstrukce HDD</h2>
-<table>
-  <tr><th>Část</th><th>Popis</th></tr>
-  <tr><td><strong>Plotny</strong></td><td>Kotouče s magnetickou vrstvou, rotují vysokou rychlostí</td></tr>
-  <tr><td><strong>Čtecí/zápisové hlavy</strong></td><td>"Létají" nanometry nad povrchem ploten na vzduchové polštáři</td></tr>
-  <tr><td><strong>Parkování</strong></td><td>Bezpečnostní přesun hlav mimo plotny při vypnutí (head crash = zničení dat)</td></tr>
-  <tr><td><strong>Stopa (Track)</strong></td><td>Soustředná kružnice na jedné straně plotny</td></tr>
-  <tr><td><strong>Cylindr</strong></td><td>Soubor všech stop se stejným poloměrem přes všechny plotny</td></tr>
-  <tr><td><strong>Sektor</strong></td><td>Nejmenší fyzická část stopy (obvykle 512 B nebo 4 KB)</td></tr>
-  <tr><td><strong>Cluster</strong></td><td>Nejmenší jednotka adresovatelná OS (1+ sektorů)</td></tr>
-</table>
-
-<h2>Rozhraní HDD</h2>
-<table>
-  <tr><th>Rozhraní</th><th>Max rychlost</th><th>Poznámka</th></tr>
-  <tr><td>PATA (IDE)</td><td>133 MB/s</td><td>Starý, paralelní, široké kabely</td></tr>
-  <tr><td>SATA I/II/III</td><td>6 Gb/s</td><td>Moderní sériové, úzký kabel</td></tr>
-  <tr><td>SCSI / SAS</td><td>12 Gb/s+</td><td>Servery – vyšší spolehlivost a rychlost</td></tr>
-</table>
-<div class="box box-green">
-  <strong>DMA</strong> (Direct Memory Access) – disk posílá data přímo do RAM bez zatěžování CPU.
-</div>
-
-<h2>Optická média</h2>
-<div class="box box-amber">
-  Princip: laser dopadá na disk. Na <strong>pitu</strong> (důlek) se světlo rozptýlí = binární změna. Na <strong>landu</strong> (plošce) se odrazí = žádná změna.
-</div>
+<h2>15.2 Optická média (CD, DVD, Blu-ray)</h2>
+<p>Fungují na principu <strong>odrazu laserového paprsku</strong> od záznamové vrstvy.</p>
+<h3>Základní princip</h3>
+<p>Data jsou uložena <strong>ve spirále</strong> (od středu k okraji).</p>
+<ul>
+  <li><strong>Pity</strong> (Důlky): Prohlubně v záznamové vrstvě (reprezentují binární změnu).</li>
+  <li><strong>Landy</strong> (Plosky): Rovné plochy mezi pity.</li>
+  <li><strong>Čtení</strong>: Laser dopadá na disk. Pokud zasáhne pit, světlo se rozptýlí; pokud land, odrazí se zpět do senzoru.</li>
+</ul>
+<h3>Rozdíly mezi médii</h3>
 <table>
   <tr><th>Médium</th><th>Kapacita</th><th>Laser</th><th>Poznámka</th></tr>
-  <tr><td>CD</td><td>650–700 MB</td><td>Infračervený (780 nm)</td><td>Hudba, starý SW</td></tr>
-  <tr><td>DVD</td><td>4.7 GB (1 vrstva)</td><td>Červený (650 nm)</td><td>Filmy, data; až 15.9 GB (více vrstev)</td></tr>
-  <tr><td>Blu-ray</td><td>25–50 GB</td><td>Modrý (405 nm)</td><td>Nejkratší vlna = nejvyšší hustota dat</td></tr>
+  <tr><td><strong>CD</strong></td><td>650–700 MB</td><td>Infračervený (780 nm)</td><td>Standard pro hudbu a starší SW.</td></tr>
+  <tr><td><strong>DVD</strong></td><td>4,7 GB (jednovrstvé)</td><td>Červený (650 nm)</td><td>Menší pity blíže u sebe, více vrstev (až 15,9 GB).</td></tr>
+  <tr><td><strong>Blu-ray</strong></td><td>25–50 GB</td><td>Modrofialový (405 nm)</td><td>Nejkratší vlnová délka = nejvyšší hustota dat.</td></tr>
 </table>
+<h3>Speciální typy</h3>
+<ul>
+  <li><strong>Lisovaná média</strong>: Vyráběna průmyslově (stříbrná barva), data jsou mechanicky vylisována.</li>
+  <li><strong>CD-R / DVD-R</strong>: Zápis pomocí "vypálení" (zahřátí) organického barviva laserem.</li>
+  <li><strong>CD-RW</strong> (ReWritable): Přepisovatelná média.
+    <ul>
+      <li>Nízký výkon: Čtení.</li>
+      <li>Střední výkon: Zápis.</li>
+      <li>Vysoký výkon: Mazání (povrch se zahřeje na cca 300°C a "scelí" se – pity zmizí).</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Typy médií</h2>
-<div class="three-col">
-  <div class="box box-purple"><strong>Lisovaná</strong><br>Vyráběna průmyslově, data mechanicky vylisována (stříbrná barva).</div>
-  <div class="box box-green"><strong>CD-R / DVD-R</strong><br>Zápis vypálením organického barviva laserem. Nelze přepsat.</div>
-  <div class="box box-amber"><strong>CD-RW / DVD-RW</strong><br>Přepisovatelná – různý výkon laseru pro čtení / zápis / mazání.</div>
-</div>
+<h2>15.3 Historické a ostatní mechanické paměti</h2>
+<p>Před nástupem SSD a velkých HDD se používala řada jiných technologií:</p>
+<ul>
+  <li><strong>Magnetické pásky</strong>: Sekvenční přístup (data musíš "přetočit"). Dnes stále v archivech pro obrovskou kapacitu a nízkou cenu.</li>
+  <li><strong>Feritové paměti</strong>: Starověk výpočetní techniky. Data uložena v magnetických kroužcích (jádrech). Velmi odolné, ale objří a drahé.</li>
+  <li><strong>Diskety (FDD):</strong> Ohebný magnetický kotouč v plastovém obalu (klasika 1,44 MB).</li>
+  <li><strong>Zip drive &amp; Jaz</strong>: "Superdiskety" od firmy Iomega. Měly vyšší kapacitu (100 MB až 2 GB), ale byly vytlačeny vypalovacími CD a pak flashkami.</li>
+</ul>
+<p>První komerční HDD. Vážil přes tunu, měl 50 ploten o průměru 24 palců a kapacitu jen 4,2 MB. Pronajímal se a stál miliony.</p>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../14-polovodicove-pameti/index.html">← Polovodičové paměti</a>

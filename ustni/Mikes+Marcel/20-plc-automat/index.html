@@ -23,73 +23,73 @@
   <h1>PLC automat</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>PLC = průmyslový řadič pro real-time automatizaci</li><li>Bloky: CPU, paměť, napájení, I/O moduly</li><li>Cyklický scan: čtení vstupů → program → zápis výstupů</li><li>Monolitický vs modulární; relé/tranzistor/triak výstupy</li></ul>
-</div>
 
-<h2>Co je PLC?</h2>
-<div class="box box-purple">
-  <strong>PLC</strong> (Programmable Logic Controller) = odolný průmyslový počítač pro automatizaci v reálném čase. Stavěn na nepřetržitý provoz v náročném prostředí (prach, vlhkost, vibrace, EMI). Nahrazuje složité reléové systémy – flexibilní díky softwarovému přeprogramování.
-</div>
+<h2>20.1 Definice a význam</h2>
+<p><strong>PLC</strong> (<em>Programmable Logic Controller</em>) je <strong>odolný průmyslový počítač navržený pro automatizaci procesů v reálném čase</strong>. Na rozdíl od běžného PC je stavěn na nepřetržitý provoz v náročném prostředí (prach, vlhkost, vibrace, elektromagnetické rušení).</p>
+<ul>
+  <li><strong>Účel</strong>: Monitorování a řízení strojů, výrobních linek, lisů nebo třídičů.</li>
+  <li><strong>Význam</strong>: Nahrazuje složité reléové systémy, nabízí flexibilitu (stačí přepsat software) a vysokou spolehlivost.</li>
+</ul>
 
-<h2>Hardwarová struktura PLC</h2>
+<h2>20.2 Hardwarová struktura PLC</h2>
+<p>PLC se skládá ze čtyř základních bloků:</p>
+<ol>
+  <li><strong>CPU</strong> (Centrální procesorová jednotka): Vykonává program a řídí komunikaci.</li>
+  <li><strong>Paměť</strong>: Obsahuje program (Flash/EEPROM) a pracovní data (RAM).</li>
+  <li><strong>Napájecí zdroj</strong>: Převádí síťové napětí na napětí potřebné pro elektroniku PLC (typicky 24V DC).</li>
+  <li><strong>Vstupní a výstupní moduly</strong> (I/O): Rozhraní pro komunikaci se senzory a akčními členy.</li>
+</ol>
+
+<h2>20.3 Princip činnosti PLC (Cyklický scan)</h2>
+<p><strong>Běží v nekonečné smyčce</strong>, tzv. skenovací cyklus:</p>
+<ol>
+  <li><strong>Čtení vstupů</strong>: Načte stavy senzorů a uloží je do paměti.</li>
+  <li><strong>Provedení programu</strong>: CPU vyhodnotí logiku programu (krok po kroku) na základě načtených dat.</li>
+  <li><strong>Zápis výstupů</strong>: Aktualizuje stavy výstupů (sepne motory, ventily, kontrolky).</li>
+  <li><strong>Vlastní diagnostika</strong>: Kontrola chyb, Watchdog a komunikace. Poté se cyklus opakuje (trvá jednotky milisekund).</li>
+</ol>
+
+<h2>20.4 Typy konstrukce PLC</h2>
+<p>Podle mechanického provedení dělíme PLC na:</p>
+<ul>
+  <li><strong>Monolitické</strong> (Kompaktní): Vše je v jednom pouzdře (CPU, zdroj, pevný počet I/O). Jsou levnější a menší, ale nelze je snadno rozšířit. Vhodné pro jednoúčelové stroje.</li>
+  <li><strong>Modulární</strong>: Skládají se z "karet" (modulů) zasazených do sběrnice (vany/racku). Lze libovolně konfigurovat – přidávat další vstupy, komunikační karty nebo analogové moduly. Jsou dražší, ale flexibilní.</li>
+</ul>
+
+<h2>20.5 Digitální a analogové I/O</h2>
+<ul>
+  <li><strong>Digitální</strong> (Binární): Pracují se stavy 0 a 1 (vypnuto/zapnuto). Příklad: tlačítko, koncové čidlo (vstup) vs. cívka stykače, LED (výstup).</li>
+  <li><strong>Analogové</strong>: Pracují se spojitými hodnotami (např. teplota, tlak). Standardní signály jsou 0–10 V nebo 4–20 mA. Vyžadují ADC (analogově-digitální převodník).</li>
+</ul>
+<p><strong>Hardwarové řešení I/O:</strong></p>
+<ul>
+  <li><strong>Vstupy</strong>: Jsou téměř vždy galvanicky oddělené pomocí optočlenů (LED + fototranzistor). To chrání citlivé CPU před napěťovými špičkami z provozu.</li>
+  <li><strong>Výstupy</strong> (Typy):
+    <ul>
+      <li><strong>RLY</strong> (Relé): Mechanický kontakt. Výhodou je univerzalita (AC i DC) a odolnost, nevýhodou hluk, pomalost a omezený počet sepnutí.</li>
+      <li><strong>DC</strong> (Tranzistor): Pouze pro stejnosměrný proud. Velmi rychlé (vhodné pro PWM), bezhlučné a s teoreticky nekonečnou životností.</li>
+      <li><strong>AC</strong> (Triak): Bezkontaktní spínání střídavého proudu.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>20.6 Porovnání technologií řízení</h2>
 <table>
-  <tr><th>Blok</th><th>Popis</th></tr>
-  <tr><td><strong>CPU</strong></td><td>Vykonává program, řídí komunikaci</td></tr>
-  <tr><td><strong>Paměť</strong></td><td>Flash/EEPROM = program; RAM = pracovní data</td></tr>
-  <tr><td><strong>Napájecí zdroj</strong></td><td>Převádí síťové napětí → 24V DC pro elektroniku</td></tr>
-  <tr><td><strong>I/O moduly</strong></td><td>Vstupy (senzory) a výstupy (akční členy)</td></tr>
+  <tr><th>Systém</th><th>Flexibilita</th><th>Odolnost</th><th>Rychlost návrhu</th><th>Cena</th></tr>
+  <tr><td><strong>Reléové systémy</strong></td><td>Velmi nízká</td><td>Vysoká</td><td>Pomalá (nutno drátovat)</td><td>Levné (pro malé aplikace)</td></tr>
+  <tr><td><strong>Logické obvody</strong></td><td>Nulová (pevné)</td><td>Vysoká</td><td>Extrémně pomalá</td><td>Levné při masové výrobě</td></tr>
+  <tr><td><strong>PLC</strong></td><td>Vysoká</td><td>Vysoká</td><td>Rychlá (software)</td><td>Střední</td></tr>
+  <tr><td><strong>Průmyslové PC</strong></td><td>Extrémně vysoká</td><td>Nižší</td><td>Rychlá</td><td>Vysoká</td></tr>
 </table>
 
-<h2>Cyklický scan – princip činnosti</h2>
-<div class="box box-green">
-  PLC běží v nekonečné smyčce (skenovací cyklus, trvá jednotky ms):
-</div>
-<pre><code>1. Čtení vstupů     → načte stavy senzorů do paměti
-2. Provedení programu → CPU vyhodnotí logiku krok za krokem
-3. Zápis výstupů    → aktualizuje výstupy (motory, ventily, LED)
-4. Diagnostika      → Watchdog, kontrola chyb, komunikace
------ opakuje se donekonečna -----</code></pre>
-
-<h2>Typy konstrukce PLC</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>Monolitické (Kompaktní)</h3>
-    <p>Vše v jednom pouzdře – CPU, zdroj, pevný počet I/O. ✓ Levnější, menší. ✗ Nelze snadno rozšířit. Pro jednoúčelové stroje.</p>
-  </div>
-  <div class="card">
-    <h3>Modulární</h3>
-    <p>Karty (moduly) v racku – libovolná konfigurace. ✓ Flexibilní, přidej I/O karty, komunikační moduly. ✗ Dražší. Pro složité aplikace.</p>
-  </div>
-</div>
-
-<h2>Digitální a analogové I/O</h2>
-<div class="two-col">
-  <div class="box box-purple">
-    <strong>Digitální (Binární)</strong><br>
-    Stavy 0 / 1 (vypnuto / zapnuto).<br>
-    Vstup: tlačítko, koncové čidlo.<br>
-    Výstup: cívka stykače, LED.
-  </div>
-  <div class="box box-amber">
-    <strong>Analogové</strong><br>
-    Spojité hodnoty (teplota, tlak).<br>
-    Standardní signály: 0–10 V nebo 4–20 mA.<br>
-    Vyžadují ADC převodník.
-  </div>
-</div>
-
-<h2>Typy výstupů PLC</h2>
-<table>
-  <tr><th>Typ</th><th>Princip</th><th>Vlastnosti</th></tr>
-  <tr><td><strong>RLY</strong> (Relé)</td><td>Mechanický kontakt</td><td>AC i DC, odolné, ale hlučné, omezený počet sepnutí</td></tr>
-  <tr><td><strong>DC</strong> (Tranzistor)</td><td>Tranzistor</td><td>Jen DC, velmi rychlé (PWM), bezhlučné, neomezená životnost</td></tr>
-  <tr><td><strong>AC</strong> (Triak)</td><td>Bezkontaktní</td><td>Spínání střídavého proudu bez mechaniky</td></tr>
-</table>
-<div class="box box-green">
-  <strong>Galvanické oddělení</strong> vstupů pomocí <strong>optočlenů</strong> (LED + fototranzistor) – chrání CPU před napěťovými špičkami z průmyslového provozu.
-</div>
+<h2>20.7 Programování PLC</h2>
+<p>Programování se řídí normou IEC 61131-3. Mezi nejpoužívanější jazyky patří:</p>
+<ul>
+  <li><strong>LADDER</strong> (LDR / Kontaktní schéma): Grafický jazyk připomínající reléová zapojení. Je velmi intuitivní pro elektrikáře (ono zmíněné "klikání pro hlupáky").</li>
+  <li><strong>FBD</strong> (Funkční bloky): Skládání logických hradel a bloků (AND, OR, Časovače).</li>
+  <li><strong>ST</strong> (Strukturovaný text): Textový jazyk podobný Pascalu nebo C. Vhodný pro složité výpočty.</li>
+  <li><strong>IL</strong> (Instrukční seznam): Nízkoúrovňový jazyk podobný assembleru.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../19-vstupni-zarizeni/index.html">← Vstupní zařízení počítače</a>

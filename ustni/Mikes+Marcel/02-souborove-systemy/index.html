@@ -23,69 +23,110 @@
   <h1>Souborové systémy</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>EXT2/3/4, XFS, Btrfs (Linux)</li><li>FAT32, exFAT, NTFS (Windows)</li><li>Žurnálování – ochrana konzistence dat</li><li>FHS, inode, hard link vs symlink</li></ul>
-</div>
 
-<h2>Co je souborový systém?</h2>
-<div class="box box-green">
-  <strong>Souborový systém (FS)</strong> = způsob organizace a ukládání dat na úložišti. Určuje pojmenování, ukládání a zabezpečení souborů.
-</div>
+<h2>2.1 Základní typ FS pro Linux a Windows</h2>
+<p>Souborový systém (File System – FS) je <strong>způsob organizace dat na úložišti</strong> (disk, SSD, flash disk). Umožňuje <strong>ukládání, správu a přístup k souborům a adresářům</strong>. Slouží k tomu, aby se uživatel dostal rychleji k informacím — pro přehlednost se používají adresáře.</p>
+<p>Souborové systémy jsou schopny:</p>
+<ul>
+  <li>Ukládat velké množství info do 1 souboru.</li>
+  <li>Komunikovat s velkými fyzickými disky.</li>
+  <li>Transakčnost s databází – databáze jsou množství tabulek na sobě navázaných (konzistentní např. při aktualizaci).</li>
+  <li>Audity – kdo s jakým souborem může pracovat.</li>
+</ul>
 
-<h2>Typy FS – Linux</h2>
-<table>
-  <tr><th>FS</th><th>Žurnálování</th><th>Max soubor</th><th>Poznámka</th></tr>
-  <tr><td><strong>EXT2</strong></td><td>Ne</td><td>2 TB</td><td>Bez žurnálování, starý, USB disky</td></tr>
-  <tr><td><strong>EXT3</strong></td><td>Ano</td><td>2 TB</td><td>EXT2 + žurnálování</td></tr>
-  <tr><td><strong>EXT4</strong></td><td>Ano</td><td>16 TB</td><td>Dnes nejrozšířenější Linux FS, extenty</td></tr>
-  <tr><td><strong>XFS</strong></td><td>Ano</td><td>8 EB</td><td>64-bit, výkon při velkých souborech, servery</td></tr>
-  <tr><td><strong>Btrfs</strong></td><td>CoW</td><td>16 EB</td><td>Snapshoty, RAID, CoW</td></tr>
-</table>
+<h3>Souborové systémy v Linuxu</h3>
+<ul>
+  <li><strong>EXT2</strong> – Bez žurnálování, vhodný pro menší disky, menší odolnost proti pádům.</li>
+  <li><strong>EXT3</strong> – Podpora žurnálování, vyšší bezpečnost a obnova dat.</li>
+  <li><strong>XFS</strong> – 64bitový souborový systém, ideální pro servery a velká úložiště.</li>
+  <li><strong>EXT4</strong> – Podpora až 1 EiB, extenty, odstranění limitu 32 768 podadresářů. <strong>Žurnálování:</strong> Ukládá informace o dokončených operacích pro jednodušší obnovu po pádu systému. Transakční zpracování: Zajišťuje, aby zápisy na disk byly atomické a bezpečné.</li>
+  <li>Linux podporuje <strong>NTFS a FAT32</strong> z Windows.</li>
+  <li><strong>BTRFS</strong> – Podpora snapshotů (zálohy rootu pro obnovu).</li>
+</ul>
 
-<h2>Typy FS – Windows</h2>
-<table>
-  <tr><th>FS</th><th>Max soubor</th><th>Žurnálování</th><th>Poznámka</th></tr>
-  <tr><td><strong>FAT32</strong></td><td>4 GB</td><td>Ne</td><td>Kompatibilita, USB, SD karty</td></tr>
-  <tr><td><strong>exFAT</strong></td><td>16 EB</td><td>Ne</td><td>Velké flash disky, SD karty</td></tr>
-  <tr><td><strong>NTFS</strong></td><td>16 TB</td><td>Ano</td><td>Windows standard, ACL, šifrování EFS</td></tr>
-</table>
+<h3>EXT používá blokové skupiny</h3>
+<ul>
+  <li><strong>Superblok</strong> – Metadata o souborovém systému.</li>
+  <li><strong>Tabulka inodů</strong> – Práva, časové značky, ukazatele na datové bloky.</li>
+  <li><strong>Datové bloky</strong> – Obsah souborů a adresářů.</li>
+  <li><strong>Adresáře</strong> – Stromová struktura umožňující hierarchickou organizaci.</li>
+</ul>
 
-<h2>Žurnálování</h2>
-<div class="box box-amber">
-  Žurnál = log operací před jejich provedením. Při pádu systému lze obnovit konzistentní stav bez kontroly celého disku.
-  Typy: <strong>Write-back</strong> (jen metadata) → <strong>Ordered</strong> → <strong>Full</strong> (metadata + data).
-</div>
+<h3>Souborové systémy ve Windows</h3>
+<ul>
+  <li><strong>FAT32</strong> – bez žurnálování, omezení velikosti souboru na 4 GB.</li>
+  <li><strong>NTFS</strong> – moderní FS s podporou ACL, šifrování (EFS), komprese a žurnálování.</li>
+  <li><strong>ISO 9660</strong> – systém pro optické disky (CD, DVD).</li>
+</ul>
 
-<h2>Copy-on-Write (CoW)</h2>
-<div class="box box-purple">
-  Při zápisu se nevymaže původní blok – zapíše se nový, pak se aktualizuje ukazatel. Původní data zůstávají → atomické snapshoty. Používá: Btrfs, ZFS, APFS.
-</div>
+<h3>Hlavní rozdíly Linuxu</h3>
+<ul>
+  <li><strong>Case sensitive</strong> – priklad.txt, Priklad.txt, priklad.TXT a Priklad.TXT jsou čtyři různé soubory.</li>
+  <li><strong>Neexistují jednotky</strong> resp. písmena jednotek (ve Windows označované C:, D: atd.), vše je v rootu, fyzické adresy jsou v /dev/* (např. /dev/sda, nebo /dev/nvme0).</li>
+  <li><strong>Jedna „stromová" struktura</strong> – vše v /. Klidně 3 disky, ve Windows nejde (mount na /mnt, /mnt1 atd. a vše je prostě pod /).</li>
+  <li><strong>Adresář je druh souboru</strong> – Teoreticky neexistují „složky", vše je soubor.</li>
+  <li><strong>Oprávnění souborů a adresářů</strong> – Linux používá systém práv (permissions).</li>
+</ul>
 
-<h2>FHS – adresářová struktura Linuxu</h2>
+<h3>Příkazy pro práci s oddíly v Linuxu</h3>
+<ul>
+  <li><kbd>fdisk /dev/*</kbd> – vytvoření oddílu.</li>
+  <li><kbd>cfdisk /dev/*</kbd> – TUI prostředí.</li>
+  <li><kbd>mkfs.ext4 /dev/*</kbd> – formátování oddílu pro EXT4.</li>
+  <li><kbd>lsblk</kbd> – vypsání diskových bloků.</li>
+</ul>
+
+<h2>2.2 Disk, partition a její význam</h2>
+<p><strong>Disk (úložiště)</strong> – fyzické zařízení, kde jsou uložena data. Disk je hardware, ale počítač s ním přímo nepracuje — pracuje s partition.</p>
+<p><strong>Partition (oddíl)</strong> – logické rozdělení disku pro lepší správu dat. Logická část fyzického disku.</p>
+<ul>
+  <li><strong>Primární oddíl</strong> – obsahuje boot sektor se zavaděčem OS.</li>
+  <li><strong>Rozšířený oddíl</strong> – umožňuje vytvoření více logických oddílů.</li>
+</ul>
+
+<h2>2.3 Základní adresářová struktura FS v Linuxu</h2>
 <table>
   <tr><th>Adresář</th><th>Obsah</th></tr>
-  <tr><td><code>/etc</code></td><td>Konfigurační soubory (passwd, fstab, hostname)</td></tr>
-  <tr><td><code>/home</code></td><td>Domovské adresáře uživatelů</td></tr>
-  <tr><td><code>/var/log</code></td><td>Systémové logy</td></tr>
-  <tr><td><code>/proc</code></td><td>Virtuální FS – info o procesech (PID, CPU, paměť)</td></tr>
-  <tr><td><code>/dev</code></td><td>Zařízení jako soubory (/dev/sda, /dev/null)</td></tr>
-  <tr><td><code>/tmp</code></td><td>Dočasné soubory – mažou se při restartu</td></tr>
+  <tr><td><kbd>/ (root)</kbd></td><td>Kořenový adresář celého systému.</td></tr>
+  <tr><td><kbd>/bin</kbd></td><td>Základní binární soubory (spustitelné programy).</td></tr>
+  <tr><td><kbd>/sbin</kbd></td><td>Systémové binární soubory, vyžadují vyšší oprávnění.</td></tr>
+  <tr><td><kbd>/etc</kbd></td><td>Konfigurační soubory systému.</td></tr>
+  <tr><td><kbd>/home</kbd></td><td>Domovské složky uživatelů. Často se odděluje na odlišný blok než /</td></tr>
+  <tr><td><kbd>/usr</kbd></td><td>Aplikace a knihovny pro uživatele.</td></tr>
+  <tr><td><kbd>/var</kbd></td><td>Variabilní data (logy, dočasné soubory).</td></tr>
+  <tr><td><kbd>/tmp</kbd></td><td>Dočasné soubory.</td></tr>
+  <tr><td><kbd>/dev</kbd></td><td>Soubory reprezentující zařízení.</td></tr>
+  <tr><td><kbd>/mnt</kbd></td><td>Přípojné body pro připojené disky a souborové systémy.</td></tr>
 </table>
 
-<h2>Inode</h2>
-<div class="box box-green">
-  <strong>Inode</strong> = datová struktura pro každý soubor. Ukládá: UID, GID, oprávnění, velikost, časy (atime/mtime/ctime), ukazatele na datové bloky. <br>
-  <strong>Nezahrnuje</strong> jméno souboru (to je v adresáři). Hard link = dvě jména → jeden inode.
-</div>
+<h3>Hlavní rozdíly oproti Windows</h3>
+<ul>
+  <li>Windows <strong>používá písmena jednotek (C:, D:)</strong>, Linux má stromovou hierarchii.</li>
+  <li>Linux <strong>rozlišuje velká a malá písmena</strong> v názvech souborů. Vše je v jedné struktuře začínající / (root).</li>
+  <li>Linux podporuje NTFS a FAT, ale <strong>Windows nepodporuje EXT</strong>, nedokáže ho defaultně přečíst.</li>
+</ul>
 
-<h2>Praktické příkazy</h2>
-<pre><code>df -hT                    # zobraz FS a jejich obsazenost
-lsblk                     # seznam blokových zařízení
-mkfs.ext4 /dev/sdb1       # formátovat oddíl
-mount /dev/sdb1 /mnt/     # připojit
-stat soubor.txt           # info o inode souboru
-tune2fs -l /dev/sda1      # info o ext4 FS</code></pre>
+<h2>2.4 Inode, hardwarové a symbolické linky</h2>
+<ul>
+  <li><strong>I-node (index node)</strong> – uzel datová struktura obsahující metadata o souboru (časové značky, oprávnění, odkazy na datové bloky). Při uložení souboru se vytvoří i-node (záznam), uvolní se místo, uloží se info o všem. V i-node lze zvýšit counter — nekopíruje data, ale zaznamená, že je více referencí.</li>
+  <li><strong>Hardwarový link (pevný odkaz)</strong> – ukazuje na stejná data jako původní soubor, nezávislý na původním názvu.</li>
+  <li><strong>Symbolický link (symlink)</strong> – obsahuje pouze cestu k jinému souboru (podobné zástupcům ve Windows).</li>
+</ul>
+<p><strong>Příkazy pro vytváření linků v Linuxu:</strong></p>
+<ul>
+  <li><kbd>ln soubor1 soubor2</kbd> – vytvoří pevný odkaz (hard link).</li>
+  <li><kbd>ln -s soubor1 soubor2</kbd> – vytvoří symbolický odkaz (soft link).</li>
+</ul>
+
+<h2>Další souborové systémy (flash disky, CD/DVD, síťové systémy)</h2>
+<ul>
+  <li><strong>FAT32</strong> – často používaný na USB flash discích, kompatibilní s Windows, Linuxem i macOS. (u flashky – FAT, FAT32)</li>
+  <li><strong>exFAT</strong> – moderní FS pro flash disky, podporuje velké soubory.</li>
+  <li><strong>ISO 9660</strong> – systém pro CD/DVD, pouze pro čtení.</li>
+  <li><strong>UDF (Universal Disk Format)</strong> – podporuje čtení i zápis na optická média.</li>
+  <li><strong>NFS (Network File System)</strong> – umožňuje sdílení souborů mezi servery v Linuxu.</li>
+  <li><strong>SMB/CIFS</strong> – protokol používaný ve Windows pro sdílení souborů po síti (samba).</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../01-operacni-systemy/index.html">← Operační systémy</a>

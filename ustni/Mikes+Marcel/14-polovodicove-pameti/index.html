@@ -23,62 +23,89 @@
   <h1>Polovodičové paměti</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Volatilní (RAM) vs nevolatilní (ROM, Flash)</li><li>ROM → PROM → EPROM → EEPROM → Flash</li><li>SRAM (cache L1/L2/L3) vs DRAM (operační RAM)</li><li>DDR1 → DDR2 → DDR3 → DDR4 → DDR5</li></ul>
-</div>
 
-<h2>Základní dělení pamětí</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>Podle volatility</h3>
+<h2>14.1 Základní dělení a principy</h2>
+<p>Polovodičové paměti slouží k <strong>uchovávání informací v digitální podobě</strong> (0 a 1) pomocí tranzistorů a kondenzátorů na křemíkovém čipu.</p>
+<p><strong>Hlavní dělení:</strong></p>
+<ul>
+  <li><strong>Podle volatility</strong> (stálosti):
     <ul>
-      <li><strong>Volatilní</strong> – při odpojení napájení ztrácí data (RAM)</li>
-      <li><strong>Nevolatilní</strong> – data drží bez proudu (ROM, Flash, EEPROM)</li>
+      <li><strong>Volatilní</strong>: Při odpojení napájení ztrácí data (např. RAM).</li>
+      <li><strong>Nevolatilní</strong>: Data uchovávají i bez proudu (např. ROM, Flash).</li>
     </ul>
-  </div>
-  <div class="card">
-    <h3>Podle přístupu</h3>
+  </li>
+  <li><strong>Podle přístupu</strong>:
     <ul>
-      <li><strong>RAM</strong> – Random Access Memory – přímý přístup kdekoliv okamžitě</li>
-      <li><strong>SAM</strong> – Sequential Access – sekvenčně (pásky, dnes vzácné)</li>
+      <li><strong>RAM</strong> (Random Access Memory): Libovolný (přímý) přístup – můžeme číst/zapisovat z jakéhokoliv místa okamžitě.</li>
+      <li><strong>SAM</strong> (Sequential Access Memory): Sekvenční přístup – data se čtou popořadě (dnes vzácné u polovodičů, dříve pásky).</li>
     </ul>
-  </div>
-</div>
+  </li>
+  <li><strong>Podle zápisu</strong>:
+    <ul>
+      <li><strong>ROM</strong> (Read Only): Pouze pro čtení (data vložena při výrobě).</li>
+      <li><strong>RWM</strong> (Read Write): Pro čtení i zápis.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2>Paměti ROM – nevolatilní</h2>
+<h2>14.2 Klíčové parametry pamětí</h2>
+<p>Při hodnocení pamětí sledujeme tyto technické údaje:</p>
+<ul>
+  <li><strong>Kapacita</strong>: Množství dat, které se do paměti vejde (GB, TB).</li>
+  <li><strong>Přístupová doba</strong>: Čas od požadavku po získání dat (ns u RAM, ms u disků).</li>
+  <li><strong>Přenosová rychlost</strong>: Jak rychle tečou data mezi pamětí a CPU (GB/s).</li>
+  <li><strong>Šířka toku dat</strong>: Kolik bitů se přenese najednou (např. 64 bitů).</li>
+  <li><strong>Spolehlivost</strong>: Udávána jako MTBF (střední doba mezi poruchami).</li>
+  <li><strong>„Cena za bit"</strong>: Ekonomický ukazatel výhodnosti.</li>
+</ul>
+
+<h2>14.3 Paměti typu ROM (Nevolatilní)</h2>
+<p>Slouží k uložení firmware (např. BIOS/UEFI).</p>
+<ul>
+  <li><strong>ROM</strong>: Data nahrána při výrobě, nelze měnit.</li>
+  <li><strong>PROM</strong>: Programovatelná uživatelem, ale pouze jednou (přepálení propojek).</li>
+  <li><strong>EPROM</strong>: Mazatelná UV zářením (přes okénko v čipu) a znovu programovatelná.</li>
+  <li><strong>EEPROM</strong>: Elektricky mazatelná a programovatelná po jednotlivých bajtech.</li>
+  <li><strong>Flash</strong>: Moderní nástupce EEPROM. Maže se po celých blocích, což ji činí velmi rychlou a levnou. Používá se v SSD a USB discích.</li>
+</ul>
+
+<h2>14.4 Operační paměti (RAM / RWM)</h2>
+<p>Jsou volatilní a slouží jako pracovní prostor pro běžící programy.</p>
+<h3>SRAM vs. DRAM</h3>
 <table>
-  <tr><th>Typ</th><th>Popis</th></tr>
-  <tr><td><strong>ROM</strong></td><td>Data vložena při výrobě, nelze měnit. BIOS starý.</td></tr>
-  <tr><td><strong>PROM</strong></td><td>Programovatelná uživatelem, ale pouze jednou (přepálení propojek).</td></tr>
-  <tr><td><strong>EPROM</strong></td><td>Mazatelná UV zářením (okénko v čipu), znovu programovatelná.</td></tr>
-  <tr><td><strong>EEPROM</strong></td><td>Elektricky mazatelná po bajtech – konfigurace zařízení.</td></tr>
-  <tr><td><strong>Flash</strong></td><td>Moderní EEPROM – maže se po blocích, levná, rychlá. SSD, USB disky.</td></tr>
+  <tr><th>Vlastnost</th><th>SRAM (Static RAM)</th><th>DRAM (Dynamic RAM)</th></tr>
+  <tr><td><strong>Princip</strong></td><td>Bistabilní klopný obvod (tranzistory)</td><td>Kondenzátor (náboj)</td></tr>
+  <tr><td><strong>Rychlost</strong></td><td>Extrémně vysoká</td><td>Nižší</td></tr>
+  <tr><td><strong>Obnova (Refresh)</strong></td><td>Není potřeba</td><td>Nutná (náboj uniká)</td></tr>
+  <tr><td><strong>Cena / Hustota</strong></td><td>Drahá, zabírá víc místa</td><td>Levná, vysoká kapacita</td></tr>
+  <tr><td><strong>Využití</strong></td><td>Cache procesoru (L1, L2, L3)</td><td>Hlavní operační paměť RAM</td></tr>
 </table>
+<h3>Vývoj DRAM</h3>
+<ol>
+  <li><strong>SDRAM</strong>: Synchronní s hodinami procesoru.</li>
+  <li><strong>DDR</strong> (Double Data Rate): Přenáší data na náběžné i sestupné hraně hodinového signálu (2× rychlejší).</li>
+  <li>Generace: DDR1 → DDR2 → DDR3 → DDR4 → DDR5 (<strong>každá generace zvyšuje rychlost a snižuje napětí</strong>).</li>
+</ol>
 
-<h2>Operační paměti (RAM / RWM) – volatilní</h2>
-<table>
-  <tr><th>Vlastnost</th><th>SRAM (Static)</th><th>DRAM (Dynamic)</th></tr>
-  <tr><td>Princip</td><td>Bistabilní klopný obvod (tranzistory)</td><td>Kondenzátor (náboj)</td></tr>
-  <tr><td>Rychlost</td><td>Extrémně vysoká</td><td>Nižší</td></tr>
-  <tr><td>Refresh</td><td>Není potřeba</td><td>Nutný (náboj uniká)</td></tr>
-  <tr><td>Cena/hustota</td><td>Drahá, málo bitů na čipu</td><td>Levná, vysoká kapacita</td></tr>
-  <tr><td>Využití</td><td>Cache procesoru (L1, L2, L3)</td><td>Hlavní operační paměť</td></tr>
-</table>
+<h2>14.5 Pouzdra a provedení modulů</h2>
+<p>Paměťové čipy se osazují na destičky s kontakty:</p>
+<ul>
+  <li><strong>DIMM</strong>: Klasické dlouhé moduly pro desktop PC.</li>
+  <li><strong>SO-DIMM</strong>: Menší verze pro notebooky.</li>
+  <li><strong>SIMM</strong>: Starší typy (dnes se nepoužívají).</li>
+</ul>
 
-<h2>Vývoj DRAM</h2>
-<div class="timeline">
-  <div class="tl-item"><div class="tl-year">SDRAM</div><div class="tl-text">Synchronní s hodinami procesoru.</div></div>
-  <div class="tl-item"><div class="tl-year">DDR</div><div class="tl-text">Double Data Rate – přenos na náběžné i sestupné hraně hodinového signálu (2× rychlejší než SDRAM).</div></div>
-  <div class="tl-item"><div class="tl-year">DDR2 → DDR3 → DDR4 → DDR5</div><div class="tl-text">Každá generace = vyšší rychlost, nižší napájení, vyšší kapacita.</div></div>
-</div>
-
-<h2>Klíčové parametry pamětí</h2>
-<div class="three-col">
-  <div class="box box-purple"><strong>Kapacita</strong><br>Množství dat (GB, TB)</div>
-  <div class="box box-green"><strong>Přístupová doba</strong><br>Čas od požadavku po data (ns u RAM)</div>
-  <div class="box box-amber"><strong>Přenosová rychlost</strong><br>GB/s – jak rychle tečou data</div>
-</div>
+<h2>14.6 SSD, atd.</h2>
+<p><strong>SSD</strong> (Solid State Drive) využívají technologii Flash NAND.</p>
+<ul>
+  <li><strong>SSD 2.5":</strong> Starší formát, vypadá jako malý disk, připojuje se <strong>přes SATA kabel</strong>.</li>
+  <li><strong>M.2:</strong> Moderní formát (malá "kartička" přímo do desky). Může pracovat ve dvou režimech:
+    <ol>
+      <li><strong>M.2 SATA</strong>: Využívá starý protokol SATA, rychlost limitována na cca 600 MB/s.</li>
+      <li><strong>M.2 NVMe</strong>: Využívá sběrnici PCI Express. Mnohem <strong>vyšší rychlosti</strong> (tisíce MB/s).</li>
+    </ol>
+  </li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../13-mikrokontrolery/index.html">← Jednočipové mikrokontrolery</a>

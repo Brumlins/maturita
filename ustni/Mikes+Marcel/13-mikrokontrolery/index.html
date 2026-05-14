@@ -23,78 +23,91 @@
   <h1>Jednočipové mikrokontrolery</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>MCU = CPU + RAM + Flash + periferie v jednom pouzdře</li><li>Von Neumann vs Harvardská architektura</li><li>UART, SPI, I2C, CAN – komunikační rozhraní</li><li>CISC vs RISC; MCU vs SBC (Raspberry Pi)</li></ul>
-</div>
 
-<h2>Co je mikrokontrolér (MCU)?</h2>
-<div class="box box-purple">
-  Monolitický integrovaný obvod (MIO) – integruje CPU, paměti a periferie do jednoho pouzdra. Navržen pro jednoúčelové embedded aplikace (od mikrovlnky přes auto po průmyslové roboty).
-</div>
+<h2>13.1 Definice a účel mikrokontroléru (MCU)</h2>
+<p>Jednočipový mikrokontrolér je monolitický integrovaný obvod (MIO), který <strong>integruje všechny základní části počítače do jednoho pouzdra</strong>. Na rozdíl od běžných mikroprocesorů v PC je navržen pro jednoúčelové aplikace (embedded systémy).</p>
+<ul>
+  <li><strong>Význam</strong>: Vysoká spolehlivost, kompaktní rozměry a nízká energetická náročnost.</li>
+  <li><strong>Účel</strong>: Řízení elektronických zařízení (od mikrovlnné trouby přes průmyslové roboty až po systémy v automobilech).</li>
+</ul>
 
-<h2>Architektura: Von Neumann vs. Harvardská</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>Von Neumannova</h3>
+<h2>13.2 Architektura: Von Neumannova vs. Harvardská</h2>
+<p>Mikrokontroléry využívají dva základní přístupy k uspořádání paměti a sběrnic:</p>
+<h3>Von Neumannova architektura</h3>
+<ul>
+  <li><strong>Charakteristika</strong>: Společná paměť pro instrukce i data. Existuje pouze jedna sběrnice.</li>
+  <li><strong>Výhody</strong>: Jednodušší konstrukce a nižší náklady na výrobu.</li>
+  <li><strong>Nevýhody</strong>: Nižší výkon (tzv. "úzké hrdlo"), protože procesor nemůže současně číst instrukci a přistupovat k datům.</li>
+</ul>
+<h3>Harvardská architektura</h3>
+<ul>
+  <li><strong>Charakteristika</strong>: Oddělená paměť i sběrnice pro instrukce a data.</li>
+  <li><strong>Výhody</strong>: Vyšší rychlost díky paralelnímu zpracování (čtení instrukce probíhá zároveň s prací s daty).</li>
+  <li><strong>Využití</strong>: Moderní mikrokontroléry (např. AVR, ARM).</li>
+</ul>
+
+<h2>13.3 Historie a vývoj</h2>
+<ul>
+  <li><strong>1971</strong>: Uvedení prvního mikroprocesoru Intel 4004.</li>
+  <li><strong>1974</strong>: První skutečný mikrokontrolér TMS1000 (Texas Instruments) a MCS-4 (Intel).</li>
+  <li><strong>80. léta</strong>: Rozmach 8bitových architektur (legendární Intel 8051, Motorola 68HC11).</li>
+  <li><strong>90. léta</strong>: Nástup výkonnějších architektur – AVR (Atmel), PIC (Microchip) a první 32bitové systémy.</li>
+  <li><strong>Současnost</strong>: Dominance 32bitových ARM jader, zaměření na IoT, <strong>vysoký výkon a extrémně nízká spotřeba</strong>.</li>
+</ul>
+
+<h2>13.4 Vnitřní struktura a blokové schéma</h2>
+<p>Typický mikrokontrolér se skládá z těchto částí:</p>
+<ol>
+  <li><strong>CPU</strong> (Procesor): Vykonává instrukce programu.</li>
+  <li><strong>Paměť</strong>:
     <ul>
-      <li>Společná paměť pro instrukce i data</li>
-      <li>Jedna sběrnice</li>
-      <li>✓ Jednodušší, levnější</li>
-      <li>✗ Úzké hrdlo (bottleneck)</li>
+      <li><strong>Flash / ROM</strong>: Trvalé uložení programu (firmware).</li>
+      <li><strong>SRAM</strong> (RAM): Dočasná data, zásobník, proměnné (po vypnutí napájení se vymaže).</li>
+      <li><strong>EEPROM</strong>: Trvalé ukládání konfiguračních dat (přepisovatelná, uchová data i bez proudu).</li>
     </ul>
-  </div>
-  <div class="card">
-    <h3>Harvardská</h3>
+  </li>
+  <li><strong>Vstupy a výstupy</strong> (GPIO): Piny pro připojení tlačítek, LED diod a senzorů.</li>
+  <li><strong>Periferie</strong>:
     <ul>
-      <li>Oddělená paměť i sběrnice pro instrukce a data</li>
-      <li>✓ Paralelní zpracování – vyšší rychlost</li>
-      <li>Moderní MCU: AVR, ARM</li>
+      <li><strong>Časovače/Čítače</strong>: Měření času, generování PWM (řízení motorů, jasu LED).</li>
+      <li><strong>ADC/DAC</strong>: Převodníky mezi analogovým a digitálním světem.</li>
+      <li><strong>Watchdog timer</strong>: Bezpečnostní prvek, který restartuje MCU v případě "zamrznutí" programu.</li>
     </ul>
-  </div>
-</div>
+  </li>
+</ol>
 
-<h2>Vnitřní struktura MCU</h2>
+<h2>13.5 Komunikační rozhraní</h2>
+<p>Umožňují mikrokontroléru mluvit s okolním světem (senzory, displeje, jiné MCU):</p>
 <table>
-  <tr><th>Část</th><th>Popis</th></tr>
-  <tr><td><strong>CPU</strong></td><td>Vykonává instrukce programu</td></tr>
-  <tr><td><strong>Flash / ROM</strong></td><td>Trvalé uložení programu (firmware) – nevolatilní</td></tr>
-  <tr><td><strong>SRAM</strong></td><td>Dočasná data, zásobník, proměnné – vymaže se po vypnutí</td></tr>
-  <tr><td><strong>EEPROM</strong></td><td>Trvalé ukládání konfigurace – přepisovatelná, drží bez proudu</td></tr>
-  <tr><td><strong>GPIO</strong></td><td>Vstupně/výstupní piny pro tlačítka, LED, senzory</td></tr>
-  <tr><td><strong>Časovače/Čítače</strong></td><td>Měření času, generování PWM (motory, jas LED)</td></tr>
-  <tr><td><strong>ADC/DAC</strong></td><td>Převodníky analogový ↔ digitální svět</td></tr>
-  <tr><td><strong>Watchdog timer</strong></td><td>Restartuje MCU při zamrznutí programu</td></tr>
+  <tr><th>Rozhraní</th><th>Popis</th></tr>
+  <tr><td><strong>UART</strong></td><td>Sériová linka (univerzální, asynchronní).</td></tr>
+  <tr><td><strong>SPI</strong></td><td>Velmi rychlá synchronní komunikace (sběrnice typu Master-Slave).</td></tr>
+  <tr><td><strong>I2C</strong></td><td>Dvouvodičová sběrnice pro připojení mnoha zařízení (čidla, EEPROM).</td></tr>
+  <tr><td><strong>CAN</strong></td><td>Robustní sběrnice používaná především v automobilovém průmyslu.</td></tr>
 </table>
 
-<h2>Komunikační rozhraní</h2>
-<table>
-  <tr><th>Rozhraní</th><th>Popis</th><th>Použití</th></tr>
-  <tr><td><strong>UART</strong></td><td>Sériová linka, asynchronní, 2 vodiče</td><td>Konzole, GPS, GSM moduly</td></tr>
-  <tr><td><strong>SPI</strong></td><td>Synchronní, velmi rychlá, Master-Slave, 4 vodiče</td><td>Flash, displeje, SD karty</td></tr>
-  <tr><td><strong>I2C</strong></td><td>Dvouvodičová sběrnice, až 127 zařízení na 2 vodiče</td><td>Čidla, EEPROM, RTC</td></tr>
-  <tr><td><strong>CAN</strong></td><td>Robustní, odolná vůči rušení, multimaster</td><td>Automotive (auto)</td></tr>
-</table>
+<h2>13.6 Instrukční sada (CISC vs. RISC)</h2>
+<p>Instrukční sada je soubor příkazů, kterým procesor rozumí.</p>
+<ul>
+  <li><strong>CISC</strong> (Complex): Složité instrukce, jedna instrukce může vykonat mnoho operací (např. x86).</li>
+  <li><strong>RISC</strong> (Reduced): Jednoduché, stejně dlouhé instrukce, které se vykonávají velmi rychle (většina moderních MCU jako AVR a ARM).</li>
+</ul>
+<p>Základní typy instrukcí v assembleru:</p>
+<ul>
+  <li><strong>Přesunové</strong>: MOV, LD (Load), ST (Store).</li>
+  <li><strong>Aritmeticko-logické</strong>: ADD (sčítání), SUB (odčítání), AND, OR.</li>
+  <li><strong>Příznakové bity</strong> (Flags): Indikují stav po operaci: <strong>Z</strong> (Zero – výsledek je nula), <strong>C</strong> (Carry – přenos), <strong>N</strong> (Negative – záporný výsledek), <strong>V</strong> (Overflow – přetečení).</li>
+</ul>
 
-<h2>CISC vs. RISC</h2>
-<div class="two-col">
-  <div class="card">
-    <h3>CISC (Complex)</h3>
-    <p>Složité instrukce – jedna instrukce vykoná mnoho operací. Proměnná délka instrukce. Příklad: x86 (Intel, AMD).</p>
-  </div>
-  <div class="card">
-    <h3>RISC (Reduced)</h3>
-    <p>Jednoduché, stejně dlouhé instrukce – vykonávají se velmi rychle (1 takt). Většina moderních MCU: AVR, ARM, MIPS.</p>
-  </div>
-</div>
-
-<h2>MCU vs. Jednodeskový počítač (SBC)</h2>
+<h2>13.7 Mikrokontrolér (MCU) vs. Jednodeskový počítač (SBC)</h2>
+<p>Je důležité tyto dva pojmy nezaměňovat:</p>
 <table>
-  <tr><th>Vlastnost</th><th>MCU (Arduino, PIC)</th><th>SBC (Raspberry Pi)</th></tr>
-  <tr><td>OS</td><td>Bez OS (nebo RTOS)</td><td>Linux, Windows IoT</td></tr>
-  <tr><td>Výkon</td><td>Nízký (MHz)</td><td>Vysoký (GHz)</td></tr>
-  <tr><td>Spotřeba</td><td>Extrémně nízká (mW)</td><td>Vyšší (W)</td></tr>
-  <tr><td>Použití</td><td>Řízení HW v reálném čase</td><td>Multimediální projekty, web server</td></tr>
+  <tr><th>Vlastnost</th><th>Mikrokontrolér (MCU)</th><th>Jednodeskový počítač (SBC)</th></tr>
+  <tr><td><strong>Příklad</strong></td><td>Arduino (ATmega328P), ESP32</td><td>Raspberry Pi, Orange Pi</td></tr>
+  <tr><td><strong>Operační systém</strong></td><td>Nic, nebo RTOS</td><td>Plnohodnotný OS (Linux, Windows)</td></tr>
+  <tr><td><strong>Výkon</strong></td><td>Nízký (MHz)</td><td>Vysoký (GHz)</td></tr>
+  <tr><td><strong>Spotřeba</strong></td><td>Velmi nízká (µA až mA)</td><td>Vyšší (stovky mA až Ampéry)</td></tr>
+  <tr><td><strong>Použití</strong></td><td>Přímé řízení hardwaru, senzory</td><td>Multimédia, složité výpočty, web servery</td></tr>
 </table>
 
 <div class="nav-btns">

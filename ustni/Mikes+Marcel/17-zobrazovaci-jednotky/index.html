@@ -23,50 +23,61 @@
   <h1>Zobrazovací jednotky</h1>
 </div>
 <main>
-<div class="summary">
-  <h3>// Klíčové pojmy</h3>
-  <ul><li>Rozlišení, obnovovací frekvence, pozorovací úhel, odezva</li><li>CRT: elektronové dělo + luminofor (historické)</li><li>LCD: TN (rychlé) vs IPS (barvy/úhly); podsvícení</li><li>OLED: pixel svítí sám, absolutní černá, riziko burn-in</li></ul>
-</div>
 
-<h2>Základní parametry displejů</h2>
-<table>
-  <tr><th>Parametr</th><th>Popis</th></tr>
-  <tr><td><strong>Rozlišení</strong></td><td>Počet pixelů: HD 1280×720, Full HD 1920×1080, 4K 3840×2160</td></tr>
-  <tr><td><strong>Obnovovací frekvence</strong></td><td>Hz – jak často se překreslí obraz. Standard 60 Hz, herní 144–360 Hz</td></tr>
-  <tr><td><strong>Pozorovací úhel</strong></td><td>Úhel bez zkreslení barev (IPS ≈ 178°, TN ≈ 160°)</td></tr>
-  <tr><td><strong>Jas</strong></td><td>Udává se v nitech (cd/m²)</td></tr>
-  <tr><td><strong>Doba odezvy</strong></td><td>ms – čas změny pixelu z jedné barvy na druhou</td></tr>
-</table>
+<h2>17.1 Základní parametry displejů</h2>
+<ul>
+  <li><strong>Rozlišení</strong>: Počet pixelů na obrazovce (např. Full HD: 1920×1080, HD: 1280×720).</li>
+  <li><strong>Obnovovací frekvence</strong>: Jak často se obraz překreslí za sekundu (Hz). Standard je 60 Hz, herní monitory mají 144 Hz a více.</li>
+  <li><strong>Pozorovací úhel</strong>: Úhel, pod kterým lze na obraz sledovat, aniž by došlo ke zkreslení barev.</li>
+  <li><strong>Jas a Kontrast</strong>: Jas se udává v nitech. Kontrast je poměr mezi nejtmavší černou a nejbělejší bílou.</li>
+  <li><strong>Doba odezvy</strong>: Čas, za který se pixel změní z jedné barvy na druhou (ms).</li>
+</ul>
 
-<h2>CRT (Cathode Ray Tube)</h2>
-<div class="box box-amber">
-  Elektronové dělo vystřeluje svazek elektronů → elektromagnety ho usměrňují → dopadá na luminofor = bod zazáří.<br>
-  ✓ Skvělý kontrast, téměř nulová odezva. ✗ Obrovské rozměry, velká spotřeba, rentgenové záření. Dnes nevyrábí.
-</div>
+<h2>17.2 CRT (Cathode Ray Tube)</h2>
+<ul>
+  <li><strong>Princip</strong>: V zadní části je elektronové dělo, které vystřeluje svazek elektronů. Ten je pomocí elektromagnetů usměřňován a dopadá na stínítko potažené luminoforem. Při nárazu elektronu bod zazáří.</li>
+  <li><strong>Výhody</strong>: Skvělý kontrast, téměř nulová odezva, věrné barvy.</li>
+  <li><strong>Nevýhody</strong>: Obrovské rozměry a hmotnost, vysoká spotřeba, rentgenové záření a blikání.</li>
+</ul>
 
-<h2>LCD (Liquid Crystal Display)</h2>
-<div class="box box-purple">
-  1. Zdroj světla (podsvícení) → 2. Polarizační filtr → 3. Tekuté krystaly (natáčí se elektrickým polem → mění polarizaci) → 4. Druhý filtr + RGB subpixely
-</div>
-<table>
-  <tr><th>Typ LCD</th><th>Výhody</th><th>Nevýhody</th></tr>
-  <tr><td><strong>TN</strong></td><td>Levné, rychlá odezva (vhodné pro hráče)</td><td>Špatné pozorovací úhly a barvy</td></tr>
-  <tr><td><strong>IPS</strong></td><td>Skvělé barvy, pozorovací úhly ~180°</td><td>Pomalejší, dražší</td></tr>
-  <tr><td><strong>VA</strong></td><td>Vysoký kontrast</td><td>Ghosting, pomalejší</td></tr>
-</table>
+<h2>17.3 LCD (Liquid Crystal Display)</h2>
+<p><strong>Princip:</strong></p>
+<ol>
+  <li><strong>Zdroj světla</strong>: Bílé světlo podsvicuje pixely.</li>
+  <li><strong>Polarizační filtry</strong>: Dva filtry (horizontální a vertikální). Pokud jsou otočeny proti sobě, světlo neprojde.</li>
+  <li><strong>Tekuté krystaly</strong> (LC): Jsou mezi filtry. Pomocí elektřiny je můžeme "natáčet". Tím mění polarizaci světla a určují, kolik světla projde skrz druhý filtr k barevnému subpixelu (RGB).</li>
+</ol>
+<p><strong>Typy:</strong></p>
+<ul>
+  <li><strong>TN</strong> (Twisted Nematic): Levné, velmi rychlé (vhodné pro hráče), ale špatné pozorovací úhly a barvy.</li>
+  <li><strong>IPS</strong> (In-Plane Switching): Skvělé barvy a pozorovací úhly (skoro 180°), ale o něco pomalejší a dražší.</li>
+</ul>
 
-<h2>OLED (Organic Light Emitting Diode)</h2>
-<div class="box box-green">
-  Každý pixel svítí sám (organické sloučeniny vyzařují světlo při průtoku proudu).<br>
-  ✓ Absolutní černá (pixel se vypne), nekonečný kontrast, tenké a ohebné panely.<br>
-  ✗ Vypalování obrazu (statické prvky), modrá složka stárne nejrychleji.
-</div>
+<h2>17.4 OLED (Organic Light Emitting Diode)</h2>
+<p><strong>Každý pixel svítí sám.</strong></p>
+<ul>
+  <li><strong>Princip</strong>: Využívá organické sloučeniny, které vyzařují světlo, když jimi protéká proud.</li>
+  <li><strong>Výhody</strong>: Absolutní černá (pixel se prostě vypne), nekonečný kontrast, extrémně tenké a ohebné panely.</li>
+  <li><strong>Nevýhody</strong>: Vyšší cena, riziko vypalování obrazu (statické prvky jako lišta Windows mohou zanechat "duchy"). Modrá složka stárne nejrychleji.</li>
+</ul>
 
-<h2>E-ink a grafická karta</h2>
-<div class="two-col">
-  <div class="card"><h3>E-ink</h3><p>Mikrokapsle s černým a bílým pigmentem. Energii spotřebuje jen při překreslení. Výborný na slunci, neoptiká oči. Kindle, čtečky.</p></div>
-  <div class="card"><h3>GPU</h3><p><strong>Integrovaná</strong> (součást CPU, sdílí RAM) – kancelář. <strong>Dedikovaná</strong> (NVIDIA/AMD, vlastní VRAM) – hry, 3D, střih.</p></div>
-</div>
+<h2>17.5 Plazma a E-ink</h2>
+<ul>
+  <li><strong>Plazma</strong>: Starší technologie pro velké TV. Každý pixel je malá komůrka s plynem (plazmou). Skvělý obraz, ale obrovská spotřeba (v podstatě malé topení). Dnes se již nevyrábí.</li>
+  <li><strong>E-ink</strong> (Elektronický inkoust): Používá se v čtečkách knih (Kindle). Obsahuje mikrokapsle s černým a bílým pigmentem. Energii spotřebuje pouze při překreslení stránky. Na slunci je skvěle čitelný a neunavuje oči.</li>
+</ul>
+
+<h2>17.6 Princip vykreslování: Grafická karta (GPU)</h2>
+<ul>
+  <li><strong>GPU</strong> (Graphics Processing Unit): Specializovaný procesor pro paralelní výpočty grafiky.</li>
+  <li><strong>Typy</strong>:
+    <ul>
+      <li><strong>Integrovaná</strong>: Součást procesoru (např. Intel UHD). Sdílí operační paměť RAM. Stačí na kancelářskou práci.</li>
+      <li><strong>Dedikovaná</strong>: Samostatná karta (NVIDIA/AMD) s vlastní rychlou pamětí (VRAM). Nutná pro hry, 3D modelování a střih videa.</li>
+    </ul>
+  </li>
+  <li>Postup: CPU pošle instrukce &gt; GPU vypočítá geometrii a textury &gt; výsledek pošle jako videosignál (HDMI, DisplayPort) do monitoru.</li>
+</ul>
 
 <div class="nav-btns">
   <a class="nav-btn" href="../16-tiskarny/index.html">← Tiskárny</a>
