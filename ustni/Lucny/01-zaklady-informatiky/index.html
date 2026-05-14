@@ -169,6 +169,37 @@
   <li><strong>CRC</strong> (Cyclic Redundancy Check) – hashovací funkce; převede data na krátký řetězec znaků = hash/kontrolní otisk.</li>
 </ul>
 
+<h2>Praktický úkol</h2>
+<p>Vytvořte v libovolném programovacím jazyce funkce pro převod mezi binární a desítkovou soustavou a vysvětlete algoritmus.</p>
+<pre><code># Prevod z binarni soustavy do desitkove
+def binarni_na_desitkovy(binarni):
+    vysledek = 0
+    # Prochazime kazdy znak retezce zprava doleva (enumerate reversed)
+    for i, cislice in enumerate(reversed(binarni)):
+        # Kazda binarni cislice se nasobi prislusnou mocninou 2 a pricte
+        vysledek += int(cislice) * (2 ** i)
+    return vysledek
+
+# Prevod z desitkove soustavy do binarni
+def desitkovy_na_binarni(cislo):
+    if cislo == 0:
+        return "0"
+    binarni = ""
+    while cislo > 0:
+        # Zbytek po deleni 2 je dalsi bit – pridame ho na ZACATEK retezce
+        binarni = str(cislo % 2) + binarni
+        cislo = cislo // 2  # Celociselne deleni 2, posuneme se o rad
+    return binarni
+
+# Testovani
+print(binarni_na_desitkovy("1010"))  # vysledek: 10
+print(desitkovy_na_binarni(10))      # vysledek: 1010</code></pre>
+<h3>Jak algoritmus funguje</h3>
+<ul>
+  <li><strong>Binární → Desítková:</strong> Procházíme řetězec zprava doleva. Každou cifru (0 nebo 1) násobíme příslušnou mocninou 2 (2⁰, 2¹, 2², …) a výsledky sečteme. Příklad: <code>1010</code> = 1·2³ + 0·2² + 1·2¹ + 0·2⁰ = 8 + 0 + 2 + 0 = <strong>10</strong>.</li>
+  <li><strong>Desítková → Binární:</strong> Opakovaně dělíme číslo 2. Zbytek po každém dělení je jedna binární cifra (0 nebo 1) – přidáváme ji na začátek výsledného řetězce. Pokračujeme, dokud je číslo větší než 0. Příklad: 10 → zbytek 0, 5 → zbytek 1, 2 → zbytek 0, 1 → zbytek 1 → čteme pozpátku: <strong>1010</strong>.</li>
+</ul>
+
 <div class="nav-btns">
   <span></span>
   <a class="nav-btn" href="../02-programy-a-data/index.html">Programy a data →</a>

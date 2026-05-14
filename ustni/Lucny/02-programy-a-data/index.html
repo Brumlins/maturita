@@ -142,6 +142,80 @@
   <li><strong>SaaS</strong> (Software as a Service) – aplikace licencována jako služba; přístupná odkudkoliv a kdykoliv. Příklady: Dropbox, Gmail.</li>
 </ul>
 
+<h2>Praktický úkol</h2>
+<p>Dostanete soubor <code>zadani.txt</code>. Přejmenujte ho na <code>davka.bat</code> a doplňte všechny příkazy podle komentářů REM.</p>
+<pre><code>@ECHO OFF
+REM 1. Vypnuti vypisu; zelene pozadi (2), bily text (F)
+COLOR 2F
+
+REM 2. Titulek okna
+TITLE ZALOHOVACI DAVKA
+
+REM 3. Informace o autorovi
+ECHO AUTOR: Milan Svoboda - davka.bat
+
+REM 4. Pozastaveni az do stisku klavesy
+PAUSE
+
+REM 5. Presun do korenoveho adresare disku D:
+D:
+CD \
+
+REM 6. Vymazat slozku DOC vcetne podslozek (pokud existuje)
+IF EXIST DOC RD /S /Q DOC
+
+REM 7. Vytvorit slozku DOC a podslozky
+MKDIR DOC
+MKDIR DOC\TEXTY
+MKDIR DOC\OBRAZKY
+
+REM 8. Pokud nebyl zadan 1. parametr, skoc na CHYBA
+IF "%1"=="" GOTO CHYBA
+
+REM 9. Kopirovat TXT soubory z 1. parametru do TEXTY
+COPY "%1\*.txt" DOC\TEXTY\
+
+REM 10. Kopirovat obrazky z 1. parametru do OBRAZKY
+COPY "%1\*.jpg" DOC\OBRAZKY\
+COPY "%1\*.bmp" DOC\OBRAZKY\
+COPY "%1\*.gif" DOC\OBRAZKY\
+
+REM 11. Nastavit soubory v TEXTY jako pouze pro cteni (-A = nearchivni, +R = read-only)
+ATTRIB +R -A DOC\TEXTY\*.*
+
+REM 12. Vypsat obsah slozek do VYPIS.TXT (> prepise, >> pripoji)
+DIR DOC\TEXTY > DOC\VYPIS.TXT
+DIR DOC\OBRAZKY >> DOC\VYPIS.TXT
+
+REM 13. Pripojit sitovou trasu k seznam.cz na konec VYPIS.TXT
+TRACERT www.seznam.cz >> DOC\VYPIS.TXT
+
+REM 14. Otevrit VYPIS.TXT v Poznámkovém bloku
+NOTEPAD DOC\VYPIS.TXT
+
+REM 15. Skoc na KONEC (preskoci navesti CHYBA)
+GOTO KONEC
+
+REM 16. Navesti CHYBA
+:CHYBA
+ECHO Nebyl zadan 1. parametr!
+
+REM 17. Navesti KONEC
+:KONEC
+
+REM 18. Zaverecne hlaseni
+ECHO KONEC DAVKOVEHO SOUBORU</code></pre>
+<h3>Klíčové příkazy</h3>
+<ul>
+  <li><code>@ECHO OFF</code> – vypne výpis příkazů do konzole (@ potlačí i tento řádek).</li>
+  <li><code>COLOR 2F</code> – barva pozadí = 2 (zelená), barva textu = F (bílá); hodnoty jsou hexadecimální.</li>
+  <li><code>RD /S /Q</code> – smaže adresář včetně podadresářů (/S) bez potvrzení (/Q).</li>
+  <li><code>IF "%1"==""</code> – testuje, zda byl předán první parametr při spuštění dávky.</li>
+  <li><code>GOTO</code> / <code>:NAVESTI</code> – skok na označené místo v dávce.</li>
+  <li><code>ATTRIB +R -A</code> – přidá atribut pouze pro čtení (+R), odebere archivní atribut (-A).</li>
+  <li><code>&gt;</code> – přesměruje výstup do souboru (přepíše); <code>&gt;&gt;</code> – připojí na konec.</li>
+</ul>
+
 <div class="nav-btns">
   <a class="nav-btn" href="../01-zaklady-informatiky/index.html">← Základy informatiky</a>
   <a class="nav-btn" href="../03-informacni-a-databazove-systemy/index.html">Informační a databázové systémy →</a>
