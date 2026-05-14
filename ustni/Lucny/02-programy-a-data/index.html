@@ -143,6 +143,48 @@
 </ul>
 
 <h2>Praktický úkol</h2>
+<p>Vytvořte dávkový soubor <code>ZALOHA.BAT</code>.</p>
+<pre><code>@ECHO OFF
+REM 1. Vypne vypisy prikazu
+
+CLS
+REM 2. Vycisti obrazovku
+
+ECHO ZALOHOVACI DAVKOVY SOUBOR
+REM 3. Vypise hlaseni
+
+PAUSE
+REM 4. Pozastavi do stisku klavesy
+
+IF "%1"=="" GOTO CHYBA
+REM 5. Pokud prazdny 1. parametr, skoc na CHYBA
+
+MKDIR F:\%1
+REM 6. Vytvori adresar v korenovem adresari F: s nazvem 1. parametru
+
+COPY C:\WINDOWS\*.log F:\%1\
+REM 7. Zkopiruje vsechny .log soubory z C:\WINDOWS do ciloveho adresare
+
+DIR F:\%1 > F:\%1\obsah.txt
+NOTEPAD F:\%1\obsah.txt
+REM 8. Vypise obsah cilove slozky do obsah.txt a otevre ho v Poznamkovem bloku
+
+ECHO ZALOHA USPESNE PROVEDENA
+REM 9. Vypise zaverecne hlaseni
+
+GOTO KONEC
+REM 10. Skoc na KONEC (preskoci blok CHYBA)
+
+:CHYBA
+REM 11. Navesti CHYBA
+ECHO NEBYL ZADAN PARAMETR. ZALOHU NELZE PROVEST.
+
+:KONEC
+REM 12. Navesti KONEC
+PAUSE
+REM 13. Pozastavi do stisku klavesy</code></pre>
+
+<h2>Trénink – rozšířená dávka</h2>
 <p>Dostanete soubor <code>zadani.txt</code>. Přejmenujte ho na <code>davka.bat</code> a doplňte všechny příkazy podle komentářů REM.</p>
 <pre><code>@ECHO OFF
 REM 1. Vypnuti vypisu; zelene pozadi (2), bily text (F)
