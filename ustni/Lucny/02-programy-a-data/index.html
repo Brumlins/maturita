@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q02 – Programy a data | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q02</span>
+</nav>
+<div class="hero">
+  <div class="bignr">02</div>
+  <div class="qnum">Otázka 02 / 20 · Lucný</div>
+  <h1>Programy a data</h1>
+</div>
+<main>
+
+<h2>2.1 Programové a datové soubory</h2>
+<ul>
+  <li><strong>Soubor</strong> – množina souvisejících dat uložená na disku; má jméno + tečku + příponu.</li>
+  <li><strong>Adresář</strong> – hierarchická struktura (strom); kořenový adresář je <code>/</code> (Unix) nebo <code>\</code> (Windows).</li>
+  <li><strong>Cesta / path</strong> – umístění souboru od nejvyššího adresáře.</li>
+  <li><strong>Wildcards</strong>: <code>*</code> = libovolný počet znaků; <code>?</code> = jeden libovolný znak.</li>
+</ul>
+<h3>Programové soubory</h3>
+<ul>
+  <li>Obsahují instrukce (strojový nebo zdrojový kód).</li>
+  <li><strong>Spustitelné soubory</strong> – přípony <code>.exe</code>, <code>.sh</code>.</li>
+  <li><strong>Skript</strong> – soubor instrukcí v textové podobě; vyžaduje interpret.</li>
+  <li><strong>Knihovny</strong> – přípony <code>.dll</code>, <code>.sys</code>; sdílené funkce pro více programů.</li>
+  <li><strong>Rezidentní programy</strong> (služby, démoni) – procesy spouštěné automaticky po startu OS; příklad: antivirus.</li>
+</ul>
+<h3>Datové soubory</h3>
+<ul>
+  <li>Obsahují data: čísla, text, zvuk, grafiku.</li>
+</ul>
+
+<h2>2.2 Systémové a aplikační programy</h2>
+<h3>Systémové programy</h3>
+<p>Zajišťují komunikaci HW a aplikací, řídí chod PC:</p>
+<ul>
+  <li><strong>OS</strong> – Windows, Linux, macOS, mobilní OS, RTOS.</li>
+  <li><strong>Firmware</strong> – vestavěné systémy; kalkulačky, routery.</li>
+  <li><strong>BIOS</strong> – základní firmware; start a konfigurace na základní desce.</li>
+  <li><strong>Utility</strong> – správce úloh, defragmentace, RegCleaner, ping, ipconfig.</li>
+  <li><strong>Ovladače / drivers</strong> – komunikace OS s konkrétním HW.</li>
+</ul>
+<h3>Aplikační programy</h3>
+<p>Pro konkrétní činnost uživatele:</p>
+<ul>
+  <li><strong>Kancelářské balíky</strong> – MS Office, OpenOffice.</li>
+  <li><strong>Grafické</strong> – Photoshop, GIMP, CAD.</li>
+  <li><strong>Multimediální</strong> – přehrávače, editory.</li>
+  <li><strong>Síťové a komunikační</strong> – prohlížeče, e-mail, Skype.</li>
+  <li><strong>Informační a databázové ERP</strong> – SAP, Oracle.</li>
+  <li><strong>Vývojová prostředí IDE</strong> – Visual Studio, PyCharm (debugger + editor + překladač).</li>
+  <li><strong>API</strong> – sbírka funkcí a tříd pro vývojáře.</li>
+</ul>
+
+<h2>2.3 Programy a autorský zákon, softwarové licence</h2>
+<ul>
+  <li><strong>Licence</strong> – oprávnění k užívání aplikace; nepřenosná, nelze přeprodat ani darovat.</li>
+  <li><strong>Open Source</strong> – šířeny se zdrojovými kódy; každý může vylepšit/opravit/použít ve svém programu (ale musí distribuovat jako open source); většinou zdarma.
+    <ul>
+      <li>Příklady: Linux, GIMP.</li>
+      <li>Licence: <strong>GPL</strong>, APACHE. GPL = obecná veřejná licence; odvozená díla pod toutéž licencí; lze upravovat.</li>
+    </ul>
+  </li>
+  <li><strong>Closed source</strong> – kód není volně dostupný; nelze upravovat.
+    <ul>
+      <li>Příklady: Windows, Adobe, Office.</li>
+      <li>Licence: <strong>EULA</strong> (licence pro koncového uživatele) – bez zdrojového kódu, nesmí se upravovat ani distribuovat.</li>
+    </ul>
+  </li>
+  <li><strong>Shareware</strong> – volně šiřitelný; po určité době nutno zaplatit; closed source; nelze měnit. Příklad: WinRAR.</li>
+  <li><strong>Freeware</strong> – volně šiřitelný; nevyžaduje poplatek; autor si ponechává autorská práva; nelze upravovat; nesmí se zahrnovat do komerčně šířených programů; pro osobní potřebu/vzdělávání. Příklady: internetové prohlížeče, PDF reader Adobe Acrobat.</li>
+  <li><strong>Demo</strong> – zkušební verze s omezenými funkcemi.</li>
+  <li><strong>Trial</strong> – plnohodnotný program jen na určitou dobu.</li>
+  <li><strong>Autorský zákon</strong> – program = autorské dílo; chráněno před krádeží; hrozí peněžní trest nebo odnětí svobody. Ochranné mechanismy: licence, licenční číslo, aktivace, hardwarový klíč.</li>
+</ul>
+
+<h2>2.4 Instalace programů, zálohování</h2>
+<ul>
+  <li><strong>Záloha / backup</strong> – kopie dat uložená na jiném datovém nosiči; využívána v případě ztráty nebo poškození dat.</li>
+  <li><strong>5 zásad zálohování</strong>:
+    <ol>
+      <li>Častá frekvence zálohy.</li>
+      <li>Kontrola zálohy (ověřit, že lze obnovit).</li>
+      <li>Dokumentujeme a popisujeme zálohy.</li>
+      <li>Ukládáme na bezpečná místa.</li>
+      <li>Šifrování záloh.</li>
+    </ol>
+  </li>
+  <li><strong>Typy záloh</strong>:
+    <ul>
+      <li>Adresáře/soubory – WinZip, WinRAR.</li>
+      <li>Diskové oddíly.</li>
+      <li>Záloha celého disku – Clonezilla.</li>
+      <li>Systémová záloha – Acronis.</li>
+    </ul>
+  </li>
+  <li><strong>Plug'n'Play (PNP)</strong> – standard pro automatickou detekci nově připojeného HW a vyhledání driverů.</li>
+  <li><strong>Driver</strong> (ovladač zařízení) – speciální program zajišťující komunikaci OS s HW; některé jsou součástí OS, jiné je nutno doinstalovat.</li>
+</ul>
+
+<h2>2.5 Cloudová řešení, emulace a virtualizace</h2>
+<h3>Emulátor</h3>
+<p>Program, který umožní běh programů na jiné platformě, než pro kterou byly vytvořeny.</p>
+<ul>
+  <li>Wine – spouštění Windows programů na Unixu.</li>
+  <li>DosBox – emulace starých DOS her.</li>
+  <li>YuZu – emulace Nintendo Switch na PC.</li>
+</ul>
+<h3>Virtualizace</h3>
+<p>Postupy a techniky umožňující přistupovat ke zdrojům jiným způsobem, než jakým fyzicky existují; oddělují OS od HW.</p>
+<ul>
+  <li>Virtualizace jednotlivých HW komponent (virtuální procesory, paměť).</li>
+  <li>Virtualizace OS.</li>
+  <li><strong>Virtuální stroj</strong> – speciální software simulující skutečný počítač včetně procesoru/paměti/disku/karet; umožňuje instalaci OS i dalších programů. Příklad: VirtualBox.</li>
+  <li>Využití: bezpečnostní izolace, testování nových aplikací, virtualizace serverů.</li>
+</ul>
+<h3>Cloud</h3>
+<p>Vzdálená služba přístupná klientskými aplikacemi nebo webovými rozhraními (Office 365, OneDrive, GitHub).</p>
+<ul>
+  <li><strong>Veřejný cloud</strong> – pro velký/neomezený počet klientů (Skype, Seznam).</li>
+  <li><strong>Privátní cloud</strong> – pro omezený počet zákazníků.</li>
+  <li><strong>Hybridní cloud</strong> – kombinuje veřejný i privátní.</li>
+</ul>
+<h3>Cloudové modely</h3>
+<ul>
+  <li><strong>IaaS</strong> (Infrastructure as a Service) – nabízí klientům celou infrastrukturu; virtuální stroje/servery; o HW se stará poskytovatel. Příklad: Microsoft Azure.</li>
+  <li><strong>PaaS</strong> (Platform as a Service) – prostředky pro tvorbu a distribuci aplikací; IDE, API. Příklady: Heroku, Google App Engine.</li>
+  <li><strong>SaaS</strong> (Software as a Service) – aplikace licencována jako služba; přístupná odkudkoliv a kdykoliv. Příklady: Dropbox, Gmail.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../01-zaklady-informatiky/index.html">← Základy informatiky</a>
+  <a class="nav-btn" href="../03-informacni-a-databazove-systemy/index.html">Informační a databázové systémy →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Programy a data</div>
+</body>
+</html>

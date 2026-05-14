@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q19 – Objektově orientované programování | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q19</span>
+</nav>
+<div class="hero">
+  <div class="bignr">19</div>
+  <div class="qnum">Otázka 19 / 20 · Lucný</div>
+  <h1>Objektově orientované programování</h1>
+</div>
+<main>
+
+<h2>19.1 Důvody vzniku OOP, základní pojmy: třída, objekt, využití OOP v praxi</h2>
+<p>OOP vzniklo jako snaha o lepší organizaci kódu a řešení tzv. <strong>softwarové krize</strong>, kdy se starý kód těžko udržoval a SW zaostával za HW. <strong>OOP reprezentuje skutečné objekty a jejich interakci.</strong></p>
+<ul>
+  <li><strong>Třída</strong> – definice objektu; popisuje jeho vlastnosti (<strong>atributy</strong>) a funkce (<strong>metody</strong>). Třída se podobá struktuře v jazyce C, ale navíc obsahuje metody.</li>
+  <li><strong>Objekt</strong> – konkrétní instance třídy v paměti. Obsahuje konkrétní data a dovoluje provádět akce.</li>
+</ul>
+<p>Hlavní výhodou OOP je <strong>modularita</strong> (rozdělení kódu na nezávislé části) a <strong>znovu použitelnost kódu</strong>.</p>
+
+<h2>19.2 Deklarace třídy, atributy a metody, konstruktor a destruktor, typy metod a atributů, princip zapouzdření</h2>
+<p>Deklarace třídy se provádí v hlavičkovém souboru <code>.h</code> a definuje jaké má třída atributy a metody. Implementace metod se píše v souboru <code>.cpp</code>.</p>
+<h3>Zapouzdření</h3>
+<p>Zapouzdření znamená <strong>skrytí vnitřního fungování třídy</strong>, chrání data a přístup k nim.</p>
+<ul>
+  <li><code>private:</code> – přístupné pouze metodám uvnitř třídy.</li>
+  <li><code>public:</code> – přístupné odkudkoliv; tvoří rozhraní objektu.</li>
+  <li><code>protected:</code> – přístupné uvnitř třídy a jejím potomkům.</li>
+</ul>
+<h3>Konstruktor a destruktor</h3>
+<ul>
+  <li><strong>Konstruktor</strong> – speciální metoda, zajišťuje inicializaci dat objektu při jeho vytvoření. Má stejný název jako třída a nemá návratovou hodnotu. Typy: výchozí, s parametry, kopírovací.</li>
+  <li><strong>Destruktor</strong> – volá se automaticky při zániku objektu a stará se o „úklid"; nemá parametry.</li>
+</ul>
+<p><strong>Konstantní metoda</strong> – značí se slovem <code>const</code>; zaručuje, že metoda pouze čte data, ale nesmí změnit hodnotu žádného atributu třídy.</p>
+
+<h2>19.3 Dědičnost a polymorfismus, význam opětovného použití kódu</h2>
+<p><strong>Dědičnost</strong> je schopnost nové třídy (<strong>potomka</strong>) zdědit vlastnosti a metody z nadřazené třídy (<strong>rodiče</strong>). Umožňuje tvorbu logické hierarchické struktury. Snižuje množství duplicitního kódu, šetří čas a snižuje riziko chyb.</p>
+<p><strong>Polymorfismus</strong> je schopnost objektů různých tříd reagovat na stejné volání metody jiným způsobem.</p>
+<ul>
+  <li>Příklad: zavoláme metodu <code>NakresliSe()</code>. Objekt třídy <code>Kruh</code> nakreslí kruh, objekt třídy <code>Čtverec</code> nakreslí čtverec.</li>
+</ul>
+
+<h2>19.4 Vytváření objektů, možnosti práce s objekty a s pamětí v různých jazycích</h2>
+<p><strong>Statické vytvoření objektu</strong> – objekt se vytvoří jako běžná proměnná. K metodám přistupuje pomocí operátoru <strong>tečka</strong>. Paměť se automaticky uvolňuje po skončení.</p>
+<pre><code>MojeAuto.ZiskejSPZ()</code></pre>
+<p><strong>Dynamické vytvoření</strong> se provádí pomocí operátoru <code>new</code>. Ten paměť alokuje a vrátí její adresu (ukazatel).</p>
+<pre><code>Auto *MojeAuto = new Auto();</code></pre>
+<ul>
+  <li>K metodám přistupujeme přes operátor <strong>šipky →</strong>.</li>
+  <li>Objekt musí být ručně smazán operátorem <code>delete</code>.</li>
+</ul>
+<p><strong>Zbloudilý ukazatel (wild pointer)</strong> – po použití <code>delete</code> zůstane ukazatel stále namířen na paměť. Je nutné ukazatel po smazání hned vynulovat.</p>
+<p><strong>Ukazatel <code>this</code></strong> je skrytý parametr každé metody, který ukazuje na konkrétní objekt, se kterým pracuje.</p>
+<p>V jazycích jako je <strong>Java</strong> nebo <strong>Python</strong> probíhá správa paměti automaticky pomocí <strong>Garbage Collectoru</strong>.</p>
+
+<h2>19.5 Další aplikace principů OOP: abstraktní třídy, rozhraní, objektově relační databáze, ORM</h2>
+<ul>
+  <li><strong>Abstraktní třída</strong> – slouží pouze jako předloha pro ostatní. Nelze z ní přímo vytvořit objekt; vždy se z ní musí dědit.</li>
+  <li><strong>Rozhraní (interface)</strong> – zcela prázdná šablona, která obsahuje hlavičky metod, jež musí třída, která rozhraní implementuje, povinně naprogramovat.</li>
+  <li><strong>ORM</strong> (Object-Relational Mapping) – programovací technika, která mapuje data z relační databáze (tabulky) na objekty (třídy) v programu. Namísto psaní SQL dotazů pracujeme s databází jako s objekty pomocí metod.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../18-strukturovane-programovani/index.html">← Strukturované programování</a>
+  <a class="nav-btn" href="../20-datove-struktury/index.html">Datové struktury →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Objektově orientované programování</div>
+</body>
+</html>

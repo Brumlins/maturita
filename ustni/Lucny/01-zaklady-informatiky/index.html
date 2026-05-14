@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q01 – Základy informatiky | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q01</span>
+</nav>
+<div class="hero">
+  <div class="bignr">01</div>
+  <div class="qnum">Otázka 01 / 20 · Lucný</div>
+  <h1>Základy informatiky</h1>
+</div>
+<main>
+
+<h2>1.1.1 Informatika a informační technologie</h2>
+<ul>
+  <li><strong>Informatika</strong> – vědní obor zabývající se zpracováním informací pomocí výpočetní techniky.</li>
+  <li><strong>Umělá inteligence (AI)</strong> – napodobit intelektuální činnost člověka.</li>
+  <li><strong>Expertní systémy</strong> – napomáhají odborníkům (diagnóza apod.), prohledávají databázi.</li>
+  <li><strong>Kybernetika a robotika</strong> – systémy, které samostatně reagují na podněty.</li>
+  <li><strong>Počítačová simulace</strong> – modeluje neexistující nebo těžko přístupné objekty.</li>
+  <li><strong>Telekomunikace</strong> – vzdálený přenos informací.</li>
+</ul>
+
+<h2>1.1.2 Data, informace, signál</h2>
+<ul>
+  <li><strong>Data</strong> – fakta získaná z reality (teplota, tlak, hmotnost…).</li>
+  <li><strong>Informace</strong> – vyhodnocená, uspořádaná data; pomáhají při rozhodování.</li>
+  <li><strong>Signál</strong> – fyzický nositel informací; fyzikální veličina měnící svůj stav (zvuková vlna, tlak plynu, elektrické napětí).</li>
+</ul>
+
+<h2>1.1.3 Analogový a digitální signál</h2>
+<ul>
+  <li><strong>Analogový signál</strong> – spojitá křivka; věrně napodobuje původní signál; přenosem ztrácí kvalitu a vzniká šum.</li>
+  <li><strong>Digitální signál</strong> – nespojitý; mnohonásobně kopírovatelný bez ztráty na kvalitě.</li>
+  <li><strong>Digitalizace</strong> – umožňuje zpracovat signál na digitálním zařízení; vyjádřen v číslech.</li>
+  <li><strong>A/D převodník</strong>: <em>vzorkování</em> = osa x (čas), <em>kvantování</em> = osa y (hodnota).</li>
+</ul>
+
+<h2>1.2 Jednotky v informatice</h2>
+<ul>
+  <li><strong>Bit</strong> (Binary digit) – logická informace ano/ne (1/0); architektura systému 32b/64b.</li>
+  <li><strong>Bitová hloubka</strong> – počet bitů potřebný k uložení vzorku dat.</li>
+  <li><strong>Byte</strong> – 8 bitů; 1 B pojme 256 = 2<sup>8</sup> různých hodnot; nejmenší jednotka pro procesor.
+    <ul>
+      <li>KB = 2<sup>10</sup> B, MB = 2<sup>20</sup> B, GB = 2<sup>30</sup> B, TB = 2<sup>40</sup> B</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>1.3 Číselné soustavy a jejich převody</h2>
+<ul>
+  <li><strong>Binární</strong> – základ 2; stavy: 0, 1.</li>
+  <li><strong>Oktalová</strong> – základ 8; číslice 0–7.</li>
+  <li><strong>Dekadická</strong> – základ 10; číslice 0–9.</li>
+  <li><strong>Hexadecimální</strong> – základ 16; číslice 0–9 + A–F (10–15); používá se v HTML/CSS barvách, MAC adresách.</li>
+  <li><strong>Převod do dvojkové soustavy</strong> – dělit základem 2, zbytky zapsat zprava doleva.</li>
+  <li><strong>Převod z dvojkové do desítkové</strong> – mocniny základu 2 (vždy začínáme od 2<sup>0</sup> zprava).</li>
+</ul>
+
+<h2>1.3.1 Uložení čísel v paměti počítače</h2>
+<ul>
+  <li>Čísla se ukládají v <strong>binární soustavě</strong>.</li>
+  <li><strong>Kladná</strong> (unsigned) / <strong>záporná</strong> (signed).</li>
+  <li>1 byte = 256 hodnot: unsigned 0–255, signed −128 až +127.</li>
+  <li><strong>Desetinná čísla</strong> v plovoucí řádové čárce:
+    <ul>
+      <li><em>Znaménkový bit</em> – signed=1 / unsigned=0.</li>
+      <li><em>Exponent</em> – celé číslo včetně znaménka.</li>
+      <li><em>Mantisa</em> – část za desetinnou čárkou.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>1.4 Princip kódování informací</h2>
+<ul>
+  <li><strong>Kód</strong> – pravidlo, jak přenést množinu znaků na jinou; abeceda.</li>
+  <li><strong>Čárový kód</strong> – tmavé čáry + světlé mezery; snímač; EAN13/EAN8.
+    <ul>
+      <li><strong>1D</strong> – omezená kapacita; slouží jako klíč k databázi.</li>
+      <li><strong>2D</strong> – vyšší kapacita; všechny informace přímo v kódu.</li>
+    </ul>
+  </li>
+  <li><strong>QR kód</strong> (quick response) – kompenzuje ztráty; galerie/muzea/platby; geometrická vrstva + informační vrstva (černý bod=1, bílý bod=0).</li>
+</ul>
+
+<h2>1.4.1 Znakové kódy</h2>
+<ul>
+  <li>Každému znaku je přiřazen kód → <strong>znaková sada</strong>.</li>
+  <li><strong>ASCII</strong> (American Standard Code for Information Interchange) – nejúspěšnější; 2<sup>7</sup> = 128 platných znaků; Extended ASCII = 2<sup>8</sup> = 256 znaků; 1 znak = 1 B.</li>
+  <li><strong>Unicode</strong> – původně univerzální znaková sada; šestnáctibitové kódování.</li>
+  <li><strong>UTF</strong> – varianty Unicode; liší se nároky na paměť.</li>
+  <li><strong>UTF-8</strong> – nejužívanější; kompatibilní s ASCII; znaky mají různou délku podle pozice v Unicode:
+    <ul>
+      <li>Tradiční znaky (ASCII) = 1 B</li>
+      <li>Diakritika = 2 B</li>
+      <li>Speciální znaky = 3–4 B</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>1.4.1.1 Speciální a řídící znaky</h2>
+<p>Neviditelné znaky na začátku ASCII tabulky:</p>
+<ul>
+  <li><strong>SPC</strong> – prázdný znak (mezera)</li>
+  <li><strong>HT</strong> – tabulátor</li>
+  <li><strong>LF</strong> – odřádkování (Line Feed)</li>
+  <li><strong>CR</strong> – návrat vozíku (Carriage Return)</li>
+</ul>
+<p>Neexistuje všeobecně přijímaný standard pro konec řádku:</p>
+<ul>
+  <li>Unix/Linux = LF</li>
+  <li>Microsoft Windows = CR+LF</li>
+  <li>Apple (starý Mac OS) = CR</li>
+</ul>
+
+<h2>1.4.1.2 Escape sekvence</h2>
+<ul>
+  <li>Speciální skupina řídících znaků, mění chování terminálu/interpretu.</li>
+  <li>Počáteční escape znak <code>\</code> (zpětné lomítko).</li>
+  <li>Zalomení řádku: <code>\n</code></li>
+  <li><strong>Entity</strong> – speciální sekvence znaků: <code>&amp;#n;</code> je znak s kódem n; <code>&amp;#255;</code> (dekadicky) nebo <code>&amp;#xE1;</code> (hexadecimálně) = český znak á.</li>
+</ul>
+
+<h2>1.5 Přenos informací a princip datové komprese</h2>
+<ul>
+  <li><strong>Komprese dat</strong> – algoritmus odstraní redundantní data; zmenšení souboru; hodnotí se: účinnost / kompresní poměr.</li>
+  <li><strong>Ztrátová komprese</strong> – efektivní; vhodná pro zvuk/video/foto (mozek doplní chybějící detail).</li>
+  <li><strong>Bezeztrátová komprese</strong> – lze přesně rekonstruovat dekompresí; vhodná pro výsledky měření/text/PNG/GIF.</li>
+</ul>
+
+<h2>1.5.1 Komprese v praxi</h2>
+<ul>
+  <li><strong>Archivace dat</strong> – formáty zip/rar/tar/gzip; programy WinZip, WinRAR.</li>
+  <li><strong>Audiovizuální kódování</strong> – kodeky ukládají vysoce komprimovaná data a při přehrávání dekódují.</li>
+  <li><strong>Komprese adresářů</strong> – souborové systémy jako NTFS umí kompresi na úrovni systému.</li>
+</ul>
+
+<h2>1.5.2 Kompresní algoritmy</h2>
+<ul>
+  <li><strong>RLE</strong> (Run Length Encoding) – kóduje opakující se sousední hodnoty; příklad: <code>AAA h</code> → <code>&lt;3A&gt;h</code>.</li>
+  <li><strong>LZW</strong> – slovník s odkazy na opakující se bloky dat.</li>
+  <li><strong>Huffmanovo kódování</strong> – binární strom na základě frekvence výskytu; častější symboly dostávají kratší binární číslo.</li>
+</ul>
+
+<h2>1.5.3 Přenos informací</h2>
+<p><strong>Odesílatel zakóduje</strong> → <strong>kanál přenese</strong> → <strong>příjemce odkóduje</strong> a pošle zpětnou vazbu.</p>
+
+<h2>1.5.4 Kontrolní součet</h2>
+<ul>
+  <li><strong>Parita</strong> – levý krajní/paritní bit; sleduje počet jedničkových bitů.
+    <ul>
+      <li><em>Lichá parita</em> – součet jedničkových bitů včetně paritního je lichý.</li>
+      <li><em>Sudá parita</em> – součet jedničkových bitů včetně paritního je sudý.</li>
+    </ul>
+  </li>
+  <li><strong>CRC</strong> (Cyclic Redundancy Check) – hashovací funkce; převede data na krátký řetězec znaků = hash/kontrolní otisk.</li>
+</ul>
+
+<div class="nav-btns">
+  <span></span>
+  <a class="nav-btn" href="../02-programy-a-data/index.html">Programy a data →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Základy informatiky</div>
+</body>
+</html>

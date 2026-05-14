@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q15 – Kyberbezpečnost | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q15</span>
+</nav>
+<div class="hero">
+  <div class="bignr">15</div>
+  <div class="qnum">Otázka 15 / 20 · Lucný</div>
+  <h1>Kyberbezpečnost</h1>
+</div>
+<main>
+
+<h2>15.1 Pojem kyberprostor, útoky a hrozby v kyberprostoru, zákon o kybernetické bezpečnosti</h2>
+<p><strong>Kyberprostor</strong> je virtuální prostor tvořený propojenými informačními a komunikačními technologiemi (internet, sítě, servery, cloud).</p>
+<p><strong>Útoky a hrozby</strong> mají za cíl poškodit infrastrukturu, získat cenné informace (know-how), ovládnout systém nebo zničit reputaci.</p>
+<ul>
+  <li><strong>Fyzické útoky</strong> – krádež nebo zničení HW, narušení komunikačních kabelů.</li>
+  <li><strong>Nehmotné útoky</strong> – využívají zranitelnost SW a sítí.</li>
+</ul>
+<h3>Největší hrozby kyberprostoru</h3>
+<ul>
+  <li><strong>DDoS</strong> (Distributed Denial of Service) – útok na dostupnost služeb. Cílem je zahltit server obrovským množstvím požadavků, aby přestal fungovat. Útočníci k tomu využívají <strong>botnet</strong> – síť infikovaných počítačů, které nevědomě posílají požadavky.</li>
+  <li><strong>Man-in-the-middle (MitM)</strong> – útočník se skrytě staví mezi komunikující strany a odposlouchává nebo mění komunikaci.</li>
+  <li><strong>Kyberválky</strong> – konflikty mezi státy (útok na vládní instituce a kritickou infrastrukturu).</li>
+</ul>
+<p><strong>Zákon o kybernetické bezpečnosti (ZKB)</strong> definuje práva a povinnosti pro ochranu důležitých informačních systémů (nemocnice, banky). Doplňuje ho evropské nařízení <strong>GDPR</strong>, které chrání osobní údaje a definuje právo „být zapomenut".</p>
+
+<h2>15.2 Malware, způsoby infikace, typy malware, sociální inženýrství</h2>
+<p><strong>Malware</strong> je škodlivý kód, který se snaží tajně narušit, poškodit nebo získat přístup k systému.</p>
+<p>Infikovat se můžeme stažením infikovaného souboru, kliknutím na podvodný odkaz nebo přílohy v e-mailu, také připojením cizí nakažené flashky.</p>
+<h3>Typy malware</h3>
+<ul>
+  <li><strong>Viry</strong> – programy, sami se množí připojením k jiným souborům.</li>
+  <li><strong>Červi</strong> – šíří se po síti, nepotřebují hostitelský soubor.</li>
+  <li><strong>Trojský kůň</strong> – tváří se jako užitečný program, ale provádí škodlivou činnost.</li>
+  <li><strong>Ransomware</strong> – zablokuje zařízení, zašifruje data a požaduje výkupné.</li>
+  <li><strong>Spyware</strong> – skrytě sleduje a odesílá data uživatele (hesla, historii).</li>
+  <li><strong>Adware</strong> – zobrazuje agresivní nevyžádanou reklamu.</li>
+</ul>
+<p><strong>Sociální inženýrství</strong> je technika manipulace s lidmi. Útočník nehledá chybu v SW, ale v lidské mysli. Využívá naivity a neznalosti lidí. Patří sem <strong>Phishing</strong> – útočník se např. vydává za lékaře nebo banku a láká z lidí informace jako jsou hesla nebo číslo účtu.</p>
+
+<h2>15.3 Příznaky napadení počítače a různé možnosti obrany</h2>
+<h3>Příznaky napadení</h3>
+<ul>
+  <li>Zpomalení výkonu.</li>
+  <li>Padání aplikací nebo celého OS.</li>
+  <li>Neznámé panely v prohlížeči, pop-up okna.</li>
+  <li>Chybějící nebo zašifrované soubory.</li>
+  <li>Zvýšený provoz na síti.</li>
+</ul>
+<h3>Možnosti obrany</h3>
+<ul>
+  <li><strong>Antivirus</strong> – detekuje malware pomocí skenování virových databází.</li>
+  <li><strong>Firewall</strong> – monitoruje příchozí a odchozí síťový provoz na základě pravidel.</li>
+  <li>Pravidelné <strong>aktualizace</strong> OS i aplikací.</li>
+  <li>Pravidelné <strong>zálohování</strong> dat na oddělené fyzické zařízení.</li>
+</ul>
+
+<h2>15.4 Problematika identity uživatelů, možnosti autentizace, zásady používání hesel</h2>
+<p><strong>Autentizace</strong> je proces ověření identity. Následuje <strong>autorizace</strong> (kam máš přístup).</p>
+<h3>Možnosti autentizace</h3>
+<ul>
+  <li><strong>Heslo, PIN</strong>.</li>
+  <li><strong>Čipová karta, bezpečnostní token, ověřování SMS</strong>.</li>
+  <li><strong>Biometrie</strong> – otisk prstu, faceID.</li>
+</ul>
+<p><strong>2FA</strong> (dvoufázové ověření) – kombinuje dvě výše uvedené metody pro zvýšení bezpečnosti.</p>
+<p><strong>SSO</strong> (single sign-on) – systém umožňující přihlášení do více nezávislých služeb pomocí jednoho účtu (např. Google).</p>
+<h3>Zásady používání hesel</h3>
+<ul>
+  <li>Dostatečná délka a složitost – malá, velká písmena, čísla, znaky.</li>
+  <li>Hesla se nesmí sdílet, opakovat pro více služeb; doporučuje se <strong>správce hesel</strong>.</li>
+</ul>
+
+<h2>15.5 Ohrožení a ochrana dat v kyberprostoru, typy šifrování, elektronický podpis</h2>
+<p><strong>Hashovací funkce (Hashing)</strong> je jednosměrný algoritmus, který převede jakákoliv data na unikátní řetězec pevné délky (např. <strong>SHA-256</strong>). Dvě stejná data mají vždy stejný hash, jakákoliv drobná změna vygeneruje nový. Používá se pro kontrolu integrity souborů a ukládání hesel.</p>
+<h3>Šifrování</h3>
+<p>Proces převedení čitelné zprávy do nečitelné podoby:</p>
+<ul>
+  <li><strong>Symetrické šifrování</strong> – používá jeden stejný klíč pro šifrování i dešifrování; velmi rychlé, vhodné pro velká data. Problémem je, jak bezpečně doručit klíč příjemci.</li>
+  <li><strong>Asymetrické šifrování</strong> – používá pár klíčů (veřejný a soukromý). Odesílatel zprávu zašifruje veřejným klíčem příjemce, ale dešifrovat ji může jen příjemce svým soukromým klíčem. Pomalejší, ale neřeší se přenos klíče.</li>
+</ul>
+<h3>Elektronický podpis</h3>
+<p>Slouží k ověření autentičnosti a integrity zprávy. Funguje opačně než asymetrické šifrování: odesílatel zprávu podepíše svým <strong>soukromým klíčem</strong>. Příjemce použije odesilatelův <strong>veřejný klíč</strong> k ověření, že zprávu opravdu podepsal on.</p>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../14-webove-aplikace/index.html">← Webové aplikace</a>
+  <a class="nav-btn" href="../16-zaklady-programovani/index.html">Základy programování →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Kyberbezpečnost</div>
+</body>
+</html>

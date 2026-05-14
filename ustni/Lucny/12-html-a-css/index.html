@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q12 – HTML a kaskádové styly | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q12</span>
+</nav>
+<div class="hero">
+  <div class="bignr">12</div>
+  <div class="qnum">Otázka 12 / 20 · Lucný</div>
+  <h1>HTML a kaskádové styly</h1>
+</div>
+<main>
+
+<h2>12.1 Jazyk HTML, jeho verze, syntax a validita</h2>
+<p><strong>HTML</strong> (Hyper Text Markup Language) se používá pro tvorbu webových stránek. Termín hypertext odkazuje na schopnost odkázat na jiné texty a stránky. Jedná se o <strong>značkovací jazyk</strong> – dokument je strukturován pomocí značek (tagů).</p>
+<p>První verzi publikoval <strong>Tim Berners-Lee</strong> v roce <strong>1991</strong> (HTML 0.9) – možnost vkládat obrázky, odkazy, tvořit logické úrovně. XHTML je založena na jazyce XML (definice: strict, transitional, frameset). Dnes se používá verze <strong>HTML 5</strong>.</p>
+<h3>Tagy</h3>
+<p>Skládají se ze „zobáčků" a názvu, např. <code>&lt;p&gt;&lt;/p&gt;</code>. Mohou být <strong>párové</strong> a <strong>nepárové</strong>. Určují význam textu, který obklopují. Cokoliv není ohraničeno značkou, bude zobrazeno na stránce.</p>
+<ul>
+  <li><strong>Strukturální</strong> – definují strukturu: <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>.</li>
+  <li><strong>Sémantické</strong> – definují povahu prvku: <code>&lt;title&gt;</code>, <code>&lt;article&gt;</code>.</li>
+  <li><strong>Stylistické</strong> – mění vzhled; dnes spíše CSS; nekompatibilní s alternativními prohlížeči: <code>&lt;b&gt;</code>.</li>
+</ul>
+<ul>
+  <li><strong>Atribut</strong> – přiřazuje vlastnosti elementu; píše se do počátečního tagu; používají se uvozovky (např. class).</li>
+  <li><strong>Element</strong> – celá sekvence tagu a atributů. Typy: blokové (zalomí text: <code>&lt;h1&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;ol&gt;</code>), inline (zvýraznění uvnitř textu: <code>&lt;i&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;b&gt;</code>), nahrazované (nahrazeny obsahem, důležité rozměry: <code>&lt;img&gt;</code>).</li>
+  <li><strong>Entity</strong> – vyjadřují pomocí sekvence znaků jeden symbol: <code>&amp;copy;</code></li>
+</ul>
+<p><strong>Validita</strong> – ověřujeme pomocí validátoru (speciální program, např. W3C) – validace pomocí URL odkazu nebo souboru. Výsledkem je výpis přesně popsaných závad. Nevalidní kód může ohrozit zážitek zrakově postižených a sabotovat vyhledávání.</p>
+
+<h2>12.2 Struktura webové stránky, HTML elementy</h2>
+<ul>
+  <li><strong>Deklarace</strong> – sděluje prohlížeči, že otevřel HTML dokument; rozlišuje verzi: <code>&lt;!DOCTYPE html&gt;</code></li>
+  <li><strong>Kořenový element</strong> – reprezentuje celý dokument: <code>&lt;html&gt;&lt;/html&gt;</code></li>
+  <li><strong>Hlavička</strong> – obsahuje metadata vztahující se k celému dokumentu (název, linky, klíčová slova, kaskádové styly). Meta tagy jsou nepárové značky: starají se o správné zobrazení, indexování, informace pro vyhledávače (keywords), nastavují kódování (UTF-8), přizpůsobují zobrazení.</li>
+  <li><strong>Tělo dokumentu</strong> – obsahuje finální obsah dokumentu. Komentáře: <code>&lt;!-- komentář --&gt;</code></li>
+</ul>
+<h3>Blokové HTML elementy</h3>
+<ul>
+  <li><strong>Nadpis</strong> – šest úrovní; hlavní se používá pouze 1×; pomáhá vyhledávání.</li>
+  <li><strong>Odstavec, oddíl</strong> – odstavce slouží k členění delšího textu; oddíl poté celé stránky (CSS styly). V HTML 5 se používá mnoho alternativ: <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>.</li>
+  <li><strong>Seznam</strong> – uspořádaný <code>&lt;ol&gt;</code>, neuspořádaný <code>&lt;ul&gt;</code>, popisný <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>.</li>
+  <li><strong>Tabulka</strong> – základní element <code>&lt;table&gt;</code>; úrovně <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>; řádky <code>&lt;tr&gt;</code>; buňky <code>&lt;td&gt;</code>; colspan pro určení rozpětí.</li>
+</ul>
+<p>Inline elementy se vkládají do blokových – ohraničují kratší úsek textu (<code>&lt;span&gt;</code>). Zajímavé elementy: <code>&lt;strong&gt;</code>, <code>&lt;cite&gt;</code> (název citovaného díla), <code>&lt;code&gt;</code> (programový kód). Sémantické značky: <code>&lt;details&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>.</p>
+
+<h2>12.3 Odkazy, navigace</h2>
+<p>K tvorbě odkazů se používá značka <code>&lt;a&gt;</code>; povinný atribut <strong>href</strong> definuje URL adresu; atribut <strong>target</strong> určí, zdali se odkaz otevře v novém okně (<code>_blank</code> = ano).</p>
+<ul>
+  <li><strong>Absolutní</strong> – obsahují úplnou URL adresu; odkazují na dokumenty na jiném serveru.</li>
+  <li><strong>Relativní</strong> – na stejném serveru; nekompletní URL, relativní vzhledem k výchozí stránce.</li>
+  <li><strong>Na záložky</strong> – vyznačené místo ve stejném dokumentu; určité sekce webu.</li>
+</ul>
+<h3>Typy navigace</h3>
+<ul>
+  <li><strong>Hlavní</strong> – u větších webů může obsahovat menu; u největších se dělí na globální a lokální.</li>
+  <li><strong>Hierarchická</strong> – větvení; uživatel přechází na specifičtější kategorie (Alza).</li>
+  <li><strong>Kontextová</strong> – seznam souvisejících odkazů; tvorba zkratek; nezávislá na hlavní navigaci.</li>
+  <li><strong>Drobečková</strong> – ukazuje pozici na webu: Domů &gt; PC &gt; herní &gt; klávesnice.</li>
+</ul>
+
+<h2>12.4 Kaskádové styly (CSS), integrace do HTML, syntax, selektory</h2>
+<p><strong>CSS</strong> umožňují formátování stránek psaných v jazyce HTML, XHTML nebo XML; navrženy W3C. Pointou je <strong>oddělení vzhledu od struktury stránky</strong>. Hlavní výhody: rozsáhlejší formátovací možnosti, dynamičnost, lepší kompatibilita.</p>
+<h3>Integrace CSS do HTML</h3>
+<ul>
+  <li><strong>Vložené styly</strong> – atribut <code>style</code>; platí pro jednu značku.</li>
+  <li><strong>Styly na úrovni dokumentu</strong> – píší se do hlavičky; lze je překrýt vloženým stylem.</li>
+  <li><strong>Externí styly</strong> – vložení souboru/odkazu; aplikovatelné na celý projekt; příkaz <code>link</code> nebo <code>@import</code> v tagu <code>style</code>.</li>
+</ul>
+<h3>Syntax CSS</h3>
+<p>Pravidla se skládají ze <strong>selektoru a deklarací</strong>; deklarace se skládají z vlastnosti a hodnoty (<code>vlastnost:hodnota</code>). Platí ta deklarace, která se zpracuje poslední (spodní). Příkaz <code>!important</code> zajistí nepřepsatelnost hodnoty.</p>
+<ul>
+  <li><strong>Třídy</strong> – <code>.class</code> pro více elementů; <code>#id</code> pouze pro jeden.</li>
+  <li><strong>Pseudotřídy</strong> – speciální stav nebo část elementu: <code>:hover</code>, <code>:first-line</code>.</li>
+  <li><strong>Dědičnost</strong> – třída dědí vlastnosti elementu, ve kterém je vložena.</li>
+  <li><strong>Selektor</strong> – slouží k výběru prvku, na který chceme aplikovat formátování. Kombinátory: <code>&gt;</code> (pro všechna p vnořená v div), <code>+</code> (pro p přímo po div), <code>~</code> (všechna p příbuzná s div).</li>
+</ul>
+<h3>Úprava stránky pomocí CSS</h3>
+<ul>
+  <li>Vlastnosti písma (<code>font-family</code>), textu (<code>text-align</code>), blokových elementů (<code>margin</code>).</li>
+  <li>Délkové jednotky: %, pt, px.</li>
+  <li>Barvy: slovně (black, red), #rgb (0 až f), rgb (0 až 255).</li>
+  <li>URL: absolutní, relativní vůči serveru nebo aktuálnímu adresáři.</li>
+</ul>
+
+<h2>12.5 Layout webové stránky, zásady webdesignu</h2>
+<p>Layout označuje <strong>rozmístění prvků na stránce</strong>. Dobrý layout kombinuje vzhled, použitelnost a pravidla informační architektury.</p>
+<ul>
+  <li>Dříve: Frames (rozdělení prohlížeče na nezávislé dokumenty) a tabulkový layout (<code>&lt;table&gt;</code>).</li>
+  <li>Moderní tvorba: schématické značky (header, main, section) + CSS.</li>
+  <li><strong>CSS Flexbox</strong> – ideální pro jednorozměrné rozložení (řádek nebo sloupec); zarovnávání v navigaci, fotogalerie, centrování prvků.</li>
+  <li><strong>CSS Grid</strong> – pokročilý dvourozměrný layout systém; složitá mřížka s řádky a sloupci pro celou strukturu stránky.</li>
+  <li><strong>Responzivní design</strong> – layout se plynule přizpůsobuje zařízením; využívá <strong>Media Queries</strong> (mění CSS pravidla dle aktuální šířky displeje).</li>
+</ul>
+<h3>Zásady dobrého webdesignu</h3>
+<ul>
+  <li>Přehlednost a srozumitelnost, ovladatelnost, dostupnost.</li>
+  <li>Rychlost, typografie a konzistence.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../11-internet-a-www/index.html">← Internet a WWW</a>
+  <a class="nav-btn" href="../13-webove-technologie/index.html">Webové technologie →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · HTML a kaskádové styly</div>
+</body>
+</html>

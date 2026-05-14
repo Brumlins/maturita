@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q14 – Webové aplikace | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q14</span>
+</nav>
+<div class="hero">
+  <div class="bignr">14</div>
+  <div class="qnum">Otázka 14 / 20 · Lucný</div>
+  <h1>Webové aplikace</h1>
+</div>
+<main>
+
+<h2>14.1 Architektura webových aplikací, MVC, Django</h2>
+<p>Webová aplikace se typicky dělí do tří vrstev:</p>
+<ul>
+  <li><strong>Prezentační vrstva</strong> – frontend; to, co vidí uživatel.</li>
+  <li><strong>Aplikační logika</strong> – backend; zpracování dat a pravidla aplikace.</li>
+  <li><strong>Datová vrstva</strong> – databáze; ukládání dat.</li>
+</ul>
+<h3>Návrhový vzor MVC</h3>
+<ul>
+  <li><strong>Model</strong> – obsahuje data a logiku aplikace.</li>
+  <li><strong>View</strong> – zobrazuje data uživateli.</li>
+  <li><strong>Controller</strong> – zpracovává požadavky uživatele a propojuje Model s View.</li>
+</ul>
+<h3>Návrhový vzor MVT (Django)</h3>
+<ul>
+  <li><strong>Model</strong> – datové struktury (mapování na DB).</li>
+  <li><strong>View</strong> – zpracovává požadavky a vrací odpověď.</li>
+  <li><strong>Template</strong> – HTML výstup pro uživatele.</li>
+</ul>
+<h3>Django</h3>
+<p>Open-source webový framework pro Python. Nabízí: mapování databáze (ORM), administrační rozhraní, bezpečnostní funkce a šablonový systém.</p>
+<pre><code>django-admin startproject nazev_projektu
+python manage.py startapp nazev_aplikace</code></pre>
+<p>Klíčové soubory: <code>settings.py</code>, <code>urls.py</code>, <code>models.py</code>, <code>views.py</code>, složka <code>templates/</code>.</p>
+
+<h2>14.2 ORM, modely, migrace, routing a views</h2>
+<h3>ORM (Object-Relational Mapping)</h3>
+<p>Umožňuje pracovat s databází pomocí Python objektů místo SQL dotazů. Každý model odpovídá tabulce v databázi a dědí z <code>models.Model</code>.</p>
+<h3>Typy polí modelu</h3>
+<ul>
+  <li><code>CharField</code> – textový řetězec.</li>
+  <li><code>IntegerField</code> – celé číslo.</li>
+  <li><code>DateField</code> – datum.</li>
+</ul>
+<h3>Vztahy mezi modely</h3>
+<ul>
+  <li><code>ForeignKey</code> – vztah 1:N.</li>
+  <li><code>ManyToManyField</code> – vztah M:N.</li>
+</ul>
+<h3>Migrace</h3>
+<p>Aktualizace databáze po změně modelů. Postup:</p>
+<pre><code>python manage.py makemigrations
+python manage.py migrate</code></pre>
+<h3>Routing</h3>
+<p>Definuje se v souboru <code>urls.py</code> pomocí funkce <code>path()</code>. URL může obsahovat proměnné předávané do view funkce.</p>
+<h3>Views</h3>
+<p>Obsahují hlavní logiku aplikace. Přijímají HTTP požadavek a vracejí HTTP odpověď. Funkce <code>render()</code> vrací vykreslenou HTML šablonu.</p>
+
+<h2>14.3 Šablony, formuláře a regulární výrazy</h2>
+<h3>Django šablony (Templates)</h3>
+<ul>
+  <li><code>{{ promenna }}</code> – výpis proměnné.</li>
+  <li><code>{% for %} ... {% endfor %}</code> – cyklus.</li>
+  <li><code>{% extends "base.html" %}</code> – dědičnost šablon.</li>
+</ul>
+<h3>Formuláře</h3>
+<ul>
+  <li><code>forms.Form</code> – obecný formulář.</li>
+  <li><code>forms.ModelForm</code> – formulář navázaný na model.</li>
+  <li>Metoda <code>clean()</code> slouží k validaci dat formuláře.</li>
+</ul>
+<h3>Regulární výrazy</h3>
+<ul>
+  <li><code>^</code> – začátek řetězce.</li>
+  <li><code>$</code> – konec řetězce.</li>
+  <li><code>\d</code> – číslice.</li>
+  <li><code>+</code> – jeden nebo více výskytů.</li>
+  <li><code>*</code> – nula nebo více výskytů.</li>
+</ul>
+
+<h2>14.4 Autentizace, autorizace a bezpečnost</h2>
+<h3>Autentizace (ověření identity)</h3>
+<ul>
+  <li><strong>Session-based</strong> – server ukládá session, klientovi posílá cookie.</li>
+  <li><strong>Token-based</strong> – OAuth, JWT; token je uložen na klientovi.</li>
+  <li>Django: model <code>User</code>, funkce <code>login()</code> a <code>logout()</code>.</li>
+</ul>
+<h3>Autorizace (kontrola oprávnění)</h3>
+<ul>
+  <li><strong>Role-based</strong> – uživatel, administrátor.</li>
+  <li><strong>Permission-based</strong> – čtení, zápis.</li>
+  <li><strong>Policy-based</strong> – podmínky (věk, čas).</li>
+</ul>
+<h3>Bezpečnostní hrozby</h3>
+<ul>
+  <li><strong>XSS</strong> (Cross-Site Scripting) – vložení škodlivého skriptu do stránky. Django automaticky escapuje výstup šablon.</li>
+  <li><strong>CSRF</strong> (Cross-Site Request Forgery) – podvržení požadavku. Django používá CSRF token.</li>
+  <li><strong>SQL Injection</strong> – vložení škodlivého SQL kódu. ORM chrání automaticky.</li>
+  <li><strong>Brute force</strong> – hádání hesla opakovanými pokusy.</li>
+</ul>
+
+<h2>14.5 CMS, trendy a nasazení webových aplikací</h2>
+<h3>CMS (Content Management System)</h3>
+<p>Redakční systémy pro správu obsahu webu. Příklady: <strong>WordPress</strong>, <strong>Django CMS</strong>.</p>
+<h3>Moderní trendy</h3>
+<ul>
+  <li><strong>SPA</strong> (Single Page Application) – nenačítá celou stránku při přechodu; React, Angular, Vue.</li>
+  <li><strong>Headless CMS</strong> – backend zcela oddělen od frontendu; komunikace přes API.</li>
+  <li><strong>Serverless</strong> – provoz v cloudu bez nutnosti správy serveru.</li>
+  <li><strong>PWA</strong> (Progressive Web App) – webovka s vlastnostmi mobilní aplikace (offline režim, notifikace).</li>
+</ul>
+<h3>Možnosti nasazení</h3>
+<ul>
+  <li><strong>Webhosting</strong> – sdílený prostor na serveru (Wedos, Active24).</li>
+  <li><strong>VPS</strong> (Virtual Private Server) – virtuální server s plnou kontrolou.</li>
+  <li><strong>Cloud / PaaS</strong> – platforma jako služba (Heroku, AWS Elastic Beanstalk).</li>
+  <li><strong>Dedikovaný server</strong> – pronajatý fyzický hardware.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../13-webove-technologie/index.html">← Webové technologie</a>
+  <a class="nav-btn" href="../15-kyberbezpecnost/index.html">Kyberbezpečnost →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Webové aplikace</div>
+</body>
+</html>

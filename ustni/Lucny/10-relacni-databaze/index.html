@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q10 – Relační databáze a SQL | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q10</span>
+</nav>
+<div class="hero">
+  <div class="bignr">10</div>
+  <div class="qnum">Otázka 10 / 20 · Lucný</div>
+  <h1>Relační databáze a SQL</h1>
+</div>
+<main>
+
+<h2>10.1 Princip relační databáze, relační datový model, klíče a propojení tabulek</h2>
+<p>Relační databáze vznikly v <strong>70. letech 20. století</strong> (E. F. Codd) a jsou <strong>založeny na matematickém pojmu relace</strong>. Data jsou ukládána do tabulek, které jsou navzájem propojeny. Každá tabulka (relace) má řádky (záznamy) a sloupce (atributy). Tento model propojuje integritu a konzistenci dat. Příklady: MySQL, Oracle, PostgreSQL.</p>
+<h3>Klíče a propojení tabulek</h3>
+<ul>
+  <li><strong>Primární klíč (PK)</strong> – jedinečný; nesmí být prázdný; identifikuje každý záznam v tabulce (např. ID).</li>
+  <li><strong>Kandidátský klíč</strong> – atribut, který by mohl být primárním klíčem (např. Email, rodné číslo).</li>
+  <li><strong>Cizí klíč (FK)</strong> – zajišťuje logické propojení tabulek; odkazuje na PK jiné tabulky.</li>
+  <li><strong>Kardinalita vztahů</strong>:
+    <ul>
+      <li><strong>1:1</strong> – např. Osoba a její občanský průkaz.</li>
+      <li><strong>1:N</strong> – např. Jedna třída má mnoho žáků.</li>
+      <li><strong>M:N</strong> – např. Studenti a jejich hodiny.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>10.2 Proces návrhu databáze, ER diagram, normalizace databáze</h2>
+<h3>Postup návrhu databáze</h3>
+<ol>
+  <li><strong>Analýza požadavků</strong> – sběr informací od uživatelů a analýza datových toků.</li>
+  <li><strong>Konceptuální model (ER diagram)</strong> – grafické znázornění bez ohledu na SW.</li>
+  <li><strong>Relační model</strong> – převod diagramu do podoby tabulek (MySQL Workbench).</li>
+  <li><strong>Fyzická implementace</strong> – vytvoření samotné databáze.</li>
+  <li><strong>Testování</strong> – ladění chyb.</li>
+</ol>
+<h3>ER diagram (entity-relationship)</h3>
+<ul>
+  <li><strong>Entita</strong> – objekt z reálného světa; silná entita má vlastní PK, slabá je závislá na jiné.</li>
+  <li><strong>Atribut</strong> – vlastnost entity.</li>
+  <li><strong>Vztah</strong> – propojení mezi entitami.</li>
+</ul>
+<h3>Normalizace databáze</h3>
+<p>Proces organizace dat, aby se minimalizovala redundance (duplicita) a zamezilo se chybám při úpravě dat. Řídí se Normálními formami (NF):</p>
+<ul>
+  <li><strong>0NF</strong> – nenormalizovaná databáze, hodně redundance.</li>
+  <li><strong>1NF</strong> – každý atribut je atomický, dále nedělitelný.</li>
+  <li><strong>2NF</strong> – každý neklíčový atribut je plně závislý na primárním klíči.</li>
+  <li><strong>3NF</strong> – všechny neklíčové atributy musí být nezávislé (na sobě navzájem).</li>
+</ul>
+
+<h2>10.3 Správa relační databáze, prostředky pro správu, integrita, indexace</h2>
+<p>Při správě databáze zodpovídá <strong>administrátor za výkon, bezpečnost a zálohování</strong>. Superuživatel s nejvyššími právy = <strong>root</strong>. K zálohování a obnově dat se používá <strong>SQL dump</strong>.</p>
+<h3>Prostředky pro správu</h3>
+<ul>
+  <li>Databázové servery: MySQL, Oracle.</li>
+  <li>Klientské aplikace s UI: MySQL Workbench, phpMyAdmin.</li>
+</ul>
+<h3>Integrita databáze</h3>
+<p>Zajišťuje správnost a logickou konzistenci dat:</p>
+<ul>
+  <li><strong>Entitová integrita</strong> – každý záznam musí být identifikován PK.</li>
+  <li><strong>Referenční integrita</strong> – zajišťuje logické vazby přes cizí klíče.</li>
+  <li><strong>Doménová integrita</strong> – omezuje hodnoty na správný formát či datový typ.</li>
+  <li><strong>Transakční integrita</strong> – pokud operace selže, změny se stornují pomocí příkazu <code>ROLLBACK</code>.</li>
+</ul>
+<h3>Indexace</h3>
+<p>Tvorba pomocných struktur, které urychlují vyhledávání a řazení dat:</p>
+<ul>
+  <li><strong>Primární index</strong> – ID.</li>
+  <li><strong>Sekundární index</strong> – rok narození.</li>
+  <li><strong>Unikátní index</strong> – email, rodné číslo.</li>
+  <li><strong>Složený a fulltext</strong> – pro hledání v dlouhých textech.</li>
+</ul>
+
+<h2>10.4 Jazyk SQL, základní SQL dotazy, struktura výběrových dotazů</h2>
+<p><strong>SQL</strong> (Structured Query Language) je <strong>deklarativní jazyk</strong> – definuješ co chceš získat, nikoli jak to má databáze udělat.</p>
+<h3>Kategorie příkazů</h3>
+<ul>
+  <li><strong>DDL</strong> (Data Definition Language) – definice a úprava tabulek: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>.</li>
+  <li><strong>DML</strong> (Data Manipulation Language) – manipulace s daty: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>.</li>
+  <li><strong>DCL</strong> (Data Control Language) – řízení práv: <code>GRANT</code>, <code>REVOKE</code>.</li>
+  <li><strong>TCL</strong> (Transaction Control Language) – řízení transakcí: <code>COMMIT</code>, <code>ROLLBACK</code>.</li>
+</ul>
+<h3>Struktura výběrového dotazu</h3>
+<pre><code>SELECT  -- výběr sloupce
+FROM    -- z jaké tabulky
+JOIN    -- připojí jinou tabulku
+WHERE   -- filtrace podle podmínky
+GROUP BY -- seskupení záznamů podle shodné hodnoty
+HAVING  -- vyfiltruje přímo vytvořené skupiny
+ORDER BY -- seřadí, ASC / DESC
+LIMIT   -- omezení maximálního počtu výsledků</code></pre>
+
+<h2>10.5 Pokročilé možnosti práce s databází: pohledy, triggery, uložené procedury a funkce</h2>
+<ul>
+  <li><strong>Pohledy (views)</strong> – virtuální tabulky, které neobsahují vlastní data; vznikají na základě uloženého SELECT dotazu. Skvělé pro bezpečnost – skrývají před uživatelem citlivý obsah a složitou databázi.</li>
+  <li><strong>Triggery (spouště)</strong> – speciální databázové objekty, které automaticky reagují na předem definovanou událost (INSERT, UPDATE, DELETE). Spouštějí se <strong>BEFORE</strong> nebo <strong>AFTER</strong>. Využívají se pro auditování, validaci dat a zálohy smazaných dokumentů. Příklad: před DELETE použijeme trigger BEFORE pro zálohu smazané tabulky.</li>
+  <li><strong>Uložené procedury</strong> – skupina SQL příkazů uložená přímo na serveru; lze je opakovaně spouštět; snižují zátěž sítě a zvyšují bezpečnost (ochrana proti SQL injection).</li>
+  <li><strong>Uložené funkce</strong> – speciální typy procedur, které musí vždy vracet hodnotu; používají se pro vnitřní výpočty, validaci nebo transformaci dat.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../09-digitalni-video/index.html">← Digitální video</a>
+  <a class="nav-btn" href="../11-internet-a-www/index.html">Internet a WWW →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Relační databáze a SQL</div>
+</body>
+</html>

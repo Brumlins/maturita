@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q07 – Tabulkové procesory | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q07</span>
+</nav>
+<div class="hero">
+  <div class="bignr">07</div>
+  <div class="qnum">Otázka 07 / 20 · Lucný</div>
+  <h1>Tabulkové procesory</h1>
+</div>
+<main>
+
+<h2>7.1 Tabulkové procesory a jejich využití, základní komponenty</h2>
+<p>Tabulkové procesory (kalkulátory) jsou programy určené k práci s daty uspořádanými do tabulek. Umožňují <strong>automatické výpočty, analýzu dat, jejich třídění, filtrování a grafické znázornění</strong>. Používají se ke statistickým, matematickým nebo ekonomickým výpočtům.</p>
+<p><strong>Příklady</strong>: Microsoft Excel, LibreOffice Calc, Google Sheets.</p>
+<h3>V Excelu můžeme</h3>
+<ul>
+  <li>Vytvářet tabulky a vyhodnocovat je pomocí vzorců a funkcí.</li>
+  <li>Vytvářet grafy.</li>
+  <li>Pracovat s tabulkou jako s databází.</li>
+  <li>Analyzovat data.</li>
+</ul>
+<h3>Základní komponenty</h3>
+<ul>
+  <li><strong>Sešit</strong> – základní typ dokumentu v Excelu. Obsahuje listy (tabulky nebo grafy). Název každého listu se objeví v záložce v dolní části sešitu. Listy lze zkopírovat, přemístit nebo odstranit; v jednom okamžiku lze mít otevřeno více sešitů.</li>
+  <li><strong>Pracovní plocha</strong> – tvořena buňkami uspořádanými do sloupců a řádků. Typy dat:
+    <ul>
+      <li><strong>Text</strong> – libovolná kombinace písmen, číslic a jiných znaků; zarovnává se vlevo.</li>
+      <li><strong>Číslo</strong> – v běžném tvaru 15,14 nebo vědeckém 14,26E+08; zarovnává se vpravo.</li>
+      <li><strong>Datum a čas</strong> – chápány jako čísla; lze sčítat, odčítat a používat ve výpočtech.</li>
+      <li><strong>Vzorce</strong> – začínají symbolem <code>=</code> a zobrazují výslednou hodnotu.</li>
+    </ul>
+  </li>
+  <li><strong>Tabulka</strong> – základní element Excelu; může představovat jednoduchou databázi (jeden řádek = jeden záznam). Dá se indexovat i filtrovat. MS Excel: 255 sloupců a 2<sup>16</sup> řádků.</li>
+  <li><strong>Buňka</strong> – nejmenší jednotka tabulky; má adresu, obsah (hodnota/vzorec) a formát.</li>
+  <li><strong>Šablony</strong> – předpřipravené dokumenty.</li>
+  <li><strong>Makra</strong> – nahrané sekvence příkazů pro automatizaci rutinních úkolů.</li>
+</ul>
+
+<h2>7.2 Adresování buněk, listů a sešitů, tvorba vzorců a využití funkcí</h2>
+<p>Každá buňka je definována <strong>souřadnicemi sloupce a řádku</strong> (např. A8, C256, AB13).</p>
+<ul>
+  <li><strong>Oblast</strong> – souvislý blok buněk (např. A1:C10); výběr tažením myší.</li>
+  <li><strong>Seznam</strong> – výčet buněk (např. A1;B8;C10;F18); výběr pomocí Ctrl.</li>
+</ul>
+<p>Odkaz na buňku mimo aktuální sešit:</p>
+<pre><code>='C:\cesta\[NázevSešitu.xls]NázevListu'!SloupecŘádek</code></pre>
+<ul>
+  <li><strong>Vzorec</strong> – začíná vždy rovnítkem (<code>=</code>); provádí různé operace s buňkami s konstantními hodnotami; v buňce je zobrazen výsledek. Příklad: <code>=C2+C3*A0</code></li>
+  <li><strong>Funkce</strong> – předem připravené vzorce. Příklady: <code>=ABS()</code>, <code>=KDYŽ(L2=1;"Ano";"Ne")</code>, <code>=SUMA()</code></li>
+</ul>
+
+<h2>7.3 Možnosti formátování tabulek, nástroje pro práci s daty, analytické a statistické nástroje</h2>
+<p>Formátování tabulek je čistě estetická záležitost. Změna šířky sloupců / výšky řádků: tažením záhlaví sloupce/řádku.</p>
+<h3>Formát buňky</h3>
+<ul>
+  <li>Výběr správného typu dat.</li>
+  <li>Font (barva, velikost, řez, efekt).</li>
+  <li>Zarovnání – ve vodorovném i svislém směru (vpravo, na střed, vlevo, nahoru, dolů).</li>
+  <li>Ohraničení – typ, tloušťka, barva čáry.</li>
+  <li>Barva pozadí.</li>
+  <li>Zámek buňky – s daty není možno manipulovat.</li>
+</ul>
+<ul>
+  <li><strong>Styly</strong> – slouží k uložení a rychlému použití formátovacích pravidel.</li>
+  <li><strong>Podmíněné formátování</strong> – pro konkrétní hodnoty nastavíme podmínky. Příklad: záporná čísla = červené pozadí, nula = bílé, kladné = zelené.</li>
+</ul>
+<h3>Nástroje pro práci s daty</h3>
+<ul>
+  <li><strong>Řazení</strong> – vzestupně, sestupně.</li>
+  <li><strong>Filtrování</strong> – automatický filtr, pokročilý rozšířený filtr.</li>
+  <li><strong>Vytváření posloupností</strong> – tažením za úchyt buňky pro řady dat.</li>
+  <li><strong>Transponování</strong> – převod řádků na sloupce a naopak.</li>
+  <li><strong>Trendy a klouzavé průměry</strong> – analýza dat, odhad budoucího vývoje nebo vyhlazení křivky grafu.</li>
+</ul>
+<h3>Kontingenční tabulky (Pivot tables)</h3>
+<p>Velmi výkonný nástroj; umožňuje dynamicky seskupovat, filtrovat a agregovat obrovské množství dat bez úprav zdrojové tabulky. Příklad: rychlý souhrn prodejů podle měsíců.</p>
+<h3>Statistické funkce</h3>
+<ul>
+  <li>Aritmetický průměr: <code>=PRŮMĚR()</code></li>
+  <li>Nejnižší hodnota: <code>=MIN()</code></li>
+  <li>Nejvyšší hodnota: <code>=MAX()</code></li>
+  <li>Součet: <code>=SUMA()</code></li>
+</ul>
+
+<h2>7.4 Tvorba grafů a pokročilá úprava grafů</h2>
+<p>Graf je vytvářen na základě zvolených zdrojových dat a <strong>automaticky reaguje na jejich změny</strong>. Dva typy: <strong>2D nebo 3D grafy</strong>.</p>
+<p>Postup: Označíme data → vybereme typ grafu (sloupcový, spojnicový) → přesuneme na samostatný list → doupravíme vzhled nebo přidáme elementy. Lze přidat popisy os, změnit barvu/přechod barev pozadí, barvu čar znázorňující data.</p>
+
+<h2>7.5 Propojení s jinými programy</h2>
+<p>Tabulkovým procesorem <strong>lze vygenerovat .csv soubor</strong>, který lze použít jako zdroj dat například pro hromadnou korespondenci v MS Word. Do Excelu je možné vytvářet a upravovat objekty jiných programů, jako je Word nebo PowerPoint.</p>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../06-zpracovani-textu/index.html">← Zpracování textu</a>
+  <a class="nav-btn" href="../08-zpracovani-zvuku/index.html">Zpracování zvuku →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Tabulkové procesory</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q05 – Vektorová grafika | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q05</span>
+</nav>
+<div class="hero">
+  <div class="bignr">05</div>
+  <div class="qnum">Otázka 05 / 20 · Lucný</div>
+  <h1>Vektorová grafika</h1>
+</div>
+<main>
+
+<h2>5.1 Principy vektorové grafiky, oblasti využití, vektorové formáty</h2>
+<p>Obrázek je tvořen <strong>křivkami (vektory)</strong>. Ukládání informací pomocí <strong>matematického zápisu</strong>, který definuje tvar, barvu, tloušťku, výplň a další parametry křivky nebo komplexního grafického objektu (obdélníku, elipsy, polygonu apod.).</p>
+<p><strong>Bézierovy křivky</strong> jsou nejčastější nástroj ve vektorové grafice. Vyvinuto francouzským matematikem Pierre Bézierem. Umožňuje pomocí čtyř bodů popsat libovolný úsek křivky: křivka je dána dvěma <strong>kotevními body</strong> (krajní) a dvěma <strong>kontrolními body</strong> (tvar křivky). Pomocí této metody lze popsat i ty nejsložitější křivky.</p>
+<h3>Výhody a nevýhody</h3>
+<ul>
+  <li><strong>+</strong> Při zvětšení obrázek neztrácí na kvalitě.</li>
+  <li><strong>+</strong> Možnost pracovat s každým grafickým objektem zvlášť.</li>
+  <li><strong>+</strong> Menší velikost souboru než u rastrové grafiky.</li>
+  <li><strong>–</strong> Pro většinu zobrazovacích zařízení je nutno provést <strong>rasterizaci</strong>.</li>
+  <li><strong>–</strong> Většina aplikací má své vlastní formáty, které neotevřou jiné aplikace.</li>
+</ul>
+<h3>Oblasti využití</h3>
+<ul>
+  <li>Reklama a propagace.</li>
+  <li>Počítačově zpracované tiskoviny (programy DTP).</li>
+  <li>Vektorové fonty písma v digitální typografii (TrueType, OpenType).</li>
+  <li>Počítačové konstrukce a modelování (CAD) – technické výkresy, strojírenské modely.</li>
+  <li>3D grafika a vizualizace.</li>
+  <li>Počítačové hry, virtuální realita – tvorba postav, objektů a prostředí.</li>
+</ul>
+<h3>Vektorové editory a formáty</h3>
+<ul>
+  <li><strong>Adobe Illustrator</strong>, .ai – pro tvorbu ilustrací a log.</li>
+  <li><strong>CorelDraw</strong>, .cdr – zejména v oblasti DTP.</li>
+  <li><strong>Zoner Callisto</strong>, .zmf.</li>
+  <li><strong>Cinema 4D, 3ds Max, Blender</strong>.</li>
+  <li><strong>.pdf</strong> – univerzální formát; podporuje jak vektorovou, tak rastrovou grafiku.</li>
+  <li><strong>.svg</strong> – otevřený formát pro vektorovou grafiku na internetu; založený na XML.</li>
+</ul>
+
+<h2>5.2 Pomůcky pro přesné kreslení, manipulace s křivkami, logické operace a transformace objektů</h2>
+<p>Programy pro vektorovou grafiku obsahují standardní nástroje a funkce pro kreslení a editaci grafických objektů:</p>
+<ul>
+  <li><strong>Pravítka (rules)</strong> – horizontální a vertikální.</li>
+  <li><strong>Vodící linky (guides)</strong> – pomocné linky pro zarovnání objektů do jedné roviny.</li>
+  <li><strong>Mřížky (grids)</strong> – v pozadí dokumentu usnadňují kresbu do pravoúhlého.</li>
+  <li><strong>Chytací režimy (snaps)</strong> – zachytávání objektů na jiné objekty, vodítka nebo mřížku; automatické přichycení.</li>
+</ul>
+<h3>Manipulace s křivkami</h3>
+<ul>
+  <li><strong>Volné kreslení</strong> – ručně pomocí digitálního pera nebo myši.</li>
+  <li><strong>Bézierovy křivky</strong> – křivku je možné tvarovat pomocí uzlů; umožňují složitější tvary.</li>
+</ul>
+<h3>Logické operace s objekty</h3>
+<ul>
+  <li><strong>Sjednocení</strong> – spojení dvou objektů do jednoho.</li>
+  <li><strong>Rozdíl</strong> – odstranění překrývajících se částí objektů.</li>
+  <li><strong>Průsečík</strong> – ponechání pouze překrývající se části objektů.</li>
+  <li><strong>eXclusive OR</strong> – vytvoření nového objektu ze dvou překrývajících se tvarů s vynecháním společné části.</li>
+</ul>
+<h3>Rasterizace a vektorizace</h3>
+<ul>
+  <li><strong>Rasterizace</strong> – proces, při kterém se vektorově definovaná grafika konvertuje do rastrové. Součástí je i <strong>AntiAliasing</strong> – vyhlazování a zjemnění „zubatých" hran.
+    <ul>
+      <li><strong>MSAA</strong> (MultiSample AntiAliasing) – vyhlazuje hrany; více bodů v okolí.</li>
+      <li><strong>FXAA</strong> (Fast approXimate AntiAliasing) – rychlá metoda softwarového vyhlazování hran.</li>
+    </ul>
+  </li>
+  <li><strong>Vektorizace</strong> – převod rastrové předlohy na vektor.
+    <ul>
+      <li><strong>Ruční</strong> – provádí člověk; nejméně náročný na HW/SW, ale časově nejnáročnější.</li>
+      <li><strong>Poloautomatická</strong> – operátor zasahuje, systém vektorizuje sám.</li>
+      <li><strong>Automatická</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>5.3 Tvorba technických výkresů v CAD</h2>
+<p>Využití počítačů v průmyslových oblastech; zahrnuje podporu jednotlivých fází vývoje a výroby:</p>
+<ul>
+  <li><strong>CAD</strong> – PC podpora 2D konstruování, návrhu a projektování.</li>
+  <li><strong>CAM</strong> – přímé řízení výroby PC.</li>
+  <li><strong>CAE</strong> – PC podpora inženýrských prací.</li>
+  <li><strong>PDM</strong> – správa dat o produktu.</li>
+  <li><strong>CAQ</strong> – počítačem podporovaná kontrola kvality.</li>
+</ul>
+<p><strong>Programy</strong>: AutoCAD, Inventor, 3DSMax.</p>
+
+<h2>5.4 Trojrozměrné modelování a metody realistické vizualizace</h2>
+<ul>
+  <li><strong>Postup CAD modelování</strong> – vytvoření 2D vektorového obrazce pomocí čar a křivek, kótování, vytáhnutí součástky.</li>
+  <li><strong>Postup 3D modelování</strong> – modelování, materiály, bitmapy, texturování, světla, shadery.</li>
+  <li><strong>Vektorová 3D animace</strong> – podobná Motion Tween animaci; definují se pouze klíčové polohy a deformace; ostatní generuje animační software.</li>
+</ul>
+<p><strong>Programy</strong>: Autodesk Maya, Blender.</p>
+
+<h2>5.5 Virtuální realita</h2>
+<p>Vytváří <strong>iluzi skutečného světa pomocí simulace</strong>, realistických zvuků, modelů a interakce s prostředím. Moderní VR systémy využívají pokročilé technologie pro realistický zážitek.</p>
+<p><strong>Software pro vývoj AR a VR</strong>: Unity, Unreal Engine. Zařízení: HTC Vive, Oculus Quest 2.</p>
+<h3>Využití VR</h3>
+<ul>
+  <li>Hry.</li>
+  <li>Cestování v pohodlí domova (pro seniory/handicapované).</li>
+  <li>Simulátory pro zaškolení personálu (co dělat při požáru).</li>
+  <li>Letecký simulátor.</li>
+  <li>Simulátor pro hasiče, vojáky.</li>
+  <li>Učební pomůcky.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../04-rastrova-grafika/index.html">← Rastrová grafika</a>
+  <a class="nav-btn" href="../06-zpracovani-textu/index.html">Zpracování textu →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Vektorová grafika</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q13 – Webové technologie | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q13</span>
+</nav>
+<div class="hero">
+  <div class="bignr">13</div>
+  <div class="qnum">Otázka 13 / 20 · Lucný</div>
+  <h1>Webové technologie</h1>
+</div>
+<main>
+
+<h2>13.1 Frontend a backend webových aplikací</h2>
+<p><strong>Frontend</strong> je část aplikace, se kterou interaguje uživatel. Technologie: <strong>HTML</strong> (struktura), <strong>CSS</strong> (vzhled), <strong>JavaScript</strong> (interaktivita). Frameworky a knihovny: React, Angular, jQuery, Vue.</p>
+<p><strong>Backend</strong> je část aplikace běžící na serveru – zajišťuje logiku, zpracování dat a komunikaci s databází.</p>
+<ul>
+  <li><strong>Webové servery</strong>: Apache, NGINX, IIS.</li>
+  <li><strong>Backendové jazyky</strong>: Node.js, PHP, Python, Java, C#.</li>
+  <li><strong>Databáze</strong>: MySQL, MongoDB.</li>
+</ul>
+
+<h2>13.2 JavaScript, TypeScript, DOM a BOM</h2>
+<p><strong>JavaScript</strong> – vznikl v roce <strong>1995</strong>; <strong>interpretovaný</strong>, <strong>objektově orientovaný</strong> a <strong>událostmi řízený</strong> jazyk. Používá <strong>dynamické typování</strong> – datový typ proměnné se určí za běhu programu.</p>
+<h3>Datové typy</h3>
+<ul>
+  <li><code>number</code>, <code>string</code>, <code>boolean</code>, <code>null</code>, <code>object</code>, <code>symbol</code>, <code>undefined</code></li>
+</ul>
+<h3>TypeScript</h3>
+<p><strong>TypeScript</strong> je nadstavba JavaScriptu se <strong>statickým typováním</strong> – datový typ proměnné je znám při překladu.</p>
+<h3>Deklarace proměnných</h3>
+<ul>
+  <li><code>var</code> – funkční platnost; lze přepisovat a měnit.</li>
+  <li><code>let</code> – bloková platnost; lze měnit hodnotu.</li>
+  <li><code>const</code> – bloková platnost; nelze přepsat.</li>
+</ul>
+<h3>DOM (Document Object Model)</h3>
+<p>Objektový model HTML dokumentu. Kořenový element je <code>html</code>. Každý uzel má <strong>vlastnosti</strong>, <strong>metody</strong> a <strong>události</strong>. Pomocí <strong>EventListeneru</strong> lze reagovat na události (klik, stisk klávesy). <strong>Callback funkce</strong> se volá po vyvolání události.</p>
+<h3>BOM (Browser Object Model)</h3>
+<p>Objektový model prohlížeče. Objekt <code>window</code> reprezentuje okno prohlížeče a poskytuje přístup k jeho vlastnostem (adresní řádek, záložky, rozměry okna).</p>
+
+<h2>13.3 Node.js, npm, Express.js, synchronní vs asynchronní programování</h2>
+<p><strong>Node.js</strong> – multiplatformní runtime prostředí umožňující spouštět JavaScript na backendu. Využívá engine <strong>V8</strong> od Google.</p>
+<ul>
+  <li><strong>npm</strong> (Node Package Manager) – správce balíčků pro Node.js.</li>
+  <li><strong>Express.js</strong> – minimalistický webový framework pro Node.js.</li>
+</ul>
+<h3>Synchronní vs asynchronní programování</h3>
+<ul>
+  <li><strong>Synchronní</strong> – blokuje; program čeká na dokončení operace, než pokračuje dál.</li>
+  <li><strong>Asynchronní</strong> – nečeká; program pokračuje dál a výsledek zpracuje, až bude k dispozici (např. stahování dat ze serveru).</li>
+</ul>
+<h3>Způsoby asynchronního programování</h3>
+<ul>
+  <li><strong>Callback funkce</strong> – funkce předaná jako argument, která se zavolá po dokončení operace.</li>
+  <li><strong>Promises</strong> – objekt reprezentující budoucí výsledek asynchronní operace.</li>
+  <li><strong>async / await</strong> – syntaktická nadstavba nad promises pro čitelnější kód.</li>
+</ul>
+
+<h2>13.4 AJAX, REST API, GraphQL, WebSockets</h2>
+<p><strong>AJAX</strong> (Asynchronous JavaScript and XML) – technologie umožňující měnit obsah stránky bez jejího celého znovunačtení. Používá JavaScript + <strong>Fetch API</strong>. Data se přenášejí ve formátu <strong>XML</strong> nebo <strong>JSON</strong>.</p>
+<h3>Výhody AJAX</h3>
+<ul>
+  <li>Nemusí se překreslovat celá stránka.</li>
+  <li>Plynulost uživatelského zážitku.</li>
+  <li>Snížení zátěže serveru.</li>
+</ul>
+<h3>Nevýhody AJAX</h3>
+<ul>
+  <li>Nelze předat URL se změnami obsahu.</li>
+  <li>Uživatel nevidí indikátor načítání.</li>
+  <li>Textový prohlížeč LYNX AJAX nepodporuje.</li>
+</ul>
+<h3>REST API</h3>
+<p>Standardní architektura pro webová API. Využívá metody <strong>GET / POST / PUT / DELETE</strong> a data ve formátu JSON nebo XML.</p>
+<h3>GraphQL</h3>
+<p>Dotazovací jazyk pro API – klient si sám určí, jaká data chce získat.</p>
+<h3>WebSockets</h3>
+<p>Protokol umožňující <strong>obousměrnou real-time komunikaci</strong> mezi klientem a serverem (chat, online hry).</p>
+
+<h2>13.5 Knihovny, frameworky, full-stack a vývojářské nástroje</h2>
+<ul>
+  <li><strong>Knihovna</strong> – sada hotových funkcí, které lze volat (React, jQuery).</li>
+  <li><strong>Framework</strong> – hotová kostra aplikace s vlastními pravidly (Angular, Django).</li>
+</ul>
+<h3>Full-Stack stacky</h3>
+<ul>
+  <li><strong>MERN</strong> – MongoDB + Express.js + React + Node.js.</li>
+  <li><strong>MEAN</strong> – MongoDB + Express.js + Angular + Node.js.</li>
+  <li><strong>Next.js</strong> – React + Server-Side Rendering (SSR).</li>
+</ul>
+<h3>Frontend</h3>
+<ul>
+  <li>Frameworky/knihovny: <strong>React</strong>, <strong>Angular</strong>, <strong>Vue</strong>.</li>
+  <li>CSS frameworky: <strong>Bootstrap</strong>, <strong>Tailwind CSS</strong>.</li>
+</ul>
+<h3>Backend</h3>
+<ul>
+  <li>Node.js: <strong>Express.js</strong>, <strong>NestJS</strong>.</li>
+  <li>Python: <strong>Django</strong>, <strong>Flask</strong>.</li>
+  <li>PHP: <strong>Laravel</strong>, <strong>Symfony</strong>.</li>
+</ul>
+<h3>Vývojářské nástroje</h3>
+<ul>
+  <li><strong>VS Code</strong> – editor kódu.</li>
+  <li><strong>Chrome DevTools</strong> – ladění kódu, konzole, sledování síťového provozu.</li>
+  <li><strong>Postman</strong> – testování API.</li>
+  <li><strong>WebPack</strong> – balení (bundlování) JS a CSS souborů.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../12-html-a-css/index.html">← HTML a CSS</a>
+  <a class="nav-btn" href="../14-webove-aplikace/index.html">Webové aplikace →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Webové technologie</div>
+</body>
+</html>

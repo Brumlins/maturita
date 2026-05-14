@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q11 – Internet a WWW | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q11</span>
+</nav>
+<div class="hero">
+  <div class="bignr">11</div>
+  <div class="qnum">Otázka 11 / 20 · Lucný</div>
+  <h1>Internet a WWW</h1>
+</div>
+<main>
+
+<h2>11.1 Internet – principy a vývoj, adresování v internetu</h2>
+<p><strong>Internet</strong> je celosvětová počítačová síť, která spojuje jednotlivé menší sítě (Vint Cerf a Bob Kahn). Používá se protokol <strong>TCP/IP</strong> = komunikační pravidla pro různé síťové vrstvy. Sítě jsou pospojovány hierarchicky (Páteřní síť, lokální ISP, uživatel).</p>
+<ul>
+  <li><strong>IntrAnet</strong> – vnitřní síť.</li>
+  <li><strong>ISP</strong> (Internet Service Provider) – poskytovatel internetového připojení; firma nebo organizace poskytující přístup k internetu.</li>
+  <li><strong>Páteřní připojení</strong> – používá se optika.</li>
+  <li><strong>Poslední míle</strong> – připojení páteřní sítě ke koncovým uživatelům; pomocí telefonní linky, kabelové TV, satelitní datové sítě, bezdrát, mobilní telefonní sítě.</li>
+  <li><strong>Peering</strong> – vzájemné propojení počítačové sítě dvou telekomunikačních společností za účelem výměny datového provozu. Např. NIX.cz, Perring.cz.</li>
+</ul>
+<h3>Vývoj internetu</h3>
+<ul>
+  <li>Vznik na konci 60. let v Americe jako vojenský experiment → síť <strong>ARPANET</strong>.</li>
+  <li>Během 70. a 80. let se k ARPANETu připojovaly další akademické sítě.</li>
+  <li>V 90. letech se zrodil Internet.</li>
+  <li>V roce 1993 se připojila první česká místa; vznik sítě <strong>CESNET</strong> pro české vysoké školy.</li>
+</ul>
+<h3>Adresování v internetu</h3>
+<ul>
+  <li>Každý PC připojený k síti má <strong>IP adresu</strong> – 32bitové číslo zapisované jako 4 dekadická čísla (oktety) v rozmezí 0–255 oddělená tečkou (192.168.1.1). IP adresa má 2 části: adresa sítě a adresa hosta.</li>
+  <li>Celkový počet IPv4 adres: 2<sup>32</sup> (4 294 967 296); tento počet nestačí → přechod na <strong>IPv6</strong> s 2<sup>128</sup> adresami.</li>
+  <li><strong>Adresní prostor</strong> = rozsah použitelných adres.</li>
+  <li>Pro označení zdrojů se používají <strong>doménová jména</strong> (lépe zapamatovatelná).</li>
+  <li><strong>DNS</strong> (Domain Name System) = provádí převod IP adres na doménová jména; DNS server má port 53.</li>
+  <li>Příkaz <code>nslookup</code> – ověření DNS nastavení.</li>
+  <li><strong>TLD</strong> (Top Level Domain): generické (.com, .net, .org, .edu, .gov) / národní (.cz, .sk). Domény v ČR se registrují u nic.cz.</li>
+</ul>
+
+<h2>11.2 Principy a standardy WWW, protokol HTTP</h2>
+<ul>
+  <li><strong>World Wide Web</strong> – aplikace internetového protokolu HTTP; soustava propojených hypertextových dokumentů. Vznik 1989 v CERNu v Ženevě, díky <strong>Timu Berners-Leeovi</strong>. Základem je komunikace mezi webovým klientem a serverem.</li>
+  <li><strong>Standardy WWW</strong>: HTML (struktura), CSS (vzhled), JavaScript (interaktivita), REST (architektura pro webová API).</li>
+  <li><strong>Hypertext</strong> – text obsahující propojení na jiné texty pomocí hypertextových odkazů (URL).</li>
+  <li><strong>Klient (prohlížeč)</strong> – program, který komunikuje s uživatelem a zasílá podněty serveru. Příklady: Google Chrome, Microsoft Edge, Firefox, LYNX (textový prohlížeč).</li>
+  <li><strong>Server</strong> – program, který přijímá a obsluhuje požadavky klientů. Příklady: APACHE, NGINX.</li>
+</ul>
+<h3>URL adresa</h3>
+<p>Slouží k přesné specifikaci umístění zdrojů informací na internetu.</p>
+<pre><code>http://www.seo-napoveda.cz/clanky/on-page-faktory.php?ID=12345</code></pre>
+<ul>
+  <li><code>http</code> – použitý protokol</li>
+  <li><code>seo-napoveda</code> – doména</li>
+  <li><code>cz</code> – top level doména</li>
+  <li><code>clanky</code> – adresář, ve kterém je dokument umístěn</li>
+  <li><code>on-page-faktory.php</code> – dokument</li>
+  <li><code>ID</code> – parametr, 12345 = hodnota parametru</li>
+</ul>
+<h3>Protokol HTTP</h3>
+<ul>
+  <li>Hyper Text Transfer Protocol, <strong>port 80</strong>; jednoduchý aplikační protokol fungující na principu <strong>request-response</strong>.</li>
+  <li><strong>Request</strong> – uživatel pošle dotaz v plain textu.</li>
+  <li><strong>Response</strong> – uvozena hlavičkou se stavovým kódem (200, 404, 503…) s vrácenou webovou stránkou.</li>
+  <li>HTTP je původně <strong>bezestavový protokol</strong> – nepamatuje si žádný předešlý údaj. Pro zachování informací se používají <strong>Cookies</strong> (malé soubory, které se dočasně uloží na klientovi).</li>
+</ul>
+<h3>Protokol HTTPS</h3>
+<p><strong>Zabezpečený HTTP, port 443.</strong> Používá šifrování na vrstvě <strong>TLS, SSL</strong>. Pro komunikaci HTTPS musí nejdříve server vlastnit certifikát (zaručí, že se vlastník nevydává za někoho jiného).</p>
+<h3>Metody HTTP</h3>
+<ul>
+  <li><strong>GET</strong> – požadavek na poslání dokumentu určeného pomocí URL.</li>
+  <li><strong>POST</strong> – server má přijmout data z požadavku a něco vytvořit.</li>
+  <li><strong>PUT</strong> – aktualizace záznamů v databázi.</li>
+  <li><strong>DELETE</strong> – požadavek na zrušení dokumentu na serveru.</li>
+</ul>
+<h3>Stavové kódy odpovědi serveru</h3>
+<ul>
+  <li>1xx – informační</li>
+  <li>2xx – úspěch</li>
+  <li>3xx – přesměrování</li>
+  <li>4xx – chyba klienta</li>
+  <li>5xx – chyba serveru</li>
+</ul>
+
+<h2>11.3 Funkce internetového prohlížeče</h2>
+<ul>
+  <li>Záložky, oblíbené položky, historie vyhledávání, pluginy, anonymní prohlížení, homepage, prohlížeč PDF.</li>
+  <li><strong>Cache</strong> – mechanismus pro ukládání statických zdrojů (obrázky, CSS, JS) do prohlížeče pro rychlejší načítání stránek.</li>
+  <li><strong>Cookies</strong> – krátké textové soubory, které navštívený web odesílá do prohlížeče.</li>
+  <li><strong>Sessions</strong> – dočasné uchování uživatelských dat na straně serveru (nákupní košík).</li>
+  <li><strong>Local storage</strong> – trvalé uložení dat v prohlížeči; větší kapacita než cookies.</li>
+  <li><strong>Bezpečnostní aspekty</strong>: XSS – útok crashem formulářů; CORS – které domény mohou sdílet zdroje.</li>
+</ul>
+
+<h2>11.4 Typy webových služeb, vyhledávací služby, SEO, analytické nástroje</h2>
+<p><strong>Vyhledávání</strong> = internetový vyhledávač; na základě své databáze vypisuje seznam odkazů na stránky, které obsahují informace zadané uživatelem.</p>
+<p>Vyhledávání probíhá ve 3 krocích:</p>
+<ol>
+  <li><strong>Prohledávání webových stránek</strong> – speciální program <strong>crawler</strong>: dostane seznam odkazů, navštíví stránky, zapamatuje si nalezené odkazy a navštíví další stránky (cyklus se opakuje).</li>
+  <li><strong>Indexování</strong> – databáze obsahující obsahy navštívených stránek se indexuje pro rychlejší prohledávání. Indexy se řadí podle relevance (váha slova, atraktivita stránky, serióznost webu, sponzorované odkazy).</li>
+  <li><strong>Poskytnutí odpovědi</strong> na dotazy uživatelů.</li>
+</ol>
+<p><strong>SEO</strong> – optimalizace webových stránek pro vyhledávače. Cílem je získat lepší pozici ve výsledcích a tím i častější prokliknutí. Hodnocení je založeno na struktuře, obsahu, metadatech a počtu odkazů.</p>
+<p><strong>Analytické nástroje</strong> – poskytují data o webu jako podklad pro webového analytika nebo správce webu. <strong>Google Analytics</strong> – nejpoužívanější; umožňuje sledovat návštěvnost, chování uživatelů (kam klikají), konverze, prodeje.</p>
+
+<h2>11.5 Trendy vývoje webu</h2>
+<h3>Web 2.0 (od roku 2004)</h3>
+<ul>
+  <li>Změna komunikačního modelu z one-to-one a one-to-many směrem k <strong>many-to-many</strong>.</li>
+  <li>Vznik uživateli garantovaného obsahu (Wikipedia).</li>
+  <li>Otevřená komunikace.</li>
+  <li>Charakteristické technologie: Wiki systémy, MashUp (využití API k vytváření nových aplikací), sociální sítě, blogy, sdílení videa (YouTube, Vimeo).</li>
+</ul>
+<h3>Web 3.0</h3>
+<ul>
+  <li><strong>Sémantický web</strong> – informace uloženy podle standardizovaných pravidel; usnadňuje vyhledávání a zpracování.</li>
+  <li><strong>Sdílené aplikace</strong> – ukládání uživatelských dokumentů přímo na internetu a sdílení v reálném čase (GoogleDocs).</li>
+  <li>Přístup přes tablet, mobilní telefon, chytrá televize.</li>
+  <li>Větší využití videa a 3D prostředí.</li>
+  <li>Webové aplikace přizpůsobené dotykovému ovládání.</li>
+  <li><strong>Decentralizace</strong> – Blockchain technologie (kryptoměny, smart kontrakty).</li>
+  <li><strong>IoT</strong> (Internet of Things) – síť fyzických zařízení vybavených elektronikou, softwarem, senzory a síťovou konektivitou, která si navzájem vyměňují data.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../10-relacni-databaze/index.html">← Relační databáze a SQL</a>
+  <a class="nav-btn" href="../12-html-a-css/index.html">HTML a CSS →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Internet a WWW</div>
+</body>
+</html>

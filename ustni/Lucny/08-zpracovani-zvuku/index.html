@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q08 – Zpracování zvuku na počítači | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q08</span>
+</nav>
+<div class="hero">
+  <div class="bignr">08</div>
+  <div class="qnum">Otázka 08 / 20 · Lucný</div>
+  <h1>Zpracování zvuku na počítači</h1>
+</div>
+<main>
+
+<h2>8.1 Zvuk a jeho vlastnosti, digitalizace audio signálu</h2>
+<p>Zvuk je <strong>mechanické vlnění v látkovém prostředí</strong>.</p>
+<h3>Vlastnosti zvuku</h3>
+<ul>
+  <li><strong>Tón</strong> – zvuk s jednoznačnou frekvencí; hudební zvuk.</li>
+  <li><strong>Hluk</strong> – nepříjemný zvuk, nepravidelné kmitání.</li>
+  <li><strong>Frekvence [Hz]</strong> – počet kmitů za sekundu.</li>
+  <li><strong>Amplituda [dB]</strong> – určuje hlasitost; závisí na tlaku vlnění (pro lidi 10–120 dB).</li>
+  <li><strong>Barva zvuku</strong> – závisí na složení harmonických složek; ovlivňuje subjektivní vnímání.</li>
+</ul>
+<p>Rozsah lidského slyšení: <strong>20 Hz – 20 kHz</strong>. Pod tímto rozsahem je Infrazvuk, nad ním Ultrazvuk. 440 Hz je komorní „á". <strong>Akustika</strong> je věda zabývající se zvukem.</p>
+<h3>Mikrofony</h3>
+<ul>
+  <li><strong>Kondenzátorový mikrofon</strong> – nejkvalitnější; používá se v nahrávacích studiích; funguje na základě měnící se kapacity kondenzátoru → změny elektrického napětí.</li>
+  <li><strong>Dynamický (elektrodynamický) mikrofon</strong> – membrána pohybuje cívkou v magnetickém poli → elektrický proud; méně citlivý, ale odolný; nepotřebuje napájení; ideální pro hlasité zdroje (živý zpěv na koncertech).</li>
+</ul>
+<h3>Digitalizace zvuku</h3>
+<ul>
+  <li><strong>Analogový signál</strong> – spojitá křivka zaznamenaných stavů; napodobuje původní signál; přenosem se zkresluje.</li>
+  <li><strong>Digitální signál</strong> – nespojitý; lze mnohonásobně kopírovat bez ztráty kvality.</li>
+  <li><strong>Digitalizace</strong> – vyjádření v číslech pomocí A/D převodníku. Původní analogová křivka se rozporcuje na menší úseky (<strong>vzorkování</strong>) a pro každý úsek se zaznamená číselná hodnota (<strong>kvantování</strong>). Provádí ji <strong>zvuková karta</strong>.</li>
+</ul>
+<h3>Parametry digitálního audia</h3>
+<ul>
+  <li><strong>Vzorková frekvence</strong> – počet vzorků za sekundu.</li>
+  <li><strong>Bitová hloubka</strong> – počet bitů k vyjádření jednoho vzorku.</li>
+  <li><strong>Bitrate</strong> – množství dat přenesených za sekundu.</li>
+  <li><strong>Počet kanálů</strong> – počet zvukových stop.</li>
+  <li><strong>Joint stereo</strong> – podrobnosti zvuku v levém a pravém kanálu.</li>
+</ul>
+
+<h2>8.2 Komprese zvuku, psychoakustický model, audio kodeky a formáty</h2>
+<p><strong>Komprese</strong> – postup ukládání dat; cílem je zmenšit velikost dat; při archivaci nebo přenosu po síti. Kódování podle kompresního algoritmu odstraní redundantní informace.</p>
+<ul>
+  <li><strong>Psychoakustický model</strong> – využívá nedokonalosti lidského ucha: když znějí dva zvuky současně, slyšíme jen ten hlasitější. Využití: ztrátové kompresní algoritmy + maskování signálu.</li>
+</ul>
+<h3>Maskování signálu</h3>
+<ul>
+  <li><strong>Frekvenční maskování</strong> – pokud znějí dva tóny současně, jeden lidské ucho nezaznamená; silnější zvuk se stane maskovacím prahem; zvuk pod ním se nemusí přenášet. Příklad: siréna.</li>
+  <li><strong>Časové maskování</strong> – po silném zvuku nejsme schopni dalších pár milisekund vnímat další zvuky; doba maskování závisí na době trvání signálu; platí před zazněním i po něm.</li>
+</ul>
+<h3>Audio kodeky a formáty</h3>
+<p><strong>Kodek</strong> je software nebo hardware, který komprimuje digitální zvuk; nemusí se shodovat s formátem.</p>
+<table>
+  <tr><th>Formát</th><th>Typ</th><th>Popis</th></tr>
+  <tr><td>MP3</td><td>Ztrátový</td><td>Nejrozšířenější formát; MPEG-1.</td></tr>
+  <tr><td>AAC</td><td>Ztrátový</td><td>Vícekanálový; nástupce MP3.</td></tr>
+  <tr><td>WMA</td><td>Ztrátový</td><td>Od Microsoftu.</td></tr>
+  <tr><td>AIFF</td><td>Nekomprimovaný</td><td>Od Apple.</td></tr>
+  <tr><td>WAV</td><td>Nekomprimovaný</td><td>Základní zvukový formát; velký objem na disku.</td></tr>
+  <tr><td>FLAC, MONKEY'S</td><td>Bezeztrátový</td><td>Bezeztrátová komprese s 50% účinností.</td></tr>
+  <tr><td>OGG</td><td>Ztrátový</td><td>Open source kodek.</td></tr>
+</table>
+
+<h2>8.3 Zvuková syntéza, MIDI</h2>
+<p><strong>Syntéza</strong> = skládání zvuku, vytvoření umělého zvuku.</p>
+<ul>
+  <li><strong>FM Syntéza</strong> (Frekvenční modulace) – vychází z úvahy, že zvuk má 4 fáze: <strong>ADSR</strong> (Attack, Decay, Sustain, Release). Zvuky tvoříme zkracováním nebo prodlužováním těchto fází.</li>
+  <li><strong>Wavetable Syntéza</strong> – využívá zvuky skutečných nástrojů uložených ve zvukové kartě; zvuky jsou uspořádané podle pořadových čísel do tabulky.</li>
+  <li><strong>MIDI</strong> (Musical Instrument Digital Interface) – univerzální interface pro propojení počítače a hudebního nástroje. Soubory .mid. Protokol definuje parametry: výška, délka, hlasitost tónu, nástroj.</li>
+  <li><strong>Tvorba digitální hudby</strong>:
+    <ul>
+      <li><strong>DAW</strong> (Digitální audio stanice) – programy hudební produkce (FL Studio, LMMS).</li>
+      <li><strong>VST pluginy</strong> – virtuální nástroje simulující hudební nástroje.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>8.4 Programy pro práci se zvukem, možnosti editace, zvukové záznamy na internetu</h2>
+<ul>
+  <li><strong>Audacity</strong> (open-source) a <strong>Adobe Audition</strong> (profesionální).</li>
+  <li><strong>Sekvencery</strong> – umožňují ukládat hudbu pomocí MIDI.</li>
+  <li><strong>Notátory</strong> – pomocí notové osnovy (MuseScore).</li>
+</ul>
+<h3>Možnosti editace digitálního zvuku</h3>
+<ul>
+  <li>Střih a úprava délky.</li>
+  <li>Změna frekvence a tónu.</li>
+  <li>Normalizace hlasitosti, odstranění šumu.</li>
+  <li>Efekty, mixování a mastering.</li>
+</ul>
+<h3>Zvukové záznamy na internetu</h3>
+<ul>
+  <li>Podcasty a audioknihy.</li>
+  <li>Hudební streamovací služby.</li>
+  <li>Licence a autorská práva umožňují sdílení a využití díla s určitými podmínkami.</li>
+</ul>
+
+<h2>8.5 Rozpoznávání a syntéza řeči, využití AI při práci se zvukem</h2>
+<ul>
+  <li><strong>Syntéza řeči</strong> (TTS – Text to Speech) – převod textu do řeči. Text se analyzuje, normalizuje a transformuje do výslovnosti. Využití: zastávky MHD, hlasové upozornění požární, informační systémy, čtení pro nevidomé.</li>
+  <li><strong>Rozpoznávání řeči</strong> – převod řeči do textu. Nezávislé na mluvčím; vychází z nahrávek velkého množství lidí a hledá obecný model. Využití: hlasové ovládání PC/mobilu, přepis textů. Aplikace: Google Assistant, Apple Siri, Microsoft Cortana, Amazon Alexa, Samsung Bixby.</li>
+  <li><strong>Využití AI při práci se zvukem</strong>: hudební generátory, odstranění šumu, AI hudební nástroje, hlasové klonování.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../07-tabulkove-procesory/index.html">← Tabulkové procesory</a>
+  <a class="nav-btn" href="../09-digitalni-video/index.html">Digitální video →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Zpracování zvuku na počítači</div>
+</body>
+</html>

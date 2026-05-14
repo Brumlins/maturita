@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q04 – Rastrová grafika a digitální fotografie | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q04</span>
+</nav>
+<div class="hero">
+  <div class="bignr">04</div>
+  <div class="qnum">Otázka 04 / 20 · Lucný</div>
+  <h1>Rastrová grafika a digitální fotografie</h1>
+</div>
+<main>
+
+<h2>4.1 Princip rastrové grafiky, oblasti využití, příklady programů</h2>
+<p>Grafický formát, kde je obraz tvořen mřížkou (maticí) jednotlivých bodů – <strong>pixelů</strong>. Každý pixel obsahuje informace o své barvě podle zvoleného barevného modelu.</p>
+<ul>
+  <li><strong>Výhody</strong>: vhodná pro fotografie a komplexní grafické efekty; snadná editace a rychlé zpracování; převaha rastrových zařízení (monitory, tiskárny).</li>
+  <li><strong>Nevýhody</strong>: při zvětšování obrázku dochází ke ztrátě kvality vlivem <strong>pixelizace</strong>; nevhodná pro tvorbu samostatných grafických objektů.</li>
+</ul>
+<h3>Oblasti využití</h3>
+<ul>
+  <li>Tvorba tiskovin a reklamních materiálů</li>
+  <li>Multimediální tvorba</li>
+  <li>Internetové stránky</li>
+  <li>Počítačové hry, animace, NFT</li>
+</ul>
+<p><strong>Příklady programů</strong>: Adobe Photoshop, Corel PaintShop Pro, GIMP, Krita, Canva.</p>
+
+<h2>4.2 Vlastnosti rastrového obrazu, rastrové formáty</h2>
+<h3>Vlastnosti</h3>
+<ul>
+  <li><strong>Rozlišení</strong> – počet bodů na výšku × počet bodů na šířku.
+    <ul>
+      <li>Pro monitory: [px] nebo 72 DPI.</li>
+      <li>Tiskárny, skenery: [DPI, dots per inch] = počet pixelů na vzdálenost 1 angl. palce; běžně 300–1200 DPI.</li>
+    </ul>
+  </li>
+  <li><strong>Velikost souboru na disku</strong> = rozlišení × barevná hloubka. Příklad: obrázek 1600×1200 px s 256 barvami (256 kombinací ≈ 2<sup>8</sup> ≈ 1 B) = 1 600 × 1 200 × 1 B = 1,92 MB.</li>
+  <li><strong>Barevná hloubka</strong> – udává, kolik bitů je použito k zobrazení pixelu. Čím vyšší, tím více barev se rozlišuje a tím přesnější je vykreslení. Jedním bitem = dvě barvy (černobílé).</li>
+</ul>
+<h3>Formáty</h3>
+<ul>
+  <li><strong>JPEG</strong> – vhodný pro internet; i při nízkém rozlišení poměrně dobrá kvalita; nepodporuje průhledný alfa kanál; používá <strong>ztrátovou kompresi</strong>.</li>
+  <li><strong>BMP</strong> – jednoduchý <strong>nekomprimovaný formát</strong>; nezávislý na platformě a OS; nevýhodou je větší soubor.</li>
+  <li><strong>GIF</strong> – <strong>bezztrátový formát</strong>; používá se pro webovou grafiku a animace; omezená škála barev, hloubka max. 256 barev.</li>
+  <li><strong>PNG</strong> – <strong>bezztrátový formát</strong>; podporuje průhledný alfa kanál (RGBa model).</li>
+</ul>
+
+<h2>4.3 Vnímání barev, barevné modely, korekce barevného obrazu</h2>
+<p>Světlo odražené od předmětu dopadá do oka na sítnici. Oko vysílá nervové signály do mozku, který je vyhodnocuje. Lidské oko má barevné receptory pro celý rozsah barevného spektra světla (<strong>380–770 nm</strong>). Oko je více citlivé na zelené světlo, následuje červené a modré.</p>
+<h3>Vlastnosti barev</h3>
+<ul>
+  <li><strong>Tón</strong> – vlnová délka světla vyvolávající pocit barvy.</li>
+  <li><strong>Světlost</strong> – světlé barvy odrážejí více světla; tmavé ho více pohlcují.</li>
+  <li><strong>Sytost</strong> – 100% sytost = čistá barva bez příměsi černé a bílé.</li>
+  <li><strong>Odstín</strong> – odvozený barevný tón smíchaný s bílou, černou nebo jinou barvou.</li>
+  <li><strong>Průhlednost</strong>.</li>
+</ul>
+<h3>Barevné modely</h3>
+<ul>
+  <li><strong>Aditivní modely</strong> – přidávání barev do černé; max. hodnota všech složek = bílá; nulová = černá. Barvy vznikají propouštěným světlem, potřebují podsvícení. Využití: monitor. Model: <strong>RGB</strong> (Red, Green, Blue). Příklady: černá (0,0,0), bílá (255,255,255), zelená (0,255,0).</li>
+  <li><strong>Subtraktivní modely</strong> – opačný princip; základní barvy se odčítají od bílé; max. hodnota = černá; nulová = bílá. Založeno na odrazu světla, potřebují vnější zdroj světla. Využití: tisk. Model: <strong>CMYK</strong> (Cyan, Magenta, Yellow, Key/Black). K – černá se přidala, protože většina tisku je černá (text, monochromatické fotky) a je neefektivní plýtvat 3 složkami.</li>
+</ul>
+<p>Model <strong>HSB</strong> (Hue, Saturation, Brightness).</p>
+<p><strong>Barevná korekce</strong> – změna barevnosti obrazu tak, aby se více přiblížila přirozeným barvám.</p>
+<p><strong>Vyvážení bílé</strong> – zachycený obraz se co nejlépe shoduje s podáním barev, jak je vidí lidské oko. Každý světelný zdroj může mít jinou barevnou teplotu. Manuální míchání kanálů pomocí posuvníků. Kalibrace pomocí referenčních barev.</p>
+
+<h2>4.4 Funkce rastrových editorů – práce s objekty, vrstvami, maskou, nástroji a filtry</h2>
+<p>Objekty lze škálovat, otáčet, posouvat, ořezávat, kopírovat.</p>
+<ul>
+  <li><strong>Systém vrstev</strong> – každá vrstva je jeden objekt v obrázku; vrstvy mají svoji hierarchii; nejvyšší vrstva překrývá vrstvu pod ní. Dají se slučovat nebo kopírovat. Při práci s jednou vrstvou nemůžeme ovlivnit jinou vrstvu.</li>
+  <li><strong>Maska</strong> – šedoškálová obrazová mapa vztažená k vrstvě či skupině vrstev; určuje, co bude skryté (černá barva) a co ne (bílá barva).</li>
+  <li><strong>Nástroje</strong>: klonovací, křivící, interpolační, ořezové, guma, výběrové, Bézierové křivky.</li>
+  <li><strong>Programy</strong>: Adobe Photoshop, GIMP, Adobe Illustrator.</li>
+</ul>
+
+<h2>4.5 Digitální fotografie, její vytváření a zpracování</h2>
+<p>Dva typy snímačů: <strong>CMOS</strong> a <strong>CCD</strong>. Obsahují miliony obrazových bodů (pixelů), každý reaguje na světlo. Světlo se před dopadem na snímač upravuje pomocí soustavy čoček a zrcadel. Důležité parametry: velikost snímače [cm] a rozlišení [Mpx].</p>
+<ul>
+  <li><strong>Objektiv</strong> – soustava čoček soustřeďující světlo na snímač. Nastavením objektivu měníme ohniskovou vzdálenost – přibližujeme/oddalujeme snímaný objekt.</li>
+  <li><strong>Ohnisková vzdálenost</strong> – vzdálenost mezi optickým středem objektivu a rovinou, na které objektiv dokáže zaostřit.</li>
+  <li><strong>Expozice</strong> – doba od stisknutí spouště po pořízení snímku.</li>
+  <li><strong>Expoziční trojúhelník</strong> – pomáhá ladit 3 parametry pro nejlepší kvalitu obrazu:
+    <ul>
+      <li><strong>ISO</strong> – citlivost snímače na světlo. Vyšší ISO = zachycení při nižším osvětlení, ale zrnitý snímek.</li>
+      <li><strong>Clona</strong> – ovlivňuje množství dopadajícího světla na snímač.</li>
+      <li><strong>Čas</strong> – po jehož dobu dopadá světlo na snímač [zlomek vteřiny ½, ¼…]; ovlivňuje ostrost snímku.</li>
+    </ul>
+  </li>
+  <li><strong>Expoziční režimy</strong> – rychlé předvolby pro konkrétní situace (šero, tma, přímé slunce…).</li>
+  <li><strong>Stabilizátor obrazu</strong> – zamezuje rozostření: mechanicky (posuv snímače), opticky (posuv čoček), softwarově.</li>
+  <li><strong>Zaostření</strong> – volíme rovinu, vůči které ostříme; vše před nebo za ní je rozostřené. Automatické nebo manuální.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../03-informacni-a-databazove-systemy/index.html">← Informační a databázové systémy</a>
+  <a class="nav-btn" href="../05-vektorova-grafika/index.html">Vektorová grafika →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Rastrová grafika a digitální fotografie</div>
+</body>
+</html>

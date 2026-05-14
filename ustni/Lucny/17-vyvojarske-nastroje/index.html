@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q17 – Vývojářské nástroje a verzovací systémy | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q17</span>
+</nav>
+<div class="hero">
+  <div class="bignr">17</div>
+  <div class="qnum">Otázka 17 / 20 · Lucný</div>
+  <h1>Vývojářské nástroje a verzovací systémy</h1>
+</div>
+<main>
+
+<h2>17.1 Fáze tvorby programu a vývojářské nástroje</h2>
+<ol>
+  <li><strong>Návrh algoritmu a programové architektury</strong> – používají se tzv. <strong>UML</strong> (Unified Modeling Language), standardizovaný jazyk sloužící pro vizualizaci a správu různých aspektů SW systémů, používá diagramy. Příklady: draw.io, open-source varianta <strong>DIA</strong> (lze použít k tvorbě ER diagramů).</li>
+  <li><strong>Psaní a ladění kódu</strong> – hojně se využívají <strong>IDE</strong>, která poskytují programátorům celou sadu funkcí a pomůcek. Příklady: PyCharm, Visual Studio Code.</li>
+  <li><strong>Testování</strong> – nástroje jako <strong>xUnit</strong> (unit testy) nebo <strong>Postman</strong> (testování API).</li>
+  <li><strong>Správa verzí projektu</strong> – pro správu projektu, spolupráci a sledování změn se používají <strong>verzovací systémy</strong>, např. <strong>Git</strong>, který nabízí správu lokálních i vzdálených repositářů.</li>
+  <li><strong>Dokumentace</strong> – klíčová pro správnou údržbu. Např. <strong>Doxygen</strong> umožňuje tvorbu dokumentace z poznámek v kódu.</li>
+</ol>
+
+<h2>17.2 IDE, pomůcky pro editaci a refaktorování kódu</h2>
+<p><strong>IDE</strong> (Integrated Development Environment) je integrované vývojářské prostředí poskytující programátorovi komplexní sadu nástrojů a funkcí pro vývoj SW. Kromě textového editoru zahrnuje také:</p>
+<ul>
+  <li><strong>Debugger</strong> – umožňuje vývojáři chronologicky procházet a ladit kód.</li>
+  <li><strong>Profiler</strong> – identifikuje slabá místa v kódu, optimalizuje výkon.</li>
+  <li><strong>Integrace s verzovacím systémem</strong> – umožňuje pracovat s různými verzemi kódu, zapojit tým.</li>
+  <li><strong>Sestavování a testování</strong> – sestavení aplikace z kódu a spuštění automatického testu.</li>
+  <li><strong>Správce balíčků</strong> – snadná instalace, odinstalace a obecná správa balíčků a knihoven.</li>
+</ul>
+<h3>Užitečné pomůcky IDE</h3>
+<ul>
+  <li><strong>Syntax zvýraznění</strong> – zvyšuje čitelnost a zpřehledňuje kód (barevně odlišuje proměnné).</li>
+  <li><strong>Automatické dokončování kódu</strong> – minimalizace chyb a urychlení práce.</li>
+  <li><strong>Code snippets</strong> – krátké úryvky kódu, které lze vložit do projektu.</li>
+  <li><strong>Code folding</strong> – skrytí pasáže kódu, zůstane jen hlavička; zvyšuje přehlednost u delších kódů.</li>
+  <li><strong>Linter</strong> – upozorňuje na potenciální chyby; integrován do textového editoru.</li>
+  <li><strong>Copilot</strong> – umělá inteligence, generuje kód na základě vývojářského vstupu; snaha zrychlit vývoj; dnes nabízí generaci kódů v jazycích Python, JavaScript, TypeScript a další.</li>
+</ul>
+<p><strong>Refaktorování kódu</strong> je estetická úprava kódu bez změnění jeho vnějšího chování; snaha zlepšit přehlednost a čitelnost. Postupuje se systematicky: změny jmen proměnných, rozdělení funkcí na co nejmenší části, zefektivnění algoritmu atd.</p>
+<h3>Zásady psaní kódu</h3>
+<ul>
+  <li><strong>DRY</strong> (Do not Repeat Yourself) – minimalizovat opakování; každá informace má jediné a jasně definované zdrojové místo v kódu.</li>
+  <li><strong>KISS</strong> (Keep it Simple, Stupid) – oproštění se od zbytečně složitého kódu; složitá řešení jsou náchylná k chybám.</li>
+  <li><strong>YAGNI</strong> (You Ain't Gonna Need It) – nepíšeme kód pro případ, který nemusí nastat.</li>
+  <li><strong>SOLID</strong> – soubor zásad pro psaní objektově orientovaného kódu.</li>
+</ul>
+
+<h2>17.3 Nástroje pro ladění a testování</h2>
+<p><strong>Debugger</strong> je nástroj používaný k hledání a ladění chyb v kódu; umožňuje programátorovi spustit kód a postupovat krok po kroku a zjišťovat, jaký efekt mají jednotlivé úseky na zbytek aplikace.</p>
+<ul>
+  <li>Zastavení programu v určitém bodě.</li>
+  <li>Krok po kroku – volitelná rychlost postupu.</li>
+  <li><strong>Sledování hodnot proměnných</strong> – lze je sledovat a porovnávat v libovolné části programu.</li>
+  <li><strong>Stack trace</strong> – sledování stavu zásobníku volání funkcí.</li>
+  <li><strong>Profilování výkonu</strong> – délka trvání vykonání jednotlivých dílčích funkcí.</li>
+</ul>
+<p>Testování kódu ověřuje správnost, minimalizuje negativní dopad a zvyšuje kvalitu výsledku.</p>
+<p><strong>TDD</strong> (Test Driven Development) – vývoj řízený testy; píše testy ještě před psaním samotného kódu; aplikace je tedy spolehlivější a efektivnější.</p>
+
+<h2>17.4 Správa závislostí, virtuální prostředí a kontejnery</h2>
+<p>Závislosti mohou být <strong>vnitřní</strong> (různé části jednoho programu) nebo <strong>vnější</strong> (program a externí knihovna). Správa závislostí je důležitou součástí moderního programování. Nástroje:</p>
+<ul>
+  <li><strong>pip</strong> – Python; instalace balíčků; <code>pip freeze</code>; instalace pomocí přímého odkazu na Git.</li>
+  <li><strong>npm</strong> – JS a Node.js; instalace z centrálního registru npm a externích zdrojů (Git).</li>
+  <li><strong>yarn</strong> – alternativa k npm; vylepšená výkonnost, možnost paralelního stahování balíčků.</li>
+</ul>
+<p><strong>Virtuální prostředí</strong> odděluje závislosti projektu od systémových knihoven a nástrojů; projekt se stává nezávislý na konkrétním PC, snadno přenositelný. Python: <code>python -m venv &lt;název&gt;</code>, <code>&lt;název&gt;\Scripts\activate</code>.</p>
+<p><strong>Kontejnery</strong> jsou virtuální prostředí sloužící pro běh aplikací. Kontejner izoluje zdroje (OS, síť, souborové systémy) od hostitelského systému; jsou velmi flexibilní a snadno přenosné; používají se pro běh aplikací na cloudu nebo testování.</p>
+<ul>
+  <li><strong>Docker</strong> – nejznámější a nejčastěji používaná platforma pro kontejnerizaci.
+    <ul>
+      <li><strong>Docker image</strong> – základní stavební jednotka; statický balíček obsahující vše potřebné.</li>
+      <li><strong>Docker compose</strong> – umožňuje definovat a spustit více kontejnerů v jednom souboru.</li>
+    </ul>
+  </li>
+</ul>
+<h3>Výhody kontejnerizace</h3>
+<ul>
+  <li><strong>Izolace</strong> – závislostí a aplikací od hostitelského systému.</li>
+  <li><strong>Konzistence</strong> – minimalizace chyb spojených s různými verzemi knihoven.</li>
+  <li><strong>Přenosnost</strong> – nezávislé na OS, SW i HW.</li>
+  <li><strong>Efektivita</strong> – sdílení zdrojů mezi aplikacemi.</li>
+  <li>Škálovatelnost, snadná správa.</li>
+</ul>
+
+<h2>17.5 Verzovací systém – funkce a využití</h2>
+<p>Jedná se o nástroj pro sledování změn v kódu a zajištění správného řízení verzí. Základní funkce:</p>
+<ol>
+  <li><strong>Správa verzí</strong> – ukládají různé verze souborů; programátor dokáže pracovat v paralelních větvích a následně je spojit.</li>
+  <li><strong>Sledování změn</strong> – sledují a ukládají změny jako revize; uživatel může sledovat vývoj kódu a rozdíly mezi verzemi.</li>
+  <li><strong>Kolaborace</strong> – práce více uživatelů spojena do jediného souboru.</li>
+  <li><strong>Zpětné zotavení</strong> – obnovení předchozí verze v případě chyby nebo ztráty.</li>
+  <li><strong>Větvení a slučování</strong> – vytváření větví pro paralelní vývoj, lze je slučovat; jeden vývojář řeší problém A, druhý problém B a následně je spojí.</li>
+</ol>
+<p><strong>Git</strong> je distribuovaný verzovací systém sloužící pro správu kódu a souborů. Ukládá celou historii projektu; lze se kdykoliv vrátit k předchozímu stavu. Používá <strong>snapshots</strong>, které ukládají změny od předchozí provedené změny. Má <strong>decentralizovanou architekturu</strong> – každý vývojář má lokální kopii projektu, může pracovat off-line.</p>
+<ul>
+  <li><strong>GitHub</strong> – bezplatné hostování veřejných repositářů, nabízí také placené plány.</li>
+  <li><strong>GitLab</strong> – větší možnost pro správu a konfiguraci než GitHub.</li>
+  <li><strong>Bitbucket</strong> – hostuje Git repositáře v cloudu i na vlastních serverech.</li>
+</ul>
+<h3>Základní příkazy Git</h3>
+<ul>
+  <li><code>git add</code> – přidá změny v pracovním adresáři do indexu.</li>
+  <li><code>git commit</code> – vytvoří nový commit ze změn uložených v indexu.</li>
+  <li><code>git push</code> – nahraje lokální změny do repositáře.</li>
+  <li><code>git pull</code> – stáhne všechny změny z repositáře, sloučí je s lokálními soubory.</li>
+  <li><code>git clone</code> – vytvoří kopii vzdáleného repositáře.</li>
+  <li><code>git status</code> – zobrazí aktuální stav (změněné soubory, aktuální větev).</li>
+  <li><code>git diff</code> – zobrazí rozdíly mezi aktuálním a posledním commitnutým stavem.</li>
+  <li><code>git log</code> – seznam commitů v repositáři, lze filtrovat.</li>
+  <li><code>git remote</code> – zobrazí seznam vzdálených repositářů a zkontroluje jejich nastavení.</li>
+  <li><code>git show</code> – zobrazí autora, datum, čas, zprávu atd. daného commitu.</li>
+</ul>
+<h3>Větve v Git</h3>
+<p>Slouží k oddělení různých funkcionalit, oprav a vylepšení od hlavní linie (<strong>master</strong> větev). Umožňují na sobě nezávislé větve, které lze spojit. Podporují práci v týmu a experimentování bez rizika ovlivnění hlavní větve.</p>
+<ul>
+  <li><code>git branch</code> – seznam všech větví repositáře.</li>
+  <li><code>git checkout</code> – přepínání mezi větvemi.</li>
+  <li><code>git merge</code> – zanoření větve do té hlavní.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../16-zaklady-programovani/index.html">← Základy programování</a>
+  <a class="nav-btn" href="../18-strukturovane-programovani/index.html">Strukturované programování →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Vývojářské nástroje a verzovací systémy</div>
+</body>
+</html>

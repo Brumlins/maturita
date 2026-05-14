@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q18 – Strukturované programování | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q18</span>
+</nav>
+<div class="hero">
+  <div class="bignr">18</div>
+  <div class="qnum">Otázka 18 / 20 · Lucný</div>
+  <h1>Strukturované programování</h1>
+</div>
+<main>
+
+<h2>18.1 Důvody vzniku strukturovaného programování, zásady a základní rysy</h2>
+<p><strong>Strukturované programování</strong> vzniklo v <strong>60. letech 20. století</strong> (E. W. Dijkstra) jako reakce na „špagetový kód", který vznikal nadužíváním příkazů pro bezpodmínečný skok (<strong>GOTO</strong>). Programy byly nečitelné, těžko udržovatelné a plné chyb. Cílem bylo zvýšit čitelnost, snížit chybnost a zjednodušit údržbu.</p>
+<h3>Zásady (základní rysy)</h3>
+<ul>
+  <li><strong>Sekvence</strong> – příkazy se vykonávají postupně, jeden po druhém v přesném pořadí.</li>
+  <li><strong>Selekce (větvení)</strong> – program se může rozdělit do více větví podle podmínky (<code>if</code>, <code>switch</code>).</li>
+  <li><strong>Iterace (cykly)</strong> – opakování bloku kódu, dokud platí zadaná podmínka (<code>while</code>, <code>for</code>).</li>
+  <li><strong>Jeden vstup, jeden výstup</strong> – každý logický blok by měl mít jedno místo vstupu a jedno výstupu.</li>
+  <li><strong>Top-down přístup</strong> – dekompozice problému; rozdělení velkého složitého úkolu na menší části.</li>
+</ul>
+
+<h2>18.2 Konstanty, proměnné, datové typy; rozdíly ve způsobu deklarace a použití</h2>
+<ul>
+  <li><strong>Proměnná</strong> – místo v paměti počítače, které uchovává hodnotu. Hodnota se může během běhu programu měnit.</li>
+  <li><strong>Konstanta</strong> – uchovává hodnotu, která se po dobu běhu programu nesmí změnit.</li>
+  <li><strong>Datový typ</strong> – určuje jaký druh dat proměnná uchovává a kolik místa v paměti zabere.</li>
+</ul>
+<h3>Způsob deklarace a typování</h3>
+<ul>
+  <li><strong>Staticky typované jazyky</strong> (C, C++, Java):
+    <ul>
+      <li>Typ proměnné musí být určen již při deklaraci.</li>
+      <li>Pro konstanty se používá klíčové slovo <code>const</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Dynamicky typované jazyky</strong> (Python, JavaScript):
+    <ul>
+      <li>Typ se nemusí deklarovat – určí se automaticky.</li>
+      <li>Typ může během běhu programu změnit.</li>
+      <li>Nemá klíčové slovo pro konstantu; konstanty se píší velkými písmeny.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>18.3 Řídicí struktury a jejich realizace; podmíněné příkazy a cykly</h2>
+<p>Slouží k řízení toku programu.</p>
+<h3>Podmíněné příkazy</h3>
+<ul>
+  <li><code>if</code> – provede blok kódu, pouze pokud je podmínka splněna.</li>
+  <li><code>if – else</code> – provede jeden blok, pokud podmínka platí, a druhý (<code>else</code>), pokud neplatí.</li>
+  <li><code>else if</code> – zřetězení více podmínek za sebou.</li>
+  <li><code>switch</code> – vícenásobné větvení na základě konkrétní hodnoty proměnné.</li>
+</ul>
+<h3>Cykly (iterace)</h3>
+<ul>
+  <li><code>while</code> – opakuje kód dokud je podmínka splněna; kontroluje se na začátku; nemusí proběhnout ani jednou.</li>
+  <li><code>do – while</code> – podobný jako while, ale podmínka se testuje na konci; proběhne aspoň jednou.</li>
+  <li><code>for</code> – cyklus se známým počtem opakování.</li>
+</ul>
+
+<h2>18.4 Podprogramy a jejich význam; funkce, lokální a globální proměnné</h2>
+<p><strong>Podprogramy (funkce / procedury)</strong> jsou izolované bloky kódu, které mají své jméno, přijímají vstupy (parametry), provedou úkol a mohou vracet výsledek. Umožňují dekompozici programu, snižují redundanci a zvyšují čitelnost.</p>
+<h3>Rozsah platnosti proměnných (scope)</h3>
+<ul>
+  <li><strong>Lokální proměnná</strong> – platí pouze uvnitř bloku nebo funkce. Zvenku k ní nelze přistoupit. Jakmile funkce skončí, proměnná zanikne a uvolní paměť.</li>
+  <li><strong>Globální proměnná</strong> – existuje a je dostupná pro celý program po celou dobu jeho běhu. Její použití by se mělo omezovat, protože zatěžuje hledání chyb.</li>
+</ul>
+
+<h2>18.5 Modularita programů, knihovny a hlavičkové soubory</h2>
+<p><strong>Modularita</strong> je princip rozdělení složitého programu na menší, logické a samostatné části (moduly nebo soubory). Umožňuje práci v týmech.</p>
+<p><strong>Knihovny</strong> jsou sbírky předem napsaných, otestovaných a zkompilovaných funkcí, které můžeme importovat do svého programu a využít je. Urychlují vývoj.</p>
+<h3>Hlavičkové soubory (C/C++)</h3>
+<ul>
+  <li>Mají příponu <code>.h</code> a slouží jako rozhraní modulu.</li>
+  <li>Obsahují pouze <strong>deklarace</strong> funkcí (název, typ návratové hodnoty a typ parametru).</li>
+  <li>Samotná <strong>definice</strong> se nachází v souboru <code>.cpp</code>.</li>
+  <li>Standardní hlavičkové soubory jsou součástí instalace jazyka: <code>&lt;stdio.h&gt;</code>.</li>
+  <li>Vlastní <code>.h</code> a <code>.cpp</code> soubory si tvoří programátor sám.</li>
+  <li><code>#include</code> pro vlastní soubory a standardní knihovny (<code>&lt; &gt;</code>).</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../17-vyvojarske-nastroje/index.html">← Vývojářské nástroje</a>
+  <a class="nav-btn" href="../19-oop/index.html">OOP →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Strukturované programování</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q20 – Datové struktury a soubory | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q20</span>
+</nav>
+<div class="hero">
+  <div class="bignr">20</div>
+  <div class="qnum">Otázka 20 / 20 · Lucný</div>
+  <h1>Datové struktury a soubory</h1>
+</div>
+<main>
+
+<h2>20.1 Strukturované datové typy, ukazatele, statické a dynamické pole, matice</h2>
+<ul>
+  <li><strong>Skalární typ</strong> (např. <code>int</code>) – obsahuje právě jednu hodnotu.</li>
+  <li><strong>Strukturované datové typy</strong> (pole, seznamy) – mohou ukládat více hodnot do logických celků.</li>
+</ul>
+<p><strong>Pole (array)</strong> je základní struktura, která uchovává pevný počet prvků stejného datového typu. Prvky jsou v paměti uloženy za sebou a přistupuje se k nim pomocí číselného indexu. V C, C++ i Pythonu se indexuje od nuly.</p>
+<ul>
+  <li><strong>Statické pole</strong> – velikost je pevně stanovena již při psaní kódu a nelze ji za běhu změnit.</li>
+  <li><strong>Dynamické pole</strong> – umožňuje měnit svou velikost během běhu. V C se používá manuální alokace (<code>malloc</code>, <code>free</code>); v Pythonu jsou to <strong>seznamy (list)</strong>.</li>
+</ul>
+<p><strong>Ukazatel (pointer)</strong> je proměnná, která uchovává fyzickou adresu jiné hodnoty v paměti.</p>
+<p><strong>Matice</strong> je vícerozměrné pole, které si lze představit jako tabulku s řádky a sloupci. K prvkům se přistupuje přes dva indexy. (<code>matice[0][1]</code> = první řádek, druhý sloupec)</p>
+
+<h2>20.2 Znakové řetězce, práce se znakovými řetězci v jazyce C a Python, funkce pro práci s řetězci</h2>
+<p><strong>Znakový řetězec (string)</strong> je posloupnost znaků reprezentující text. Práce s ním se v jazyce C a Python zásadně liší.</p>
+<h3>Znakové řetězce v jazyce C</h3>
+<ul>
+  <li><strong>Reprezentace</strong> – neexistuje samostatný datový typ pro text; řetězec je implementován jako pole znaků typu <code>char</code>, které musí být ukončeno nulovým znakem.</li>
+  <li><strong>Měnitelnost</strong> – řetězce v C jsou měnitelné: <code>char text[] = "ahoj";</code></li>
+  <li><strong>Funkce</strong> (vyžadují knihovnu <code>&lt;string.h&gt;</code>):
+    <ul>
+      <li><code>strlen(str)</code> – vrací délku řetězce.</li>
+      <li><code>strcpy(dest, src)</code> – zkopíruje řetězec do druhého.</li>
+      <li><code>strcat(dest, src)</code> – připojí jeden řetězec na konec druhého.</li>
+      <li><code>strcmp(str1, str2)</code> – porovnává 2 řetězce.</li>
+      <li><code>strchr(str, ch)</code> – vyhledá konkrétní znak v řetězci.</li>
+    </ul>
+  </li>
+  <li><strong>Bezpečnostní riziko</strong> – hrozí přetečení bufferu.</li>
+</ul>
+<h3>Znakové řetězce v Pythonu</h3>
+<ul>
+  <li><strong>Reprezentace</strong> – řetězec je objekt typu <code>str</code>.</li>
+  <li><strong>Měnitelnost</strong> – jsou <strong>neměnitelné</strong>; jakmile je vytvořen, nejde měnit.</li>
+  <li>Python má automatickou správu paměti; nehrozí přetečení bufferu.</li>
+  <li><strong>Základní metody a funkce</strong>:
+    <ul>
+      <li><code>len(text)</code> – vrací délku.</li>
+      <li>Operátor <code>+</code> – slouží ke spojení dvou řetězců.</li>
+      <li><code>.upper()</code> a <code>.lower()</code> – převod na velká nebo malá písmena.</li>
+      <li><code>.find("slovo")</code> – hledání podřetězce.</li>
+      <li><code>.split(" ")</code> – rozdělení textu do seznamu podle oddělovače.</li>
+      <li><code>.replace("stare", "nove")</code> – nahrazení podřetězce.</li>
+      <li><code>.strip()</code> – odstraní bílé znaky.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>20.3 Regulární výrazy a jejich využití při práci s textem</h2>
+<p><strong>Regulární výraz (regex)</strong> je vzor definující množinu řetězců. Využívá se pro vyhledávání, nahrazování, extrakci a validaci formátu dat. (V Pythonu modul <code>re</code>.)</p>
+<p>Skládají se ze znaků a <strong>metaznaků</strong>:</p>
+<ul>
+  <li><code>^</code> – začátek řetězce.</li>
+  <li><code>$</code> – konec řetězce.</li>
+  <li><code>\d</code> – číslice.</li>
+  <li><code>+</code> – jeden nebo více výskytů.</li>
+</ul>
+<p><strong>Praktické využití</strong>: validace emailové adresy, kontrola formátu telefonního čísla, anonymizace dat.</p>
+
+<h2>20.4 Zpracování datových souborů v programech, vstupní a výstupní operace se soubory</h2>
+<p><strong>Datový soubor</strong> – pojmenovaná oblast na disku určená k uchovávání dat. Umožňuje programům <strong>perzistenci</strong> (data nezmizí po vypnutí programu), sdílení dat mezi aplikacemi a zpracování obrovských objemů dat (datasetů).</p>
+<h3>Rozdělení datových souborů</h3>
+<ul>
+  <li><strong>Textové</strong> – čitelné znaky, snadno se čtou a editují: <code>.txt</code>, <code>.csv</code>, <code>.xml</code>, <code>.json</code>.</li>
+  <li><strong>Binární</strong> – binární podoba, nejsou čitelné člověkem; efektivnější pro ukládání složitých datových struktur: <code>.bin</code>, <code>.dat</code>.</li>
+</ul>
+<h3>4 logické kroky práce se souborem</h3>
+<ol>
+  <li><strong>Otevření</strong> – vytvoření spojení mezi programem a souborem (<code>w</code>, <code>r</code>).</li>
+  <li><strong>Čtení nebo zápis</strong> – přenos dat z disku do paměti programu, nebo naopak.</li>
+  <li><strong>Zpracování dat</strong> – např. výpočty nad načtenými daty.</li>
+  <li><strong>Uzavření</strong> – uvolní systémové prostředky a bezpečně dopíše data na disk.</li>
+</ol>
+<h3>Realizace v jazycích</h3>
+<ul>
+  <li><strong>Jazyk C</strong> – knihovna <code>&lt;stdio.h&gt;</code> a datový ukazatel <code>FILE*</code>; příkazy <code>fopen()</code>, <code>fgets()</code>, <code>fclose()</code>, <code>fprintf()</code>.</li>
+  <li><strong>Python</strong> – mnohem bezpečnější a pohodlnější. Využívá se <strong>kontextový manager</strong>: <code>with open("data.txt", "r") as soubor:</code>. Ikdyž program spadne, manager soubor bezpečně uzavře a data se nepoškodí. Příkazy: <code>read()</code>, <code>readlines()</code>, <code>write()</code>.</li>
+</ul>
+
+<h2>20.5 Nejpoužívanější typy datových formátů, základní rysy a praktické využití</h2>
+<p>Standardizované formáty zajišťují <strong>přenositelnost a interoperabilitu dat</strong> mezi programy a servery.</p>
+<ul>
+  <li><strong>CSV</strong> (comma-separated values) – textový formát; tabulková data oddělená čárkou; malá velikost; nemožnost ukládat složitější data. Použití: export z Excelu, jednoduché logy.</li>
+  <li><strong>XML</strong> (extensible markup language) – značkovací jazyk; stromová struktura s tagy; samodokumentující; soubory jsou velké. Použití: formáty <code>.docx</code>, složité konfigurace.</li>
+  <li><strong>JSON</strong> (JavaScript Object Notation) – lehký textový formát; čitelnější a menší než XML; podporuje pole a objekty. Použití: standard dnešních webových API.</li>
+  <li><strong>YAML</strong> – lidsky čitelný; nepoužívá složené závorky; spoléhá na mezery. Použití: konfigurační soubory, Docker.</li>
+</ul>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../19-oop/index.html">← OOP</a>
+  <a class="nav-btn" href="../index.html">Přehled otázek →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Datové struktury a soubory</div>
+</body>
+</html>

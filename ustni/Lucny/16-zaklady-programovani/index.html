@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q16 – Základy programování a algoritmizace | Maturita</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<nav class="topnav">
+  <a href="../../../index.html">~ maturita</a>
+  <span class="sep">/</span>
+  <a href="../../index.html">ustni</a>
+  <span class="sep">/</span>
+  <a href="../index.html">lucny</a>
+  <span class="sep">/</span>
+  <span class="cur">Q16</span>
+</nav>
+<div class="hero">
+  <div class="bignr">16</div>
+  <div class="qnum">Otázka 16 / 20 · Lucný</div>
+  <h1>Základy programování a algoritmizace</h1>
+</div>
+<main>
+
+<h2>16.1 Základní pojmy – program, algoritmus, jazyk, překladač</h2>
+<ul>
+  <li><strong>Program</strong> – sled kroků vedoucích k naplnění cíle.</li>
+  <li><strong>Počítačový program</strong> – soubor počítači srozumitelných instrukcí, které vedou ke splnění zadaného úkolu. Je zapsán v programovacím jazyce, který se musí následně přeložit stroji.</li>
+  <li><strong>Algoritmus</strong> – postup práce určující, jaké informace, v jakém pořadí a za jakých okolností má počítačový program zpracovat. Po svém spuštění je program převeden z disku do paměti RAM, kde vykoná sled instrukcí a poté uvolní místo. Programy uložené v RAM již od spuštění PC nazýváme <strong>rezidentní</strong>.</li>
+  <li><strong>Programovací jazyk</strong> – prostředník mezi počítačem a uživatelem, určený k psaní počítačových programů. Obsahuje <strong>syntaxi</strong> (pravidla zápisu) a <strong>sémantiku</strong> (význam příkazů).</li>
+</ul>
+<h3>Typy překladačů</h3>
+<p>Překladače se užívají při práci s vyššími programovacími jazyky:</p>
+<ul>
+  <li><strong>Interpret</strong> – program zůstává v podobě zdrojového textu, překládá příkaz po příkazu; pomalý. Příklady: Python, JavaScript.</li>
+  <li><strong>Kompilátor</strong> – překládá zdrojový text na strojový kód (.EXE); rychlý, samostatně spustitelný. Příklady: C, C++, Go.</li>
+  <li><strong>Java</strong> – kompiluje se do bytecodu, který je vykonáván na virtuálním stroji <strong>JVM</strong>.</li>
+  <li><strong>Python</strong> – taky je převáděn do bytecodu a pak spuštěn svým Python interpretem.</li>
+</ul>
+<p><strong>Bytecode</strong> je mezikrok mezi zdrojovým a strojovým kódem. Umožňuje přenositelnost mezi platformami.</p>
+
+<h2>16.2 Stručný vývoj, nižší a vyšší programovací jazyky, příklady a typy moderních jazyků</h2>
+<p>Vznik tranzistoru zapříčinil příliš velký rozdíl ve vývoji HW a SW – tzv. <strong>krize softwaru</strong>. Vzniká proto <strong>softwarové inženýrství</strong>, které se snažilo tvořit kvalitní programy za rozumnou cenu a v přijatelném čase. V této době se k jejich vývoji používaly tzv. <strong>nižší programovací jazyky</strong>, pracující ve strojových instrukcích.</p>
+<p>Vznik softwarového inženýrství měl za následek vývoj <strong>strukturovaného programování</strong>, jehož filozofií bylo rozlišování datových typů a důrazná struktura. Skládalo se z dílčích celků – <strong>řídící struktura</strong> a <strong>programový modul</strong>. V této době také vznikají <strong>vyšší programovací jazyky</strong>, které nahrazují strojové instrukce lidské řeči podobnými symbolickými příkazy a snižují množství chyb. Jeden příkaz tak může zastupovat celou řadu instrukcí.</p>
+<p>Vývoj mikropočítačů srazil strojový čas téměř na nulu. Nastává rozkvět, rozšíření PC do domácností, první grafické OS a vznik OOP.</p>
+<ul>
+  <li><strong>Nižší jazyky</strong> – velmi blízké HW, přímá kontrola PC, rychlé, ale mají složitý zápis: strojový kód, Assembler.</li>
+  <li><strong>Vyšší jazyky</strong> – bližší lidskému myšlení, čitelnější a přenositelné mezi platformami: C, C++, Java, Python.</li>
+</ul>
+<h3>Typy moderních jazyků podle využití</h3>
+<ul>
+  <li><strong>Webový vývoj</strong> – JavaScript, PHP, Python.</li>
+  <li><strong>Systémové a aplikační</strong> – C, C++, Java.</li>
+  <li><strong>Mobilní aplikace</strong> – Swift, Kotlin.</li>
+  <li><strong>Vědecké výpočty a data</strong> – Python, R.</li>
+</ul>
+
+<h2>16.3 Princip fungování programu v počítači, program a proces, multitasking, multithreading</h2>
+<p>Počítač vykonává programy pomocí procesoru, který postupně zpracovává jednotlivé instrukce. Aby bylo možné program spustit, musí být jeho instrukce:</p>
+<ol>
+  <li>Načteny z uložiště.</li>
+  <li>Umístěny do operační paměti.</li>
+  <li>Postupně vykonávány procesorem.</li>
+</ol>
+<p>Operační systém přitom zajišťuje spuštění programů, přidělování prostředků a komunikaci SW a HW.</p>
+<ul>
+  <li><strong>Program</strong> – pasivní entita (je na disku).</li>
+  <li><strong>Proces</strong> – aktivní instance (běží v paměti).</li>
+</ul>
+<p><strong>Multitasking</strong> označuje schopnost operačního systému současně spravovat více procesů najednou. Ve skutečnosti procesor jen velmi rychle přepíná mezi nimi.</p>
+<p><strong>Multithreading</strong> znamená, že jeden proces může obsahovat více vláken. Vlákno je jednotka vykonávání uvnitř procesu.</p>
+<h3>Vlastnosti vláken</h3>
+<ul>
+  <li>Vlákna jednoho procesu sdílejí paměť.</li>
+  <li>Umožňují paralelní zpracování úloh.</li>
+  <li>Zvyšují efektivitu využití vícejádrových procesorů.</li>
+  <li>Příklad: webový prohlížeč může mít jedno vlákno pro vykreslování stránky a jiné na načítání dat.</li>
+</ul>
+<h3>Využití paměti, ukazatele</h3>
+<ul>
+  <li>Paměť je rozdělena na malé jednotky, každá má svou adresu (paměť pro kód, paměť pro proměnné a data, paměť pro dočasné výpočty).</li>
+  <li>OS zajišťuje, aby měly procesy vlastní paměť a nemohly přistupovat k cizím pamětem.</li>
+  <li><strong>Ukazatel (pointer)</strong> – proměnná, která neuchovává přímo hodnotu, ale adresu v paměti, kde je hodnota uložena. Typické pro nižší a systémové jazyky (C, C++). Ve vyšších jazycích jsou detaily skryté a řeší se automaticky (<strong>garbage collector</strong>). Využívají se pro efektivní práci s kódem, dynamickou alokaci paměti a datové struktury.</li>
+</ul>
+
+<h2>16.4 Algoritmus, možnosti zápisu algoritmu, vývojový diagram</h2>
+<p>Algoritmy lze zapsat různými způsoby:</p>
+<ul>
+  <li><strong>Pseudokód</strong> – textový zápis, strukturovaný jazyk bez striktních pravidel.</li>
+  <li><strong>Vývojový diagram</strong> – grafické znázornění pomocí symbolů.</li>
+</ul>
+<h3>Symboly vývojového diagramu</h3>
+<ul>
+  <li><strong>Ovál</strong> – začátek / konec.</li>
+  <li><strong>Obdélník</strong> – procesní krok.</li>
+  <li><strong>Kosočtverec</strong> – rozhodovací bod.</li>
+  <li><strong>Šipky</strong> – tok řízení.</li>
+  <li><strong>Paralelogram</strong> – vstup / výstup.</li>
+</ul>
+
+<h2>16.5 Základní prvky syntaxe, převod algoritmu do zdrojového kódu, typické chyby a ladění programu</h2>
+<p><strong>Syntaxe</strong> je soubor pravidel, určuje jak správně psát kód v daném jazyce. Definuje strukturu příkazů, deklaraci proměnných, použití operátorů, tvorbu funkcí atd. Správnost syntaxe ověřujeme pomocí překladače. Důležité jsou také komentáře (poznámky programátora). Reference na dokumentaci jazyka je klíčová pro pochopení pravidel.</p>
+<p>Převod algoritmu do zdrojového kódu zahrnuje přepis kroků do syntaxe jazyka.</p>
+<h3>Typické chyby a ladění programů</h3>
+<ul>
+  <li><strong>Syntaktické chyby</strong> – chyby v zápisu kódu.</li>
+  <li><strong>Sémantické chyby</strong> – chyby v logice programu.</li>
+  <li><strong>Běhové chyby</strong> – objevují se během běhu programu.</li>
+  <li><strong>Debuggery</strong> – nástroje pro krokování kódu.</li>
+  <li><strong>Výpisy</strong> – přidání výstupních zpráv pro sledování průběhu.</li>
+  <li><strong>Jednotkové testy</strong> – psaní testovacích případů pro ověření.</li>
+  <li><strong>Code reviews</strong> – kontrola kódu jinými programátory.</li>
+</ul>
+<p>Ladění je klíčovou součástí vývojového procesu a pomáhá zajistit funkčnost.</p>
+
+<div class="nav-btns">
+  <a class="nav-btn" href="../15-kyberbezpecnost/index.html">← Kyberbezpečnost</a>
+  <a class="nav-btn" href="../17-vyvojarske-nastroje/index.html">Vývojářské nástroje →</a>
+</div>
+</main>
+<div class="footer">maturita 2025 · informatika · Základy programování a algoritmizace</div>
+</body>
+</html>
