@@ -174,24 +174,21 @@
 <pre><code># Prevod z binarni soustavy do desitkove
 def binarni_na_desitkovy(binarni):
     vysledek = 0
-    # Prochazime kazdy znak retezce zprava doleva (enumerate reversed)
     for i, cislice in enumerate(reversed(binarni)):
-        # Kazda binarni cislice se nasobi prislusnou mocninou 2 a pricte
         vysledek += int(cislice) * (2 ** i)
     return vysledek
 
-# Prevod z desitkove soustavy do binarni
+
 def desitkovy_na_binarni(cislo):
     if cislo == 0:
         return "0"
     binarni = ""
     while cislo > 0:
-        # Zbytek po deleni 2 je dalsi bit – pridame ho na ZACATEK retezce
-        binarni = str(cislo % 2) + binarni
-        cislo = cislo // 2  # Celociselne deleni 2, posuneme se o rad
+        binarni = str(cislo % 2) + binarni // nepouzivame +=, ale = str + binarni, protoze pracujeme se stringem a dalsi zbyek potrebujeme pridavat na zacatek
+        cislo //=  2  
     return binarni
 
-# Testovani
+
 print(binarni_na_desitkovy("1010"))  # vysledek: 10
 print(desitkovy_na_binarni(10))      # vysledek: 1010</code></pre>
 <h3>Jak algoritmus funguje</h3>
