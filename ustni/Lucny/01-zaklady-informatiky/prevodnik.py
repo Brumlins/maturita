@@ -1,7 +1,7 @@
 def binarni_do_desitkove(binarni):
     vysledek = 0
-    for i, cislice in enumerate(reversed(binarni)):
-        vysledek += int(cislice) * (2 ** i)
+    for num in binarni:
+        vysledek = vysledek * 2 + int(num)
     return vysledek
 
 def desitkova_do_binarni(dec):
