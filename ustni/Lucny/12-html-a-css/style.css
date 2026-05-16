@@ -1,0 +1,24 @@
+h1 {
+    background-color:blue;
+    padding: 10px;
+    color:white;
+}
+
+h2 {
+    color: blue;
+}
+
+table {
+    /* Sloučí dvojité čáry mezi buňkami do jedné tenké */
+    border-collapse: collapse; 
+}
+
+table, th, td {
+    /* Vykreslí tenký šedý rámeček okolo tabulky i všech buněk */
+    border: 1px solid gray; 
+}
+
+th, td {
+    /* Přidá vnitřní okraj, aby text nebyl nalepený na čárách */
+    padding: 8px; 
+}
