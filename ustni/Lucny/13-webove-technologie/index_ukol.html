@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <title>Kalkulačka</title>
+    <style>
+        /* Základní stylování podle vzoru v zadání */
+        h1 {
+            color: red;
+        }
+        .radek {
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 110px; /* Zarovnání textů pod sebe */
+        }
+        #vysledek {
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kalkulačka</h1>
+
+    <form id="kalkulacka">
+        <div class="radek">
+            <label for="x">Proměnná X</label>
+            <input type="number" id="x" value="5">
+        </div>
+        
+        <div class="radek">
+            <label for="y">Proměnná Y</label>
+            <input type="number" id="y" value="4">
+        </div>
+
+        <div class="radek">
+            <label>Operace</label>
+            + <input type="radio" name="operace" value="+" checked>
+            - <input type="radio" name="operace" value="-">
+            * <input type="radio" name="operace" value="*">
+            / <input type="radio" name="operace" value="/">
+        </div>
+
+        <div class="radek">
+            <button type="button" onclick="spocitej()">Odeslat</button>
+        </div>
+    </form>
+
+    <div id="vysledek">Výsledek operace = </div>
+
+    <script>
+        function spocitej() {
+            // 1. Načteme hodnoty z políček X a Y a převedeme je na čísla (parseFloat)
+            let x = parseFloat(document.getElementById('x').value);
+            let y = parseFloat(document.getElementById('y').value);
+            
+            // 2. Najdeme ten radio button, který je momentálně zaškrtnutý (:checked)
+            let operace = document.querySelector('input[name="operace"]:checked').value;
+            
+            let vysledekZnak = 0;
+
+            // 3. Rozhodneme, co se má počítat podle vybraného znaménka
+            if (operace === '+') {
+                vysledekZnak = x + y;
+            } else if (operace === '-') {
+                vysledekZnak = x - y;
+            } else if (operace === '*') {
+                vysledekZnak = x * y;
+            } else if (operace === '/') {
+                // Ošetření dělení nulou pro jistotu
+                if (y === 0) {
+                    vysledekZnak = "Nelze dělit nulou!";
+                } else {
+                    vysledekZnak = x / y;
+                }
+            }
+
+            // 4. Vypíšeme výsledek do připraveného divu
+            // Pokud je výsledek číslo, vypíšeme ho tučně přes <b> tag
+            if (typeof vysledekZnak === 'number') {
+                document.getElementById('vysledek').innerHTML = "Výsledek operace = <b>" + vysledekZnak + "</b>";
+            } else {
+                document.getElementById('vysledek').innerHTML = vysledekZnak;
+            }
+        }
+    </script>
+
+</body>
+</html>
