@@ -1,0 +1,13 @@
+SELECT
+genres.genre_name AS `Zanr`,
+COUNT(albums.album_id) AS `Pocet alb`,
+ROUND(AVG(albums.rating),2) AS `Prumerne hodnoceni`,
+MIN(albums.rating) AS `Nejmensi hodnoceni`,
+MAX(albums.rating) AS `Nejvyssi hodnoceni`
+
+FROM albums
+JOIN albumgenres ON albums.album_id = albumgenres.album_id
+JOIN genres ON albumgenres.genre_id = genres.genre_id
+GROUP BY `Zanr`
+HAVING `Pocet alb` > 5
+ORDER BY `Pocet alb` DESC, `Prumerne hodnoceni` DESC;
