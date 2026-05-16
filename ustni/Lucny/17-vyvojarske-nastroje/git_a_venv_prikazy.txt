@@ -1,0 +1,52 @@
+======================================================================
+PŘEHLED GIT A VENV PŘÍKAZŮ K MATURITĚ
+======================================================================
+
+1. ZJIŠŤOVÁNÍ INFORMACÍ O REPOZITÁŘI (GIT)
+----------------------------------------------------------------------
+* Zjištění názvů všech lokálních větví:
+  git branch
+  (Aktuální větev je označena hvězdičkou *)
+
+* Výpis historie snapshotů / commitů ve větvi (nejnovější nahoře):
+  git log
+  (Pro ukončení dlouhého výpisu zmáčkni klávesu 'q')
+  (Tip pro stručný jednorádkový výpis: git log --oneline)
+
+* Aktuální stav repozitáře (změněné, nové nebo neuložené soubory):
+  git status
+
+
+2. PŘEPÍNÁNÍ MEZI VĚTVEMI
+----------------------------------------------------------------------
+* Přepnutí na jinou existující větev:
+  git switch <nazev_vetve>
+  (Alternativní starší příkaz: git checkout <nazev_vetve>)
+
+
+3. PRÁCE VE VĚTVI (ÚPRAVY, KONFIGURACE A COMMIT)
+----------------------------------------------------------------------
+* Nastavení identifikačních údajů (lokálně pro tento repozitář):
+  git config user.name "Tvoje Jméno / GitHub uživatelské jméno"
+  git config user.email "tvuj.email@priklad.cz"
+
+* Příprava upraveného souboru k uložení (předpříprava do staging area):
+  git add README.md
+  (Pro přípravu všech změn ve složce najednou: git add .)
+
+* Vytvoření nového commitu (uložení změn) s povinnou zprávou:
+  git commit -m "maturita"
+
+
+4. VIRTUÁLNÍ PROSTŘEDÍ V PYTHONU (VENV)
+----------------------------------------------------------------------
+* Vytvoření virtuálního prostředí (složka se pojmenuje 'venv'):
+  python -m venv venv
+
+* Aktivace virtuálního prostředí na Windows (Příkazový řádek / Terminal):
+  venv\Scripts\activate
+  (Po úspěšné aktivaci se na začátku řádku v terminálu objeví "(venv)")
+
+* Deaktivace virtuálního prostředí (návrat do globálního Pythonu):
+  deactivate
+======================================================================
